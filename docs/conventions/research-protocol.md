@@ -24,7 +24,7 @@ Used in all `type: research` tickets and whenever an agent adds a source to the 
 3. Open each candidate, fill in a registry entry per `templates/source-entry.yaml`, with status `candidate`. Set `version` when the source has no edition (docs, repos), and `archive_url` for pages likely to move (optional). Leave `verified_on` empty; it is set at verification time.
 4. For important sources (Tier 1–3 that will be used often), write reading notes at `references/notes/<id>.md` using `templates/source-notes.md`. They contain points in your own words with chapter or page references, **not copied text**. Notes are in English.
 5. Run `python scripts/validate.py`.
-6. Call the `source-verifier` subagent to reopen a sample of new URLs (at least 30%, or all if < 10) and match metadata.
+6. Call the `source-verifier` subagent to reopen a sample of new URLs (at least 30%, or all if < 10) and match metadata. Whoever reopens and checks an entry (verifier or P1-016 agent) sets its `verified_on`; every entry must have it before approval. For `adapt-with-attribution` sources, write the `attribution` credit line (Indonesian, see `citation-guide.md`) when the license is verified.
 
 ## Fields the validator enforces before approval
 

@@ -30,7 +30,7 @@ sources:
     version: ""                       # doc/repo version or commit hash when there is no edition (e.g. "commit 1a2b3c4")
     archive_url: ""                   # web.archive.org snapshot, protects against link rot
     attribution: ""                   # credit line to paste into content; required if approved + adapt-with-attribution
-    lang: en                          # en | id (default en; set id for Indonesian-language sources)
+    lang: en                          # en | id (absent means en; set id for Indonesian-language sources)
     verified_on: ""                   # YYYY-MM-DD the page was reopened and metadata checked (required if approved)
     notes: ""                         # reasons, warnings, caveats (English)
 ```

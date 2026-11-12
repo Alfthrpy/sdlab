@@ -106,7 +106,23 @@ class Registry(unittest.TestCase):
         self.assertErr([entry(archive_url="web.archive.org/x")], "archive_url")
         self.assertErr([entry(version=["1"])], "version")
         self.assertErr([entry(**dict(base, license="MIT", usage="adapt-with-attribution"))], "attribution")
+        self.assertErr([entry(lang="")], "lang")
+        self.assertErr([entry(lang=1)], "lang")
+        self.assertErr([entry(archive_url="ftp://x/y")], "archive_url")
+        self.assertErr([entry(attribution=["x"])], "attribution")
+        self.assertErr([entry(verified_on="2026-1-5")], "verified_on")
+        self.assertErr([entry(verified_on=True)], "verified_on")
+        self.assertErr([entry(verified_on="2026-13-45")], "verified_on")  # invalid on a candidate too
+        self.assertErr([entry(**dict(base, attribution="   ", license="MIT", usage="adapt-with-attribution"))], "attribution")
+        self.assertErr([entry(**dict(base, verified_on="   "))], "verified_on")
+        self.assertClean([entry(lang=None, verified_on="")])  # absent/empty is fine on a candidate
+        self.assertClean([entry(**dict(base))])  # rewrite-only approved needs no attribution
         self.assertClean([entry(version="commit 1a2b3c4", lang="id", archive_url="https://web.archive.org/web/1/x")])
+
+    def test_unquoted_date_hint(self):
+        import datetime
+        errs, _ = run([entry(verified_on=datetime.date(2026, 11, 12))])
+        self.assertTrue(any("quote it" in e for e in errs), errs)
 
     def test_free_companion(self):
         self.assertErr([entry(free_companion=["ghost"])], "unknown source id")

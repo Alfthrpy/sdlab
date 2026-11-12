@@ -198,7 +198,8 @@ def check_registry() -> dict[str, dict]:
         for f in ("title", "publisher", "url", "edition", "notes", "doi", "published", "accessed",
                   "version", "archive_url", "attribution", "verified_on"):
             if s.get(f) is not None and not isinstance(s[f], (str, int)) or isinstance(s.get(f), bool):
-                err(w, f"{f} must be a string, got {s.get(f)!r}")
+                hint = " (quote it in YAML, e.g. \"2026-11-12\" or \"1.2\")" if isinstance(s.get(f), (date, float)) else ""
+                err(w, f"{f} must be a string, got {s.get(f)!r}{hint}")
         if s.get("url") and not str(s["url"]).startswith(("https://", "http://")):
             err(w, f"url={s['url']!r} must start with http:// or https://")
         _enum(w, s, "type", REG_TYPES)
@@ -268,10 +269,10 @@ def check_registry() -> dict[str, dict]:
                 err(w, "approved source has no authors; add them, or put 'NO-AUTHOR: <reason>' in notes")
             if not s.get("published") and "NO-DATE:" not in notes:
                 err(w, "approved source has no published date; add it, or put 'NO-DATE: <reason>' in notes")
-            if not s.get("verified_on"):
+            if not str(s.get("verified_on") or "").strip():
                 err(w, "approved source needs verified_on: YYYY-MM-DD (the day source-verifier or a human "
                        "reopened the page and checked the metadata)")
-            if s.get("usage") == "adapt-with-attribution" and not s.get("attribution"):
+            if s.get("usage") == "adapt-with-attribution" and not str(s.get("attribution") or "").strip():
                 err(w, "approved adapt-with-attribution source needs attribution: the ready-made credit line "
                        "(see citation-guide.md)")
             if not s.get("units"):

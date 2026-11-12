@@ -22,13 +22,15 @@ Includes the 11 SEED entries from the initial research, some of whose metadata c
 1. Reopen every entry (priority: SEED and Tier 1–3).
 2. Complete `authors`, `published`, `edition`, canonical URL, and `license` from the source page.
 3. Check the latest edition/version; mark outdated ones `deprecated`.
-4. For `paywalled` sources, record a free companion source.
+4. For `paywalled` sources, record a free companion source (`free_companion`).
+5. Set `verified_on` on every entry you reopen, and write `attribution` for every `adapt-with-attribution` source.
 
 ## Done criteria
 
 - [ ] No entry has empty `published` or `authors` unless truly unavailable (explained in notes)
 - [ ] No `license: unknown` without an explanation
 - [ ] All 'SEED' notes are removed or resolved
+- [ ] Every entry intended for approval has `verified_on` (and `attribution` where required)
 - [ ] `source-verifier` passes
 - [ ] `python scripts/validate.py` passes
 
