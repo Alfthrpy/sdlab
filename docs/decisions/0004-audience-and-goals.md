@@ -2,7 +2,7 @@
 
 - **Status:** accepted
 - **Date:** 2026-11-12
-- **Ticket:** P1-002 (decision by the owner)
+- **Ticket:** P1-002 (decision by the owner); amended 2026-11-12 (see Amendment 1)
 
 ## Decision
 
@@ -25,3 +25,25 @@
 
 - **P1-065** aligns documents and tickets with the three goals and the junior audience: `docs/PLAN-PHASE-1.md`, `docs/ROADMAP.md`, `docs/conventions/writing-style.md`, `curriculum/README.md`, tickets P1-022 and P1-047, and the subagent descriptions.
 - ADR 0003 status updated for the language and audience rows. The name, reviewer, and license rows still wait on P1-003.
+
+## Amendment 1 — solo developers, beginners, and the growth ladder
+
+- **Date:** 2026-11-12
+- **Decided by:** the owner, in chat, outside the ticket flow. Follow-up work is ticket P1-068.
+
+### Decision
+
+| Item | Amendment |
+| --- | --- |
+| Target audience | Extended: **students, junior engineers, and solo developers or beginners starting backend work.** The row above stays valid; this adds to it. |
+| Framing | The course is taught as a **growth ladder**: start from a single-server backend (one app, one database), and introduce each distributed-systems concept as what you reach for when the previous stage stops being enough. Distributed systems remain the core of Units 3–6, but they are no longer presented as the starting point. |
+| Scope | The course stays **backend system design**. It is not a pure distributed-systems course, and still excludes frontend, mobile, ML system design, and low-level/OOP design. |
+
+### Consequences
+
+1. **A new starting unit** covers the single-server backend: one database, indexes, connection pooling, backups, deploys, and basic monitoring. Its exact scope, name, and numbering are decided in P1-068.
+2. **Each concept names its trigger:** the symptom or number that says "it is time to use this" (and, through the existing trade-off section, when not to). Triggers also feed questions and labs.
+3. **Honest anti-over-engineering.** Lessons say plainly when the simpler stage is enough. This serves goals 1 and 2 and keeps the interview goal intact.
+4. **Reader prerequisites stay as in `curriculum/README.md`.** The new unit must not assume more than those prerequisites.
+5. **Costs accepted:** scope and duration grow beyond the ±22 weeks in `docs/PLAN-PHASE-1.md` (P1-068 re-estimates), and sources for "start small" material are scarcer at Tier 1–3, so research must look for them deliberately.
+6. **Research waits for P1-068.** P1-011 through P1-015 now depend on it, so the new unit is covered by sources from the start.
