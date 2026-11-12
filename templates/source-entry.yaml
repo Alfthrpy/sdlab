@@ -15,4 +15,6 @@
   units: []
   topics: []
   status: candidate
+  free_companion: []     # ids of free registry sources on the same topics (required if approved + paywalled)
+  superseded_by: null    # id of the newer edition (only when status: deprecated)
   notes: ""              # English
