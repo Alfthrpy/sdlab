@@ -1449,7 +1449,7 @@ sources:
     topics: [replication, leader-follower, read-replicas, sync-vs-async, replication-lag]
     status: candidate
     version: "MySQL 8.4"
-    notes: "NO-AUTHOR: corporate documentation, no author on the page. NO-DATE: no date; footer (c) 2026 Oracle. Version MySQL 8.4 (reopened 2026-11-12). corporate documentation. Footer shows only '(c) 2026 Oracle' with links to copyright and terms pages (not followed), so rights are recorded as all-rights-reserved. Overview of source/replica, async default, semisync, delayed replication, GTID vs binlog position; lists scale-out of reads as a use. Does not discuss load-induced lag or failover procedures itself."
+    notes: "NO-AUTHOR: corporate documentation, no author on the page. NO-DATE: no date; footer (c) 2026 Oracle. Version MySQL 8.4 (reopened 2026-11-12). Footer shows only '(c) 2026 Oracle' with links to copyright and terms pages (not followed), so rights are recorded as all-rights-reserved. Overview of source/replica, async default, semisync, delayed replication, GTID vs binlog position; lists scale-out of reads as a use. Does not discuss load-induced lag or failover procedures itself."
     verified_on: "2026-11-12"
 
   - id: mongodb-docs-sharding
