@@ -2,7 +2,7 @@
 source: kafka-docs-design
 read_by: agent
 date: 2026-11-12
-sections_read: ["Message Delivery Semantics", "Using Transactions", "Consumer Position", "Push vs Pull", "Consumer Groups", "Log Compaction", "Retention"]
+sections_read: ["Message Delivery Semantics", "Using Transactions", "Consumer Position", "Push vs Pull", "Consumer Groups", "Log Compaction"]
 ---
 
 # Notes: Design (Apache Kafka documentation, 4.4.X)
@@ -18,7 +18,7 @@ sections_read: ["Message Delivery Semantics", "Using Transactions", "Consumer Po
 - (Push vs Pull) Consumers pull; therefore a slow consumer simply reads less often and is not flooded. Long polling avoids busy waiting. This is the pull-based form of backpressure.
 - (Consumer Groups) Partitions of a topic are split among group members; static membership avoids rebalances on routine restarts.
 - (Log Compaction) Compaction keeps at least the newest record per key; a null value is a delete marker (tombstone); offsets and order are preserved. Enabled with cleanup.policy=compact.
-- (Retention) Reading does not delete data; data is kept for a time or size limit, which is cheap because disk access is sequential.
+- (mentioned in passing, not a section) Reading does not delete data; data is kept for a time or size limit, which is cheap because disk access is sequential.
 
 ## Citable numbers & facts
 

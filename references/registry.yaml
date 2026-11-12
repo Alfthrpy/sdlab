@@ -1740,7 +1740,7 @@ sources:
     topics: [log, partitions, consumer-groups, offsets, retention, log-compaction, delivery-semantics, exactly-once, idempotent-producer, transactions, pull-vs-push]
     status: candidate
     version: "Apache Kafka 4.4.X docs"
-    notes: "NO-AUTHOR: corporate documentation. NO-DATE: page shows only a version. Footer: content (c) 2026 ASF under Apache License v2. The unversioned #design anchor URL only shows a redirect page; the /44/ URL is version-pinned, so a newer docs release may supersede it. Sections read: Message Delivery Semantics, Using Transactions, Consumer Position, Push vs Pull, Consumer Groups, Log Compaction, Retention. Core Unit 4 log source."
+    notes: "NO-AUTHOR: corporate documentation, no author on the page. NO-DATE: page shows only a version (AK 4.4.X; site Last modified 2026-10-26). Footer: content (c) 2026 ASF under Apache License v2. The unversioned #design anchor URL only shows a redirect page; the /44/ URL is version-pinned, so a newer docs release may supersede it. Sections read: Message Delivery Semantics, Using Transactions, Consumer Position, Push vs Pull, Consumer Groups, Log Compaction (retention is only mentioned in passing; the page has no dedicated Retention section). Core Unit 4 log source."
     verified_on: "2026-11-12"
 
   - id: kafka-docs-introduction
@@ -1760,7 +1760,7 @@ sources:
     topics: [event-streaming, topics, partitions, replication, producers-consumers, retention, ordering-by-key]
     status: candidate
     version: "Apache Kafka 4.4.X docs"
-    notes: "NO-AUTHOR: no author on the page. NO-DATE: page shows 'Last modified' only for the site build (2026-10-22), no content date. NO-AUTHOR: corporate documentation. NO-DATE. Footer: (c) 2026 ASF, Apache License v2. Short overview: topic/partition model, same key goes to same partition, reads do not delete events. Good entry point for learners."
+    notes: "NO-AUTHOR: no author on the page. NO-DATE: page shows 'Last modified' only for the site build (2026-10-22), no content date. Footer: (c) 2026 ASF, Apache License v2. Short overview: topic/partition model, same key goes to same partition, reads do not delete events. Good entry point for learners."
     verified_on: "2026-11-12"
 
   - id: kafka-docs-basic-operations
@@ -1780,7 +1780,7 @@ sources:
     topics: [consumer-lag, consumer-groups, offsets, monitoring, topic-config, quotas]
     status: candidate
     version: "Apache Kafka 4.4.X docs"
-    notes: "NO-AUTHOR: no author on the page. NO-DATE: page shows 'Last modified' only for the site build (2026-10-22), no content date. NO-AUTHOR: corporate documentation. NO-DATE. Footer: (c) 2026 ASF, Apache License v2. Section 'Checking consumer position' shows kafka-consumer-groups.sh --describe with current offset, log-end offset and LAG per partition. Fetch tool summarized the page; re-read before quoting commands. Consumer lag is only described as a command output, not as an alerting practice (gap)."
+    notes: "NO-AUTHOR: no author on the page. NO-DATE: page shows 'Last modified' only for the site build (2026-10-22), no content date. Footer: (c) 2026 ASF, Apache License v2. Section 'Checking consumer position' shows kafka-consumer-groups.sh --describe with current offset, log-end offset and LAG per partition. Fetch tool summarized the page; re-read before quoting commands. Consumer lag is only described as a command output, not as an alerting practice (gap)."
     verified_on: "2026-11-12"
 
   - id: kafka-netdb-2011
@@ -1838,7 +1838,7 @@ sources:
     topics: [work-queue, task-queue, ack, redelivery, durability, prefetch, fair-dispatch, slow-work-off-request-path]
     status: candidate
     version: "RabbitMQ 4.4"
-    notes: "NO-AUTHOR: corporate documentation, no author. NO-DATE: no date shown on the page (footer 'Copyright 2005-2026 Broadcom'); docs release series 4.4. . NO-AUTHOR: corporate documentation. NO-DATE. Footer: Copyright 2005-2026 Broadcom (no open license on page). Python/pika code. Opens with the trigger: slow tasks that cannot finish inside an HTTP request. Covers round-robin dispatch, manual ack, requeue on worker death, durable queue plus persistent messages, prefetch=1. Sibling tutorials (publish/subscribe, routing) not opened."
+    notes: "NO-AUTHOR: corporate documentation, no author. NO-DATE: no date shown on the page (footer 'Copyright 2005-2026 Broadcom'); docs release series 4.4. Footer: Copyright 2005-2026 Broadcom (no open license on page). Python/pika code. Opens with the trigger: slow tasks that cannot finish inside an HTTP request. Covers round-robin dispatch, manual ack, requeue on worker death, durable queue plus persistent messages, prefetch=1. Sibling tutorials (publish/subscribe, routing) not opened."
     verified_on: "2026-11-12"
 
   - id: rabbitmq-docs-confirms
@@ -1858,7 +1858,7 @@ sources:
     topics: [ack, nack, redelivery, publisher-confirms, duplicates, prefetch]
     status: candidate
     version: "RabbitMQ 4.4"
-    notes: "NO-AUTHOR: corporate documentation, no author. NO-DATE: no date shown on the page (footer 'Copyright 2005-2026 Broadcom'); docs version 4.4. . NO-AUTHOR: corporate documentation. NO-DATE. Footer: Copyright 2005-2026 Broadcom. Sections include consumer acknowledgement modes, negative ack and requeue, channel prefetch, automatic requeue on connection loss, publisher confirms. The fetch summary says the page does not use the terms 'at-least-once' or 'poison message' itself; those are inferences from described behavior, so do not attribute the terms to the page."
+    notes: "NO-AUTHOR: corporate documentation, no author. NO-DATE: no date shown on the page (footer 'Copyright 2005-2026 Broadcom'); docs version 4.4. Footer: Copyright 2005-2026 Broadcom. Sections include consumer acknowledgement modes, negative ack and requeue, channel prefetch, automatic requeue on connection loss, publisher confirms. The fetch summary says the page does not use the terms 'at-least-once' or 'poison message' itself; those are inferences from described behavior, so do not attribute the terms to the page."
     verified_on: "2026-11-12"
 
   - id: aws-sqs-visibility-timeout
@@ -2108,9 +2108,9 @@ sources:
     topics: [backpressure, flow-control, bounded-buffer, highwatermark, drain]
     status: candidate
     notes: "NO-AUTHOR: no author on the page. NO-DATE: no date (only 'Reading Time: 18 min'). Footer: Copyright OpenJS Foundation and Node.js contributors, all rights reserved. In-process backpressure (write() returns false, 'drain' event), not a distributed queue, but the clearest free beginner explanation of why unbounded buffers exhaust memory. The page's measured memory figures come from its own demo; do not generalize them."
+    verified_on: "2026-11-12"
 
   # ---- Unit 5: Consistency & coordination (P1-014) ----
-    verified_on: "2026-11-12"
   - id: raft-extended-paper
     title: "In Search of an Understandable Consensus Algorithm (Extended Version)"
     authors: [Diego Ongaro, John Ousterhout]

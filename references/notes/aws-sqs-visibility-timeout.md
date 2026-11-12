@@ -34,4 +34,4 @@ sections_read: ["Visibility timeout use cases", "Setting and adjusting the visib
 
 ## Warnings
 
-- SQS specific vocabulary (no explicit ack message). Page footer/license not visible in the fetch.
+- SQS specific vocabulary (no explicit ack message). No license in the fetched text; registry records all-rights-reserved.

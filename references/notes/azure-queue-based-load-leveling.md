@@ -30,4 +30,4 @@ sections_read: ["Context and problem", "Solution", "Problems and considerations"
 
 ## Warnings
 
-- Azure product names appear in the example; the pattern is vendor-neutral. License of the page not verified.
+- Azure product names appear in the example; the pattern is vendor-neutral. License: no footer in the fetch; registry records CC-BY-4.0 inferred from the public MicrosoftDocs/architecture-center README (rewrite-only).
