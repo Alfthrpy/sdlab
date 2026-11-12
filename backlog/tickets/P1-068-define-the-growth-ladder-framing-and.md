@@ -46,5 +46,6 @@ ADR 0004 Amendment 1 extends the audience to solo developers and beginners and r
 - **Trigger:** new `trigger` field on concepts (Indonesian string). Units 1–6: warning until status `review`, then an error; Unit 0: optional. Documented in `content-schema.md` §2 and `curriculum/README.md`; tested in `tests/test_curriculum.py`.
 - **Re-estimate:** ~40 → ~46 concepts, 300 → ~340 questions, 15 → 16 lab specs, 22 → 24 weeks (M4 weeks 8–24). Rough figures; revisit at G1.
 - **Tickets:** new P1-069 (research Unit 0) and P1-048 (epic Unit 0). P1-016 now depends on P1-069; P1-060/061/062 depend on P1-048; P1-020 targets 40–50 concepts incl. triggers. P1-011–P1-015 already depended on P1-068.
-- The lesson-level writing style (first-principles framing) is intentionally NOT decided here; writing-style.md says it will be settled in P1-031 after the pilot. Only the trigger requirement was added.
+- The lesson-level writing style (first-principles framing) is intentionally NOT decided here, at the owner's request; only the trigger requirement was added to writing-style.md. The owner will say when to add it to P1-031.
 - P1-066 (hardening the curriculum validators) is still open; the new trigger and unit checks sit inside `check_curriculum`, so that ticket should keep their tests.
+- Review: `content-reviewer` said pass with minor fixes; fixed the misplaced first-principles note, M2/M3 week ranges, the ticket-count cell, the Unit 0 trigger exemption in the ADR, and added validator tests.

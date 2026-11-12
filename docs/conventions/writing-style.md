@@ -16,7 +16,7 @@ Readers are students, junior engineers, and solo developers or beginners (ADR 00
 - One lesson = one idea. Length 300–600 words, readable in 3–5 minutes.
 - Must include **one concrete example** with real (sourced) numbers or a real scenario.
 - Must include **one "when not to use it"** or trade-off.
-- Units 1–6: state the concept's **trigger** (the symptom or number that says it is time to use it). First-principles framing of lessons is still undecided and will be settled in P1-031 after the pilot.
+- Units 1–6: state the concept's **trigger** (the symptom or number that says it is time to use it).
 - Diagrams are written as Mermaid or as a description to be redrawn. No copied images.
 - Avoid these filler phrases (Indonesian originals; in English: "very important", "in the modern era", "let's dive in", "in conclusion"), emoji, and bullet lists that are really one sentence: "sangat penting", "di era modern", "mari kita selami", "kesimpulannya".
 

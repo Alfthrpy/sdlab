@@ -6,6 +6,8 @@
 
 **How we work:** agent-heavy. Agents do research, mapping, and drafting. Other agents review without having done the work. The repo owner (human) only decides at milestone gates, runs user tests, and spot-checks quality. Flow details are in [workflow.md](workflow.md).
 
+**Scope note:** the extra lab spec is for Unit 0 (for example a "limits of one machine" lab). Unit 0 may pass gate G0 through official documentation where Tier 1–3 sources are scarce.
+
 **Estimated duration:** 24 weeks for the full volume (22 before the Unit 0 addition in ADR 0004 Amendment 1). M1–M3 (about 6–7 weeks) is the critical path. M4 can be sped up by adding parallel agent sessions per unit.
 
 ## Milestones and gates
@@ -14,8 +16,8 @@
 | --- | --- | --- | --- |
 | **M0** Foundation | Repo, workflow, base decisions | 1 | Language, audience, and reviewer decisions recorded in ADRs |
 | **M1** Reference Registry | Criteria, candidate research per unit, license & version verification, gap map | 1–2 | **G0:** every unit has ≥1 Tier 1–2 source and ≥1 Tier 3–4 |
-| **M2** Curriculum | ~46 concepts + learning objectives and triggers, prerequisite graph, case studies & incidents, source mapping | 3–5 | **G1:** valid DAG, each concept has an objective + ≥2 sources |
-| **M3** Pedagogy & pilot | Content schema + validator, style guide, "caching" pilot in all formats, test with 5 people | 5–6 | **G2:** pilot tested, templates revised |
+| **M2** Curriculum | ~46 concepts + learning objectives and triggers, prerequisite graph, case studies & incidents, source mapping | 3–6 | **G1:** valid DAG, each concept has an objective + ≥2 sources |
+| **M3** Pedagogy & pilot | Content schema + validator, style guide, "caching" pilot in all formats, test with 5 people | 6–7 | **G2:** pilot tested, templates revised |
 | **M4** Production | 7 content units (Units 0–6), incident pack, case-study pack | 8–24 | Per unit: passes agent review + human sample |
 | **M5** QA & freeze | Citation audit, plagiarism audit, question calibration, content v1 release | 23–24 | **G3:** content v1 frozen (tag `content-v1.0`) |
 
@@ -39,7 +41,7 @@ The epic tickets per unit (`P1-040` onward) are split by the agent into one sub-
 
 | | Agent | Human |
 | --- | --- | --- |
-| Initial ticket count | 31 | 7 (plus P1-048, P1-068, P1-069 for the Unit 0 addition) |
+| Initial ticket count | 31 + 3 added for Unit 0 (P1-048, P1-068, P1-069) | 7 |
 | Kind | Research, mapping, curriculum, schemas, drafting, cross-review, automated QA | Base decisions, 3 gates, pilot test, QA spot-check |
 | Estimated human time | — | 2–4 hours per gate, ~1 hour/week spot-check |
 

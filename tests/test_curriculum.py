@@ -55,6 +55,10 @@ class Concepts(unittest.TestCase):
         errs, _ = run([concept(unit=0, status="review")])
         self.assertFalse(any("trigger" in e for e in errs))
 
+    def test_trigger_blank_and_unit_string(self):
+        self.assertTrue(any("trigger must be" in e for e in run([concept(trigger="  ")])[0]))
+        self.assertTrue(any("unit" in e for e in run([concept(unit="0")])[0]))
+
     def test_trigger_must_be_string(self):
         errs, _ = run([concept(trigger=["x"])])
         self.assertTrue(any("trigger must be" in e for e in errs), errs)
