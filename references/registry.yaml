@@ -56,13 +56,14 @@ sources:
     doi: null
     published: "2019-12-05"
     accessed: "2026-11-12"
+    verified_on: "2026-11-12"
     license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [6]
     topics: [timeouts, retries, backoff, jitter, retry-budget, circuit-breaker]
     status: candidate
-    notes: "NO-AUTHOR: the page byline is only the first name 'Marc' (AWS employee; the profile handle is 'mbrooker', but the page does not give a full name), so authors is left empty rather than recording a bare first name. The old aws.amazon.com/builders-library URL redirects (301) to this canonical builder.aws.com URL. Date: published and last modified 2019-12-05. Footer: (c) 2026 AWS, all rights reserved; opinions are the author's. Covers timeouts, retry amplification across layers, token-bucket retry budgets, circuit breakers, idempotency, jitter. Trigger hint: you reach for this when a second service or database call appears and one slow dependency can tie up all your threads."
+    notes: "NO-AUTHOR: the page byline is only the first name 'Marc' (AWS employee; the profile handle is 'mbrooker', but the page does not give a full name), so authors is left empty rather than recording a bare first name. The old aws.amazon.com/builders-library URL redirects (301) to this canonical builder.aws.com URL. Date: published and last modified 2019-12-05. Footer: (c) 2026 AWS, all rights reserved; opinions are the author's. Covers timeouts, retry amplification across layers, token-bucket retry budgets, circuit breakers, idempotency, jitter. Trigger hint: you reach for this when a second service or database call appears and one slow dependency can tie up all your threads. Reopened 2026-11-12; title, 'Marc' byline, 2019-12-05 date and footer (c) 2026 AWS confirmed."
 
   - id: system-design-primer
     title: "The System Design Primer"
@@ -113,31 +114,33 @@ sources:
     doi: 10.1145/3458336.3465286
     published: "2021-06"
     accessed: "2026-11-12"
+    verified_on: "2026-11-12"
     license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [6]
     topics: [metastable-failure, retry-storm, sustaining-effect, overload, load-shedding, cascading-failure]
     status: candidate
-    notes: "Metadata (title, 4 authors, HotOS '21, May 31-June 2 2021, 7 pages, DOI) read from the first page of the PDF at sigops.org/s/conferences/hotos/2021/papers/hotos21-s11-bronson.pdf (free). dl.acm.org returned HTTP 403, so the ACM landing page was not opened; the DOI is the one printed in the paper. Copyright: (c) 2021 ACM; the paper's permission text allows personal or classroom copies without fee. Vision paper; the retry and look-aside cache examples are simplified. Trigger hint: when retries, caches and failover were added for reliability and the system still stays down after the trigger is gone."
+    notes: "Metadata (title, 4 authors, HotOS '21, May 31-June 2 2021, 7 pages, DOI) read from the first page of the PDF at sigops.org/s/conferences/hotos/2021/papers/hotos21-s11-bronson.pdf (free). dl.acm.org returned HTTP 403, so the ACM landing page was not opened; the DOI is the one printed in the paper. Copyright: (c) 2021 ACM; the paper's permission text allows personal or classroom copies without fee. Vision paper; the retry and look-aside cache examples are simplified. Trigger hint: when retries, caches and failover were added for reliability and the system still stays down after the trigger is gone. Reopened 2026-11-12; title, four authors, date and DOI re-confirmed from the Crossref record for 10.1145/3458336.3465286 (dl.acm.org still returns 403 to scripted fetches). Crossref names the ACM copyright policy as the license, so all-rights-reserved stands."
 
   - id: analyzing-metastable-hotos25
     title: "Analyzing Metastable Failures"
-    authors: []
+    authors: [Rebecca Isaacs, Peter Alvaro, Rupak Majumdar, Kiran-Kumar Muniswamy-Reddy, Mahmoud Salamati, Sadegh Soudjani]
     publisher: "HotOS '25, ACM"
     type: paper
     tier: 3
     url: https://doi.org/10.1145/3713082.3730380
     doi: 10.1145/3713082.3730380
-    published: "2025-05"
+    published: "2025-05-14"
     accessed: "2026-11-12"
+    verified_on: "2026-11-12"
     license: all-rights-reserved
     usage: rewrite-only
     access: partial
     units: [6]
     topics: [metastable-failure, queueing-model, simulation, ctmc, discrete-event-simulation]
     status: candidate
-    notes: "SEED. Also relevant to simulator design (Phase 2). Author list not yet verified."
+    notes: "Analyzing Metastable Failures, HotOS '25 (Proceedings of the Workshop on Hot Topics in Operating Systems, pp. 172-178). Reopened 2026-11-12: authors, title and 2025-05-14 date taken from the Crossref record for DOI 10.1145/3713082.3730380 (dl.acm.org returns 403 to scripted fetches, so the ACM page and the paper text were not opened). Crossref lists no license, so recorded as all-rights-reserved (conservative; usage stays rewrite-only). Also relevant to simulator design (Phase 2). Follow-up to metastable-failures-hotos21 and metastable-failures-osdi22."
 
   - id: aws-pes-dynamodb-2025-10
     title: "Summary of the Amazon DynamoDB Service Disruption in the Northern Virginia (US-EAST-1) Region"
@@ -168,13 +171,14 @@ sources:
     doi: null
     published: "2025-11-18"
     accessed: "2026-11-12"
-    license: unknown
+    verified_on: "2026-11-12"
+    license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [6]
     topics: [config-propagation, validation, safe-deploy, global-blast-radius, kill-switch, retry-backlog]
     status: candidate
-    notes: "Page lists Matthew Prince as author (sidebar) and structured metadata gives datePublished 2025-11-18 (a later dateModified exists). No footer copyright or license text appeared in the fetched content, so license is unknown (treat as all-rights-reserved). Mechanism: a database permissions change doubled the size of a generated Bot Management feature file; the proxy exceeded a preallocated 200-feature limit and panicked, producing 5xx; impact 11:20 to 14:30 UTC, fully resolved 17:06 UTC. Candidate for incident pack P1-046."
+    notes: "Page lists Matthew Prince as author (sidebar) and structured metadata gives datePublished 2025-11-18 (a later dateModified exists). Mechanism: a database permissions change doubled the size of a generated Bot Management feature file; the proxy exceeded a preallocated 200-feature limit and panicked, producing 5xx; impact 11:20 to 14:30 UTC, fully resolved 17:06 UTC. Candidate for incident pack P1-046. Reopened 2026-11-12; author Matthew Prince and 2025-11-18 date confirmed. Footer is only (c) 2026 Cloudflare, Inc. with no license, so recorded as all-rights-reserved (conservative; usage stays rewrite-only)."
 
   - id: hello-interview-sd-in-a-hurry
     title: "System Design in a Hurry"
@@ -2606,13 +2610,14 @@ sources:
     doi: null
     published: "2017"
     accessed: "2026-11-12"
+    verified_on: "2026-11-12"
     license: CC-BY-NC-ND-4.0
     usage: rewrite-only
     access: free
     units: [6]
     topics: [cascading-failure, load-shedding, graceful-degradation, retries, deadline-propagation, resource-exhaustion, overload]
     status: candidate
-    notes: "Chapter-level entry for google-sre-book. Page: author Mike Ulrich; copyright 2017 Google, Inc., published by O'Reilly Media; CC BY-NC-ND 4.0 (NoDerivatives: rewrite and link only). Year is the page copyright year, consistent with the other chapter entries. The page names no editor (author Mike Ulrich only). Trigger hint: you need this when one overloaded replica pushes load onto its peers and the whole service falls over. Notes: references/notes/sre-book-addressing-cascading-failures-ch22.md."
+    notes: "Chapter-level entry for google-sre-book. Page: author Mike Ulrich; copyright 2017 Google, Inc., published by O'Reilly Media; CC BY-NC-ND 4.0 (NoDerivatives: rewrite and link only). Year is the page copyright year, consistent with the other chapter entries. The page names no editor (author Mike Ulrich only). Trigger hint: you need this when one overloaded replica pushes load onto its peers and the whole service falls over. Notes: references/notes/sre-book-addressing-cascading-failures-ch22.md. Reopened 2026-11-12; footer 'Copyright 2017 Google, Inc. ... Licensed under CC BY-NC-ND 4.0' confirmed."
 
   - id: sre-workbook-canarying-releases-ch16
     title: "The Site Reliability Workbook, Chapter 16: Canarying Releases"
@@ -2624,13 +2629,14 @@ sources:
     doi: null
     published: "2018"
     accessed: "2026-11-12"
+    verified_on: "2026-11-12"
     license: CC-BY-NC-ND-4.0
     usage: rewrite-only
     access: free
     units: [6]
     topics: [canary, safe-deploy, progressive-rollout, rollback, release-engineering, error-budget]
     status: candidate
-    notes: "Page lists Alec Warner and Štěpán Davidovič with Alex Hidalgo, Betsy Beyer, Kyle Smith, Matt Duftler; copyright 2018 Google, Inc., published by O'Reilly Media; CC BY-NC-ND 4.0. Year is the page copyright year. Covers canary population size, choosing metrics (SLI-like), canary vs control comparison, rollback. Trigger hint: when a deploy to all servers at once starts to feel too risky."
+    notes: "Page lists Alec Warner and Štěpán Davidovič with Alex Hidalgo, Betsy Beyer, Kyle Smith, Matt Duftler; copyright 2018 Google, Inc., published by O'Reilly Media; CC BY-NC-ND 4.0. Year is the page copyright year. Covers canary population size, choosing metrics (SLI-like), canary vs control comparison, rollback. Trigger hint: when a deploy to all servers at once starts to feel too risky. Reopened 2026-11-12; footer 'Copyright 2018 Google, Inc. ... Licensed under CC BY-NC-ND 4.0' confirmed."
 
   - id: metastable-failures-osdi22
     title: "Metastable Failures in the Wild"
@@ -2642,13 +2648,14 @@ sources:
     doi: null
     published: "2022-07"
     accessed: "2026-11-12"
-    license: unknown
+    verified_on: "2026-11-12"
+    license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [6]
     topics: [metastable-failure, retry-storm, trigger, work-amplification, incident-survey, load-shedding]
     status: candidate
-    notes: "Opened the USENIX presentation page (16th USENIX OSDI, Carlsbad, July 11-13 2022, pp. 73-90, ISBN 978-1-939133-28-1; page says open access, no license/copyright statement) and read the PDF at usenix.org/system/files/osdi22-huang-lexiang.pdf (abstract, intro, section 2 start). No DOI shown on these pages. Survey of public incident reports: the abstract says 22 failures from 11 organizations, while section 2.2 says 21 failures in Table 1 (count differs inside the paper). Code: github.com/lexiangh/Metastability (not opened). Extends metastable-failures-hotos21."
+    notes: "Opened the USENIX presentation page (16th USENIX OSDI, Carlsbad, July 11-13 2022, pp. 73-90, ISBN 978-1-939133-28-1; page says open access, no license/copyright statement) and read the PDF at usenix.org/system/files/osdi22-huang-lexiang.pdf (abstract, intro, section 2 start). No DOI shown on these pages. Survey of public incident reports: the abstract says 22 failures from 11 organizations, while section 2.2 says 21 failures in Table 1 (count differs inside the paper). Code: github.com/lexiangh/Metastability (not opened). Extends metastable-failures-hotos21. Reopened 2026-11-12; title, eight authors and OSDI '22 confirmed on the USENIX page. The page has an Open Access statement and (c) USENIX but no per-paper license, so recorded as all-rights-reserved (conservative; usage stays rewrite-only)."
 
   - id: aws-builders-automating-safe-deployments
     title: "Automating safe, hands-off deployments"
@@ -2660,13 +2667,14 @@ sources:
     doi: null
     published: "2020-06-18"
     accessed: "2026-11-12"
+    verified_on: "2026-11-12"
     license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [6]
     topics: [safe-deploy, pipeline, one-box, bake-time, rollback, progressive-rollout, canary]
     status: candidate
-    notes: "The aws.amazon.com/builders-library URL redirects (301) to this canonical URL. Published and last modified 2020-06-18; page lists the author as Senior Principal Engineer (Kiro). Footer: (c) 2026 AWS, all rights reserved; the page says opinions are the author's. Covers pipeline stages, waves by region/AZ/cell, one-box, bake time, automatic rollback on alarms, deployment windows. Trigger hint: when manual deploys to many hosts or regions become the main source of outages."
+    notes: "The aws.amazon.com/builders-library URL redirects (301) to this canonical URL. Published and last modified 2020-06-18; page lists the author as Senior Principal Engineer (Kiro). Footer: (c) 2026 AWS, all rights reserved; the page says opinions are the author's. Covers pipeline stages, waves by region/AZ/cell, one-box, bake time, automatic rollback on alarms, deployment windows. Trigger hint: when manual deploys to many hosts or regions become the main source of outages. Reopened 2026-11-12; title, author and footer (c) 2026 AWS confirmed."
 
   - id: aws-arch-blog-exponential-backoff-jitter
     title: "Exponential Backoff and Jitter"
@@ -2678,13 +2686,14 @@ sources:
     doi: null
     published: "2015-03-04"
     accessed: "2026-11-12"
-    license: unknown
+    verified_on: "2026-11-12"
+    license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [6]
     topics: [retries, backoff, jitter, contention, simulation]
     status: candidate
-    notes: "Page shows author Marc Brooker and date 04 MAR 2015. The fetched text was truncated before the footer, so no license/copyright text was seen: unknown (treat as all-rights-reserved). Simulation of many clients contending for one resource; compares no jitter, full jitter, equal jitter, decorrelated jitter. Free companion to aws-builders-timeouts-retries. The page also carries an update note dated May 2023: the approach still underpins Amazon's client libraries, and most AWS SDKs now support exponential backoff and jitter in their standard/adaptive retry modes."
+    notes: "Page shows author Marc Brooker and date 04 MAR 2015. Simulation of many clients contending for one resource; compares no jitter, full jitter, equal jitter, decorrelated jitter. Free companion to aws-builders-timeouts-retries. The page also carries an update note dated May 2023: the approach still underpins Amazon's client libraries, and most AWS SDKs now support exponential backoff and jitter in their standard/adaptive retry modes. Reopened 2026-11-12; author Marc Brooker and 04 MAR 2015 confirmed. Footer is '(c) 2026, Amazon Web Services, Inc. or its affiliates. All rights reserved.', so license is all-rights-reserved."
 
   - id: fowler-circuit-breaker
     title: "Circuit Breaker"
@@ -2696,13 +2705,14 @@ sources:
     doi: null
     published: "2014-03-06"
     accessed: "2026-11-12"
+    verified_on: "2026-11-12"
     license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [6]
     topics: [circuit-breaker, fail-fast, cascading-failure, monitoring]
     status: candidate
-    notes: "Footer: (c) Martin Fowler, no license text. Page shows 6 March 2014 and no update date. Short bliki entry defining closed/open/half-open states with a threshold and reset timeout. Fowler is a well-known practitioner-author, not an operator of a large system, so Tier 2 is a judgment call; use together with azure-circuit-breaker-pattern."
+    notes: "Footer: (c) Martin Fowler, no license text. Page shows 6 March 2014 and no update date. Short bliki entry defining closed/open/half-open states with a threshold and reset timeout. Fowler is a well-known practitioner-author, not an operator of a large system, so Tier 2 is a judgment call; use together with azure-circuit-breaker-pattern. Reopened 2026-11-12; footer '(c) Martin Fowler' confirmed."
 
   - id: azure-circuit-breaker-pattern
     title: "Circuit Breaker pattern"
@@ -2714,14 +2724,15 @@ sources:
     doi: null
     published: "2025-02-05"
     accessed: "2026-11-12"
-    license: unknown
+    verified_on: "2026-11-12"
+    license: CC-BY-4.0
     usage: rewrite-only
     access: free
     units: [6]
     topics: [circuit-breaker, retries, cascading-failure, fail-fast, service-mesh]
     status: candidate
     version: "page metadata ms.date 2025-02-05; updated_at 2026-11-09"
-    notes: "NO-AUTHOR: corporate docs (page metadata has only a GitHub handle). Date is the ms.date metadata; the page was updated later. Page title shown as 'Circuit Breaker Pattern - Azure Architecture Center'. The content license text was not read, so license is unknown (the source repo MicrosoftDocs/architecture-center is not opened). Covers closed/open/half-open states, exception types, manual override, interplay with timeouts and retries, and when not to use it."
+    notes: "NO-AUTHOR: corporate docs (page metadata has only a GitHub handle). Date is the ms.date metadata; the page was updated later. Page title shown as 'Circuit Breaker Pattern - Azure Architecture Center'. Covers closed/open/half-open states, exception types, manual override, interplay with timeouts and retries, and when not to use it. Reopened 2026-11-12. The page footer shows only (c) Microsoft 2026. The source repo MicrosoftDocs/architecture-center README grants a CC BY 4.0 license on documentation and MIT on code, so the license is inferred from the repo (same basis as the Unit 4 Azure pages). Usage stays rewrite-only."
 
   - id: azure-retry-pattern
     title: "Retry pattern"
@@ -2733,14 +2744,15 @@ sources:
     doi: null
     published: "2024-07-18"
     accessed: "2026-11-12"
-    license: unknown
+    verified_on: "2026-11-12"
+    license: CC-BY-4.0
     usage: rewrite-only
     access: free
     units: [6]
     topics: [retries, backoff, idempotency, transient-faults, retry-amplification]
     status: candidate
     version: "page metadata ms.date 2024-07-18; updated_at 2025-12-09"
-    notes: "NO-AUTHOR: corporate docs. Date is the ms.date metadata. Content license text not read: unknown. Gentle introduction (cancel, retry now, retry after delay, exponential delay), warns about retries at several layers and non-idempotent operations. Good beginner-level companion to the deeper AWS articles."
+    notes: "NO-AUTHOR: corporate docs. Date is the ms.date metadata. Gentle introduction (cancel, retry now, retry after delay, exponential delay), warns about retries at several layers and non-idempotent operations. Good beginner-level companion to the deeper AWS articles. Reopened 2026-11-12. Footer is only (c) Microsoft 2026; license inferred from the MicrosoftDocs/architecture-center README (docs CC BY 4.0, code MIT), same basis as the other Azure pattern pages. Usage stays rewrite-only."
 
   - id: grpc-docs-retry
     title: "Retry (gRPC guide)"
@@ -2752,13 +2764,14 @@ sources:
     doi: null
     published: "2025-11-26"
     accessed: "2026-11-12"
-    license: unknown
+    verified_on: "2026-11-12"
+    license: CC-BY-4.0
     usage: rewrite-only
     access: free
     units: [6]
     topics: [retries, backoff, jitter, retry-throttling, hedging, transparent-retry]
     status: candidate
-    notes: "NO-AUTHOR: project docs; date is the page's last-modified date. Footer: (c) 2026 gRPC Authors; license page linked but not read, so unknown. Per-method retry policy (attempts, backoff, multiplier, retryable codes, about 20% jitter), server-wide retry throttling with a token count, transparent retries. Pairs with grpc-docs-deadlines. Trigger hint: when you add an RPC layer between services and need a shared retry policy."
+    notes: "NO-AUTHOR: project docs; date is the page's last-modified date. Footer: (c) 2026 gRPC Authors. Per-method retry policy (attempts, backoff, multiplier, retryable codes, about 20% jitter), server-wide retry throttling with a token count, transparent retries. Pairs with grpc-docs-deadlines. Trigger hint: when you add an RPC layer between services and need a shared retry policy. Reopened 2026-11-12. Footer links a License page; the grpc/grpc.io repo LICENSE says content is CC BY 4.0 and code samples Apache-2.0, so the license is inferred from that file. Usage stays rewrite-only."
 
   - id: envoy-docs-circuit-breaking
     title: "Circuit breaking (Envoy architecture overview)"
@@ -2770,14 +2783,15 @@ sources:
     doi: null
     published: null
     accessed: "2026-11-12"
-    license: unknown
+    verified_on: "2026-11-12"
+    license: Apache-2.0
     usage: rewrite-only
     access: free
     units: [6]
     topics: [circuit-breaker, load-shedding, retry-budget, fail-fast, back-pressure]
     status: candidate
     version: "Envoy 1.40.2 (docs tag-v1.40.2)"
-    notes: "NO-AUTHOR / NO-DATE: project docs. The page footer says (c) 2016-2026 Envoy Project Authors and states no license. URL is pinned to the v1.40.2 release docs (newest stable release on the GitHub releases page, marked Latest); the page title reads 'envoy tag-v1.40.2 documentation'. Here 'circuit breaking' means static per-cluster limits (connections, pending requests, requests, retries) that reject excess work, which differs from the state-machine breaker in fowler-circuit-breaker. Advanced for beginners; use only for the concept of limits and retry budgets."
+    notes: "NO-AUTHOR / NO-DATE: project docs. The page footer says (c) 2016-2026 Envoy Project Authors. URL is pinned to the v1.40.2 release docs (newest stable release on the GitHub releases page, marked Latest); the page title reads 'envoy tag-v1.40.2 documentation'. Here 'circuit breaking' means static per-cluster limits (connections, pending requests, requests, retries) that reject excess work, which differs from the state-machine breaker in fowler-circuit-breaker. Advanced for beginners; use only for the concept of limits and retry budgets. Reopened 2026-11-12; v1.40.2 is still the latest release (GitHub releases API, published 2026-10-27). The docs live in the envoyproxy/envoy repo, whose LICENSE is Apache-2.0; the page footer states no license, so Apache-2.0 is inferred from the repo. Usage stays rewrite-only."
 
   - id: opentelemetry-docs-observability-primer
     title: "Observability primer"
@@ -2809,13 +2823,14 @@ sources:
     doi: null
     published: "2018-08-03"
     accessed: "2026-11-12"
-    license: unknown
+    verified_on: "2026-11-12"
+    license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [6]
     topics: [observability, red-method, use-method, golden-signals]
     status: candidate
-    notes: "Post author shown as Julie Dam; it summarizes a talk by Tom Wilkie (Grafana Labs), who the page says created RED in 2015. Footer: Copyright 2026 Grafana Labs, no separate license text, so unknown. Third-hand summary of a talk, but it is the vendor's own description of its method. Compares RED (rate, errors, duration) with USE and the four golden signals."
+    notes: "Post author shown as Julie Dam; it summarizes a talk by Tom Wilkie (Grafana Labs), who the page says created RED in 2015. Footer: Copyright 2026 Grafana Labs, no separate license text, so recorded as all-rights-reserved (conservative; usage stays rewrite-only). Third-hand summary of a talk, but it is the vendor's own description of its method. Compares RED (rate, errors, duration) with USE and the four golden signals. Reopened 2026-11-12; author Julie Dam, 2018-08-03 and Tom Wilkie talk summary confirmed."
 
   - id: dapper-2010
     title: "Dapper, a Large-Scale Distributed Systems Tracing Infrastructure"
@@ -2827,13 +2842,14 @@ sources:
     doi: null
     published: "2010"
     accessed: "2026-11-12"
-    license: unknown
+    verified_on: "2026-11-12"
+    license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [6]
     topics: [distributed-tracing, observability, sampling, spans]
     status: candidate
-    notes: "Opened the Google Research publication page (abstract only; the page lists 'Google, Inc. (2010)' and no venue, so this is a technical report rather than a confirmed conference paper). No copyright or license text on the page. PDF link given on the page: research.google.com/archive/papers/dapper-2010-1.pdf (not opened). Origin of trace/span ideas behind OpenTelemetry. Full text not read."
+    notes: "Opened the Google Research publication page (abstract only; the page lists 'Google, Inc. (2010)' and no venue, so this is a technical report rather than a confirmed conference paper). No copyright or license text on the page. PDF link given on the page: research.google.com/archive/papers/dapper-2010-1.pdf (not opened). Origin of trace/span ideas behind OpenTelemetry. Full text not read. Reopened 2026-11-12; title, eight authors and 'Google, Inc. (2010)' confirmed. No license text on the page, so recorded as all-rights-reserved (conservative; usage stays rewrite-only)."
 
   - id: fowler-bluegreen-deployment
     title: "Blue Green Deployment"
@@ -2864,13 +2880,14 @@ sources:
     doi: null
     published: "2017-10-09"
     accessed: "2026-11-12"
+    verified_on: "2026-11-12"
     license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [6]
     topics: [feature-flags, safe-deploy, kill-switch, progressive-rollout, trunk-based-development]
     status: candidate
-    notes: "Hosted on Martin Fowler's site but written by Pete Hodgson (independent consultant). Date: the page shows 9 October 2017; its revision history gives 19 January 2016 (first installment) and 8 February 2016 (complete article). Footer (c) Martin Fowler, no license text. Four toggle types (release, experiment, ops, permission) and toggle management advice. Practitioner-author, Tier 2 is a judgment call."
+    notes: "Hosted on Martin Fowler's site but written by Pete Hodgson (independent consultant). Date: the page shows 9 October 2017; its revision history gives 19 January 2016 (first installment) and 8 February 2016 (complete article). Footer (c) Martin Fowler, no license text. Four toggle types (release, experiment, ops, permission) and toggle management advice. Practitioner-author, Tier 2 is a judgment call. Reopened 2026-11-12; author, date and footer '(c) Martin Fowler' confirmed."
 
   - id: k8s-docs-deployments
     title: "Deployments (Kubernetes documentation)"
@@ -2882,6 +2899,7 @@ sources:
     doi: null
     published: null
     accessed: "2026-11-12"
+    verified_on: "2026-11-12"
     license: CC-BY-4.0
     usage: adapt-with-attribution
     access: free
@@ -2889,7 +2907,7 @@ sources:
     topics: [rolling-update, rollback, safe-deploy, max-surge, canary]
     status: candidate
     version: "unversioned /docs/ path (current docs); page last modified 2026-07-07"
-    notes: "NO-AUTHOR / NO-DATE: project docs; last-modified date is in the version field. Footer: content licensed CC BY 4.0, (c) 2026 The Kubernetes Authors (read from the second part of the fetched page). Rolling update with maxSurge/maxUnavailable (defaults 25%), rollout undo and revisionHistoryLimit (default 10); no built-in canary mode, it describes running a second Deployment. Long page; only the rolling update, rollback and canary parts were read. Attribution line still to be written when approved."
+    notes: "NO-AUTHOR / NO-DATE: project docs; last-modified date is in the version field. Footer: content licensed CC BY 4.0, (c) 2026 The Kubernetes Authors (read from the second part of the fetched page). Rolling update with maxSurge/maxUnavailable (defaults 25%), rollout undo and revisionHistoryLimit (default 10); no built-in canary mode, it describes running a second Deployment. Long page; only the rolling update, rollback and canary parts were read. Attribution line still to be written when approved. Reopened 2026-11-12; footer 'Documentation Distributed under CC BY 4.0' confirmed."
 
   # ---- P1-015: official postmortems (Tier 4), all opened 2026-11-12. License: no open license; rewrite-only. ----
 
@@ -2903,13 +2921,14 @@ sources:
     doi: null
     published: "2025-06-13"
     accessed: "2026-11-12"
-    license: unknown
+    verified_on: "2026-11-12"
+    license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [6]
     topics: [config-push, null-pointer, feature-flag, global-replication, thundering-herd, backoff, kill-switch]
     status: candidate
-    notes: "NO-AUTHOR: corporate report. Date: full incident report dated 2025-06-13 16:45 PDT (a mini report was posted 2025-06-12 23:34 PDT). Incident window on the dashboard 10:51 to 18:18 PDT on 2025-06-12; the mini report gave a different end time. No copyright text on the page, so license unknown (treat as all-rights-reserved). Mechanism: a policy with blank fields in globally replicated Spanner data hit a Service Control code path without error handling or a feature flag; crash loop in all regions; red-button kill switch within about 40 minutes; in us-central1 restarts overloaded Spanner because retries lacked randomized exponential backoff. Notes: references/notes/gcp-service-control-outage-2025-06-12.md."
+    notes: "NO-AUTHOR: corporate report. Date: full incident report dated 2025-06-13 16:45 PDT (a mini report was posted 2025-06-12 23:34 PDT). Incident window on the dashboard 10:51 to 18:18 PDT on 2025-06-12; the mini report gave a different end time. Mechanism: a policy with blank fields in globally replicated Spanner data hit a Service Control code path without error handling or a feature flag; crash loop in all regions; red-button kill switch within about 40 minutes; in us-central1 restarts overloaded Spanner because retries lacked randomized exponential backoff. Notes: references/notes/gcp-service-control-outage-2025-06-12.md. Reopened 2026-11-12; incident window and the 13 Jun 2025 16:45 PDT report confirmed. No copyright or license text on the page, so recorded as all-rights-reserved (conservative; usage stays rewrite-only)."
 
   - id: crowdstrike-channel-file-291-rca-2024
     title: "External Technical Root Cause Analysis - Channel File 291"
@@ -2921,17 +2940,18 @@ sources:
     doi: null
     published: "2024-08-06"
     accessed: "2026-11-12"
-    license: unknown
+    verified_on: "2026-11-12"
+    license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [6]
     topics: [config-push, content-validation, staged-rollout, out-of-bounds-read, canary, bake-time]
     status: candidate
-    notes: "NO-AUTHOR: corporate report. 12-page PDF; each page footer is dated 2024-08-06. The PDF has no copyright or license text that I could read, so license unknown (treat as all-rights-reserved). Event date 2024-07-19 (content update). Mechanism: template defined 21 inputs but the sensor supplied 20; validator and tests missed it because of wildcard criteria; no staged rollout of content; out-of-bounds read crashed Windows kernel driver hosts. Strong example for staged deployment and validating config like code. Security-product specifics are advanced for beginners."
+    notes: "NO-AUTHOR: corporate report. 12-page PDF; each page footer is dated 2024-08-06. Event date 2024-07-19 (content update). Mechanism: template defined 21 inputs but the sensor supplied 20; validator and tests missed it because of wildcard criteria; no staged rollout of content; out-of-bounds read crashed Windows kernel driver hosts. Strong example for staged deployment and validating config like code. Security-product specifics are advanced for beginners. Reopened 2026-11-12; the PDF opens and matches the description. No copyright or license text in the PDF text, so recorded as all-rights-reserved (conservative; usage stays rewrite-only)."
 
   - id: cloudflare-1111-incident-2025-07-14
     title: "Cloudflare 1.1.1.1 Incident on July 14, 2025"
-    authors: []
+    authors: [Ash Pallarito, Joe Abley]
     publisher: Cloudflare
     type: postmortem
     tier: 4
@@ -2939,13 +2959,14 @@ sources:
     doi: null
     published: "2025-07-15"
     accessed: "2026-11-12"
-    license: unknown
+    verified_on: "2026-11-12"
+    license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [6]
     topics: [config-change, dormant-misconfiguration, no-progressive-rollout, bgp, dns]
     status: candidate
-    notes: "NO-AUTHOR: no author listed on the page. Date is the page metadata (2025-07-15); incident 2025-07-14 21:48 to 22:54 UTC. No footer copyright seen: license unknown. A config change on June 6 attached the resolver prefixes to a pre-production service and lay dormant; a July 14 change triggered a global refresh and withdrew the prefixes; the legacy system deploys to all locations at once."
+    notes: "Date is the page metadata (2025-07-15); incident 2025-07-14 21:48 to 22:54 UTC. A config change on June 6 attached the resolver prefixes to a pre-production service and lay dormant; a July 14 change triggered a global refresh and withdrew the prefixes; the legacy system deploys to all locations at once. Reopened 2026-11-12; the page byline names Ash Pallarito and Joe Abley (the earlier NO-AUTHOR note was wrong). Footer is only (c) 2026 Cloudflare, Inc., so recorded as all-rights-reserved (conservative; usage stays rewrite-only)."
 
   - id: cloudflare-workers-kv-outage-2025-06-12
     title: "Cloudflare service outage June 12, 2025"
@@ -2995,13 +3016,14 @@ sources:
     doi: null
     published: "2023-05-16"
     accessed: "2026-11-12"
+    verified_on: "2026-11-12"
     license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [6]
     topics: [os-update, correlated-failure, recovery-ordering, region-isolation, observability-outage]
     status: candidate
-    notes: "Part 1 of a four-part series (other parts not opened). Page footer: (c) Datadog 2026.  A systemd security update applied at about the same time in five regions restarted systemd-networkd, which deleted routes managed by Cilium; tens of thousands of nodes lost networking. Recovery: compute first, live data before historical data; cloud rate limits slowed mass replacement."
+    notes: "Part 1 of a four-part series (other parts not opened). Page footer: (c) Datadog 2026. A systemd security update applied at about the same time in five regions restarted systemd-networkd, which deleted routes managed by Cilium; tens of thousands of nodes lost networking. Recovery: compute first, live data before historical data; cloud rate limits slowed mass replacement. Reopened 2026-11-12; author Alexis Lê-Quôc and 'Published May 16, 2023' confirmed from page metadata."
 
   - id: azure-front-door-pir-2025-10-29
     title: "Post Incident Review (PIR): Azure Front Door, Connectivity issues across multiple regions"
@@ -3013,13 +3035,14 @@ sources:
     doi: null
     published: "2025-10-29"
     accessed: "2026-11-12"
+    verified_on: "2026-11-12"
     license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [6]
     topics: [config-propagation, last-known-good, async-processing, cross-version-compatibility, phased-recovery, blast-radius]
     status: candidate
-    notes: "NO-AUTHOR: corporate report; tracking ID YKYN-BWZ. The page shows a review date of 10/29/2025 but also lists follow-up items dated into 2026, so the text was probably updated later: treat the date as the event/review date. Impact 15:41 UTC 2025-10-29 to 00:05 UTC 2025-10-30. Footer: (c) 2026 Microsoft. Valid customer config changes across two control-plane versions produced incompatible metadata; a delayed crash let it pass protection stages and enter the last-known-good snapshot; edge reloads were phased to avoid overload."
+    notes: "NO-AUTHOR: corporate report; tracking ID YKYN-BWZ. The page shows a review date of 10/29/2025 but also lists follow-up items dated into 2026, so the text was probably updated later: treat the date as the event/review date. Impact 15:41 UTC 2025-10-29 to 00:05 UTC 2025-10-30. Footer: (c) 2026 Microsoft. Valid customer config changes across two control-plane versions produced incompatible metadata; a delayed crash let it pass protection stages and enter the last-known-good snapshot; edge reloads were phased to avoid overload. Reopened 2026-11-12; PIR entry for Azure Front Door dated 10/29/2025 found on the status history page. Footer (c) 2026 Microsoft only."
 
   - id: heroku-june-10-outage-2025
     title: "Summary of Heroku June 10 Outage"
@@ -3050,13 +3073,14 @@ sources:
     doi: null
     published: "2026-09-09"
     accessed: "2026-11-12"
+    verified_on: "2026-11-12"
     license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [6]
     topics: [retry-storm, service-mesh-sidecar, autoscaling, circuit-breaker, load-shedding, backlog, metastable-failure]
     status: candidate
-    notes: "Monthly report with five incidents; footer (c) 2026 GitHub, Inc. Section-header durations differ from the durations in the impact summaries for several incidents. Most useful: 2026-08-06 (a routine rollout briefly reduced running pods in one site, saturating the Actions services and mesh; per the page this caused sidecar CPU throttling and OOM restarts, and during recovery runners were handed already-revoked jobs and retried them into a backlog), 2026-08-17 (sidecar concurrency limit not scaled, client retry bug amplified auth traffic, 56.07% of front-door requests failed or slow at peak), 2026-08-26 (database saturation, no automatic circuit breaker). Report is a summary, not a full postmortem."
+    notes: "Monthly report with five incidents; footer (c) 2026 GitHub, Inc. Section-header durations differ from the durations in the impact summaries for several incidents. Most useful: 2026-08-06 (a routine rollout briefly reduced running pods in one site, saturating the Actions services and mesh; per the page this caused sidecar CPU throttling and OOM restarts, and during recovery runners were handed already-revoked jobs and retried them into a backlog), 2026-08-17 (sidecar concurrency limit not scaled, client retry bug amplified auth traffic, 56.07% of front-door requests failed or slow at peak), 2026-08-26 (database saturation, no automatic circuit breaker). Report is a summary, not a full postmortem. Reopened 2026-11-12; author Jakub Oleksy and September 9, 2026 date confirmed."
 
   - id: slack-outage-2021-01-04
     title: "Slack's Outage on January 4th 2021"
