@@ -5,7 +5,7 @@ milestone: M1
 type: research
 owner: agent
 review: agent
-status: todo
+status: in-progress
 priority: high
 depends_on: [P1-010, P1-068]
 estimate: 2
