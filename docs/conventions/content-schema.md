@@ -1,6 +1,6 @@
 # Data & content schema (v0)
 
-The registry and curriculum parts are final for M1–M2. The content part is a draft finalized in P1-030. Everything is checked by `scripts/validate.py`.
+The registry schema is final as of P1-010. The curriculum part is final for M2. The content part is a draft finalized in P1-030. Everything is checked by `scripts/validate.py`.
 
 Language: field names, keys, ids, and enum values are English. Learner-facing values (concept `title`, `objectives`, lesson text, questions, explanations) are Indonesian (see [ADR 0005](../decisions/0005-agent-facing-language.md)).
 
@@ -19,19 +19,35 @@ sources:
     published: "2026-02"              # YYYY, YYYY-MM, or YYYY-MM-DD
     edition: "2"                      # optional
     accessed: "2026-11-12"            # date the page was opened
-    license: all-rights-reserved      # all-rights-reserved | CC-BY-4.0 | CC-BY-SA-4.0 | CC-BY-NC-ND-4.0 | MIT | public-domain | unknown
+    license: all-rights-reserved      # all-rights-reserved | CC-BY-4.0 | CC-BY-SA-4.0 | CC-BY-NC-4.0 | CC-BY-NC-SA-4.0 | CC-BY-NC-ND-4.0 | MIT | Apache-2.0 | public-domain | unknown
     usage: rewrite-only               # rewrite-only | adapt-with-attribution | map-only
     access: paywalled                 # free | partial | paywalled
     units: [3, 4, 5]                  # curriculum units 1–6
     topics: [replication, partitioning, transactions]
     status: candidate                 # candidate | approved | rejected | deprecated
-    notes: ""                         # reasons, warnings, free companion sources (English)
+    free_companion: []                # registry ids of FREE sources covering the same topics (required if approved + paywalled)
+    superseded_by: null               # registry id of the newer edition (only with status: deprecated)
+    notes: ""                         # reasons, warnings, caveats (English)
 ```
 
-Validator rules:
-- `usage: adapt-with-attribution` only for licenses `CC-BY-*`, `MIT`, or `public-domain`.
-- `tier: 6` requires `usage: map-only`.
-- `type: paper` should have a `doi` (warning, not an error).
+Required for every entry: `id`, `title`, `url`, `accessed`, `type`, `tier`, `license`, `usage`, `access`, `status`. All other fields are optional while the status is `candidate`. `accessed` must be a full date (`YYYY-MM-DD`); `doi` is the bare DOI (`10.xxxx/...`), not a URL; `topics` are kebab-case.
+
+Validator rules (errors unless marked warning):
+- Unknown field names are rejected, with a "did you mean" hint.
+- `usage: adapt-with-attribution` only for licenses `CC-BY-4.0`, `CC-BY-SA-4.0`, `MIT`, `Apache-2.0`, or `public-domain`.
+- `tier: 6` requires `usage: map-only`. (warning) `map-only` on other tiers.
+- (warning) `type: postmortem` should be tier 4 and `type: paper` tier 3. (warning) tier 5 with a non-open license.
+- (warning) `type: paper` without a `doi`.
+- `free_companion` entries must exist in the registry, must not be the source itself, and must have `access: free`.
+- `superseded_by` is only valid with `status: deprecated` and must name an existing id.
+- Additional rules for `status: approved`:
+  - `license` is not `unknown`, and the `SEED` marker is gone from `notes`.
+  - `authors` and `published` are filled in, or `notes` contains `NO-AUTHOR: <reason>` / `NO-DATE: <reason>` (e.g. a corporate postmortem).
+  - `units` and `topics` are not empty.
+  - `access: paywalled` requires a non-empty `free_companion`.
+  - (warning) a book without an `edition`.
+- (warning) `rejected` or `deprecated` without an explanation in `notes`; (warning) `deprecated` without `superseded_by`.
+- Malformed input (non-mapping entries, wrong types, duplicate list items, invalid calendar dates, DOIs not matching `10.xxxx/...`) gives a clear error instead of a crash.
 
 ## 2. `curriculum/concepts.yaml`
 

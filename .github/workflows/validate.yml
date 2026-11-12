@@ -16,5 +16,7 @@ jobs:
       - run: pip install pyyaml
       - name: Validate tickets, registry, curriculum, content
         run: python scripts/validate.py
+      - name: Registry rule tests
+        run: python -m unittest discover tests
       - name: BOARD.md is up to date
         run: python scripts/board.py --check

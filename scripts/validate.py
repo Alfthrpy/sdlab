@@ -5,6 +5,7 @@ Exit code 1 on any error. Warnings are printed but do not fail.
 """
 from __future__ import annotations
 
+import difflib
 import re
 import sys
 from datetime import date
@@ -117,7 +118,47 @@ ACCESS = ["free", "partial", "paywalled"]
 SRC_STATUS = ["candidate", "approved", "rejected", "deprecated"]
 KEBAB = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 DATE = re.compile(r"^\d{4}(-\d{2}(-\d{2})?)?$")
+FULL_DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+DOI = re.compile(r"^10\.\d{4,9}/\S+$")
+SEED_MARK = re.compile(r"\bSEED\b")
 OPEN_LICENSES = {"CC-BY-4.0", "CC-BY-SA-4.0", "MIT", "Apache-2.0", "public-domain"}
+REQUIRED_FIELDS = ["id", "title", "url", "accessed", "type", "tier", "license", "usage", "access", "status"]
+OPTIONAL_FIELDS = ["authors", "publisher", "doi", "published", "edition", "units", "topics", "notes",
+                   "free_companion", "superseded_by"]
+KNOWN_FIELDS = set(REQUIRED_FIELDS + OPTIONAL_FIELDS)
+# Tier implied by type, as a consistency hint (warning only). See research-protocol.md "Tiers".
+TYPE_TIER_HINT = {"postmortem": {4}, "paper": {3}}
+
+
+def _is_int(v) -> bool:
+    return isinstance(v, int) and not isinstance(v, bool)
+
+
+def _str_list(w: str, s: dict, field: str) -> list:
+    """Return field as a list of non-empty strings; report an error and return [] if malformed."""
+    v = s.get(field)
+    if v is None:
+        return []
+    if not isinstance(v, list) or not all(isinstance(x, str) and x for x in v):
+        err(w, f"{field} must be a list of non-empty strings, got {v!r}")
+        return []
+    if len(set(v)) != len(v):
+        err(w, f"{field} has duplicate entries: {v!r}")
+    return v
+
+
+def _valid_date(v: str) -> bool:
+    try:
+        parts = [int(x) for x in v.split("-")]
+        date(parts[0], parts[1] if len(parts) > 1 else 1, parts[2] if len(parts) > 2 else 1)
+        return True
+    except (ValueError, IndexError):
+        return False
+
+
+def _enum(w: str, s: dict, field: str, allowed: list):
+    if s.get(field) not in allowed:
+        err(w, f"{field}={s.get(field)!r} is not valid; use one of {allowed}")
 
 
 def check_registry() -> dict[str, dict]:
@@ -126,58 +167,129 @@ def check_registry() -> dict[str, dict]:
     if data is None:
         err(where, "file not found")
         return {}
+    if not isinstance(data, dict) or not isinstance(data.get("sources") or [], list):
+        err(where, "top level must be a mapping with a 'sources' list")
+        return {}
     sources = data.get("sources") or []
     out: dict[str, dict] = {}
     for i, s in enumerate(sources):
+        if not isinstance(s, dict):
+            err(f"{where} [#{i}]", f"each source must be a mapping, got {type(s).__name__}")
+            continue
         sid = s.get("id")
         w = f"{where} [{sid or i}]"
-        if not sid or not KEBAB.match(str(sid)):
-            err(w, "id must be kebab-case")
+        if not isinstance(sid, str) or not KEBAB.match(sid):
+            err(w, f"id={sid!r} must be kebab-case (lowercase letters, digits, hyphens)")
             continue
         if sid in out:
-            err(w, "duplicate id")
+            err(w, "duplicate id; ids must be unique and stable")
         out[sid] = s
-        for f in ("title", "url", "accessed"):
-            if not s.get(f):
-                err(w, f"{f} is required")
+
+        for f in s:
+            if f not in KNOWN_FIELDS:
+                close = difflib.get_close_matches(f, KNOWN_FIELDS, n=1)
+                hint = f" (did you mean '{close[0]}'?)" if close else ""
+                err(w, f"unknown field '{f}'{hint}")
+        for f in REQUIRED_FIELDS:
+            if s.get(f) in (None, ""):
+                err(w, f"required field '{f}' is missing or empty")
+
+        for f in ("title", "publisher", "url", "edition", "notes", "doi", "published", "accessed"):
+            if s.get(f) is not None and not isinstance(s[f], (str, int)) or isinstance(s.get(f), bool):
+                err(w, f"{f} must be a string, got {s.get(f)!r}")
         if s.get("url") and not str(s["url"]).startswith(("https://", "http://")):
-            err(w, "url must be http(s)")
-        if s.get("type") not in REG_TYPES:
-            err(w, f"type must be one of {REG_TYPES}")
-        if s.get("tier") not in range(1, 7):
-            err(w, "tier must be 1–6")
-        if s.get("license") not in LICENSES:
-            err(w, f"unknown license: {s.get('license')!r}")
-        if s.get("usage") not in USAGES:
-            err(w, f"usage must be one of {USAGES}")
-        if s.get("access") not in ACCESS:
-            err(w, f"access must be one of {ACCESS}")
-        if s.get("status") not in SRC_STATUS:
-            err(w, f"status must be one of {SRC_STATUS}")
+            err(w, f"url={s['url']!r} must start with http:// or https://")
+        _enum(w, s, "type", REG_TYPES)
+        if not _is_int(s.get("tier")) or s.get("tier") not in range(1, 7):
+            err(w, f"tier={s.get('tier')!r} must be an integer 1–6 (see research-protocol.md)")
+        _enum(w, s, "license", LICENSES)
+        _enum(w, s, "usage", USAGES)
+        _enum(w, s, "access", ACCESS)
+        _enum(w, s, "status", SRC_STATUS)
+
         if s.get("usage") == "adapt-with-attribution" and s.get("license") not in OPEN_LICENSES:
-            err(w, "adapt-with-attribution is only for open licenses (CC BY/SA, MIT, Apache, public-domain)")
+            err(w, f"usage 'adapt-with-attribution' needs an open license {sorted(OPEN_LICENSES)}, "
+                   f"got {s.get('license')!r}; use 'rewrite-only' instead")
         if s.get("tier") == 6 and s.get("usage") != "map-only":
-            err(w, "tier 6 requires usage: map-only")
+            err(w, f"tier 6 sources must have usage 'map-only', got {s.get('usage')!r}")
+        if s.get("usage") == "map-only" and s.get("tier") != 6:
+            warn(w, "usage 'map-only' is meant for tier 6 sources")
+        hint = TYPE_TIER_HINT.get(s.get("type"))
+        if hint and s.get("tier") not in hint:
+            warn(w, f"type '{s.get('type')}' usually has tier {sorted(hint)}, got {s.get('tier')!r}")
+        if s.get("tier") == 5 and s.get("license") not in OPEN_LICENSES:
+            warn(w, "tier 5 means open material, but the license is not open")
+
         acc = str(s.get("accessed") or "")
-        if acc and not DATE.match(acc):
-            err(w, "accessed must be YYYY-MM-DD")
-        elif acc and len(acc) == 10 and acc > date.today().isoformat():
-            err(w, "accessed is in the future")
+        if acc and not (FULL_DATE.match(acc) and _valid_date(acc)):
+            err(w, f"accessed={acc!r} must be a valid full date YYYY-MM-DD")
+        elif acc and acc > date.today().isoformat():
+            err(w, f"accessed={acc!r} is in the future")
         pub = str(s.get("published") or "")
-        if pub and not DATE.match(pub):
-            err(w, "published must be YYYY, YYYY-MM, or YYYY-MM-DD")
-        units = s.get("units") or []
-        if not all(isinstance(u, int) and 1 <= u <= 6 for u in units):
-            err(w, "units must be numbers 1–6")
+        if pub and not (DATE.match(pub) and _valid_date(pub)):
+            err(w, f"published={pub!r} must be a valid YYYY, YYYY-MM, or YYYY-MM-DD")
+        if s.get("doi") and not DOI.match(str(s["doi"])):
+            err(w, f"doi={s['doi']!r} must be a bare DOI like 10.1145/3713082.3730380 (no https://doi.org/ prefix)")
+
+        _str_list(w, s, "authors")
+        _str_list(w, s, "free_companion")
+        units = s.get("units")
+        if units is not None:
+            if not isinstance(units, list) or not all(_is_int(u) and 1 <= u <= 6 for u in units):
+                err(w, f"units={units!r} must be a list of integers 1–6")
+            elif len(set(units)) != len(units):
+                err(w, f"units has duplicate entries: {units!r}")
+        for tp in _str_list(w, s, "topics"):
+            if not KEBAB.match(tp):
+                err(w, f"topic {tp!r} must be kebab-case")
         if s.get("type") == "paper" and not s.get("doi"):
-            warn(w, "paper without a doi")
+            warn(w, "paper without a doi (add one if it exists)")
+        if s.get("type") == "book" and not s.get("edition") and s.get("status") == "approved":
+            warn(w, "approved book without an edition")
+
+        notes = str(s.get("notes") or "")
         if s.get("status") == "approved":
             if s.get("license") == "unknown":
-                err(w, "an approved source must not have license: unknown")
-            if "SEED" in str(s.get("notes") or ""):
-                err(w, "an approved source is still marked SEED (not yet verified)")
-        if s.get("access") == "paywalled" and s.get("status") == "approved" and not s.get("notes"):
-            warn(w, "a paywalled source should note a free companion in notes")
+                err(w, "an approved source must not have license 'unknown'; verify it on the source page")
+            if SEED_MARK.search(notes):
+                err(w, "an approved source is still marked SEED (not yet verified); resolve and remove the SEED note")
+            if not s.get("authors") and "NO-AUTHOR:" not in notes:
+                err(w, "approved source has no authors; add them, or put 'NO-AUTHOR: <reason>' in notes")
+            if not s.get("published") and "NO-DATE:" not in notes:
+                err(w, "approved source has no published date; add it, or put 'NO-DATE: <reason>' in notes")
+            if not s.get("units"):
+                err(w, "approved source must list the curriculum units it serves (units: [..])")
+            if not s.get("topics"):
+                err(w, "approved source must list the topics it covers (topics: [..])")
+            if s.get("access") == "paywalled" and not s.get("free_companion"):
+                err(w, "approved paywalled source needs free_companion: [registry ids of free sources "
+                       "covering the same topics] (research-protocol.md, acceptance criteria)")
+        if s.get("status") in ("rejected", "deprecated") and not notes:
+            warn(w, f"status '{s.get('status')}' should be explained in notes")
+        if s.get("status") == "deprecated" and not s.get("superseded_by") and not notes:
+            warn(w, "deprecated source should name its replacement in superseded_by (or explain in notes)")
+
+    for sid, s in out.items():
+        w = f"{where} [{sid}]"
+        fc = s.get("free_companion")
+        for c in fc if isinstance(fc, list) and all(isinstance(x, str) for x in fc) else []:
+            if c == sid:
+                err(w, "free_companion must not reference itself")
+            elif c not in out:
+                err(w, f"free_companion references unknown source id: {c}")
+            elif out[c].get("access") != "free":
+                err(w, f"free_companion {c} must have access 'free', got {out[c].get('access')!r}")
+        sup = s.get("superseded_by")
+        if sup:
+            if not isinstance(sup, str):
+                err(w, f"superseded_by must be a single registry id, got {sup!r}")
+                continue
+            if s.get("status") != "deprecated":
+                err(w, "superseded_by is only valid on sources with status 'deprecated'")
+            if sup == sid:
+                err(w, "superseded_by must not reference itself")
+            elif sup not in out:
+                err(w, f"superseded_by references unknown source id: {sup}")
     return out
 
 
