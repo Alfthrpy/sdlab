@@ -32,11 +32,11 @@ Follow P1-016 Tasks 1–5 for each entry in scope, SEED and Tier 1–3 first:
 - [x] Every in-scope entry reopened this session and has `verified_on`
 - [x] No empty `authors`/`published` without a `NO-AUTHOR`/`NO-DATE` explanation
 - [x] No `license: unknown` without an explanation; no `SEED` notes left
-- [ ] `source-verifier` passes (sample)
+- [x] `source-verifier` passes (sample)
 - [x] `python scripts/validate.py` passes
 
 ## Notes
 
 (Filled in during the work.)
 
-Done 2026-11-12: all 25 entries with primary unit 0 reopened (WebFetch) and given `verified_on`. Metadata matched the registry; no corrections to authors/dates/versions were needed. Changes: 8 `unknown` licenses resolved to `all-rights-reserved` (pages state no license; see the amended protocol rule 4), `NO-DATE:` explanations added for undated docs, OpenTelemetry got `NO-AUTHOR:` and an `attribution` line (CC BY 4.0 re-confirmed from the opentelemetry.io repo README). Simulated approval of all 25 passes the validator. Open choices for G0: pgbouncer/prometheus/hikaricp docs repos show ISC/Apache-2.0 but do not say they cover the docs text, so the conservative reading was kept. `source-verifier` pass NOT done (owner asked for no subagents this session): still open.
+Done 2026-11-12: all 25 entries with primary unit 0 reopened (WebFetch) and given `verified_on`. Metadata matched the registry; no corrections to authors/dates/versions were needed. Changes: 8 `unknown` licenses resolved to `all-rights-reserved` (pages state no license; see the amended protocol rule 4), `NO-DATE:` explanations added for undated docs, OpenTelemetry got `NO-AUTHOR:` and an `attribution` line (CC BY 4.0 re-confirmed from the opentelemetry.io repo README). Simulated approval of all 25 passes the validator. Open choices for G0: pgbouncer/prometheus/hikaricp docs repos show ISC/Apache-2.0 but do not say they cover the docs text, so the conservative reading was kept. source-verifier (11 entries reopened, incl. Tier 1) found stale or contradictory notes on hikaricp, pgbouncer, gregg-use-method, opentelemetry; fixed (no metadata or license values changed).
