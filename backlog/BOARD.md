@@ -9,7 +9,7 @@
 | Ticket | Judul | Prioritas | Estimasi (sesi) |
 | --- | --- | --- | --- |
 | [P1-010](tickets/P1-010-finalisasi-kriteria-sumber-dan-skema-registry.md) | Finalisasi kriteria sumber dan skema registry | high | 1 |
-| [P1-065](tickets/P1-065-selaraskan-dokumen-dengan-target-junior-dan.md) | Selaraskan dokumen dengan target junior dan tujuan produksi | high | 1 |
+| [P1-065](tickets/P1-065-selaraskan-dokumen-dengan-target-junior-dan.md) | Selaraskan dokumen dengan target junior dan tiga tujuan | high | 1 |
 | [P1-004](tickets/P1-004-mirror-backlog-ke-github-projects-opsional.md) | Mirror backlog ke GitHub Projects (opsional) | low | 1 |
 
 ## Menunggu owner (manusia)
@@ -33,7 +33,7 @@
 | ✓ | [P1-002](tickets/P1-002-keputusan-bahasa-konten-dan-target-pengguna.md) | Keputusan: bahasa konten dan target pengguna | human | none | — |
 | · | [P1-003](tickets/P1-003-keputusan-nama-kerja-lisensi-konten-dan.md) | Keputusan: nama kerja, lisensi konten, dan reviewer teknis | human | none | — |
 | · | [P1-004](tickets/P1-004-mirror-backlog-ke-github-projects-opsional.md) | Mirror backlog ke GitHub Projects (opsional) | agent | human | P1-001 |
-| · | [P1-065](tickets/P1-065-selaraskan-dokumen-dengan-target-junior-dan.md) | Selaraskan dokumen dengan target junior dan tujuan produksi | agent | agent | P1-002 |
+| · | [P1-065](tickets/P1-065-selaraskan-dokumen-dengan-target-junior-dan.md) | Selaraskan dokumen dengan target junior dan tiga tujuan | agent | agent | P1-002 |
 
 ### M1 — Registry Referensi (0/10 selesai)
 

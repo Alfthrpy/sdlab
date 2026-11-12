@@ -31,5 +31,5 @@ ADR 0003 memakai default sementara (Indonesia, junior–mid + mahasiswa, tujuan 
 
 ## Catatan
 
-Keputusan owner 2026-11-12: target mahasiswa dan junior engineer; tujuan memahami sistem skala produksi / belajar hal baru. Bahasa tidak disebut eksplisit, jadi default Indonesia dipertahankan dan ditandai belum dikonfirmasi di ADR 0004.
-Dampak ke dokumen yang masih berkerangka interview dipisah ke P1-065.
+Keputusan owner 2026-11-12: target mahasiswa dan junior engineer; tiga tujuan setara: memahami sistem skala produksi, belajar hal baru, dan persiapan interview (interview ditambahkan owner setelah keputusan pertama). Bahasa tidak disebut eksplisit, jadi default Indonesia dipertahankan dan ditandai belum dikonfirmasi di ADR 0004.
+Penyelarasan dokumen dengan tiga tujuan dan target junior dipisah ke P1-065.
