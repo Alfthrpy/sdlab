@@ -2121,13 +2121,14 @@ sources:
     doi: null
     published: "2014-05-20"
     accessed: "2026-11-12"
-    license: unknown
+    verified_on: "2026-11-12"
+    license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [5]
     topics: [consensus, raft, leader-election, log-replication, quorum, membership-change, replicated-state-machine]
     status: candidate
-    notes: "Read via text extraction of the PDF. First page says it is an extended version of the conference paper, 'Published May 20, 2014'; the venue (USENIX ATC 2014, Best Paper) comes from raft.github.io, not from the PDF. No copyright or license statement in the PDF text, so license unknown. Sections read: 1, 5.1-5.3, 5.6 (timing); 5.4 (safety) and 6 (membership) skimmed; 8 (client interaction), 7 (compaction), proofs and evaluation not read closely."
+    notes: "Read via text extraction of the PDF. First page says it is an extended version of the conference paper, 'Published May 20, 2014'; the venue (USENIX ATC 2014, Best Paper) comes from raft.github.io, not from the PDF. No copyright or license statement in the PDF text. Sections read: 1, 5.1-5.3, 5.6 (timing); 5.4 (safety) and 6 (membership) skimmed; 8 (client interaction), 7 (compaction), proofs and evaluation not read closely. Reopened 2026-11-12; title, authors, 2014-05-20 date confirmed on page 1. Still no copyright or license text in the PDF, so recorded as all-rights-reserved (conservative; usage stays rewrite-only). Free copy on the project site."
 
   - id: raft-github-io
     title: "The Raft Consensus Algorithm (project site)"
@@ -2139,13 +2140,14 @@ sources:
     doi: null
     published: null
     accessed: "2026-11-12"
+    verified_on: "2026-11-12"
     license: CC-BY-3.0
     usage: rewrite-only
     access: free
     units: [5]
     topics: [consensus, raft, leader-election, visualization, implementations]
     status: candidate
-    notes: "NO-AUTHOR, NO-DATE on the page. Official project documentation/hub for Raft. The page states CC BY 3.0 Unported. Hub page: links RaftScope and 'The Secret Lives of Data' visualizations, the paper, Ongaro's dissertation, talks, courses, implementation table. Use as a pointer to the visualizations, not as a primary explanation."
+    notes: "NO-AUTHOR, NO-DATE on the page. Official project documentation/hub for Raft. The page states CC BY 3.0 Unported. Hub page: links RaftScope and 'The Secret Lives of Data' visualizations, the paper, Ongaro's dissertation, talks, courses, implementation table. Use as a pointer to the visualizations, not as a primary explanation. Reopened 2026-11-12; footer confirms CC BY 3.0 Unported."
 
   - id: lamport-time-clocks-1978
     title: "Time, Clocks, and the Ordering of Events in a Distributed System"
@@ -2157,13 +2159,14 @@ sources:
     doi: null
     published: "1978-07"
     accessed: "2026-11-12"
+    verified_on: "2026-11-12"
     license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [5]
     topics: [logical-clocks, happened-before, lamport-clock, total-ordering, physical-clocks, clock-drift, causality]
     status: candidate
-    notes: "Read via text extraction of the PDF (the fetch tool could not read it). Page footers: 'Copyright 1978 ACM 0001-0782/78/0700-0558'; the first page grants fair use for teaching or research with ACM notice. Free copy hosted on Lamport's publication site (an azurewebsites mirror, URL may move). No DOI verified. Sections: partial ordering, logical clocks, total ordering and mutual-exclusion example, physical clocks and their synchronization bound. Vector clocks are not in this paper."
+    notes: "Read via text extraction of the PDF (the fetch tool could not read it). Page footers: 'Copyright 1978 ACM 0001-0782/78/0700-0558'; the first page grants fair use for teaching or research with ACM notice. Free copy hosted on Lamport's publication site (an azurewebsites mirror, URL may move). No DOI verified. Sections: partial ordering, logical clocks, total ordering and mutual-exclusion example, physical clocks and their synchronization bound. Vector clocks are not in this paper. Reopened 2026-11-12; title, author and (c) 1978 ACM confirmed from the PDF text."
 
   - id: lamport-paxos-made-simple
     title: "Paxos Made Simple"
@@ -2175,13 +2178,14 @@ sources:
     doi: null
     published: "2001-11-01"
     accessed: "2026-11-12"
-    license: unknown
+    verified_on: "2026-11-12"
+    license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [5]
     topics: [consensus, paxos, quorum, acceptors, proposers, replicated-state-machine]
     status: candidate
-    notes: "Read via text extraction of the PDF. Title page shows 'Leslie Lamport, 01 Nov 2001'; no venue or copyright statement in the PDF, so license unknown. Sections 2.1-2.5 (problem, choosing a value, learning, progress, implementation) and 3 (state machine). Short, but dense; pair with the Raft paper and SRE book ch. 23 for learners."
+    notes: "Read via text extraction of the PDF. Title page shows 'Leslie Lamport, 01 Nov 2001'; no venue or copyright statement in the PDF. Sections 2.1-2.5 (problem, choosing a value, learning, progress, implementation) and 3 (state machine). Short, but dense; pair with the Raft paper and SRE book ch. 23 for learners. Reopened 2026-11-12; title, author and date confirmed. No license or copyright text in the PDF, so recorded as all-rights-reserved (conservative; usage stays rewrite-only)."
 
   - id: chubby-lock-service
     title: "The Chubby lock service for loosely-coupled distributed systems"
@@ -2193,13 +2197,14 @@ sources:
     doi: null
     published: "2006-11"
     accessed: "2026-11-12"
-    license: unknown
+    verified_on: "2026-11-12"
+    license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [5]
     topics: [locks, leases, leader-election, coarse-grained-locking, sessions, sequencer, fencing, consensus, paxos]
     status: candidate
-    notes: "Venue and date confirmed from the USENIX OSDI '06 technical sessions page (https://www.usenix.org/legacy/event/osdi06/tech/): OSDI '06, session Distributed Storage and Locking, 8 November 2006. The PDF text itself prints no venue or year. No copyright or license text in the PDF, so license unknown. Read via text extraction: Abstract, 1, 2.1 rationale, 2.4 locks and sequencers, 2.8 sessions and KeepAlives, 2.9 fail-overs, 4 use and surprises, 4.6 lessons. Google-internal system; Chubby itself is not available to learners."
+    notes: "Venue and date confirmed from the USENIX OSDI '06 technical sessions page (https://www.usenix.org/legacy/event/osdi06/tech/): OSDI '06, session Distributed Storage and Locking, 8 November 2006. The PDF text itself prints no venue or year. No copyright or license text in the PDF. Read via text extraction: Abstract, 1, 2.1 rationale, 2.4 locks and sequencers, 2.8 sessions and KeepAlives, 2.9 fail-overs, 4 use and surprises, 4.6 lessons. Google-internal system; Chubby itself is not available to learners. Reopened 2026-11-12; title, author confirmed. No license or copyright text in the PDF, so recorded as all-rights-reserved (conservative; usage stays rewrite-only)."
 
   - id: zookeeper-atc-paper
     title: "ZooKeeper: Wait-free coordination for Internet-scale systems"
@@ -2211,13 +2216,14 @@ sources:
     doi: null
     published: "2010-06"
     accessed: "2026-11-12"
-    license: unknown
+    verified_on: "2026-11-12"
+    license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [5]
     topics: [coordination-service, zookeeper, zab, znodes, watches, locks, leader-election, linearizable-writes]
     status: candidate
-    notes: "Venue and date confirmed from the USENIX ATC '10 technical sessions page (https://www.usenix.org/legacy/event/atc10/tech/): USENIX ATC '10, 24 June 2010. The PDF text read does not print the venue or year. No license statement found. Read via text extraction: headings 1 Introduction, 2.3 ZooKeeper guarantees, 2.4 primitives (lock without herd effect), 3 applications, 4 implementation. Evaluation section not read closely."
+    notes: "Venue and date confirmed from the USENIX ATC '10 technical sessions page (https://www.usenix.org/legacy/event/atc10/tech/): USENIX ATC '10, 24 June 2010. The PDF text read does not print the venue or year. Read via text extraction: headings 1 Introduction, 2.3 ZooKeeper guarantees, 2.4 primitives (lock without herd effect), 3 applications, 4 implementation. Evaluation section not read closely. Reopened 2026-11-12; title and four authors confirmed. No license statement in the PDF, so recorded as all-rights-reserved (conservative; usage stays rewrite-only)."
 
   - id: spanner-osdi12
     title: "Spanner: Google's Globally-Distributed Database"
@@ -2229,13 +2235,14 @@ sources:
     doi: null
     published: "2012-10"
     accessed: "2026-11-12"
-    license: unknown
+    verified_on: "2026-11-12"
+    license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [5]
     topics: [truetime, external-consistency, clock-uncertainty, commit-wait, globally-distributed-database, paxos]
     status: candidate
-    notes: "Only the USENIX presentation page (abstract) was opened, not the PDF, so no reading notes. Page shows 'OSDI '12, Hollywood, CA', October 2012, Best Paper; footer is only '(c) USENIX' with a statement that papers are freely available, no per-paper license, so license unknown. The first URL form (osdi-12 with a hyphen) returned 404; this form works. Verifier: open the PDF and confirm the TrueTime sections before approval."
+    notes: "Only the USENIX presentation page (abstract) was opened, not the PDF, so no reading notes. Page shows 'OSDI '12, Hollywood, CA', October 2012, Best Paper; footer is only '(c) USENIX' with a statement that papers are freely available, no per-paper license. The first URL form (osdi-12 with a hyphen) returned 404; this form works. Verifier: open the PDF and confirm the TrueTime sections before approval. Reopened 2026-11-12; authors and OSDI '12 confirmed on the page. USENIX Open Access statement makes the paper freely available but names no license, so recorded as all-rights-reserved (conservative; usage stays rewrite-only). The PDF itself was not opened this pass; the TrueTime sections must be read by the content writer."
 
   - id: kleppmann-distributed-locking-2016
     title: "How to do distributed locking"
@@ -2247,13 +2254,14 @@ sources:
     doi: null
     published: "2016-02-08"
     accessed: "2026-11-12"
+    verified_on: "2026-11-12"
     license: CC-BY-3.0
     usage: rewrite-only
     access: free
     units: [5]
     topics: [distributed-locks, leases, fencing-tokens, redlock, clock-jumps, process-pauses, consensus]
     status: candidate
-    notes: "Reopened 2026-11-12, full page read. Footer: Creative Commons Attribution 3.0 Unported. Page dated 8 Feb 2016; update note says Salvatore Sanfilippo (Redlock author) posted a rebuttal on 9 Feb 2016 and Kleppmann kept his conclusions. Author is a researcher and the DDIA author, but this is a blog post, so Tier 2 is a judgment call. Core argument: a lease alone cannot protect against paused clients; a monotonically increasing fencing token checked by the storage layer can; Redlock gives no fencing token and depends on timing. The rebuttal itself was not opened."
+    notes: "Reopened 2026-11-12, full page read. Footer: Creative Commons Attribution 3.0 Unported. Page dated 8 Feb 2016; update note says Salvatore Sanfilippo (Redlock author) posted a rebuttal on 9 Feb 2016 and Kleppmann kept his conclusions. Author is a researcher and the DDIA author, but this is a blog post, so Tier 2 is a judgment call. Core argument: a lease alone cannot protect against paused clients; a monotonically increasing fencing token checked by the storage layer can; Redlock gives no fencing token and depends on timing. The rebuttal itself was not opened. Reopened 2026-11-12; footer links CC BY 3.0 (site-wide license)."
 
   - id: kleppmann-stop-calling-cp-ap-2015
     title: "Please stop calling databases CP or AP"
@@ -2265,13 +2273,14 @@ sources:
     doi: null
     published: "2015-05-11"
     accessed: "2026-11-12"
+    verified_on: "2026-11-12"
     license: CC-BY-3.0
     usage: rewrite-only
     access: free
     units: [5]
     topics: [cap-theorem, linearizability, availability, partitions, critique]
     status: candidate
-    notes: "Real license: footer says Creative Commons Attribution 3.0 Unported. Critique of CAP: formal definitions are narrow (consistency = linearizability, availability = every live node answers, single register), many real systems fit neither CP nor AP. Opinionated; present as a critique next to Brewer 2012."
+    notes: "Real license: footer says Creative Commons Attribution 3.0 Unported. Critique of CAP: formal definitions are narrow (consistency = linearizability, availability = every live node answers, single register), many real systems fit neither CP nor AP. Opinionated; present as a critique next to Brewer 2012. Reopened 2026-11-12; footer links CC BY 3.0 (site-wide license)."
 
   - id: brewer-cap-twelve-years-2012
     title: "CAP Twelve Years Later: How the \"Rules\" Have Changed"
@@ -2283,13 +2292,14 @@ sources:
     doi: "10.1109/MC.2012.37"
     published: "2012-02"
     accessed: "2026-11-12"
+    verified_on: "2026-11-12"
     license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [5]
     topics: [cap-theorem, partitions, partition-mode, recovery, compensation, crdt, availability]
     status: candidate
-    notes: "Content read on the InfoQ republication (page says it first appeared in Computer, IEEE Computer Society; footer copyright C4Media 2006-2026; InfoQ date 2012-05-30 is the republication date, not the original). Original metadata confirmed from the Crossref record for DOI 10.1109/MC.2012.37 (title CAP twelve years later: How the rules have changed, Eric Brewer, Computer vol 45 issue 2, pp. 23-29, issued 2012-02). The IEEE Xplore page rendered empty, so it was not read; the article text was not compared against the IEEE version. Key ideas: 2 of 3 is misleading, partitions are rare and detected via timeouts, explicit partition mode, recovery and compensation."
+    notes: "Content read on the InfoQ republication (page says it first appeared in Computer, IEEE Computer Society; footer copyright C4Media 2006-2026; InfoQ date 2012-05-30 is the republication date, not the original). Original metadata confirmed from the Crossref record for DOI 10.1109/MC.2012.37 (title CAP twelve years later: How the rules have changed, Eric Brewer, Computer vol 45 issue 2, pp. 23-29, issued 2012-02). The IEEE Xplore page rendered empty, so it was not read; the article text was not compared against the IEEE version. Key ideas: 2 of 3 is misleading, partitions are rare and detected via timeouts, explicit partition mode, recovery and compensation. Reopened 2026-11-12; InfoQ footer 'copyright 2006-2026 C4Media Inc.' confirmed."
 
   - id: abadi-pacelc-2012
     title: "Consistency Tradeoffs in Modern Distributed Database System Design"
@@ -2301,13 +2311,14 @@ sources:
     doi: null
     published: "2012-02"
     accessed: "2026-11-12"
+    verified_on: "2026-11-12"
     license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [5]
     topics: [pacelc, cap-theorem, consistency-latency-tradeoff, distributed-databases]
     status: candidate
-    notes: "Read via text extraction of the PDF: cover feature, 'Daniel J. Abadi, Yale University'; page footer '0018-9162/12/$31.00 (c) 2012 IEEE, published by the IEEE Computer Society, February 2012'. Free copy on the author's page hosted at cs.umd.edu. Argument: CAP only constrains behaviour during partitions; PACELC adds the trade-off between latency and consistency that exists even when there is no partition. Only the opening was read closely; the system-classification table was not."
+    notes: "Read via text extraction of the PDF: cover feature, 'Daniel J. Abadi, Yale University'; page footer '0018-9162/12/$31.00 (c) 2012 IEEE, published by the IEEE Computer Society, February 2012'. Free copy on the author's page hosted at cs.umd.edu. Argument: CAP only constrains behaviour during partitions; PACELC adds the trade-off between latency and consistency that exists even when there is no partition. Only the opening was read closely; the system-classification table was not. Reopened 2026-11-12; title, author and (c) 2012 IEEE confirmed from the PDF."
 
   - id: vogels-eventually-consistent-2008
     title: "Eventually Consistent - Revisited"
@@ -2319,13 +2330,14 @@ sources:
     doi: null
     published: "2008-12-23"
     accessed: "2026-11-12"
-    license: unknown
+    verified_on: "2026-11-12"
+    license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [5]
     topics: [eventual-consistency, read-your-writes, session-consistency, monotonic-reads, causal-consistency, quorum]
     status: candidate
-    notes: "Footer says only 2026 All Things Distributed, no license. Defines causal, read-your-writes, session, monotonic reads and monotonic writes as variants of eventual consistency; says RYW and monotonic reads are the most useful. Page mentions an earlier ACM Queue version (not opened). Vocabulary differs slightly from Jepsen's formal definitions; use Jepsen for precision."
+    notes: "Defines causal, read-your-writes, session, monotonic reads and monotonic writes as variants of eventual consistency; says RYW and monotonic reads are the most useful. Page mentions an earlier ACM Queue version (not opened). Vocabulary differs slightly from Jepsen's formal definitions; use Jepsen for precision. Reopened 2026-11-12; page date 2008-12-23 confirmed. Page metadata names All Things Distributed as copyright holder (2008) and no license, so recorded as all-rights-reserved (usage stays rewrite-only)."
 
   - id: jepsen-linearizable
     title: "Linearizability (Jepsen consistency models)"
@@ -2337,13 +2349,14 @@ sources:
     doi: null
     published: null
     accessed: "2026-11-12"
+    verified_on: "2026-11-12"
     license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [5]
     topics: [linearizability, strict-serializability, sequential-consistency, availability, real-time-order]
     status: candidate
-    notes: "NO-AUTHOR, NO-DATE on the page. Footer: Copyright Jepsen, LLC. Defines linearizability as every operation appearing to take effect at one instant between start and finish, in a real-time-respecting total order, typically per object; says it cannot be totally available or sticky available. Companion to jepsen-consistency-models (landing page; opened and confirmed to be an intro to models, phenomena, dependencies with no list of models on that page). Other model pages (sequential, causal, session guarantees) not opened yet."
+    notes: "NO-AUTHOR, NO-DATE on the page. Footer: Copyright Jepsen, LLC. Defines linearizability as every operation appearing to take effect at one instant between start and finish, in a real-time-respecting total order, typically per object; says it cannot be totally available or sticky available. Companion to jepsen-consistency-models (landing page; opened and confirmed to be an intro to models, phenomena, dependencies with no list of models on that page). Other model pages (sequential, causal, session guarantees) not opened yet. Reopened 2026-11-12; page and footer confirmed."
 
   - id: etcd-docs-why
     title: "etcd versus other key-value stores"
@@ -2351,18 +2364,19 @@ sources:
     publisher: etcd Authors (etcd.io)
     type: docs
     tier: 2
-    url: https://etcd.io/docs/v3.6/learning/why/
+    url: https://etcd.io/docs/v3.7/learning/why/
     doi: null
     published: null
     accessed: "2026-11-12"
-    license: unknown
+    verified_on: "2026-11-12"
+    license: CC-BY-4.0
     usage: rewrite-only
     access: free
     units: [5]
     topics: [etcd, coordination-service, raft, zookeeper, consul, leader-election, service-discovery]
     status: candidate
-    version: "etcd v3.6 docs"
-    notes: "NO-AUTHOR; the page shows 'last modified July 10, 2026' but that is a site build date, so published is null. Footer: Copyright 2013-2026 etcd Authors, links a LICENSE file but does not name it (etcd website repo license not verified), so license unknown. Written by the etcd team, so comparisons with ZooKeeper and Consul are self-interested. Useful for trigger hints: etcd stores small metadata in one replication group (a few GB), choose a NewSQL database for large data."
+    version: "etcd v3.7 docs"
+    notes: "NO-AUTHOR; the page shows 'last modified July 10, 2026' but that is a site build date, so published is null. Footer: Copyright 2013-2026 etcd Authors. Written by the etcd team, so comparisons with ZooKeeper and Consul are self-interested. Useful for trigger hints: etcd stores small metadata in one replication group (a few GB), choose a NewSQL database for large data. Reopened 2026-11-12. etcd.io/docs/latest now redirects to v3.7, so the URL moved from v3.6 to v3.7 (page text identical to v3.6 for this page). Footer says 'All Rights Reserved' (Docsy theme boilerplate) and links the etcd-io/website LICENSE file, which says content is CC BY 4.0 and code samples Apache-2.0; license inferred from that repo file, not from the page text."
 
   - id: etcd-docs-api-guarantees
     title: "etcd API guarantees"
@@ -2370,18 +2384,19 @@ sources:
     publisher: etcd Authors (etcd.io)
     type: docs
     tier: 2
-    url: https://etcd.io/docs/v3.6/learning/api_guarantees/
+    url: https://etcd.io/docs/v3.7/learning/api_guarantees/
     doi: null
     published: null
     accessed: "2026-11-12"
-    license: unknown
+    verified_on: "2026-11-12"
+    license: CC-BY-4.0
     usage: rewrite-only
     access: free
     units: [5]
     topics: [etcd, strict-serializability, linearizable-reads, revisions, watches, leases, raft]
     status: candidate
-    version: "etcd v3.6 docs"
-    notes: "NO-AUTHOR, NO-DATE. Footer: Copyright 2013-2026 etcd Authors; license not named, so unknown. States reads are linearizable by default (cost: a consensus round) with an opt-in serializable (possibly stale) mode, revisions as a logical clock, watch ordering, leases with TTL, and that timed-out operations may have unknown outcome."
+    version: "etcd v3.7 docs"
+    notes: "NO-AUTHOR, NO-DATE. Footer: Copyright 2013-2026 etcd Authors. States reads are linearizable by default (cost: a consensus round) with an opt-in serializable (possibly stale) mode, revisions as a logical clock, watch ordering, leases with TTL, and that timed-out operations may have unknown outcome. Reopened 2026-11-12. etcd.io/docs/latest now redirects to v3.7, so the URL moved from v3.6 to v3.7; the v3.7 page adds a RangeStream API mention, otherwise the same. License inferred from the linked etcd-io/website LICENSE file (content CC BY 4.0); the page footer itself only says 'All Rights Reserved' (Docsy boilerplate)."
 
   - id: zookeeper-docs-overview
     title: "ZooKeeper: Because Coordinating Distributed Systems is a Zoo (ZooKeeper 3.9 documentation)"
@@ -2393,14 +2408,15 @@ sources:
     doi: null
     published: null
     accessed: "2026-11-12"
-    license: unknown
+    verified_on: "2026-11-12"
+    license: Apache-2.0
     usage: rewrite-only
     access: free
     units: [5]
     topics: [zookeeper, znodes, ephemeral-nodes, watches, ordering-guarantees, coordination-service]
     status: candidate
     version: "ZooKeeper 3.9 (/current/ URL, will move)"
-    notes: "NO-AUTHOR, NO-DATE. Footer: copyright Apache Software Foundation and a link to the Apache licenses page; no license named for the docs text, so unknown. Covers guarantees (sequential consistency, atomicity, single system image, durability, timeliness), znode data model, ephemeral nodes, one-shot watches, global update ordering."
+    notes: "NO-AUTHOR, NO-DATE. Footer: copyright Apache Software Foundation and a link to the Apache licenses page. Covers guarantees (sequential consistency, atomicity, single system image, durability, timeliness), znode data model, ephemeral nodes, one-shot watches, global update ordering. Reopened 2026-11-12; the page carries an Apache License 2.0 header ('Copyright 2002-2004 The Apache Software Foundation, Licensed under the Apache License, Version 2.0'). 3.9 is still the page /current/ points at."
 
   - id: zookeeper-docs-recipes
     title: "ZooKeeper Recipes and Solutions (ZooKeeper 3.9 documentation)"
@@ -2412,14 +2428,15 @@ sources:
     doi: null
     published: null
     accessed: "2026-11-12"
-    license: unknown
+    verified_on: "2026-11-12"
+    license: Apache-2.0
     usage: rewrite-only
     access: free
     units: [5]
     topics: [zookeeper, distributed-locks, leader-election, herd-effect, ephemeral-sequential-nodes]
     status: candidate
     version: "ZooKeeper 3.9 (/current/ URL, will move)"
-    notes: "NO-AUTHOR, NO-DATE. Copyright Apache Software Foundation; license not named, so unknown. Lock and leader-election recipes with ephemeral sequential znodes, each waiter watching its predecessor to avoid a herd; caveats about lost create results. The recipe does not itself issue a fencing token (a client may still act after losing its session); compare with the Kleppmann post."
+    notes: "NO-AUTHOR, NO-DATE. Copyright Apache Software Foundation. Lock and leader-election recipes with ephemeral sequential znodes, each waiter watching its predecessor to avoid a herd; caveats about lost create results. The recipe does not itself issue a fencing token (a client may still act after losing its session); compare with the Kleppmann post. Reopened 2026-11-12; the page carries an Apache License 2.0 header (same as the overview page)."
 
   - id: k8s-docs-leases
     title: "Leases (Kubernetes documentation)"
@@ -2431,6 +2448,7 @@ sources:
     doi: null
     published: "2026-03-31"
     accessed: "2026-11-12"
+    verified_on: "2026-11-12"
     license: CC-BY-4.0
     usage: rewrite-only
     access: free
@@ -2438,7 +2456,7 @@ sources:
     topics: [leases, leader-election, node-heartbeats, kubernetes, ttl]
     status: candidate
     version: "Kubernetes docs (page lists v1.33 to v1.37 in its version menu; mentions features since v1.26 and v1.36)"
-    notes: "NO-AUTHOR. Date is the page's 'last modified' stamp. Page states the documentation is distributed under CC BY 4.0, with copyright 2026 The Kubernetes Authors. Lease objects in coordination.k8s.io used for node heartbeats and control-plane leader election; leader release on exit is an alpha flag. Good beginner-visible example of lease-based leadership. Does not discuss fencing, so pair with Kleppmann's post."
+    notes: "NO-AUTHOR. Date is the page's 'last modified' stamp. Page states the documentation is distributed under CC BY 4.0, with copyright 2026 The Kubernetes Authors. Lease objects in coordination.k8s.io used for node heartbeats and control-plane leader election; leader release on exit is an alpha flag. Good beginner-visible example of lease-based leadership. Does not discuss fencing, so pair with Kleppmann's post. Reopened 2026-11-12; footer 'Documentation Distributed under CC BY 4.0' confirmed."
 
   - id: redis-docs-distributed-locks
     title: "Distributed Locks with Redis"
@@ -2450,14 +2468,15 @@ sources:
     doi: null
     published: null
     accessed: "2026-11-12"
-    license: unknown
+    verified_on: "2026-11-12"
+    license: CC-BY-NC-SA-4.0
     usage: rewrite-only
     access: free
     units: [5]
     topics: [distributed-locks, redlock, leases, fencing-tokens, clock-drift, ttl]
     status: candidate
     version: "Redis docs /latest/ (mentions DELEX introduced in Redis 8.4)"
-    notes: "NO-AUTHOR, NO-DATE, no license text in the fetched content, so unknown. Describes single-instance SET NX PX locking, why failover replicas break mutual exclusion (async replication), and Redlock over 5 independent masters. The page itself says to implement fencing tokens, that Redis TTL uses wall-clock time, and points to Kleppmann's analysis. Read it with the Kleppmann post: the vendor page and the critique together."
+    notes: "NO-AUTHOR, NO-DATE. Describes single-instance SET NX PX locking, why failover replicas break mutual exclusion (async replication), and Redlock over 5 independent masters. The page itself says to implement fencing tokens, that Redis TTL uses wall-clock time, and points to Kleppmann's analysis. Read it with the Kleppmann post: the vendor page and the critique together. Reopened 2026-11-12. The page shows no license; the redis/docs repo LICENSE says the documentation is CC BY-NC-SA 4.0 (some older redis-doc portions are CC BY-SA 4.0), so license is inferred from the repo. NonCommercial and ShareAlike mean rewrite-only is the right usage (no adaptation)."
 
   - id: sre-book-managing-critical-state-ch23
     title: "Site Reliability Engineering, Chapter 23: Managing Critical State: Distributed Consensus for Reliability"
@@ -2469,13 +2488,14 @@ sources:
     doi: null
     published: "2017"
     accessed: "2026-11-12"
+    verified_on: "2026-11-12"
     license: CC-BY-NC-ND-4.0
     usage: rewrite-only
     access: free
     units: [5]
     topics: [consensus, paxos, split-brain, leader-election, cap-theorem, replicated-state-machine, quorum]
     status: candidate
-    notes: "Chapter-level entry for google-sre-book (same license). Reopened 2026-11-12: byline Laura Nolan, edited by Tim Harvey (editor, so not listed in authors). Footer: Copyright 2017 Google, Inc. Published by O'Reilly Media, Inc. Licensed under CC BY-NC-ND 4.0. published 2017 is this chapter footer copyright year; the google-sre-book entry also records 2017 (copyright year). Sections read: CAP Theorem; Motivating the Use of Consensus (three split-brain/failover/group-membership case studies); How Distributed Consensus Works (Paxos overview, architecture patterns); Distributed Consensus Performance (Multi-Paxos flow, stable leaders, batching, disk access)."
+    notes: "Chapter-level entry for google-sre-book (same license). Reopened 2026-11-12: byline Laura Nolan, edited by Tim Harvey (editor, so not listed in authors). Footer: Copyright 2017 Google, Inc. Published by O'Reilly Media, Inc. Licensed under CC BY-NC-ND 4.0. published 2017 is this chapter footer copyright year; the google-sre-book entry also records 2017 (copyright year). Sections read: CAP Theorem; Motivating the Use of Consensus (three split-brain/failover/group-membership case studies); How Distributed Consensus Works (Paxos overview, architecture patterns); Distributed Consensus Performance (Multi-Paxos flow, stable leaders, batching, disk access). Reopened 2026-11-12; footer 'Copyright 2017 Google, Inc. ... Licensed under CC BY-NC-ND 4.0' confirmed."
 
   - id: kulkarni-hybrid-logical-clocks
     title: "Logical Physical Clocks and Consistent Snapshots in Globally Distributed Databases"
@@ -2487,13 +2507,14 @@ sources:
     doi: null
     published: null
     accessed: "2026-11-12"
-    license: unknown
+    verified_on: "2026-11-12"
+    license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [5]
     topics: [hybrid-logical-clocks, hlc, lamport-clock, vector-clock, ntp, consistent-snapshots, physical-clocks]
     status: candidate
-    notes: "NO-DATE printed on the first page (title, authors and affiliations only; no venue, report number, or copyright). The Buffalo tech-report directory lists 2014-04.pdf with file date 2014-05-07, but that listing shows no title or venue, so 2014 is a hint only and published stays null. Tier 3 rests on a non-peer-reviewed tech report; the idea was later published as a peer-reviewed paper but that was not verified here. Read via text extraction: abstract, 1.1 brief history of time, 3 HLC algorithm, 4 resilience, 5 experiments. Introduces HLC: a 64-bit-compatible timestamp that stays close to NTP time yet preserves happened-before. Contains dense proofs."
+    notes: "NO-DATE printed on the first page (title, authors and affiliations only; no venue, report number, or copyright). The Buffalo tech-report directory lists 2014-04.pdf with file date 2014-05-07, but that listing shows no title or venue, so 2014 is a hint only and published stays null. Tier 3 rests on a non-peer-reviewed tech report; the idea was later published as a peer-reviewed paper but that was not verified here. Read via text extraction: abstract, 1.1 brief history of time, 3 HLC algorithm, 4 resilience, 5 experiments. Introduces HLC: a 64-bit-compatible timestamp that stays close to NTP time yet preserves happened-before. Contains dense proofs. Reopened 2026-11-12; title and five authors confirmed. No license or copyright text, so recorded as all-rights-reserved (conservative; usage stays rewrite-only)."
 
   - id: ntp-org-how-ntp-works
     title: "How NTP Works"
@@ -2505,14 +2526,15 @@ sources:
     doi: null
     published: null
     accessed: "2026-11-12"
-    license: unknown
+    verified_on: "2026-11-12"
+    license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [5]
     topics: [ntp, clock-synchronization, clock-offset, stratum, physical-clocks]
     status: candidate
     version: "NTP 4.2.8 series docs"
-    notes: "NO-AUTHOR, NO-DATE. Footer: copyright 2026 Network Time Foundation; no license named, so unknown. Operator-level explanation of NTP: stratum hierarchy, four timestamps for offset and delay, filtering/selection algorithms. Does not give typical error numbers that I can cite; for NTP error magnitude use the CockroachDB post (about 100-250 ms typical, per that post). Old 4.2.8 docs: check whether a newer series exists before approval."
+    notes: "NO-AUTHOR, NO-DATE. Footer: copyright 2026 Network Time Foundation. Operator-level explanation of NTP: stratum hierarchy, four timestamps for offset and delay, filtering/selection algorithms. Does not give typical error numbers that I can cite; for NTP error magnitude use the CockroachDB post (about 100-250 ms typical, per that post). Reopened 2026-11-12; page says 'Last update: November 23, 2022' (doc revision stamp, not a publication date, so published stays null). 4.2.8-series is the newest series on ntp.org/documentation, so not outdated. Footer is only (c) 2026 Network Time Foundation, so recorded as all-rights-reserved (conservative; usage stays rewrite-only)."
 
   - id: cockroach-living-without-atomic-clocks
     title: "Living without atomic clocks: Where CockroachDB and Spanner diverge"
@@ -2524,13 +2546,14 @@ sources:
     doi: null
     published: "2022-01-27"
     accessed: "2026-11-12"
+    verified_on: "2026-11-12"
     license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [5]
     topics: [clock-skew, truetime, uncertainty-interval, causal-reverse, max-offset, spanner, serializability]
     status: candidate
-    notes: "Page shows 'Published on January 27, 2022' by Spencer Kimball and Irfan Sharif. Footer: all rights reserved, Cockroach Labs 2026. Vendor engineering post (the operator of CockroachDB). Explains clock offset, max offset (node shuts itself down if exceeded), uncertainty intervals and restarts, and the causal reverse anomaly; compares to Spanner's ~7 ms TrueTime bound vs 100-250 ms for NTP (figures from the post, vendor claims). HLC was not seen in the post, so do not cite it for HLC."
+    notes: "Page shows 'Published on January 27, 2022' by Spencer Kimball and Irfan Sharif. Footer: all rights reserved, Cockroach Labs 2026. Vendor engineering post (the operator of CockroachDB). Explains clock offset, max offset (node shuts itself down if exceeded), uncertainty intervals and restarts, and the causal reverse anomaly; compares to Spanner's ~7 ms TrueTime bound vs 100-250 ms for NTP (figures from the post, vendor claims). HLC was not seen in the post, so do not cite it for HLC. Reopened 2026-11-12; authors and 'Published on January 27, 2022' confirmed."
 
   - id: mongodb-docs-causal-consistency
     title: "Causal Consistency and Read and Write Concerns (MongoDB Manual)"
@@ -2542,6 +2565,7 @@ sources:
     doi: null
     published: null
     accessed: "2026-11-12"
+    verified_on: "2026-11-12"
     license: all-rights-reserved
     usage: rewrite-only
     access: free
@@ -2549,7 +2573,7 @@ sources:
     topics: [causal-consistency, read-your-writes, monotonic-reads, monotonic-writes, session-guarantees, write-concern]
     status: candidate
     version: "MongoDB Manual 9.0 (current)"
-    notes: "NO-AUTHOR, NO-DATE. Footer shows only 'c 2026 MongoDB, Inc.' with no license terms; recorded as all-rights-reserved on that basis. Lists the four session guarantees (read your writes, monotonic reads, monotonic writes, writes follow reads) and which read/write concern combinations provide them. Concrete product example of session guarantees."
+    notes: "NO-AUTHOR, NO-DATE. Footer shows only 'c 2026 MongoDB, Inc.' with no license terms; recorded as all-rights-reserved on that basis. Lists the four session guarantees (read your writes, monotonic reads, monotonic writes, writes follow reads) and which read/write concern combinations provide them. Concrete product example of session guarantees. Reopened 2026-11-12; footer (c) 2026 MongoDB, Inc. confirmed."
 
   - id: flp-impossibility-1985
     title: "Impossibility of Distributed Consensus with One Faulty Process"
@@ -2561,13 +2585,14 @@ sources:
     doi: null
     published: "1985-04"
     accessed: "2026-11-12"
+    verified_on: "2026-11-12"
     license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [5]
     topics: [flp-impossibility, consensus, asynchrony, crash-failures]
     status: candidate
-    notes: "Opened a course-hosted scan (Princeton COS 418) with an OCR text layer; first page prints 'Journal of the ACM, Vol. 32, No. 2, April 1985, pp. 374-382', '1985 ACM', and an ACM fee-free copying permission notice, and says the work was first presented at the 2nd ACM PODS, March 1983. Abstract: every protocol for consensus in an asynchronous system has a possible non-terminating run even with one faulty process. An MIT tech report version (MIT-LCS-TR-282, September 1982) exists at dspace.mit.edu/handle/1721.1/149560 (landing page opened, no license stated). Only the first page and abstract were read; the proof was not. DOI not verified from an opened page, so doi: null."
+    notes: "Opened a course-hosted scan (Princeton COS 418) with an OCR text layer; first page prints 'Journal of the ACM, Vol. 32, No. 2, April 1985, pp. 374-382', '1985 ACM', and an ACM fee-free copying permission notice, and says the work was first presented at the 2nd ACM PODS, March 1983. Abstract: every protocol for consensus in an asynchronous system has a possible non-terminating run even with one faulty process. An MIT tech report version (MIT-LCS-TR-282, September 1982) exists at dspace.mit.edu/handle/1721.1/149560 (landing page opened, no license stated). Only the first page and abstract were read; the proof was not. DOI not verified from an opened page, so doi: null. Reopened 2026-11-12; first page and ACM notice confirmed."
 
   # ---- P1-015: Unit 6 production reliability (opened 2026-11-12) ----
 
@@ -2951,13 +2976,14 @@ sources:
     doi: null
     published: "2023-11-04"
     accessed: "2026-11-12"
-    license: unknown
+    verified_on: "2026-11-12"
+    license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [5, 6]
     topics: [power-failure, disaster-recovery, failover-assumptions, thundering-herd, single-site-dependency]
     status: candidate
-    notes: "Author per page sidebar (structured metadata lists only the Cloudflare Blog); date from page metadata. Event 2023-11-02 08:50 UTC to 2023-11-04 04:25 UTC. No footer copyright seen: license unknown. A data-center power failure took out the control plane's primary site; some services (Kafka, ClickHouse) were only there, so assumed active-active failover did not hold; retried API calls caused a thundering herd that needed rate limiting."
+    notes: "Author per page sidebar (structured metadata lists only the Cloudflare Blog); date from page metadata. Event 2023-11-02 08:50 UTC to 2023-11-04 04:25 UTC. A data-center power failure took out the control plane's primary site; some services (Kafka, ClickHouse) were only there, so assumed active-active failover did not hold; retried API calls caused a thundering herd that needed rate limiting. Reopened 2026-11-12; author Matthew Prince and publication date 2023-11-04 confirmed (page metadata datePublished; dateModified 2026-07-15). No license or copyright text found on the page, so recorded as all-rights-reserved (conservative; usage stays rewrite-only)."
 
   - id: datadog-incident-2023-03-08
     title: "2023-03-08 Incident: Infrastructure connectivity issue affecting multiple regions"
