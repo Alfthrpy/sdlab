@@ -21,14 +21,14 @@ Used in all `type: research` tickets and whenever an agent adds a source to the 
    - Official technology documentation
    - Official postmortems (company status pages/blogs)
    - Openly licensed material
-3. Open each candidate, fill in a registry entry per `templates/source-entry.yaml`, with status `candidate`.
+3. Open each candidate, fill in a registry entry per `templates/source-entry.yaml`, with status `candidate`. Set `version` when the source has no edition (docs, repos), and `archive_url` for pages likely to move (optional). Leave `verified_on` empty; it is set at verification time.
 4. For important sources (Tier 1–3 that will be used often), write reading notes at `references/notes/<id>.md` using `templates/source-notes.md`. They contain points in your own words with chapter or page references, **not copied text**. Notes are in English.
 5. Run `python scripts/validate.py`.
 6. Call the `source-verifier` subagent to reopen a sample of new URLs (at least 30%, or all if < 10) and match metadata.
 
 ## Fields the validator enforces before approval
 
-A source can move from `candidate` to `approved` only if: the license is known; `authors` and `published` are filled (or `notes` has a `NO-AUTHOR:` / `NO-DATE:` explanation); `units` and `topics` are set; paywalled sources have a `free_companion`; no `SEED` marker remains. The full rule list is in `content-schema.md` §1.
+A source can move from `candidate` to `approved` only if: the license is known; `authors` and `published` are filled (or `notes` has a `NO-AUTHOR:` / `NO-DATE:` explanation); `units` and `topics` are set; paywalled sources have a `free_companion`; `verified_on` is set; `adapt-with-attribution` sources have an `attribution` line; no `SEED` marker remains. The full rule list is in `content-schema.md` §1.
 
 ## Source acceptance criteria (used in P1-010 and G0)
 

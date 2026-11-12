@@ -27,6 +27,11 @@ sources:
     status: candidate                 # candidate | approved | rejected | deprecated
     free_companion: []                # registry ids of FREE sources covering the same topics (required if approved + paywalled)
     superseded_by: null               # registry id of the newer edition (only with status: deprecated)
+    version: ""                       # doc/repo version or commit hash when there is no edition (e.g. "commit 1a2b3c4")
+    archive_url: ""                   # web.archive.org snapshot, protects against link rot
+    attribution: ""                   # credit line to paste into content; required if approved + adapt-with-attribution
+    lang: en                          # en | id (default en; set id for Indonesian-language sources)
+    verified_on: ""                   # YYYY-MM-DD the page was reopened and metadata checked (required if approved)
     notes: ""                         # reasons, warnings, caveats (English)
 ```
 
@@ -42,6 +47,8 @@ Validator rules (errors unless marked warning):
 - `superseded_by` is only valid with `status: deprecated` and must name an existing id.
 - Additional rules for `status: approved`:
   - `license` is not `unknown`, and the `SEED` marker is gone from `notes`.
+  - `verified_on` is set (a valid date, not in the future).
+  - `usage: adapt-with-attribution` has an `attribution` credit line.
   - `authors` and `published` are filled in, or `notes` contains `NO-AUTHOR: <reason>` / `NO-DATE: <reason>` (e.g. a corporate postmortem).
   - `units` and `topics` are not empty.
   - `access: paywalled` requires a non-empty `free_companion`.
