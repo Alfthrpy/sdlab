@@ -21,7 +21,7 @@ sections_read: ["Quantiles", "Bucketing", "Errors of quantile estimation"]
 
 | Fact | Location | Context note |
 | --- | --- | --- |
-| No date or version on the page; footer credits Prometheus Authors 2014-2026 | page footer | Docs license unclear (license: unknown in registry) |
+| No date or version on the page; footer credits Prometheus Authors 2014-2026 | page footer | Docs license unclear (license: all-rights-reserved in registry; the Apache 2 footer does not clearly cover the docs text) |
 
 ## Relevant to concepts
 
