@@ -5,9 +5,9 @@ milestone: M1
 type: research
 owner: agent
 review: agent
-status: in-progress
+status: todo
 priority: high
-depends_on: [P1-011, P1-012, P1-013, P1-014, P1-015, P1-069]
+depends_on: [P1-011, P1-012, P1-013, P1-014, P1-015, P1-069, P1-016a, P1-016b, P1-016c, P1-016d, P1-016e, P1-016f, P1-016g]
 estimate: 2
 outputs:
   - references/registry.yaml
@@ -36,4 +36,4 @@ Includes the 11 SEED entries from the initial research, some of whose metadata c
 
 ## Notes
 
-(Filled in during the work.)
+Split on 2026-11-12 into P1-016a–g (one per primary unit 0–6, 20–26 entries each) because 163 candidate entries do not fit one session. This ticket closes when all seven are done and a final `python scripts/validate.py` plus a sample `source-verifier` pass confirm the done criteria across the whole registry.
