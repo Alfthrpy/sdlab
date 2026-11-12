@@ -1877,7 +1877,7 @@ sources:
     units: [4]
     topics: [visibility-timeout, ack, redelivery, in-flight-messages, at-least-once, heartbeat]
     status: candidate
-    notes: "NO-AUTHOR: AWS documentation, no author. NO-DATE: no date in the fetched text. No license statement in the fetched content (re-checked 2026-11-12), so treated as all-rights-reserved. NO-AUTHOR: corporate documentation. NO-DATE and no version on the fetched text; the page footer was not visible in the fetch, so license is unknown (AWS docs are normally all rights reserved; not verified). Facts on the page: default 30 s, extend via ChangeMessageVisibility, 12-hour maximum from first receive, about 120,000 in-flight limit for standard queues, at-least-once still allows duplicates inside the timeout. Quotas change; re-check at verification."
+    notes: "NO-AUTHOR: AWS documentation, no author. NO-DATE: no date in the fetched text. No license statement in the fetched content (re-checked 2026-11-12), so treated as all-rights-reserved. Facts on the page: default 30 s, extend via ChangeMessageVisibility, 12-hour maximum from first receive, about 120,000 in-flight limit for standard queues, at-least-once still allows duplicates inside the timeout. Quotas change; re-check at verification."
     verified_on: "2026-11-12"
 
   - id: aws-sqs-dead-letter-queues
@@ -1896,7 +1896,7 @@ sources:
     units: [4]
     topics: [dlq, dead-letter-queue, redrive, max-receive-count, retention, poison-messages]
     status: candidate
-    notes: "NO-AUTHOR: AWS documentation, no author. NO-DATE: no date in the fetched text. No license statement in the fetched content (re-checked 2026-11-12), so treated as all-rights-reserved. NO-AUTHOR: corporate documentation. NO-DATE. Footer not visible in the fetch, so license unknown (not verified). Covers redrive policy and maxReceiveCount, DLQ must be in the same account and Region, retention should be longer than the source queue, do not use a DLQ with FIFO if order matters."
+    notes: "NO-AUTHOR: AWS documentation, no author. NO-DATE: no date in the fetched text. No license statement in the fetched content (re-checked 2026-11-12), so treated as all-rights-reserved. Covers redrive policy and maxReceiveCount, DLQ must be in the same account and Region, retention should be longer than the source queue, do not use a DLQ with FIFO if order matters."
     verified_on: "2026-11-12"
 
   - id: aws-sqs-standard-queues
@@ -1915,7 +1915,7 @@ sources:
     units: [4]
     topics: [message-queue, at-least-once, best-effort-ordering, decoupling, background-work]
     status: candidate
-    notes: "NO-AUTHOR: AWS documentation, no author. NO-DATE: no date in the fetched text. No license statement in the fetched content (re-checked 2026-11-12), so treated as all-rights-reserved. NO-AUTHOR: corporate documentation. NO-DATE. Footer not visible in the fetch, so license unknown. Short page: at-least-once, possible out-of-order delivery, stored redundantly across AZs; use cases include decoupling live user requests from heavy background work (a useful trigger statement). FIFO queue page not opened."
+    notes: "NO-AUTHOR: AWS documentation, no author. NO-DATE: no date in the fetched text. No license statement in the fetched content (re-checked 2026-11-12), so treated as all-rights-reserved. Short page: at-least-once, possible out-of-order delivery, stored redundantly across AZs; use cases include decoupling live user requests from heavy background work (a useful trigger statement). FIFO queue page not opened."
     verified_on: "2026-11-12"
 
   - id: microservices-io-transactional-outbox
@@ -1992,7 +1992,7 @@ sources:
     topics: [outbox, cdc, debezium, kafka-connect, event-routing, ordering]
     status: candidate
     version: "Debezium 3.7 (stable)"
-    notes: "NO-AUTHOR: NO-DATE: no author or date on the page (footer 'Copyright 2026 Debezium Community', docs version 3.7 latest stable). License: this page's own footer shows no license, but the Debezium blog footer on the same site says 'The website and documentation are licensed under CC BY 3.0' (read 2026-11-12), so recorded as CC-BY-3.0; usage stays rewrite-only. NO-AUTHOR: corporate documentation. NO-DATE. Page footer says Copyright 2026 Debezium Community with no license named (the 2019 blog states CC BY 3.0 for the site; not confirmed on this page), so license unknown. The 'stable' URL will move to newer versions. Tool-specific (Kafka Connect SMT); use only as an implementation example."
+    notes: "NO-AUTHOR: no author named. NO-DATE: no date shown (footer 'Copyright 2026 Debezium Community', docs version 3.7 latest stable). License: this page's own footer shows no license, but the Debezium blog footer on the same site says 'The website and documentation are licensed under CC BY 3.0' (read 2026-11-12), so recorded as CC-BY-3.0; usage stays rewrite-only. The 'stable' URL will move to newer versions. Tool-specific (Kafka Connect SMT); use only as an implementation example."
     verified_on: "2026-11-12"
 
   - id: aws-builders-insurmountable-queue-backlogs
