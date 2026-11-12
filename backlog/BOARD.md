@@ -2,20 +2,20 @@
 
 > File ini di-generate oleh `python scripts/board.py`. Jangan diedit manual.
 
-**Ringkasan:** todo 37 · in-progress 0 · review 0 · blocked 0 · done 1
+**Ringkasan:** todo 37 · in-progress 0 · review 0 · blocked 0 · done 2
 
 ## Siap dikerjakan agent
 
 | Ticket | Judul | Prioritas | Estimasi (sesi) |
 | --- | --- | --- | --- |
 | [P1-010](tickets/P1-010-finalisasi-kriteria-sumber-dan-skema-registry.md) | Finalisasi kriteria sumber dan skema registry | high | 1 |
+| [P1-065](tickets/P1-065-selaraskan-dokumen-dengan-target-junior-dan.md) | Selaraskan dokumen dengan target junior dan tiga tujuan | high | 1 |
 | [P1-004](tickets/P1-004-mirror-backlog-ke-github-projects-opsional.md) | Mirror backlog ke GitHub Projects (opsional) | low | 1 |
 
 ## Menunggu owner (manusia)
 
 | Ticket | Tugas | Keadaan |
 | --- | --- | --- |
-| [P1-002](tickets/P1-002-keputusan-bahasa-konten-dan-target-pengguna.md) | Keputusan: bahasa konten dan target pengguna | siap |
 | [P1-019](tickets/P1-019-g0-approve-registry-referensi-v1.md) | G0 — Approve Registry Referensi v1 | menunggu dependensi |
 | [P1-024](tickets/P1-024-g1-approve-kurikulum.md) | G1 — Approve kurikulum | menunggu dependensi |
 | [P1-034](tickets/P1-034-g2-uji-pilot-ke-5-orang.md) | G2 — Uji pilot ke 5 orang target | menunggu dependensi |
@@ -25,14 +25,15 @@
 
 ## Semua ticket per milestone
 
-### M0 — Fondasi (1/4 selesai)
+### M0 — Fondasi (2/5 selesai)
 
 | | Ticket | Judul | Owner | Review | Bergantung pada |
 | --- | --- | --- | --- | --- | --- |
 | ✓ | [P1-001](tickets/P1-001-setup-repo-workflow-ticket-dan-file.md) | Setup repo, workflow ticket, dan file pendukung agent | agent | none | — |
-| · | [P1-002](tickets/P1-002-keputusan-bahasa-konten-dan-target-pengguna.md) | Keputusan: bahasa konten dan target pengguna | human | none | — |
+| ✓ | [P1-002](tickets/P1-002-keputusan-bahasa-konten-dan-target-pengguna.md) | Keputusan: bahasa konten dan target pengguna | human | none | — |
 | · | [P1-003](tickets/P1-003-keputusan-nama-kerja-lisensi-konten-dan.md) | Keputusan: nama kerja, lisensi konten, dan reviewer teknis | human | none | — |
 | · | [P1-004](tickets/P1-004-mirror-backlog-ke-github-projects-opsional.md) | Mirror backlog ke GitHub Projects (opsional) | agent | human | P1-001 |
+| · | [P1-065](tickets/P1-065-selaraskan-dokumen-dengan-target-junior-dan.md) | Selaraskan dokumen dengan target junior dan tiga tujuan | agent | agent | P1-002 |
 
 ### M1 — Registry Referensi (0/10 selesai)
 
