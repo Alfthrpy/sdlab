@@ -5,7 +5,7 @@ milestone: M1
 type: research
 owner: agent
 review: agent
-status: in-progress
+status: review
 priority: high
 depends_on: []
 estimate: 1
