@@ -28,7 +28,7 @@ Used in all `type: research` tickets and whenever an agent adds a source to the 
 
 ## Fields the validator enforces before approval
 
-A source can move from `candidate` to `approved` only if: the license is known; `authors` and `published` are filled (or `notes` explains why not); `units` and `topics` are set; paywalled sources have a `free_companion`; no `SEED` marker remains. The full rule list is in `content-schema.md` §1.
+A source can move from `candidate` to `approved` only if: the license is known; `authors` and `published` are filled (or `notes` has a `NO-AUTHOR:` / `NO-DATE:` explanation); `units` and `topics` are set; paywalled sources have a `free_companion`; no `SEED` marker remains. The full rule list is in `content-schema.md` §1.
 
 ## Source acceptance criteria (used in P1-010 and G0)
 

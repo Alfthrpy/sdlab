@@ -40,6 +40,7 @@ scripts/                validate.py, board.py, new_ticket.py
 ```bash
 pip install pyyaml
 python scripts/validate.py      # check tickets, registry, curriculum, content
+python -m unittest discover tests  # fixture tests for the validator
 python scripts/board.py         # regenerate backlog/BOARD.md
 python scripts/new_ticket.py "Ticket title" --milestone M4 --type content
 ```

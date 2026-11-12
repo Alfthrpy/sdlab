@@ -118,6 +118,9 @@ ACCESS = ["free", "partial", "paywalled"]
 SRC_STATUS = ["candidate", "approved", "rejected", "deprecated"]
 KEBAB = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 DATE = re.compile(r"^\d{4}(-\d{2}(-\d{2})?)?$")
+FULL_DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+DOI = re.compile(r"^10\.\d{4,9}/\S+$")
+SEED_MARK = re.compile(r"\bSEED\b")
 OPEN_LICENSES = {"CC-BY-4.0", "CC-BY-SA-4.0", "MIT", "Apache-2.0", "public-domain"}
 REQUIRED_FIELDS = ["id", "title", "url", "accessed", "type", "tier", "license", "usage", "access", "status"]
 OPTIONAL_FIELDS = ["authors", "publisher", "doi", "published", "edition", "units", "topics", "notes",
@@ -125,6 +128,32 @@ OPTIONAL_FIELDS = ["authors", "publisher", "doi", "published", "edition", "units
 KNOWN_FIELDS = set(REQUIRED_FIELDS + OPTIONAL_FIELDS)
 # Tier implied by type, as a consistency hint (warning only). See research-protocol.md "Tiers".
 TYPE_TIER_HINT = {"postmortem": {4}, "paper": {3}}
+
+
+def _is_int(v) -> bool:
+    return isinstance(v, int) and not isinstance(v, bool)
+
+
+def _str_list(w: str, s: dict, field: str) -> list:
+    """Return field as a list of non-empty strings; report an error and return [] if malformed."""
+    v = s.get(field)
+    if v is None:
+        return []
+    if not isinstance(v, list) or not all(isinstance(x, str) and x for x in v):
+        err(w, f"{field} must be a list of non-empty strings, got {v!r}")
+        return []
+    if len(set(v)) != len(v):
+        err(w, f"{field} has duplicate entries: {v!r}")
+    return v
+
+
+def _valid_date(v: str) -> bool:
+    try:
+        parts = [int(x) for x in v.split("-")]
+        date(parts[0], parts[1] if len(parts) > 1 else 1, parts[2] if len(parts) > 2 else 1)
+        return True
+    except (ValueError, IndexError):
+        return False
 
 
 def _enum(w: str, s: dict, field: str, allowed: list):
@@ -138,12 +167,18 @@ def check_registry() -> dict[str, dict]:
     if data is None:
         err(where, "file not found")
         return {}
+    if not isinstance(data, dict) or not isinstance(data.get("sources") or [], list):
+        err(where, "top level must be a mapping with a 'sources' list")
+        return {}
     sources = data.get("sources") or []
     out: dict[str, dict] = {}
     for i, s in enumerate(sources):
+        if not isinstance(s, dict):
+            err(f"{where} [#{i}]", f"each source must be a mapping, got {type(s).__name__}")
+            continue
         sid = s.get("id")
         w = f"{where} [{sid or i}]"
-        if not sid or not KEBAB.match(str(sid)):
+        if not isinstance(sid, str) or not KEBAB.match(sid):
             err(w, f"id={sid!r} must be kebab-case (lowercase letters, digits, hyphens)")
             continue
         if sid in out:
@@ -159,10 +194,13 @@ def check_registry() -> dict[str, dict]:
             if s.get(f) in (None, ""):
                 err(w, f"required field '{f}' is missing or empty")
 
+        for f in ("title", "publisher", "url", "edition", "notes", "doi", "published", "accessed"):
+            if s.get(f) is not None and not isinstance(s[f], (str, int)) or isinstance(s.get(f), bool):
+                err(w, f"{f} must be a string, got {s.get(f)!r}")
         if s.get("url") and not str(s["url"]).startswith(("https://", "http://")):
             err(w, f"url={s['url']!r} must start with http:// or https://")
         _enum(w, s, "type", REG_TYPES)
-        if not isinstance(s.get("tier"), int) or isinstance(s.get("tier"), bool) or s.get("tier") not in range(1, 7):
+        if not _is_int(s.get("tier")) or s.get("tier") not in range(1, 7):
             err(w, f"tier={s.get('tier')!r} must be an integer 1–6 (see research-protocol.md)")
         _enum(w, s, "license", LICENSES)
         _enum(w, s, "usage", USAGES)
@@ -183,29 +221,27 @@ def check_registry() -> dict[str, dict]:
             warn(w, "tier 5 means open material, but the license is not open")
 
         acc = str(s.get("accessed") or "")
-        if acc and not DATE.match(acc):
-            err(w, f"accessed={acc!r} must be YYYY-MM-DD")
-        elif acc and len(acc) == 10 and acc > date.today().isoformat():
+        if acc and not (FULL_DATE.match(acc) and _valid_date(acc)):
+            err(w, f"accessed={acc!r} must be a valid full date YYYY-MM-DD")
+        elif acc and acc > date.today().isoformat():
             err(w, f"accessed={acc!r} is in the future")
-        elif acc and len(acc) != 10:
-            err(w, f"accessed={acc!r} must be a full date YYYY-MM-DD")
         pub = str(s.get("published") or "")
-        if pub and not DATE.match(pub):
-            err(w, f"published={pub!r} must be YYYY, YYYY-MM, or YYYY-MM-DD")
-        if s.get("doi") and not str(s["doi"]).startswith("10."):
-            err(w, f"doi={s['doi']!r} must be a bare DOI starting with '10.' (no https://doi.org/ prefix)")
+        if pub and not (DATE.match(pub) and _valid_date(pub)):
+            err(w, f"published={pub!r} must be a valid YYYY, YYYY-MM, or YYYY-MM-DD")
+        if s.get("doi") and not DOI.match(str(s["doi"])):
+            err(w, f"doi={s['doi']!r} must be a bare DOI like 10.1145/3713082.3730380 (no https://doi.org/ prefix)")
 
-        for f in ("authors", "units", "topics", "free_companion"):
-            if f in s and s[f] is not None and not isinstance(s[f], list):
-                err(w, f"{f} must be a list, got {type(s[f]).__name__}")
-        units = s.get("units") or []
-        if isinstance(units, list) and not all(isinstance(u, int) and 1 <= u <= 6 for u in units):
-            err(w, f"units={units!r} must be integers 1–6")
-        topics = s.get("topics") or []
-        if isinstance(topics, list):
-            for tp in topics:
-                if not KEBAB.match(str(tp)):
-                    err(w, f"topic {tp!r} must be kebab-case")
+        _str_list(w, s, "authors")
+        _str_list(w, s, "free_companion")
+        units = s.get("units")
+        if units is not None:
+            if not isinstance(units, list) or not all(_is_int(u) and 1 <= u <= 6 for u in units):
+                err(w, f"units={units!r} must be a list of integers 1–6")
+            elif len(set(units)) != len(units):
+                err(w, f"units has duplicate entries: {units!r}")
+        for tp in _str_list(w, s, "topics"):
+            if not KEBAB.match(tp):
+                err(w, f"topic {tp!r} must be kebab-case")
         if s.get("type") == "paper" and not s.get("doi"):
             warn(w, "paper without a doi (add one if it exists)")
         if s.get("type") == "book" and not s.get("edition") and s.get("status") == "approved":
@@ -215,12 +251,12 @@ def check_registry() -> dict[str, dict]:
         if s.get("status") == "approved":
             if s.get("license") == "unknown":
                 err(w, "an approved source must not have license 'unknown'; verify it on the source page")
-            if "SEED" in notes:
+            if SEED_MARK.search(notes):
                 err(w, "an approved source is still marked SEED (not yet verified); resolve and remove the SEED note")
-            if not s.get("authors") and not notes:
-                err(w, "approved source has no authors; add them, or explain in notes why none exist")
-            if not s.get("published") and not notes:
-                err(w, "approved source has no published date; add it, or explain in notes why none exists")
+            if not s.get("authors") and "NO-AUTHOR:" not in notes:
+                err(w, "approved source has no authors; add them, or put 'NO-AUTHOR: <reason>' in notes")
+            if not s.get("published") and "NO-DATE:" not in notes:
+                err(w, "approved source has no published date; add it, or put 'NO-DATE: <reason>' in notes")
             if not s.get("units"):
                 err(w, "approved source must list the curriculum units it serves (units: [..])")
             if not s.get("topics"):
@@ -230,10 +266,13 @@ def check_registry() -> dict[str, dict]:
                        "covering the same topics] (research-protocol.md, acceptance criteria)")
         if s.get("status") in ("rejected", "deprecated") and not notes:
             warn(w, f"status '{s.get('status')}' should be explained in notes")
+        if s.get("status") == "deprecated" and not s.get("superseded_by") and not notes:
+            warn(w, "deprecated source should name its replacement in superseded_by (or explain in notes)")
 
     for sid, s in out.items():
         w = f"{where} [{sid}]"
-        for c in s.get("free_companion") or []:
+        fc = s.get("free_companion")
+        for c in fc if isinstance(fc, list) and all(isinstance(x, str) for x in fc) else []:
             if c == sid:
                 err(w, "free_companion must not reference itself")
             elif c not in out:
@@ -242,9 +281,14 @@ def check_registry() -> dict[str, dict]:
                 err(w, f"free_companion {c} must have access 'free', got {out[c].get('access')!r}")
         sup = s.get("superseded_by")
         if sup:
+            if not isinstance(sup, str):
+                err(w, f"superseded_by must be a single registry id, got {sup!r}")
+                continue
             if s.get("status") != "deprecated":
                 err(w, "superseded_by is only valid on sources with status 'deprecated'")
-            if sup not in out:
+            if sup == sid:
+                err(w, "superseded_by must not reference itself")
+            elif sup not in out:
                 err(w, f"superseded_by references unknown source id: {sup}")
     return out
 

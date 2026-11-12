@@ -19,7 +19,7 @@ sources:
     published: "2026-02"              # YYYY, YYYY-MM, or YYYY-MM-DD
     edition: "2"                      # optional
     accessed: "2026-11-12"            # date the page was opened
-    license: all-rights-reserved      # all-rights-reserved | CC-BY-4.0 | CC-BY-SA-4.0 | CC-BY-NC-ND-4.0 | MIT | public-domain | unknown
+    license: all-rights-reserved      # all-rights-reserved | CC-BY-4.0 | CC-BY-SA-4.0 | CC-BY-NC-4.0 | CC-BY-NC-SA-4.0 | CC-BY-NC-ND-4.0 | MIT | Apache-2.0 | public-domain | unknown
     usage: rewrite-only               # rewrite-only | adapt-with-attribution | map-only
     access: paywalled                 # free | partial | paywalled
     units: [3, 4, 5]                  # curriculum units 1–6
@@ -42,11 +42,12 @@ Validator rules (errors unless marked warning):
 - `superseded_by` is only valid with `status: deprecated` and must name an existing id.
 - Additional rules for `status: approved`:
   - `license` is not `unknown`, and the `SEED` marker is gone from `notes`.
-  - `authors` and `published` are filled in, or `notes` explains why not (e.g. corporate postmortem).
+  - `authors` and `published` are filled in, or `notes` contains `NO-AUTHOR: <reason>` / `NO-DATE: <reason>` (e.g. a corporate postmortem).
   - `units` and `topics` are not empty.
   - `access: paywalled` requires a non-empty `free_companion`.
   - (warning) a book without an `edition`.
-- (warning) `rejected` or `deprecated` without an explanation in `notes`.
+- (warning) `rejected` or `deprecated` without an explanation in `notes`; (warning) `deprecated` without `superseded_by`.
+- Malformed input (non-mapping entries, wrong types, duplicate list items, invalid calendar dates, DOIs not matching `10.xxxx/...`) gives a clear error instead of a crash.
 
 ## 2. `curriculum/concepts.yaml`
 
