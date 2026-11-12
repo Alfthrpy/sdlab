@@ -5,7 +5,7 @@ milestone: M1
 type: research
 owner: agent
 review: agent
-status: review
+status: done
 priority: high
 depends_on: [P1-010, P1-068]
 estimate: 1
@@ -39,4 +39,5 @@ Fill the Reference Registry for Unit 0: Single-server backend (the request lifec
 - No Tier 3–6 sources: not expected for Unit 0 (official docs and practitioner articles). Tier 1 is only the SRE book chapter.
 - **Gaps:** backup schedules, off-machine storage, restore drills (only the mechanics are covered); a deploy procedure for one box (rolling a version, migrations, rollback); a dedicated logging source (only 12-factor's factor list); a source that follows one request end to end (DNS, TCP, web server, app, database); a primary engineering article on scaling from one server; a Tier 1 book chapter written for beginners; the nginx.org beginner's guide could not be opened.
 - **Doubts for P1-016:** the Stack Overflow 2016 post was only partly read and is not single-server; the MySQL manual is all-rights-reserved and 8.4 is not the page's "current" series (9.x is); `verified_on` is empty on every entry on purpose.
+- Second `source-verifier` pass: PASS with three wording fixes (dropped an unsupported topic and an overclaimed job title on the Stack Overflow entry; softened and trimmed unsupported statements in the AWS health-check note). Applied.
 - Follow-up: P1-070 (license values and a tier for official docs).

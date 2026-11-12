@@ -13,13 +13,13 @@ sections_read: ["Small failures with outsized impact", "Health check tradeoffs",
 
 - (Ways to measure health) Liveness checks: basic connectivity and process presence (TCP port, HTTP 200), usually done by a load balancer or external monitor.
 - (Ways to measure health) Local health checks: exercise resources not shared with peers (for example disk read/write, an end-to-end request through the proxy into the app), so failures are unlikely to hit the whole fleet at once.
-- (Ways to measure health) Dependency health checks: test whether the server can use what it needs. They can catch local problems such as expired credentials, but give false positives when the dependency itself is down.
+- (Ways to measure health) Dependency health checks: test whether the server can use what it needs. They can catch local problems, but give false positives when the dependency itself is down.
 - (Ways to measure health) Anomaly detection compares each server to its peers to spot outliers. This is fleet-level and beyond Unit 0.
 - (Small failures with outsized impact) A broken server that answers errors quickly can look better than healthy peers and attract more traffic.
 - (Health check tradeoffs) One bad server in a ten-server fleet can cost about 10% availability; the tension is between thorough checks and false positives that affect the whole fleet.
-- (Reacting safely to health check failures) "Fail open": if every server looks unhealthy, keep sending traffic to all of them. The article advises letting load balancers handle only liveness and local checks, with dependency checks and anomaly detection handled by external monitoring.
+- (Reacting safely to health check failures) "Fail open": if every server looks unhealthy, keep sending traffic to all of them. The article says Amazon teams tend to keep fast-acting load balancer checks local, with deeper checks handled by centralized systems.
 - (Health checks without a circuit breaker, a subsection of the above) Automation that acts on health checks should use thresholds, rate limits and feedback that brings in humans when limits are crossed.
-- (Prioritize your health, a subsection of the above) An overloaded server may answer health checks too slowly and be removed, pushing load onto the rest. Mitigations include reserving capacity for health probes.
+- (Prioritize your health, a subsection of the above) An overloaded server may answer health checks too slowly and be removed, pushing load onto the rest.
 - (Balancing dependency health checks with the scope of impact) A dependency check can turn a soft dependency into a hard one.
 - (Real things that have gone wrong) Examples listed: deployments, asynchronous processors, disks filling up, zombies.
 
