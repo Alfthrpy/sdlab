@@ -5,7 +5,7 @@ milestone: M1
 type: research
 owner: agent
 review: agent
-status: review
+status: done
 priority: high
 depends_on: []
 estimate: 1
@@ -29,10 +29,10 @@ Follow P1-016 Tasks 1–5 for each entry in scope, SEED and Tier 1–3 first:
 
 ## Done criteria
 
-- [ ] Every in-scope entry reopened this session and has `verified_on` (Codd 1970 excepted, see Notes)
+- [x] Every in-scope entry reopened this session and has `verified_on` (Codd 1970 excepted, moved to P1-071)
 - [x] No empty `authors`/`published` without a `NO-AUTHOR`/`NO-DATE` explanation
 - [x] No `license: unknown` without an explanation; no `SEED` notes left
-- [ ] `source-verifier` passes (sample)
+- [x] `source-verifier` passes (sample)
 - [x] `python scripts/validate.py` passes
 
 ## Notes
