@@ -5,7 +5,7 @@ milestone: M0
 type: decision
 owner: human
 review: none
-status: todo
+status: done
 priority: high
 depends_on: []
 estimate: 1
@@ -25,10 +25,11 @@ ADR 0003 memakai default sementara (Indonesia, junior–mid + mahasiswa, tujuan 
 
 ## Kriteria selesai
 
-- [ ] Keputusan bahasa tercatat
-- [ ] Keputusan target & tujuan tercatat
-- [ ] ADR 0003 diperbarui statusnya
+- [x] Keputusan bahasa tercatat
+- [x] Keputusan target & tujuan tercatat
+- [x] ADR 0003 diperbarui statusnya
 
 ## Catatan
 
-(Diisi saat dikerjakan.)
+Keputusan owner 2026-11-12: target mahasiswa dan junior engineer; tujuan memahami sistem skala produksi / belajar hal baru. Bahasa tidak disebut eksplisit, jadi default Indonesia dipertahankan dan ditandai belum dikonfirmasi di ADR 0004.
+Dampak ke dokumen yang masih berkerangka interview dipisah ke P1-065.
