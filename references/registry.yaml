@@ -361,7 +361,7 @@ sources:
     units: [0]
     topics: [connection-pooling, pool-sizing]
     status: candidate
-    notes: "NO-AUTHOR: page names no author (only the last editor, Leo Bayer). Date is the last edit. No license stated on the page or footer (re-checked 2026-11-12), so treated as all-rights-reserved (copyright by default). The repository github.com/brettwooldridge/HikariCP shows Apache-2.0 in its sidebar (opened 2026-11-12), but whether it covers wiki text is unspecified, so license stays unknown. Java-centric but the reasoning is general."
+    notes: "NO-AUTHOR: page names no author (only the last editor, Leo Bayer). Date is the last edit. No license stated on the page or footer (re-checked 2026-11-12), so treated as all-rights-reserved (copyright by default). The repository github.com/brettwooldridge/HikariCP shows Apache-2.0 in its sidebar (opened 2026-11-12), but the wiki is a separate git repo and nothing says the repo license covers wiki text, so it is not assumed to apply. Java-centric but the reasoning is general."
     verified_on: "2026-11-12"
 
   - id: pgbouncer-features
@@ -380,7 +380,7 @@ sources:
     units: [0]
     topics: [connection-pooling, pgbouncer, pooling-modes]
     status: candidate
-    notes: "NO-DATE: no page date; footer shows only copyright 2026. NO-AUTHOR: project documentation. Site footer says 'Website (c) 2026 PgBouncer Authors'; No license stated on the page or footer (re-checked 2026-11-12), so treated as all-rights-reserved (copyright by default).; the github.com/pgbouncer/pgbouncer.github.io repo (opened 2026-11-12) shows ISC in its sidebar but does not say it covers the site text. The COPYRIGHT file in github.com/pgbouncer/pgbouncer (opened 2026-11-12) states the ISC License (Copyright 2007-2009 Marko Kreen, Skype Technologies OU); The file covers the software, not necessarily the docs site, so the docs text stays all-rights-reserved. Possibly more advanced than Unit 0 needs; pooling modes only."
+    notes: "NO-DATE: no page date; footer shows only copyright 2026. NO-AUTHOR: project documentation. Site footer says 'Website (c) 2026 PgBouncer Authors'. No license stated on the page or footer (re-checked 2026-11-12), so treated as all-rights-reserved (copyright by default). The github.com/pgbouncer/pgbouncer.github.io repo (opened 2026-11-12) shows ISC in its sidebar but does not say it covers the site text. The COPYRIGHT file in github.com/pgbouncer/pgbouncer (opened 2026-11-12) states the ISC License (Copyright 2007-2009 Marko Kreen, Skype Technologies OU); that file covers the software, not necessarily the docs site, so the docs text stays all-rights-reserved. Possibly more advanced than Unit 0 needs; pooling modes only."
     verified_on: "2026-11-12"
 
   - id: mysql-84-optimization-indexes
@@ -458,7 +458,7 @@ sources:
     units: [0, 1, 6]
     topics: [machine-limits, saturation, utilization, performance-checklist, monitoring, observability]
     status: candidate
-    notes: "Page shows only 'Brendan' (nav header); full name inferred from the domain brendangregg.com, not stated on the page. Page shows a last-updated date of 2017-08-24 (original date not seen). No license stated on the page or footer (re-checked 2026-11-12), so treated as all-rights-reserved (copyright by default).. Linux checklist subpages were not opened. Saturation touches Unit 1 territory."
+    notes: "Page shows only 'Brendan' (nav header); full name inferred from the domain brendangregg.com, not stated on the page. Page shows a last-updated date of 2017-08-24 (original date not seen). No license stated on the page or footer (re-checked 2026-11-12), so treated as all-rights-reserved (copyright by default). Linux checklist subpages were not opened. Saturation touches Unit 1 territory."
     verified_on: "2026-11-12"
 
   - id: prometheus-instrumentation-practices
@@ -2682,8 +2682,8 @@ sources:
     units: [0, 6]
     topics: [observability, logs, metrics, traces, spans, distributed-tracing]
     status: candidate
-    attribution: "Sebagian materi diadaptasi dari OpenTelemetry documentation (Observability primer), OpenTelemetry Authors / CNCF, CC BY 4.0, https://opentelemetry.io/docs/concepts/observability-primer/. Telah diubah."
-    notes: "NO-AUTHOR: project docs, no author listed. NO-DATE: no date or version visible (re-checked 2026-11-12). License is CC BY 4.0: the footer showed it earlier, and the README of github.com/open-telemetry/opentelemetry.io (reopened 2026-11-12) says 'Documentation: CC-BY-4.0' (the footer was not visible in the latest fetch). Defines logs, metrics, traces, spans, and distributed tracing in plain language. Attribution line still to be written when approved."
+    attribution: "Sebagian materi diadaptasi dari OpenTelemetry documentation (Observability primer), OpenTelemetry project (CNCF), CC BY 4.0, https://opentelemetry.io/docs/concepts/observability-primer/. Telah diubah."
+    notes: "NO-AUTHOR: project docs, no author listed. NO-DATE: no date or version visible (re-checked 2026-11-12). License is CC BY 4.0: the README of github.com/open-telemetry/opentelemetry.io (reopened 2026-11-12) says 'Documentation: CC-BY-4.0' (the page footer was not visible in the fetch, so the README is the evidence). Defines logs, metrics, traces, spans, and distributed tracing in plain language."
     verified_on: "2026-11-12"
 
   - id: grafana-red-method
