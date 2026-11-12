@@ -90,7 +90,7 @@ items:
 
 | File | Contents |
 | --- | --- |
-| `lesson.md` | Frontmatter (`concept`, `title`, `sources` with `loc`, `status`, `reviewed_by`) + lesson text |
+| `lesson.md` | Frontmatter (`concept`, `title`, `sources`, `status`, `reviewed_by`) + lesson text. Each `sources` entry is an id string or `{id, loc}`; `loc` is required for `book`/`paper` sources. Citation rules: [citation-guide](citation-guide.md) |
 | `questions.yaml` | List of questions (schema below) |
 | `misconceptions.md` | Common misconceptions + source/reason, used for distractors |
 | `lab.yaml` | Lab spec (optional, finalized in P1-033) |

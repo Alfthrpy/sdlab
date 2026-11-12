@@ -5,7 +5,7 @@ milestone: M1
 type: research
 owner: agent
 review: agent
-status: in-progress
+status: review
 priority: medium
 depends_on: [P1-010]
 estimate: 1
@@ -26,10 +26,14 @@ The v0 guide exists. Finalize it and make sure the validator enforces it in cont
 
 ## Done criteria
 
-- [ ] Guide is final
-- [ ] Validator enforces the citation rules
-- [ ] `python scripts/validate.py` passes
+- [x] Guide is final
+- [x] Validator enforces the citation rules
+- [x] `python scripts/validate.py` passes
 
 ## Notes
 
-(Filled in during the work.)
+- Validator (`check_content`): added `[^id]`-in-registry check, `loc` required for book/paper sources, attribution line required for `adapt-with-attribution` sources (error), published questions may only cite approved non-map-only sources, direct-quote limit (one per source per lesson, under 15 words; heuristic: quoted spans of 4+ words followed by a marker, code blocks skipped).
+- Guide is final: enforcement table, quote rules with examples, sample lesson that `tests/test_content.py` runs through the validator.
+- `tests/test_content.py`: 15 new fixture tests (35 total pass).
+- content-reviewer: pass with minor fixes; applied (sample lesson test, missing tests, narrower quote rule, heuristic wording, schema cross-link).
+- Known limits: attribution check only looks for "diadaptasi"; quotes without markers, quotes in questions.yaml, and single-quote styles are left to the reviewer.
