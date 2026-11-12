@@ -5,7 +5,7 @@ milestone: M0
 type: curriculum
 owner: agent
 review: agent
-status: todo
+status: in-progress
 priority: high
 depends_on: [P1-002]
 estimate: 1
