@@ -5,7 +5,7 @@ milestone: M1
 type: research
 owner: agent
 review: agent
-status: in-progress
+status: review
 priority: high
 depends_on: []
 estimate: 1
@@ -29,12 +29,16 @@ Follow P1-016 Tasks 1–5 for each entry in scope, SEED and Tier 1–3 first:
 
 ## Done criteria
 
-- [ ] Every in-scope entry reopened this session and has `verified_on`
-- [ ] No empty `authors`/`published` without a `NO-AUTHOR`/`NO-DATE` explanation
-- [ ] No `license: unknown` without an explanation; no `SEED` notes left
-- [ ] `source-verifier` passes (sample)
-- [ ] `python scripts/validate.py` passes
+- [x] Every in-scope entry reopened this session and has `verified_on`
+- [x] No empty `authors`/`published` without a `NO-AUTHOR`/`NO-DATE` explanation
+- [x] No `license: unknown` without an explanation; no `SEED` notes left
+- [x] `source-verifier` passes (sample)
+- [x] `python scripts/validate.py` passes
 
 ## Notes
 
-(Filled in during the work.)
+- Reopened all 26 entries (primary unit 5); `verified_on` set on all; no `unknown` licenses or SEED notes left.
+- Licenses resolved: etcd docs CC-BY-4.0 and Redis docs CC-BY-NC-SA-4.0 (both inferred from the repo LICENSE, not the page text); ZooKeeper docs Apache-2.0 (page header); papers/blogs/vendor pages with no license text set to all-rights-reserved (conservative, usage stays rewrite-only).
+- etcd.io/docs/latest now redirects to v3.7, so both etcd URLs moved from v3.6 to v3.7.
+- source-verifier sampled 12 entries: pass; one stray punctuation fix applied (raft-extended-paper).
+- Gap: Spanner PDF not opened (TrueTime sections must be read by the content writer).
