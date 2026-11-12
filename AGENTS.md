@@ -6,6 +6,8 @@ Instructions for every agent working in this repo. Read all of it at the start o
 
 A free, Indonesian-language platform for learning **backend system design**: short lessons, quizzes, simulation labs, and real incidents. The repo is in **Phase 1: materials**. Your job is to research references, design the curriculum, and produce accurate, sourced content. There is no application code yet.
 
+Audience: **students and junior engineers**. Three equal goals: understand production-scale systems, learn new things, and prepare for system design interviews (ADR 0004). Write for readers who know basic programming, HTTP, and basic SQL but have never operated a distributed system.
+
 More context: `docs/ROADMAP.md` and `docs/PLAN-PHASE-1.md`.
 
 ## Language policy

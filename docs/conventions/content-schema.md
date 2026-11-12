@@ -110,3 +110,5 @@ questions:
 ## 5. Incidents & case studies (draft, finalized in P1-033)
 
 `content/incidents/<id>.md`: frontmatter (`id`, `title`, `date`, `sources`, `concepts`), then sections (Indonesian headings, since this is learner-facing content): **Ringkasan** (own words), **Kronologi**, **Mekanisme kegagalan**, **Skenario untuk pemain** (initial state, visible symptoms/metrics, decisions to make), **Pembahasan**.
+
+Case-study content (format finalized in P1-033/P1-047) includes a design-quality rubric and a time frame for a time-boxed explanation, so they serve both design practice and interview-style delivery (ADR 0004).

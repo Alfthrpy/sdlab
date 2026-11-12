@@ -10,6 +10,10 @@ The project is split into three major phases. Details of each phase are in its o
 
 The phases are **not strictly sequential**. After pedagogy design is done (M3), content production (M4) continues while the simulator and app are built. Lab specs written in Phase 1 become input for Phase 2.
 
+## Audience and goals
+
+Students and junior engineers (ADR 0004). Three equal goals: (1) understand production-scale systems, (2) learn new things, (3) prepare for system design interviews. The first two are served by content built on primary sources and real incidents; the interview goal is served through formats (case studies with a delivery framework and time limits), not by copying interview-prep content.
+
 ## Principles for all phases
 
 1. Every claim has a source from the Reference Registry.

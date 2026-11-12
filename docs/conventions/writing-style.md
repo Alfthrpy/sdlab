@@ -2,7 +2,7 @@
 
 This guide governs **learner-facing content**, which is written in Indonesian. The guide itself is in English; examples of Indonesian text are kept in Indonesian on purpose.
 
-Readers are busy engineers and students. Writing must be direct, specific, and must not sound machine-made.
+Readers are students and junior engineers (ADR 0004). They know basic programming, HTTP, and basic SQL, but have not operated a distributed system, and they are busy. Writing must be direct, specific, and must not sound machine-made. Explain the problem a concept solves and what breaks without it before describing the mechanism; explain every term on first use.
 
 ## Language
 
@@ -26,6 +26,18 @@ Readers are busy engineers and students. Writing must be direct, specific, and m
 - Distractors must be plausible: drawn from real misconceptions in `misconceptions.md`.
 - Every question has a 1–3 sentence explanation: why the answer is right, and why the main distractor is wrong.
 - Estimation questions give an accepted range, not a single number.
+
+### Difficulty levels
+
+Calibrated for juniors, not seniors:
+
+| Level | Meaning |
+| --- | --- |
+| 1 | Recognize or recall one concept and why it exists. |
+| 2 | Apply one concept to a simple scenario, or compare two options. |
+| 3 | **Challenging for a junior:** combine two or more concepts, diagnose a symptom, or weigh trade-offs. It is not a senior-level question; a student who studied the lesson and thought carefully can solve it. |
+
+Every concept should have a mix of levels.
 
 ## Short example
 

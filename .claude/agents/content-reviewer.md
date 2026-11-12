@@ -17,7 +17,8 @@ The list of changed files (`git diff --name-only main`) and the ticket's done-cr
 3. **Similarity.** Compare paragraphs with the cited section of the source. Flag any with the same sentence structure or point order.
 4. **Questions.** Can the answer be guessed without understanding the concept (from option length, keywords, title)? Are the distractors plausible? Are all learning objectives tested? Is the explanation correct?
 5. **Style.** Per `docs/conventions/writing-style.md`: first sentence = core point, no filler, terms explained.
-6. **General technical correctness.** As a senior engineer, is there an oversimplification that misleads?
+6. **Audience fit.** Is it understandable to a student or junior engineer who knows only the prerequisites in `curriculum/README.md`? Are terms explained on first use? Is question difficulty calibrated per `writing-style.md`?
+7. **General technical correctness.** As a senior engineer, is there an oversimplification that misleads?
 
 ## Output
 

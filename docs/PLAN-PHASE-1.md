@@ -2,6 +2,8 @@
 
 **Goal:** produce v1 materials ready for the application: about 40 concepts, 300 questions, 15 lab specs, 8 incidents, and 6 case studies. Every claim is sourced from the verified Reference Registry.
 
+**Audience and goals:** students and junior engineers, with three equal goals: understand production-scale systems, learn new things, and prepare for system design interviews ([ADR 0004](decisions/0004-audience-and-goals.md)). Content assumes low prior knowledge (basic programming, HTTP, basic SQL) and explains the "why" before the "what". Case studies serve both interview goals: practice designing a system, and practice explaining a design within a time limit.
+
 **How we work:** agent-heavy. Agents do research, mapping, and drafting. Other agents review without having done the work. The repo owner (human) only decides at milestone gates, runs user tests, and spot-checks quality. Flow details are in [workflow.md](workflow.md).
 
 **Estimated duration:** 22 weeks for the full volume. M1–M3 (about 6 weeks) is the critical path. M4 can be sped up by adding parallel agent sessions per unit.
