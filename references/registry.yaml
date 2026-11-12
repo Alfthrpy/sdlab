@@ -204,3 +204,409 @@ sources:
     topics: [interview-questions]
     status: candidate
     notes: "SEED. Only for mapping the case-study list (Tier 6). Sahn Lam is the Vol. 2 co-author — check."
+
+  # --- P1-069: candidates for Unit 0 (single-server backend), accessed 2026-11-12 ---
+  - id: pg-docs-indexes-intro
+    title: "PostgreSQL 18 Documentation: Chapter 11. Indexes (11.1 Introduction)"
+    authors: []
+    publisher: PostgreSQL Global Development Group
+    type: docs
+    tier: 2
+    url: https://www.postgresql.org/docs/current/indexes-intro.html
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [0]
+    topics: [indexes, query-basics, write-overhead]
+    status: candidate
+    version: "PostgreSQL 18 (18.6)"
+    notes: "NO-AUTHOR: corporate documentation. Footer shows only copyright 1996-2026 PGDG; the docs legal notice (postgresql.org/docs/current/legalnotice.html) grants free use, copy, modify and distribute with the notice retained (PostgreSQL License, not in the enum, so recorded as unknown; check). Same chapter also covers index types, multicolumn indexes, partial indexes."
+
+  - id: pg-docs-using-explain
+    title: "PostgreSQL 18 Documentation: 14.1. Using EXPLAIN"
+    authors: []
+    publisher: PostgreSQL Global Development Group
+    type: docs
+    tier: 2
+    url: https://www.postgresql.org/docs/current/using-explain.html
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [0]
+    topics: [query-basics, explain, query-plans, indexes]
+    status: candidate
+    version: "PostgreSQL 18 (18.6)"
+    notes: "NO-AUTHOR: corporate documentation. License: see pg-docs-indexes-intro. Sections 14.1.1 EXPLAIN Basics, 14.1.2 EXPLAIN ANALYZE, 14.1.3 Caveats."
+
+  - id: pg-docs-backup-restore
+    title: "PostgreSQL 18 Documentation: Chapter 25. Backup and Restore"
+    authors: []
+    publisher: PostgreSQL Global Development Group
+    type: docs
+    tier: 2
+    url: https://www.postgresql.org/docs/current/backup.html
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [0]
+    topics: [backups, recovery, pitr, wal-archiving, pg-dump]
+    status: candidate
+    version: "PostgreSQL 18 (18.6)"
+    notes: "NO-AUTHOR: corporate documentation. License: see pg-docs-indexes-intro. Opened the chapter index plus 25.1 SQL Dump (backup-dump.html) and 25.3 Continuous Archiving and PITR (continuous-archiving.html). Does not cover backup schedules or restore drills; those are a gap."
+
+  - id: pg-docs-connections
+    title: "PostgreSQL 18 Documentation: 19.3. Connections and Authentication (max_connections)"
+    authors: []
+    publisher: PostgreSQL Global Development Group
+    type: docs
+    tier: 2
+    url: https://www.postgresql.org/docs/current/runtime-config-connection.html
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [0]
+    topics: [connection-limits, max-connections, connection-pooling]
+    status: candidate
+    version: "PostgreSQL 18 (18.6)"
+    notes: "NO-AUTHOR: corporate documentation. License: see pg-docs-indexes-intro. Short reference for max_connections and reserved connection settings."
+
+  - id: pg-docs-kernel-resources
+    title: "PostgreSQL 18 Documentation: 18.4. Managing Kernel Resources"
+    authors: []
+    publisher: PostgreSQL Global Development Group
+    type: docs
+    tier: 2
+    url: https://www.postgresql.org/docs/current/kernel-resources.html
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [0]
+    topics: [machine-limits, memory, file-descriptors, oom-killer, connection-limits]
+    status: candidate
+    version: "PostgreSQL 18 (18.6)"
+    notes: "NO-AUTHOR: corporate documentation. License: see pg-docs-indexes-intro. Linux-specific parts (overcommit, OOM killer, ulimit, somaxconn) are useful for 'limits of one machine'. Footer copyright not seen in the fetched text, only the version."
+
+  - id: pg-docs-monitoring-stats
+    title: "PostgreSQL 18 Documentation: 27.2. The Cumulative Statistics System (incl. pg_stat_activity)"
+    authors: []
+    publisher: PostgreSQL Global Development Group
+    type: docs
+    tier: 2
+    url: https://www.postgresql.org/docs/current/monitoring-stats.html
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [0]
+    topics: [monitoring, database-monitoring, pg-stat-activity, machine-limits]
+    status: candidate
+    version: "PostgreSQL 18 (18.6)"
+    notes: "NO-AUTHOR: corporate documentation. License: see pg-docs-indexes-intro. Page is long (about 116k characters); only the first 100k were read, which includes the pg_stat_activity part."
+
+  - id: pg-wiki-number-of-connections
+    title: "Number Of Database Connections"
+    authors: []
+    publisher: PostgreSQL Wiki
+    type: article
+    tier: 2
+    url: https://wiki.postgresql.org/wiki/Number_Of_Database_Connections
+    doi: null
+    published: "2014-03-14"
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [0]
+    topics: [connection-pooling, pool-sizing, max-connections]
+    status: candidate
+    notes: "NO-AUTHOR: wiki page. Date is the page's last-edit date. No license on the page. Old (2014): the page itself says the formula was not analyzed for SSDs and may need adjustment for 9.2. Wiki, so Tier 2 is borderline."
+
+  - id: hikaricp-about-pool-sizing
+    title: "About Pool Sizing (HikariCP wiki)"
+    authors: []
+    publisher: HikariCP project (GitHub wiki)
+    type: article
+    tier: 2
+    url: https://github.com/brettwooldridge/HikariCP/wiki/About-Pool-Sizing
+    doi: null
+    published: "2021-12-07"
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [0]
+    topics: [connection-pooling, pool-sizing]
+    status: candidate
+    notes: "NO-AUTHOR: page names no author (only the last editor, Leo Bayer). Date is the last edit. No license stated on the wiki page; repository license not checked. Java-centric but the reasoning is general."
+
+  - id: pgbouncer-features
+    title: "PgBouncer features"
+    authors: []
+    publisher: PgBouncer project
+    type: docs
+    tier: 2
+    url: https://www.pgbouncer.org/features.html
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [0]
+    topics: [connection-pooling, pgbouncer, pooling-modes]
+    status: candidate
+    notes: "NO-AUTHOR: project documentation. Site footer says 'Website (c) 2026 PgBouncer Authors'; no license on the page. The GitHub repo page did not show the license name either. Possibly more advanced than Unit 0 needs; pooling modes only."
+
+  - id: mysql-84-optimization-indexes
+    title: "MySQL 8.4 Reference Manual: 10.3 Optimization and Indexes"
+    authors: []
+    publisher: Oracle (MySQL)
+    type: docs
+    tier: 2
+    url: https://dev.mysql.com/doc/refman/8.4/en/optimization-indexes.html
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [0]
+    topics: [indexes, query-basics]
+    status: candidate
+    version: "MySQL 8.4"
+    notes: "NO-AUTHOR: corporate documentation. Footer: (c) 2026 Oracle; the manual license is in the Legal Notices, which were not opened, so all-rights-reserved is the conservative choice. Landing page only; subtopic pages were not opened."
+
+  - id: mysql-84-backup-recovery
+    title: "MySQL 8.4 Reference Manual: Chapter 9 Backup and Recovery"
+    authors: []
+    publisher: Oracle (MySQL)
+    type: docs
+    tier: 2
+    url: https://dev.mysql.com/doc/refman/8.4/en/backup-and-recovery.html
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [0]
+    topics: [backups, recovery, mysqldump, pitr]
+    status: candidate
+    version: "MySQL 8.4"
+    notes: "NO-AUTHOR: corporate documentation. See mysql-84-optimization-indexes on license. Landing page only: it lists backup types, methods, a sample strategy (9.3), mysqldump (9.4) and point-in-time recovery (9.5); subpages were not opened."
+
+  - id: twelve-factor-app
+    title: "The Twelve-Factor App"
+    authors: [Adam Wiggins]
+    publisher: 12factor.net (Heroku / Salesforce)
+    type: article
+    tier: 2
+    url: https://12factor.net/
+    doi: null
+    published: "2017"
+    accessed: "2026-11-12"
+    license: MIT
+    usage: rewrite-only
+    access: free
+    units: [0]
+    topics: [deploys, configuration, logging, stateless-processes, backing-services, dev-prod-parity]
+    status: candidate
+    notes: "The 12factor.net page states no license; the MIT license is stated in the README of the github.com/heroku/12factor repository (the LICENSE file text itself was not seen). Year 2017 is the 'last updated' on the page; original publication date not seen. Only the factor list page was read; the per-factor subpages were not opened. Written for PaaS-style apps, so some factors need translating to a plain VPS."
+
+  - id: gregg-use-method
+    title: "The USE Method"
+    authors: [Brendan Gregg]
+    publisher: brendangregg.com
+    type: article
+    tier: 2
+    url: https://www.brendangregg.com/usemethod.html
+    doi: null
+    published: "2017-08-24"
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [0, 1]
+    topics: [machine-limits, saturation, utilization, performance-checklist, monitoring]
+    status: candidate
+    notes: "Page shows 'Brendan' and a last-updated date of 2017-08-24 (original date not seen). No copyright or license on the page. Linux checklist subpages were not opened. Saturation touches Unit 1 territory."
+
+  - id: prometheus-instrumentation-practices
+    title: "Instrumentation (Prometheus best practices)"
+    authors: []
+    publisher: Prometheus Authors (Linux Foundation)
+    type: docs
+    tier: 2
+    url: https://prometheus.io/docs/practices/instrumentation/
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [0]
+    topics: [monitoring, metrics, instrumentation]
+    status: candidate
+    notes: "NO-AUTHOR: project documentation. The footer says the Prometheus components are available under Apache 2, which does not clearly cover the docs text, so license is unknown. No explicit version shown."
+
+  - id: aws-builders-implementing-health-checks
+    title: "Implementing health checks"
+    authors: [David]
+    publisher: Amazon Builders' Library (now served at builder.aws.com)
+    type: article
+    tier: 2
+    url: https://builder.aws.com/content/3Ev53O39izHCtWLzp4XU6t8PC1O/implementing-health-checks
+    doi: null
+    published: "2019-12-05"
+    accessed: "2026-11-12"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [0, 2]
+    topics: [health-checks, liveness, monitoring, failure-modes]
+    status: candidate
+    notes: "The old aws.amazon.com/builders-library/implementing-health-checks/ URL redirects (301) to this one. The page gives the author only as 'David' (Sr. Principal Engineer at AWS); full name not on the page. Written for fleets behind load balancers, so Unit 0 should use only the liveness vs. local vs. dependency check distinction. The pitfalls apply from Unit 2 on."
+
+  - id: google-sre-book-monitoring-ch6
+    title: "Site Reliability Engineering, Chapter 6: Monitoring Distributed Systems"
+    authors: [Rob Ewaschuk]
+    publisher: Google / O'Reilly Media
+    type: book
+    tier: 1
+    url: https://sre.google/sre-book/monitoring-distributed-systems/
+    doi: null
+    published: "2017"
+    accessed: "2026-11-12"
+    license: CC-BY-NC-ND-4.0
+    usage: rewrite-only
+    access: free
+    units: [0, 1]
+    topics: [monitoring, golden-signals, black-box-monitoring, alerting]
+    status: candidate
+    notes: "Chapter-level entry for the book already registered as google-sre-book. Page says written by Rob Ewaschuk, edited by Betsy Beyer, copyright 2017 Google, CC BY-NC-ND 4.0. Written for large systems; Unit 0 should use only symptoms vs causes and the four signals."
+
+  - id: systemd-service-man
+    title: "systemd.service: Service unit configuration"
+    authors: []
+    publisher: systemd project (freedesktop.org)
+    type: docs
+    tier: 2
+    url: https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [0]
+    topics: [deploys, process-supervision, restart-policy]
+    status: candidate
+    version: "systemd 262 (as shown on the page)"
+    notes: "NO-AUTHOR: man page. No license text on the page. It is a reference, not a tutorial, so beginners need a guided reading (Type=, Restart=)."
+
+  - id: nginx-reverse-proxy-admin-guide
+    title: "NGINX Reverse Proxy (NGINX Documentation, Admin Guide)"
+    authors: []
+    publisher: F5, Inc. (NGINX)
+    type: docs
+    tier: 2
+    url: https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [0]
+    topics: [web-server, reverse-proxy, request-lifecycle]
+    status: candidate
+    notes: "NO-AUTHOR: corporate documentation; no date on the page. Footer: (c) 2026 F5, Inc., all rights reserved. Only this page was opened. nginx.org/en/docs/beginners_guide.html failed to load, so the beginner's guide is unverified."
+
+  - id: mdn-http-overview
+    title: "Overview of HTTP (MDN Web Docs)"
+    authors: []
+    publisher: Mozilla (MDN Web Docs)
+    type: docs
+    tier: 2
+    url: https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview
+    doi: null
+    published: "2026-10-08"
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [0]
+    topics: [request-lifecycle, http, client-server, proxies]
+    status: candidate
+    notes: "NO-AUTHOR: community docs. Date is the page's 'last modified'. Footer says contributors' content is available under a Creative Commons license but does not name the version, so unknown until the license page is checked (MDN is commonly CC BY-SA; unverified)."
+
+  - id: sqlite-appropriate-uses
+    title: "Appropriate Uses For SQLite"
+    authors: []
+    publisher: SQLite
+    type: docs
+    tier: 2
+    url: https://www.sqlite.org/whentouse.html
+    doi: null
+    published: "2025-05-31"
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [0]
+    topics: [one-app-one-database, database-choice, single-writer, machine-limits]
+    status: candidate
+    notes: "NO-AUTHOR: project documentation. Date is 'last updated'. No license on the page; the copyright page (sqlite.org/copyright.html) failed to load in this session. Useful for 'when is one embedded file enough' and the single-writer limit."
+
+  - id: use-the-index-luke
+    title: "Use The Index, Luke: SQL Indexing and Tuning e-Book"
+    authors: [Markus Winand]
+    publisher: winand.at
+    type: book
+    tier: 1
+    url: https://use-the-index-luke.com/
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [0]
+    topics: [indexes, query-basics, execution-plans]
+    status: candidate
+    notes: "NO-DATE: only the copyright range 2010-2026 is shown. Footer says all rights reserved (page has a typo). Free to read online. Vendor-neutral with PostgreSQL and MySQL notes. Only the home page and chapter list were opened; chapters not read. Tier 1 is borderline (single-author online book)."
+
+  - id: highscalability-stack-overflow-architecture
+    title: "Stack Overflow Architecture"
+    authors: [Todd Hoff]
+    publisher: High Scalability
+    type: article
+    tier: 2
+    url: https://highscalability.com/stack-overflow-architecture/
+    doi: null
+    published: "2009-08-05"
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [0]
+    topics: [scale-up, vertical-scaling, case-study, one-app-one-database]
+    status: candidate
+    notes: "Doubtful: third-party summary of an operator's setup, not primary, from 2009 (hardware figures are dated). Use only as a historical example that a few big machines went a long way; look for a primary Stack Overflow source before approving. No license on the page."
