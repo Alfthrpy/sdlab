@@ -19,7 +19,7 @@ Gate G2. Test whether the content format works for real readers before mass prod
 
 ## Tasks
 
-1. Ask 5 people (junior–mid engineers / students) to read the pilot lesson and do the questions. The agent can prepare an easy-to-share HTML/markdown version if asked.
+1. Ask 5 people (students and junior engineers) to read the pilot lesson and do the questions. The agent can prepare an easy-to-share HTML/markdown version if asked.
 2. Collect: confusing parts, questions that are too easy/hard/ambiguous, 'AI-made' impressions, duration.
 3. Write the summary in `docs/pilot-feedback.md` (raw bullets are fine; the agent tidies them).
 

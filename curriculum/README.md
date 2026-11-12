@@ -7,6 +7,16 @@ Files in this folder are created in milestone M2. Structural fields are English;
 | `concepts.yaml` | P1-020, P1-021, P1-023 | `docs/conventions/content-schema.md` §2 |
 | `case-studies.yaml` | P1-022 | `docs/conventions/content-schema.md` §3 |
 
+## Reader prerequisite knowledge
+
+Readers (students and junior engineers, ADR 0004) are assumed to know only:
+
+- Basic programming: variables, functions, loops, common data structures.
+- HTTP basics: request/response, methods, status codes.
+- Basic SQL: `SELECT`, `INSERT`, `UPDATE`, and simple joins.
+
+They have not operated a distributed system. **Unit 1 assumes nothing beyond this list.** Every other term (server, latency, replica, queue, ...) is explained on first use, and no concept may depend on knowledge outside this list unless a prerequisite concept covers it.
+
 ## Units (starting point from the master plan)
 
 | Unit | Core concepts |

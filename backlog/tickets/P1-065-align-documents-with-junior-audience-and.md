@@ -5,7 +5,7 @@ milestone: M0
 type: curriculum
 owner: agent
 review: agent
-status: in-progress
+status: done
 priority: high
 depends_on: [P1-002]
 estimate: 1
@@ -30,11 +30,15 @@ ADR 0004 sets the audience to students and junior engineers with three equal goa
 
 ## Done criteria
 
-- [ ] Audience and goals in all documents are consistent with ADR 0004
-- [ ] Reader prerequisite knowledge is written in `curriculum/README.md`
-- [ ] P1-022 and P1-047 mention both case-study goals
-- [ ] `python scripts/validate.py` passes
+- [x] Audience and goals in all documents are consistent with ADR 0004
+- [x] Reader prerequisite knowledge is written in `curriculum/README.md`
+- [x] P1-022 and P1-047 mention both case-study goals
+- [x] `python scripts/validate.py` passes
 
 ## Notes
 
-(Filled in during the work.)
+- Audience and goals now stated in AGENTS.md, ROADMAP.md, PLAN-PHASE-1.md, writing-style.md, and the curriculum-designer, content-writer, and content-reviewer subagents. 'junior–mid' replaced by 'students and junior engineers' (also in P1-034).
+- `curriculum/README.md` has a "Reader prerequisite knowledge" section (basic programming, HTTP, basic SQL); Unit 1 assumes nothing else. The curriculum-designer subagent now enforces this.
+- `writing-style.md` has the difficulty table (level 3 = challenging for a junior) and a rule that every concept mixes levels.
+- P1-022 and P1-047 now state both case-study goals; P1-047 also requires a rubric plus a time frame. `content-schema.md` §5 notes this for case-study files.
+- Deliberately unchanged: ADR 0002 (Tier 6 stays `map-only`), ADR 0003/0004, `research-protocol.md` Tier 6 row, and the registry. The interview goal is served by format, not by copying interview-prep content.
