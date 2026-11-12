@@ -1740,7 +1740,8 @@ sources:
     topics: [log, partitions, consumer-groups, offsets, retention, log-compaction, delivery-semantics, exactly-once, idempotent-producer, transactions, pull-vs-push]
     status: candidate
     version: "Apache Kafka 4.4.X docs"
-    notes: "NO-AUTHOR: corporate documentation. NO-DATE: page shows only a version. Footer: content (c) 2026 ASF under Apache License v2. The unversioned #design anchor URL only shows a redirect page; the /44/ URL is version-pinned, so a newer docs release may supersede it. Sections read: Message Delivery Semantics, Using Transactions, Consumer Position, Push vs Pull, Consumer Groups, Log Compaction, Retention. Core Unit 4 log source."
+    notes: "NO-AUTHOR: corporate documentation, no author on the page. NO-DATE: page shows only a version (AK 4.4.X; site Last modified 2026-10-26). Footer: content (c) 2026 ASF under Apache License v2. The unversioned #design anchor URL only shows a redirect page; the /44/ URL is version-pinned, so a newer docs release may supersede it. Sections read: Message Delivery Semantics, Using Transactions, Consumer Position, Push vs Pull, Consumer Groups, Log Compaction (retention is only mentioned in passing; the page has no dedicated Retention section). Core Unit 4 log source."
+    verified_on: "2026-11-12"
 
   - id: kafka-docs-introduction
     title: "Introduction (Apache Kafka documentation)"
@@ -1759,7 +1760,8 @@ sources:
     topics: [event-streaming, topics, partitions, replication, producers-consumers, retention, ordering-by-key]
     status: candidate
     version: "Apache Kafka 4.4.X docs"
-    notes: "NO-AUTHOR: corporate documentation. NO-DATE. Footer: (c) 2026 ASF, Apache License v2. Short overview: topic/partition model, same key goes to same partition, reads do not delete events. Good entry point for learners."
+    notes: "NO-AUTHOR: no author on the page. NO-DATE: page shows 'Last modified' only for the site build (2026-10-22), no content date. Footer: (c) 2026 ASF, Apache License v2. Short overview: topic/partition model, same key goes to same partition, reads do not delete events. Good entry point for learners."
+    verified_on: "2026-11-12"
 
   - id: kafka-docs-basic-operations
     title: "Basic Kafka Operations (Apache Kafka documentation)"
@@ -1778,7 +1780,8 @@ sources:
     topics: [consumer-lag, consumer-groups, offsets, monitoring, topic-config, quotas]
     status: candidate
     version: "Apache Kafka 4.4.X docs"
-    notes: "NO-AUTHOR: corporate documentation. NO-DATE. Footer: (c) 2026 ASF, Apache License v2. Section 'Checking consumer position' shows kafka-consumer-groups.sh --describe with current offset, log-end offset and LAG per partition. Fetch tool summarized the page; re-read before quoting commands. Consumer lag is only described as a command output, not as an alerting practice (gap)."
+    notes: "NO-AUTHOR: no author on the page. NO-DATE: page shows 'Last modified' only for the site build (2026-10-22), no content date. Footer: (c) 2026 ASF, Apache License v2. Section 'Checking consumer position' shows kafka-consumer-groups.sh --describe with current offset, log-end offset and LAG per partition. Fetch tool summarized the page; re-read before quoting commands. Consumer lag is only described as a command output, not as an alerting practice (gap)."
+    verified_on: "2026-11-12"
 
   - id: kafka-netdb-2011
     title: "Kafka: a Distributed Messaging System for Log Processing"
@@ -1796,7 +1799,8 @@ sources:
     units: [4]
     topics: [log, partitions, offsets, consumer-groups, pull-model, delivery-guarantees, page-cache]
     status: candidate
-    notes: "URL is a course-hosted copy (MIT 6.S897 reading list), not the publisher site; the PDF itself carries 'Copyright 2011 ACM' and a permission-to-copy notice, so license is treated as all-rights-reserved. The PDF was read as text; sections 1 to 6 (architecture in section 3, delivery guarantees in section 3.3). Venue (NetDB'11, Athens, June 2011) is stated in the PDF's own ACM copyright block; no official proceedings page was opened, so find the canonical URL and DOI at verification time. Early design: delivery is at-least-once, ordering only within a partition."
+    notes: "Reopened 2026-11-12 via pdftotext: 'NetDB'11, Jun. 12, 2011, Athens, Greece. Copyright 2011 ACM'. URL is a course-hosted copy (MIT 6.S897 reading list), not the publisher site; the PDF itself carries 'Copyright 2011 ACM' and a permission-to-copy notice, so license is treated as all-rights-reserved. The PDF was read as text; sections 1 to 6 (architecture in section 3, delivery guarantees in section 3.3). Venue (NetDB'11, Athens, June 2011) is stated in the PDF's own ACM copyright block; no official proceedings page was opened, so find the canonical URL and DOI at verification time. Early design: delivery is at-least-once, ordering only within a partition."
+    verified_on: "2026-11-12"
 
   - id: confluent-exactly-once-2017
     title: "Exactly-Once Semantics Are Possible: Here's How Kafka Does It"
@@ -1815,6 +1819,7 @@ sources:
     topics: [exactly-once, idempotent-producer, transactions, delivery-semantics, deduplication]
     status: candidate
     notes: "Page footer shows (c) Confluent 2014-2026, no content license stated; treated as all-rights-reserved. Page says last updated March 2025; described Kafka 0.11 behavior (2017), so numbers and settings may be outdated. Vendor blog, but written by Kafka's authors. Key point: the guarantee holds inside Kafka (read, state, write back); external side effects are outside it."
+    verified_on: "2026-11-12"
 
   - id: rabbitmq-tutorial-work-queues
     title: "RabbitMQ tutorial - Work Queues"
@@ -1833,7 +1838,8 @@ sources:
     topics: [work-queue, task-queue, ack, redelivery, durability, prefetch, fair-dispatch, slow-work-off-request-path]
     status: candidate
     version: "RabbitMQ 4.4"
-    notes: "NO-AUTHOR: corporate documentation. NO-DATE. Footer: Copyright 2005-2026 Broadcom (no open license on page). Python/pika code. Opens with the trigger: slow tasks that cannot finish inside an HTTP request. Covers round-robin dispatch, manual ack, requeue on worker death, durable queue plus persistent messages, prefetch=1. Sibling tutorials (publish/subscribe, routing) not opened."
+    notes: "NO-AUTHOR: corporate documentation, no author. NO-DATE: no date shown on the page (footer 'Copyright 2005-2026 Broadcom'); docs release series 4.4. Footer: Copyright 2005-2026 Broadcom (no open license on page). Python/pika code. Opens with the trigger: slow tasks that cannot finish inside an HTTP request. Covers round-robin dispatch, manual ack, requeue on worker death, durable queue plus persistent messages, prefetch=1. Sibling tutorials (publish/subscribe, routing) not opened."
+    verified_on: "2026-11-12"
 
   - id: rabbitmq-docs-confirms
     title: "Consumer Acknowledgements and Publisher Confirms (RabbitMQ documentation)"
@@ -1852,7 +1858,8 @@ sources:
     topics: [ack, nack, redelivery, publisher-confirms, duplicates, prefetch]
     status: candidate
     version: "RabbitMQ 4.4"
-    notes: "NO-AUTHOR: corporate documentation. NO-DATE. Footer: Copyright 2005-2026 Broadcom. Sections include consumer acknowledgement modes, negative ack and requeue, channel prefetch, automatic requeue on connection loss, publisher confirms. The fetch summary says the page does not use the terms 'at-least-once' or 'poison message' itself; those are inferences from described behavior, so do not attribute the terms to the page."
+    notes: "NO-AUTHOR: corporate documentation, no author. NO-DATE: no date shown on the page (footer 'Copyright 2005-2026 Broadcom'); docs version 4.4. Footer: Copyright 2005-2026 Broadcom. Sections include consumer acknowledgement modes, negative ack and requeue, channel prefetch, automatic requeue on connection loss, publisher confirms. The fetch summary says the page does not use the terms 'at-least-once' or 'poison message' itself; those are inferences from described behavior, so do not attribute the terms to the page."
+    verified_on: "2026-11-12"
 
   - id: aws-sqs-visibility-timeout
     title: "Amazon SQS visibility timeout"
@@ -1864,13 +1871,14 @@ sources:
     doi: null
     published: null
     accessed: "2026-11-12"
-    license: unknown
+    license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [4]
     topics: [visibility-timeout, ack, redelivery, in-flight-messages, at-least-once, heartbeat]
     status: candidate
-    notes: "NO-AUTHOR: corporate documentation. NO-DATE and no version on the fetched text; the page footer was not visible in the fetch, so license is unknown (AWS docs are normally all rights reserved; not verified). Facts on the page: default 30 s, extend via ChangeMessageVisibility, 12-hour maximum from first receive, about 120,000 in-flight limit for standard queues, at-least-once still allows duplicates inside the timeout. Quotas change; re-check at verification."
+    notes: "NO-AUTHOR: AWS documentation, no author. NO-DATE: no date in the fetched text. No license statement in the fetched content (re-checked 2026-11-12), so treated as all-rights-reserved. Facts on the page: default 30 s, extend via ChangeMessageVisibility, 12-hour maximum from first receive, about 120,000 in-flight limit for standard queues, at-least-once still allows duplicates inside the timeout. Quotas change; re-check at verification."
+    verified_on: "2026-11-12"
 
   - id: aws-sqs-dead-letter-queues
     title: "Using dead-letter queues in Amazon SQS"
@@ -1882,13 +1890,14 @@ sources:
     doi: null
     published: null
     accessed: "2026-11-12"
-    license: unknown
+    license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [4]
     topics: [dlq, dead-letter-queue, redrive, max-receive-count, retention, poison-messages]
     status: candidate
-    notes: "NO-AUTHOR: corporate documentation. NO-DATE. Footer not visible in the fetch, so license unknown (not verified). Covers redrive policy and maxReceiveCount, DLQ must be in the same account and Region, retention should be longer than the source queue, do not use a DLQ with FIFO if order matters."
+    notes: "NO-AUTHOR: AWS documentation, no author. NO-DATE: no date in the fetched text. No license statement in the fetched content (re-checked 2026-11-12), so treated as all-rights-reserved. Covers redrive policy and maxReceiveCount, DLQ must be in the same account and Region, retention should be longer than the source queue, do not use a DLQ with FIFO if order matters."
+    verified_on: "2026-11-12"
 
   - id: aws-sqs-standard-queues
     title: "Amazon SQS standard queues"
@@ -1900,13 +1909,14 @@ sources:
     doi: null
     published: null
     accessed: "2026-11-12"
-    license: unknown
+    license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [4]
     topics: [message-queue, at-least-once, best-effort-ordering, decoupling, background-work]
     status: candidate
-    notes: "NO-AUTHOR: corporate documentation. NO-DATE. Footer not visible in the fetch, so license unknown. Short page: at-least-once, possible out-of-order delivery, stored redundantly across AZs; use cases include decoupling live user requests from heavy background work (a useful trigger statement). FIFO queue page not opened."
+    notes: "NO-AUTHOR: AWS documentation, no author. NO-DATE: no date in the fetched text. No license statement in the fetched content (re-checked 2026-11-12), so treated as all-rights-reserved. Short page: at-least-once, possible out-of-order delivery, stored redundantly across AZs; use cases include decoupling live user requests from heavy background work (a useful trigger statement). FIFO queue page not opened."
+    verified_on: "2026-11-12"
 
   - id: microservices-io-transactional-outbox
     title: "Pattern: Transactional outbox"
@@ -1925,6 +1935,7 @@ sources:
     topics: [outbox, dual-write, message-relay, polling-publisher, transaction-log-tailing, idempotent-consumer]
     status: candidate
     notes: "NO-DATE: the page gives none; footer says Copyright 2026 Chris Richardson, all rights reserved. Practitioner author (not an operator of the system), so tier 2 is a judgment call. Clear problem/solution/result-context format; states the relay can publish duplicates so consumers must be idempotent."
+    verified_on: "2026-11-12"
 
   - id: microservices-io-idempotent-consumer
     title: "Pattern: Idempotent Consumer"
@@ -1942,7 +1953,8 @@ sources:
     units: [4]
     topics: [idempotent-consumer, at-least-once, deduplication, processed-messages-table]
     status: candidate
-    notes: "NO-DATE: the page gives none (a linked blog post is dated 2020-10-16, not this page). Footer: Copyright 2026 Chris Richardson, all rights reserved. Practitioner author, tier 2 is a judgment call. Solution: store processed message IDs in the same transaction as the business update; primary key (subscriber, message id) rejects duplicates."
+    notes: "Reopened 2026-11-12: no date and no license on the page; footer 'Copyright (c) 2026 Chris Richardson, All rights reserved'. NO-DATE: the page gives none (a linked blog post is dated 2020-10-16, not this page). Footer: Copyright 2026 Chris Richardson, all rights reserved. Practitioner author, tier 2 is a judgment call. Solution: store processed message IDs in the same transaction as the business update; primary key (subscriber, message id) rejects duplicates."
+    verified_on: "2026-11-12"
 
   - id: debezium-outbox-pattern-2019
     title: "Reliable Microservices Data Exchange With the Outbox Pattern"
@@ -1960,7 +1972,8 @@ sources:
     units: [4]
     topics: [outbox, dual-write, cdc, change-data-capture, debezium, at-least-once, idempotent-consumer]
     status: candidate
-    notes: "Real license: the page says the Debezium website and documentation are CC BY 3.0 (software is Apache 2.0). Sections: The Issue of Dual Writes, The Outbox Pattern, An Implementation Based on Change Data Capture, The Outbox Table, Duplicate Detection in the Consuming Service. The only opened source that explains CDC from the transaction log as the relay."
+    notes: "Footer re-read 2026-11-12: 'The website and documentation are licensed under CC BY 3.0'. Real license: the page says the Debezium website and documentation are CC BY 3.0 (software is Apache 2.0). Sections: The Issue of Dual Writes, The Outbox Pattern, An Implementation Based on Change Data Capture, The Outbox Table, Duplicate Detection in the Consuming Service. The only opened source that explains CDC from the transaction log as the relay."
+    verified_on: "2026-11-12"
 
   - id: debezium-docs-outbox-event-router
     title: "Outbox Event Router (Debezium documentation)"
@@ -1972,14 +1985,15 @@ sources:
     doi: null
     published: null
     accessed: "2026-11-12"
-    license: unknown
+    license: CC-BY-3.0
     usage: rewrite-only
     access: free
     units: [4]
     topics: [outbox, cdc, debezium, kafka-connect, event-routing, ordering]
     status: candidate
     version: "Debezium 3.7 (stable)"
-    notes: "NO-AUTHOR: corporate documentation. NO-DATE. Page footer says Copyright 2026 Debezium Community with no license named (the 2019 blog states CC BY 3.0 for the site; not confirmed on this page), so license unknown. The 'stable' URL will move to newer versions. Tool-specific (Kafka Connect SMT); use only as an implementation example."
+    notes: "NO-AUTHOR: no author named. NO-DATE: no date shown (footer 'Copyright 2026 Debezium Community', docs version 3.7 latest stable). License: this page's own footer shows no license, but the Debezium blog footer on the same site says 'The website and documentation are licensed under CC BY 3.0' (read 2026-11-12), so recorded as CC-BY-3.0; usage stays rewrite-only. The 'stable' URL will move to newer versions. Tool-specific (Kafka Connect SMT); use only as an implementation example."
+    verified_on: "2026-11-12"
 
   - id: aws-builders-insurmountable-queue-backlogs
     title: "Avoiding insurmountable queue backlogs"
@@ -1998,6 +2012,7 @@ sources:
     topics: [backpressure, queue-backlog, load-shedding, multi-tenant, shuffle-sharding, dead-letter-queue, queue-age]
     status: candidate
     notes: "The aws.amazon.com/builders-library URL redirects (301) to this one. Author shown only as 'David' (Sr. Principal Engineer at AWS), same convention as aws-builders-load-shedding. Footer: AWS copyright 2026, all rights reserved. Main point: a queue can make recovery slower than a synchronous system because the backlog must be drained; measure message age; use separate queues, spillover, drop stale work, and backpressure. Core source for the backpressure sub-topic."
+    verified_on: "2026-11-12"
 
   - id: azure-queue-based-load-leveling
     title: "Queue-Based Load Leveling Pattern (Azure Architecture Center)"
@@ -2009,13 +2024,14 @@ sources:
     doi: null
     published: "2026-06-09"
     accessed: "2026-11-12"
-    license: unknown
+    license: CC-BY-4.0
     usage: rewrite-only
     access: free
     units: [4]
     topics: [queue, load-leveling, backpressure, spikes, dead-letter-queue, idempotent-consumer, ordering, autoscaling]
     status: candidate
-    notes: "NO-AUTHOR: no author named in the page text (front matter lists a git author handle only). Date is ms.date from the front matter. No license text in the fetched content (same situation as azure-cache-aside-pattern), so license unknown. Has an explicit 'when to use' trigger (intermittent spikes that overwhelm a downstream service) and 'not suitable' (caller needs synchronous low-latency reply, low stable volume). Warns that queue grows if producer rate exceeds consumer rate."
+    notes: "NO-AUTHOR: no author named in the page text (front matter lists a git author handle only). Date is ms.date from the front matter. License: the page shows no footer license in the fetch, but the public repo MicrosoftDocs/architecture-center README 'Legal Notices' says documentation is CC BY 4.0 and code MIT (opened 2026-11-12, see azure-cache-aside-pattern); the page's own source is the mirror architecture-center-pr, so scope is inferred and usage stays rewrite-only. Has an explicit 'when to use' trigger (intermittent spikes that overwhelm a downstream service) and 'not suitable' (caller needs synchronous low-latency reply, low stable volume). Warns that queue grows if producer rate exceeds consumer rate."
+    verified_on: "2026-11-12"
 
   - id: azure-competing-consumers
     title: "Competing Consumers Pattern (Azure Architecture Center)"
@@ -2027,13 +2043,14 @@ sources:
     doi: null
     published: "2026-04-02"
     accessed: "2026-11-12"
-    license: unknown
+    license: CC-BY-4.0
     usage: rewrite-only
     access: free
     units: [4]
     topics: [work-queue, competing-consumers, point-to-point, ordering, poison-messages, dead-letter-queue, idempotent-consumer, peek-lock]
     status: candidate
-    notes: "NO-AUTHOR in the page text. Date is ms.date from front matter. No license text in fetched content, so license unknown. Contrasts competing consumers (one consumer gets each message) with pub/sub (all subscribers get every message). Covers ordering, poison messages, result handling, messaging system scaling."
+    notes: "NO-AUTHOR: no author named in the page text (front matter lists a git author handle only). Date is ms.date from front matter. License: the page shows no footer license in the fetch, but the public repo MicrosoftDocs/architecture-center README 'Legal Notices' says documentation is CC BY 4.0 and code MIT (opened 2026-11-12, see azure-cache-aside-pattern); the page's own source is the mirror architecture-center-pr, so scope is inferred and usage stays rewrite-only. Contrasts competing consumers (one consumer gets each message) with pub/sub (all subscribers get every message). Covers ordering, poison messages, result handling, messaging system scaling."
+    verified_on: "2026-11-12"
 
   - id: azure-publisher-subscriber
     title: "Publisher-Subscriber Pattern (Azure Architecture Center)"
@@ -2045,13 +2062,14 @@ sources:
     doi: null
     published: "2026-03-04"
     accessed: "2026-11-12"
-    license: unknown
+    license: CC-BY-4.0
     usage: rewrite-only
     access: free
     units: [4]
     topics: [pub-sub, topics, fan-out, delivery-semantics, at-least-once, exactly-once, ordering, backpressure, schema-evolution]
     status: candidate
-    notes: "NO-AUTHOR in the page text. Date is ms.date from front matter. No license text in fetched content, so license unknown. Covers topic vs content filtering, delivery guarantees (at-most/at-least/exactly-once trade-offs), ordering, poison messages, backpressure via flow control. Includes when-not-to-use (few consumers, strict ordering, need for atomic transaction)."
+    notes: "NO-AUTHOR: no author named in the page text (front matter lists a git author handle only). Date is ms.date from front matter. License: the page shows no footer license in the fetch, but the public repo MicrosoftDocs/architecture-center README 'Legal Notices' says documentation is CC BY 4.0 and code MIT (opened 2026-11-12, see azure-cache-aside-pattern); the page's own source is the mirror architecture-center-pr, so scope is inferred and usage stays rewrite-only. Covers topic vs content filtering, delivery guarantees (at-most/at-least/exactly-once trade-offs), ordering, poison messages, backpressure via flow control. Includes when-not-to-use (few consumers, strict ordering, need for atomic transaction)."
+    verified_on: "2026-11-12"
 
   - id: reactive-manifesto
     title: "The Reactive Manifesto"
@@ -2063,14 +2081,15 @@ sources:
     doi: null
     published: "2014-09-16"
     accessed: "2026-11-12"
-    license: unknown
+    license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [4]
     topics: [backpressure, message-driven, flow-control, responsiveness]
     status: candidate
     version: "v2.0"
-    notes: "Real license: the page says it may be freely copied in any form but only in its entirety, with a copyright notice 2014-2026; this is not a standard license, so license is unknown. Position paper, not an operator report; backpressure appears in one phrase under Message Driven. Weak as a primary source: doubtful for Tier 2, use only for vocabulary."
+    notes: "Real license: the page says it may be freely copied in any form but only in its entirety, with a copyright notice 2014-2026; this is not a standard license and allows copying only in its entirety (no adaptation), so it is recorded as all-rights-reserved (re-read 2026-11-12). Version 2.0, 2014-09-16. Position paper, not an operator report; backpressure appears in one phrase under Message Driven. Weak as a primary source: doubtful for Tier 2, use only for vocabulary."
+    verified_on: "2026-11-12"
 
   - id: nodejs-backpressure-streams
     title: "Backpressuring in Streams (Node.js Learn)"
@@ -2088,7 +2107,8 @@ sources:
     units: [4]
     topics: [backpressure, flow-control, bounded-buffer, highwatermark, drain]
     status: candidate
-    notes: "NO-AUTHOR, NO-DATE on the page. Footer: Copyright OpenJS Foundation and Node.js contributors, all rights reserved. In-process backpressure (write() returns false, 'drain' event), not a distributed queue, but the clearest free beginner explanation of why unbounded buffers exhaust memory. The page's measured memory figures come from its own demo; do not generalize them."
+    notes: "NO-AUTHOR: no author on the page. NO-DATE: no date (only 'Reading Time: 18 min'). Footer: Copyright OpenJS Foundation and Node.js contributors, all rights reserved. In-process backpressure (write() returns false, 'drain' event), not a distributed queue, but the clearest free beginner explanation of why unbounded buffers exhaust memory. The page's measured memory figures come from its own demo; do not generalize them."
+    verified_on: "2026-11-12"
 
   # ---- Unit 5: Consistency & coordination (P1-014) ----
   - id: raft-extended-paper
