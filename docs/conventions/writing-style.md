@@ -37,7 +37,7 @@ Calibrated for juniors, not seniors:
 | 2 | Apply one concept to a simple scenario, or compare two options. |
 | 3 | **Challenging for a junior:** combine two or more concepts, diagnose a symptom, or weigh trade-offs. It is not a senior-level question; a student who studied the lesson and thought carefully can solve it. |
 
-Every concept needs a mix of levels, with at least one level-1 and one level-2 question.
+Every concept should have a mix of levels.
 
 ## Short example
 

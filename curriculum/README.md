@@ -12,6 +12,7 @@ Files in this folder are created in milestone M2. Structural fields are English;
 Readers (students and junior engineers, ADR 0004) are assumed to know only:
 
 - Basic programming: variables, functions, loops, common data structures.
+- Basic arithmetic and ratios (percentages, orders of magnitude); Unit 1 explains any other math it needs.
 - HTTP basics: request/response, methods, status codes.
 - Basic SQL: `SELECT`, `INSERT`, `UPDATE`, and simple joins.
 
