@@ -12,7 +12,7 @@
   license: unknown       # all-rights-reserved | CC-BY-4.0 | CC-BY-SA-4.0 | CC-BY-NC-4.0 | CC-BY-NC-SA-4.0 | CC-BY-NC-ND-4.0 | MIT | Apache-2.0 | public-domain | unknown
   usage: rewrite-only    # rewrite-only | adapt-with-attribution | map-only
   access: free           # free | partial | paywalled
-  units: []
+  units: []              # curriculum units 0–6
   topics: []
   status: candidate
   free_companion: []     # ids of free registry sources on the same topics (required if approved + paywalled)

@@ -15,7 +15,7 @@ outputs:
 
 ## Context
 
-Draft ~40 concepts for the 6 units. Use the `curriculum-designer` subagent.
+Draft ~46 concepts for the 7 units (0–6). Each concept in Units 1–6 gets a `trigger` (ADR 0004 Amendment 1). Use the `curriculum-designer` subagent.
 
 ## Tasks
 
@@ -25,7 +25,8 @@ Draft ~40 concepts for the 6 units. Use the `curriculum-designer` subagent.
 
 ## Done criteria
 
-- [ ] 35–45 concepts across 6 units
+- [ ] 40–50 concepts across 7 units (0–6)
+- [ ] Every concept in Units 1–6 has a `trigger`
 - [ ] Every concept has testable learning objectives
 - [ ] `content-reviewer` passes
 - [ ] `python scripts/validate.py` passes

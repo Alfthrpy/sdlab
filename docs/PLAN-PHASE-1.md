@@ -1,12 +1,12 @@
 # Phase 1 Plan — Materials
 
-**Goal:** produce v1 materials ready for the application: about 40 concepts, 300 questions, 15 lab specs, 8 incidents, and 6 case studies. Every claim is sourced from the verified Reference Registry.
+**Goal:** produce v1 materials ready for the application: about 46 concepts (7 units), 340 questions, 16 lab specs, 8 incidents, and 6 case studies. Every claim is sourced from the verified Reference Registry.
 
 **Audience and goals:** students and junior engineers, with three equal goals: understand production-scale systems, learn new things, and prepare for system design interviews ([ADR 0004](decisions/0004-audience-and-goals.md)). Content assumes low prior knowledge (basic programming, HTTP, basic SQL) and explains the "why" before the "what". Case studies serve both interview goals: practice designing a system, and practice explaining a design within a time limit.
 
 **How we work:** agent-heavy. Agents do research, mapping, and drafting. Other agents review without having done the work. The repo owner (human) only decides at milestone gates, runs user tests, and spot-checks quality. Flow details are in [workflow.md](workflow.md).
 
-**Estimated duration:** 22 weeks for the full volume. M1–M3 (about 6 weeks) is the critical path. M4 can be sped up by adding parallel agent sessions per unit.
+**Estimated duration:** 24 weeks for the full volume (22 before the Unit 0 addition in ADR 0004 Amendment 1). M1–M3 (about 6–7 weeks) is the critical path. M4 can be sped up by adding parallel agent sessions per unit.
 
 ## Milestones and gates
 
@@ -14,16 +14,17 @@
 | --- | --- | --- | --- |
 | **M0** Foundation | Repo, workflow, base decisions | 1 | Language, audience, and reviewer decisions recorded in ADRs |
 | **M1** Reference Registry | Criteria, candidate research per unit, license & version verification, gap map | 1–2 | **G0:** every unit has ≥1 Tier 1–2 source and ≥1 Tier 3–4 |
-| **M2** Curriculum | ~40 concepts + learning objectives, prerequisite graph, case studies & incidents, source mapping | 3–5 | **G1:** valid DAG, each concept has an objective + ≥2 sources |
+| **M2** Curriculum | ~46 concepts + learning objectives and triggers, prerequisite graph, case studies & incidents, source mapping | 3–5 | **G1:** valid DAG, each concept has an objective + ≥2 sources |
 | **M3** Pedagogy & pilot | Content schema + validator, style guide, "caching" pilot in all formats, test with 5 people | 5–6 | **G2:** pilot tested, templates revised |
-| **M4** Production | 6 content units, incident pack, case-study pack | 7–22 | Per unit: passes agent review + human sample |
-| **M5** QA & freeze | Citation audit, plagiarism audit, question calibration, content v1 release | 21–22 | **G3:** content v1 frozen (tag `content-v1.0`) |
+| **M4** Production | 7 content units (Units 0–6), incident pack, case-study pack | 8–24 | Per unit: passes agent review + human sample |
+| **M5** QA & freeze | Citation audit, plagiarism audit, question calibration, content v1 release | 23–24 | **G3:** content v1 frozen (tag `content-v1.0`) |
 
 ## M4 production order
 
 Units are done by differentiating value and dependencies:
 
-1. **Unit 1 Foundations.** All other units need it.
+0. **Unit 0 Single-server backend.** The bottom rung of the growth ladder; Unit 1 builds on it.
+1. **Unit 1 Foundations.** All later units need it.
 2. **Unit 2 Building blocks.** Basis for the first lab.
 3. **Unit 6 Production reliability.** Main differentiator (retry storm, metastable, real incidents), and closest to the simulator.
 4. **Unit 3 Data.**
@@ -38,7 +39,7 @@ The epic tickets per unit (`P1-040` onward) are split by the agent into one sub-
 
 | | Agent | Human |
 | --- | --- | --- |
-| Initial ticket count | 31 | 7 |
+| Initial ticket count | 31 | 7 (plus P1-048, P1-068, P1-069 for the Unit 0 addition) |
 | Kind | Research, mapping, curriculum, schemas, drafting, cross-review, automated QA | Base decisions, 3 gates, pilot test, QA spot-check |
 | Estimated human time | — | 2–4 hours per gate, ~1 hour/week spot-check |
 
@@ -47,7 +48,7 @@ The epic tickets per unit (`P1-040` onward) are split by the agent into one sub-
 ```
 references/registry.yaml          ~150 sources, status approved, license & version recorded
 references/notes/*.md             reading notes per main source
-curriculum/concepts.yaml          ~40 concepts, learning objectives, prerequisites, sources
+curriculum/concepts.yaml          ~46 concepts, learning objectives, triggers, prerequisites, sources
 curriculum/case-studies.yaml      20–25 selected case studies & incidents
 content/concepts/<id>/            lesson.md, questions.yaml, lab.yaml (optional), misconceptions.md
 content/incidents/<id>.md         8 incident scenarios from public postmortems
@@ -76,9 +77,10 @@ Current status is always in [../backlog/BOARD.md](../backlog/BOARD.md). Initial 
 - P1-003 Decision: working name & technical reviewer — **human**
 - P1-004 Mirror backlog to GitHub Projects (optional) — agent
 
-**M1 Reference Registry**
+**M1 Reference Registry** (P1-068 first: defines the growth ladder and Unit 0)
 - P1-010 Finalize registry criteria & schema — agent
-- P1-011 to P1-015 Candidate research per unit (6 units, 5 tickets) — agent
+- P1-011 to P1-015 Candidate research for Units 1–6 (5 tickets) — agent
+- P1-069 Candidate research for Unit 0 (single-server backend) — agent
 - P1-016 Verify license & version of all candidates — agent
 - P1-017 Source → topic map & gap list — agent
 - P1-018 Final citation & attribution guide — agent
@@ -100,6 +102,7 @@ Current status is always in [../backlog/BOARD.md](../backlog/BOARD.md). Initial 
 - P1-035 Revise templates from pilot results — agent
 
 **M4 Production** (epics, split per concept when started)
+- P1-048 Unit 0 Single-server backend
 - P1-040 Unit 1 Foundations
 - P1-041 Unit 2 Building blocks
 - P1-042 Unit 6 Production reliability
