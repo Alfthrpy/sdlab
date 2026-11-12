@@ -5,7 +5,7 @@ milestone: M1
 type: research
 owner: agent
 review: agent
-status: in-progress
+status: review
 priority: high
 depends_on: [P1-010, P1-068]
 estimate: 1
@@ -26,12 +26,17 @@ Fill the Reference Registry for Unit 0: Single-server backend (the request lifec
 
 ## Done criteria
 
-- [ ] ≥ 12 candidates for this unit, all opened in the session
-- [ ] Every sub-topic has ≥ 1 Tier 1–3 source or official documentation, or is recorded as a gap
-- [ ] Reading notes for the 3–5 main sources
-- [ ] `source-verifier` says pass
-- [ ] `python scripts/validate.py` passes
+- [x] ≥ 12 candidates for this unit, all opened in the session
+- [x] Every sub-topic has ≥ 1 Tier 1–3 source or official documentation, or is recorded as a gap
+- [x] Reading notes for the 3–5 main sources
+- [x] `source-verifier` says pass
+- [x] `python scripts/validate.py` passes
 
 ## Notes
 
-(Filled in during the work.)
+- Added 22 Unit 0 candidates (1 later swapped), all opened in the session; every sub-topic has at least one official-documentation or Tier 1–2 source. Reading notes: pg-docs-backup-restore, pg-docs-using-explain, pg-docs-kernel-resources, pg-docs-indexes-intro, aws-builders-implementing-health-checks.
+- First `source-verifier` pass: FAIL (fixable). Fixed after reopening each page: SQLite license -> public-domain; use-the-index-luke tier 1 -> 2; third-party Stack Overflow summary removed and replaced by the author's own blog post (`craver-stack-overflow-architecture-2016`); wrong section numbers in two notes; unsupported claims in the AWS health-check note; 12-factor license set to `unknown` (site says all rights reserved, repo says MIT); MySQL/MDN/PostgreSQL license notes.
+- No Tier 3–6 sources: not expected for Unit 0 (official docs and practitioner articles). Tier 1 is only the SRE book chapter.
+- **Gaps:** backup schedules, off-machine storage, restore drills (only the mechanics are covered); a deploy procedure for one box (rolling a version, migrations, rollback); a dedicated logging source (only 12-factor's factor list); a source that follows one request end to end (DNS, TCP, web server, app, database); a primary engineering article on scaling from one server; a Tier 1 book chapter written for beginners; the nginx.org beginner's guide could not be opened.
+- **Doubts for P1-016:** the Stack Overflow 2016 post was only partly read and is not single-server; the MySQL manual is all-rights-reserved and 8.4 is not the page's "current" series (9.x is); `verified_on` is empty on every entry on purpose.
+- Follow-up: P1-070 (license values and a tier for official docs).

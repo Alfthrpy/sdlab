@@ -2,7 +2,7 @@
 source: pg-docs-backup-restore
 read_by: agent
 date: 2026-11-12
-sections_read: ["25 (chapter outline)", "25.1 SQL Dump", "25.3 Continuous Archiving and PITR"]
+sections_read: ["25 (chapter outline)", "25.1 SQL Dump", "25.3 Continuous Archiving and PITR (section list and 25.3.1 config-file remark re-checked 2026-11-12)"]
 ---
 
 # Notes: PostgreSQL 18 Documentation, Chapter 25. Backup and Restore
@@ -22,7 +22,7 @@ sections_read: ["25 (chapter outline)", "25.1 SQL Dump", "25.3 Continuous Archiv
 - (25.3.1) The archive command must succeed only if the file is really stored, and must not overwrite an existing archived file. If archiving falls behind, WAL piles up on the data disk and can fill it.
 - (25.3.1) Only completed WAL segments are archived, so a time-based forced switch bounds how much recent data could be missing from the archive.
 - (25.3.5) Recovery order: stop the server, keep a copy of what is there, restore the base backup, point the server at the archive, signal recovery, start, then check the data. If the result is wrong, retry with a different target.
-- (25.3.8) Config files are not in WAL, so back them up separately. Tablespaces need care when restoring to another path.
+- (25.3.1) Config files (postgresql.conf, pg_hba.conf, pg_ident.conf) are not restored by WAL archiving because they are edited by hand, so keep them in a location covered by the normal file backup. (25.3.8 Caveats is a separate section and was not checked for the tablespace remark.)
 - (25.3.3) Incremental base backups exist, but restoring needs the whole chain; the server does not stop you from deleting a backup a later one depends on.
 
 ## Citable numbers & facts
