@@ -395,6 +395,10 @@ def check_curriculum(registry: dict[str, dict]) -> dict[str, dict]:
 
 # --------------------------------------------------------------------------- content
 FOOTNOTE = re.compile(r"\[\^([a-z0-9-]+)\]")
+# a quoted span followed by a source marker (optional punctuation between), e.g. "..."[^id] or “...”.[^id]
+QUOTE = re.compile(r'(?:"([^"\n]+)"|“([^”\n]+)”)[.,;:]?\s*\[\^([a-z0-9-]+)\]')
+QUOTE_MAX_WORDS = 14  # citation-guide: a short sentence, fewer than 15 words
+QUOTE_MIN_WORDS = 4   # shorter spans are terms ("split brain"), not quotes
 Q_TYPES = ["mcq", "multi", "order", "match", "estimate"]
 
 
@@ -415,7 +419,8 @@ def check_content(registry: dict[str, dict], concepts: dict[str, dict]):
                 err(w, "frontmatter missing")
             else:
                 published = fm.get("status") == "published"
-                src_ids = [s.get("id") if isinstance(s, dict) else s for s in fm.get("sources") or []]
+                srcs = [s if isinstance(s, dict) else {"id": s} for s in fm.get("sources") or []]
+                src_ids = [s.get("id") for s in srcs]
                 for s in src_ids:
                     if s not in registry:
                         err(w, f"source not in registry: {s}")
@@ -423,13 +428,33 @@ def check_content(registry: dict[str, dict], concepts: dict[str, dict]):
                         err(w, f"published content cites a source that is not approved: {s}")
                     elif registry[s].get("usage") == "map-only":
                         err(w, f"a map-only (Tier 6) source must not be a content source: {s}")
+                for s in srcs:
+                    r = registry.get(s.get("id"))
+                    if r and r.get("type") in ("book", "paper") and not s.get("loc"):
+                        err(w, f"source {s['id']} is a {r['type']}: `loc` (chapter/section/page) is required")
                 for s in src_ids:
-                    if s in registry and registry[s].get("usage") == "adapt-with-attribution" \
-                            and "diadaptasi" in body.lower() and registry[s].get("title", "") not in body:
-                        warn(w, f"attribution for {s} should name the source title")
+                    r = registry.get(s)
+                    if r and r.get("usage") == "adapt-with-attribution":
+                        if "diadaptasi" not in body.lower():
+                            err(w, f"{s} is adapt-with-attribution: the attribution line ('diadaptasi ...') is missing")
+                        elif r.get("title", "") not in body:
+                            warn(w, f"attribution for {s} should name the source title")
                 for ref in set(FOOTNOTE.findall(body)):
-                    if ref not in src_ids:
+                    if ref not in registry:
+                        err(w, f"marker [^{ref}] is not in the registry")
+                    elif ref not in src_ids:
                         err(w, f"marker [^{ref}] is not in frontmatter sources")
+                quotes: dict[str, int] = {}
+                for m in QUOTE.finditer(re.sub(r"```.*?```", "", body, flags=re.S)):
+                    text, ref = m.group(1) or m.group(2), m.group(3)
+                    if len(text.split()) < QUOTE_MIN_WORDS:
+                        continue
+                    quotes[ref] = quotes.get(ref, 0) + 1
+                    if len(text.split()) > QUOTE_MAX_WORDS:
+                        err(w, f"direct quote from {ref} is {len(text.split())} words (max {QUOTE_MAX_WORDS})")
+                for ref, n in quotes.items():
+                    if n > 1:
+                        err(w, f"{n} direct quotes from {ref} (max 1 per source per lesson)")
                 words = len(re.findall(r"\w+", re.sub(r"```.*?```", "", body, flags=re.S)))
                 if words and not 250 <= words <= 700:
                     warn(w, f"lesson length is {words} words (target 300–600)")
@@ -453,6 +478,10 @@ def check_content(registry: dict[str, dict], concepts: dict[str, dict]):
                 for s in q.get("sources") or []:
                     if s not in registry:
                         err(w, f"{qid}: source not in registry: {s}")
+                    elif published and registry[s].get("status") != "approved":
+                        err(w, f"{qid}: published content cites a source that is not approved: {s}")
+                    elif registry[s].get("usage") == "map-only":
+                        err(w, f"{qid}: a map-only (Tier 6) source must not be a content source: {s}")
                 if q.get("type") == "mcq":
                     opts = q.get("options") or []
                     a = q.get("answer")
