@@ -42,8 +42,10 @@ A source can move from `candidate` to `approved` only if: the license is known; 
 | Tier | Kind | Examples |
 | --- | --- | --- |
 | 1 | Main reference books | Designing Data-Intensive Applications 2e, Google SRE Book |
-| 2 | Industry practice from system operators | Amazon Builders' Library, official engineering blogs |
+| 2 | Industry practice from system operators | Amazon Builders' Library, official engineering blogs, official documentation |
 | 3 | Peer-reviewed research | HotOS, OSDI, SOSP, NSDI, VLDB papers |
 | 4 | Real incidents | Official postmortems |
 | 5 | Open material | CC BY repos/books |
 | 6 | Interview maps | Interview-prep courses/books (topic mapping only) |
+
+**Official documentation** (`type: docs`) is Tier 2 when it is published by the project or vendor that builds the system (PostgreSQL manual, PgBouncer docs, Prometheus docs) or by an established docs community (MDN). It describes how the system actually behaves. Not Tier 2: wikis and user-edited pages (note the weaker standing in `notes`), vendor marketing pages, and third-party tutorials (those are articles, judged on their own). Docs that are themselves open material (a CC BY docs repo) may use Tier 5 instead.

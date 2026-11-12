@@ -112,7 +112,7 @@ def find_cycle(graph: dict[str, list[str]]):
 # --------------------------------------------------------------------------- registry
 REG_TYPES = ["book", "paper", "article", "postmortem", "docs", "repo", "course", "talk"]
 LICENSES = ["all-rights-reserved", "CC-BY-4.0", "CC-BY-SA-4.0", "CC-BY-NC-ND-4.0", "CC-BY-NC-4.0",
-            "CC-BY-NC-SA-4.0", "MIT", "Apache-2.0", "public-domain", "unknown"]
+            "CC-BY-NC-SA-4.0", "CC-BY-3.0", "CC-BY-SA-2.5", "MIT", "Apache-2.0", "ISC", "PostgreSQL", "public-domain", "unknown"]
 USAGES = ["rewrite-only", "adapt-with-attribution", "map-only"]
 ACCESS = ["free", "partial", "paywalled"]
 SRC_STATUS = ["candidate", "approved", "rejected", "deprecated"]
@@ -121,7 +121,7 @@ DATE = re.compile(r"^\d{4}(-\d{2}(-\d{2})?)?$")
 FULL_DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 DOI = re.compile(r"^10\.\d{4,9}/\S+$")
 SEED_MARK = re.compile(r"\bSEED\b")
-OPEN_LICENSES = {"CC-BY-4.0", "CC-BY-SA-4.0", "MIT", "Apache-2.0", "public-domain"}
+OPEN_LICENSES = {"CC-BY-4.0", "CC-BY-SA-4.0", "CC-BY-3.0", "CC-BY-SA-2.5", "MIT", "Apache-2.0", "ISC", "PostgreSQL", "public-domain"}
 REQUIRED_FIELDS = ["id", "title", "url", "accessed", "type", "tier", "license", "usage", "access", "status"]
 OPTIONAL_FIELDS = ["authors", "publisher", "doi", "published", "edition", "units", "topics", "notes",
                    "free_companion", "superseded_by", "version", "archive_url", "attribution", "lang", "verified_on"]

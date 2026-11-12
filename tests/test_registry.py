@@ -63,6 +63,12 @@ class Registry(unittest.TestCase):
                   free_companion=["open-src"], **approved),
         ])
 
+    def test_permissive_licenses_allow_adaptation(self):
+        approved = dict(authors=["A"], published="2020", units=[1], topics=["x"], status="approved",
+                        verified_on="2026-11-12", usage="adapt-with-attribution", attribution="credit")
+        for lic in ["CC-BY-3.0", "PostgreSQL", "ISC", "CC-BY-SA-2.5"]:
+            self.assertClean([entry(license=lic, **approved)])
+
     def test_bad_id_and_unknown_field(self):
         self.assertErr([entry(id="Bad_ID")], "kebab-case")
         self.assertErr([entry(licence="x")], "did you mean 'license'")
