@@ -5,7 +5,7 @@ milestone: M1
 type: research
 owner: agent
 review: agent
-status: in-progress
+status: review
 priority: high
 depends_on: []
 estimate: 1
@@ -29,12 +29,17 @@ Follow P1-016 Tasks 1–5 for each entry in scope, SEED and Tier 1–3 first:
 
 ## Done criteria
 
-- [ ] Every in-scope entry reopened this session and has `verified_on`
-- [ ] No empty `authors`/`published` without a `NO-AUTHOR`/`NO-DATE` explanation
-- [ ] No `license: unknown` without an explanation; no `SEED` notes left
-- [ ] `source-verifier` passes (sample)
-- [ ] `python scripts/validate.py` passes
+- [x] Every in-scope entry reopened this session and has `verified_on`
+- [x] No empty `authors`/`published` without a `NO-AUTHOR`/`NO-DATE` explanation
+- [x] No `license: unknown` without an explanation; no `SEED` notes left
+- [x] `source-verifier` passes (sample)
+- [x] `python scripts/validate.py` passes
 
 ## Notes
 
-(Filled in during the work.)
+- Reopened all 24 entries (primary unit 6); `verified_on` set on all; no `unknown` licenses or SEED notes left.
+- Licenses: Azure pattern pages CC-BY-4.0 (MicrosoftDocs/architecture-center README), gRPC docs CC-BY-4.0 (grpc.io repo LICENSE), Envoy docs Apache-2.0 (envoy repo LICENSE); all three inferred from repos, not page footers. Pages with no license text (Cloudflare, GCP, CrowdStrike, AWS arch blog, Grafana, Dapper, USENIX OSDI '22) are all-rights-reserved; usage stays rewrite-only.
+- analyzing-metastable-hotos25: SEED resolved; authors and 2025-05-14 date from Crossref (dl.acm.org returns 403 to scripts, so the ACM page was not opened).
+- cloudflare-1111-incident-2025-07-14: authors corrected to Ash Pallarito and Joe Abley (earlier NO-AUTHOR was wrong).
+- Envoy v1.40.2 is still the latest release.
+- source-verifier sampled 13 entries: pass; one cosmetic double space fixed.
