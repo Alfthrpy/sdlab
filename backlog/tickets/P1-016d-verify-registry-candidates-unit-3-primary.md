@@ -29,12 +29,14 @@ Follow P1-016 Tasks 1–5 for each entry in scope, SEED and Tier 1–3 first:
 
 ## Done criteria
 
-- [ ] Every in-scope entry reopened this session and has `verified_on`
-- [ ] No empty `authors`/`published` without a `NO-AUTHOR`/`NO-DATE` explanation
-- [ ] No `license: unknown` without an explanation; no `SEED` notes left
+- [ ] Every in-scope entry reopened this session and has `verified_on` (Codd 1970 excepted, see Notes)
+- [x] No empty `authors`/`published` without a `NO-AUTHOR`/`NO-DATE` explanation
+- [x] No `license: unknown` without an explanation; no `SEED` notes left
 - [ ] `source-verifier` passes (sample)
-- [ ] `python scripts/validate.py` passes
+- [x] `python scripts/validate.py` passes
 
 ## Notes
 
 (Filled in during the work.)
+
+2026-11-12: 23 entries with primary unit 3 reopened; 22 have `verified_on`. `codd-relational-model-1970` does not: its PDF on the UPenn course site is now a scanned image with no readable text, so its CACM metadata was not rechecked (it stays a candidate with a NOT RE-VERIFIED note; replace with a readable canonical URL). Licenses: 11 `unknown` resolved. Apache-2.0: CouchDB docs (src/docs/LICENSE in apache/couchdb). CC-BY-NC-SA-4.0: Neo4j getting-started (repo LICENSE.txt). all-rights-reserved: MongoDB (repo README says CC BY-NC-SA 3.0, not in enum, NonCommercial), DynamoDB docs x2, Bigtable, Berenson critique, O'Neil LSM, Karger, Jepsen. Cassandra docs (Apache-2.0 footer) got an attribution line. PDFs read by text extraction (pdftotext): Dynamo (Copyright 2007 ACM), LSM-tree, Karger; none shows a license. Jepsen SEED resolved.
