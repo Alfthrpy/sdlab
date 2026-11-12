@@ -216,14 +216,14 @@ sources:
     doi: null
     published: ""
     accessed: "2026-11-12"
-    license: unknown
+    license: PostgreSQL
     usage: rewrite-only
     access: free
     units: [0]
     topics: [indexes, query-basics, write-overhead]
     status: candidate
     version: "PostgreSQL 18 (18.6)"
-    notes: "NO-AUTHOR: corporate documentation. Real license: the PostgreSQL License (BSD/MIT-style permissive, open at postgresql.org/docs/current/legalnotice.html, read 2026-11-12: free to use, copy, modify and distribute the software and documentation without fee provided the copyright notice and license paragraphs appear in all copies; 'Portions Copyright 1996-2026 PGDG, 1994 Regents of the University of California'). The schema enum cannot express it, so license stays unknown (treat as rewrite-only). Footer: Copyright 1996-2026 PGDG. Same chapter also covers index types, multicolumn indexes, partial indexes."
+    notes: "NO-AUTHOR: corporate documentation. Real license: the PostgreSQL License (BSD/MIT-style permissive, open at postgresql.org/docs/current/legalnotice.html, read 2026-11-12: free to use, copy, modify and distribute the software and documentation without fee provided the copyright notice and license paragraphs appear in all copies; 'Portions Copyright 1996-2026 PGDG, 1994 Regents of the University of California'). Footer: Copyright 1996-2026 PGDG. Same chapter also covers index types, multicolumn indexes, partial indexes."
 
   - id: pg-docs-using-explain
     title: "PostgreSQL 18 Documentation: 14.1. Using EXPLAIN"
@@ -235,14 +235,14 @@ sources:
     doi: null
     published: ""
     accessed: "2026-11-12"
-    license: unknown
+    license: PostgreSQL
     usage: rewrite-only
     access: free
     units: [0]
     topics: [query-basics, explain, query-plans, indexes]
     status: candidate
     version: "PostgreSQL 18 (18.6)"
-    notes: "NO-AUTHOR: corporate documentation. License: see pg-docs-indexes-intro (PostgreSQL License, legal notice page opened 2026-11-12; not in the enum, so unknown). Sections 14.1.1 EXPLAIN Basics, 14.1.2 EXPLAIN ANALYZE, 14.1.3 Caveats."
+    notes: "NO-AUTHOR: corporate documentation. License: see pg-docs-indexes-intro (PostgreSQL License, legal notice page opened 2026-11-12). Sections 14.1.1 EXPLAIN Basics, 14.1.2 EXPLAIN ANALYZE, 14.1.3 Caveats."
 
   - id: pg-docs-backup-restore
     title: "PostgreSQL 18 Documentation: Chapter 25. Backup and Restore"
@@ -254,14 +254,14 @@ sources:
     doi: null
     published: ""
     accessed: "2026-11-12"
-    license: unknown
+    license: PostgreSQL
     usage: rewrite-only
     access: free
     units: [0]
     topics: [backups, recovery, pitr, wal-archiving, pg-dump]
     status: candidate
     version: "PostgreSQL 18 (18.6)"
-    notes: "NO-AUTHOR: corporate documentation. License: see pg-docs-indexes-intro (PostgreSQL License, legal notice page opened 2026-11-12; not in the enum, so unknown). Opened the chapter index plus 25.1 SQL Dump (backup-dump.html) and 25.3 Continuous Archiving and PITR (continuous-archiving.html). Does not cover backup schedules or restore drills; those are a gap."
+    notes: "NO-AUTHOR: corporate documentation. License: see pg-docs-indexes-intro (PostgreSQL License, legal notice page opened 2026-11-12). Opened the chapter index plus 25.1 SQL Dump (backup-dump.html) and 25.3 Continuous Archiving and PITR (continuous-archiving.html). Does not cover backup schedules or restore drills; those are a gap."
 
   - id: pg-docs-connections
     title: "PostgreSQL 18 Documentation: 19.3. Connections and Authentication (max_connections)"
@@ -273,14 +273,14 @@ sources:
     doi: null
     published: ""
     accessed: "2026-11-12"
-    license: unknown
+    license: PostgreSQL
     usage: rewrite-only
     access: free
     units: [0]
     topics: [connection-limits, max-connections, connection-pooling]
     status: candidate
     version: "PostgreSQL 18 (18.6)"
-    notes: "NO-AUTHOR: corporate documentation. License: see pg-docs-indexes-intro (PostgreSQL License, legal notice page opened 2026-11-12; not in the enum, so unknown). Short reference for max_connections and reserved connection settings."
+    notes: "NO-AUTHOR: corporate documentation. License: see pg-docs-indexes-intro (PostgreSQL License, legal notice page opened 2026-11-12). Short reference for max_connections and reserved connection settings."
 
   - id: pg-docs-kernel-resources
     title: "PostgreSQL 18 Documentation: 18.4. Managing Kernel Resources"
@@ -292,14 +292,14 @@ sources:
     doi: null
     published: ""
     accessed: "2026-11-12"
-    license: unknown
+    license: PostgreSQL
     usage: rewrite-only
     access: free
     units: [0]
     topics: [machine-limits, memory, file-descriptors, oom-killer, connection-limits]
     status: candidate
     version: "PostgreSQL 18 (18.6)"
-    notes: "NO-AUTHOR: corporate documentation. License: see pg-docs-indexes-intro (PostgreSQL License, legal notice page opened 2026-11-12; not in the enum, so unknown). Footer: Copyright 1996-2026 PGDG. Sections: 18.4.1 Shared Memory and Semaphores, 18.4.2 systemd RemoveIPC, 18.4.3 Resource Limits (process-per-connection, open-file limits, listen backlog/somaxconn), 18.4.4 Linux Memory Overcommit (OOM killer), 18.4.5 Linux Huge Pages. Useful for 'limits of one machine'."
+    notes: "NO-AUTHOR: corporate documentation. License: see pg-docs-indexes-intro (PostgreSQL License, legal notice page opened 2026-11-12). Footer: Copyright 1996-2026 PGDG. Sections: 18.4.1 Shared Memory and Semaphores, 18.4.2 systemd RemoveIPC, 18.4.3 Resource Limits (process-per-connection, open-file limits, listen backlog/somaxconn), 18.4.4 Linux Memory Overcommit (OOM killer), 18.4.5 Linux Huge Pages. Useful for 'limits of one machine'."
 
   - id: pg-docs-monitoring-stats
     title: "PostgreSQL 18 Documentation: 27.2. The Cumulative Statistics System (incl. pg_stat_activity)"
@@ -311,14 +311,14 @@ sources:
     doi: null
     published: ""
     accessed: "2026-11-12"
-    license: unknown
+    license: PostgreSQL
     usage: rewrite-only
     access: free
     units: [0]
     topics: [monitoring, database-monitoring, pg-stat-activity, machine-limits]
     status: candidate
     version: "PostgreSQL 18 (18.6)"
-    notes: "NO-AUTHOR: corporate documentation. License: see pg-docs-indexes-intro (PostgreSQL License, legal notice page opened 2026-11-12; not in the enum, so unknown). Page is long (about 116k characters); only the first 100k were read, which includes the pg_stat_activity part."
+    notes: "NO-AUTHOR: corporate documentation. License: see pg-docs-indexes-intro (PostgreSQL License, legal notice page opened 2026-11-12). Page is long (about 116k characters); only the first 100k were read, which includes the pg_stat_activity part."
 
   - id: pg-wiki-number-of-connections
     title: "Number Of Database Connections"
@@ -372,7 +372,7 @@ sources:
     units: [0]
     topics: [connection-pooling, pgbouncer, pooling-modes]
     status: candidate
-    notes: "NO-AUTHOR: project documentation. Site footer says 'Website (c) 2026 PgBouncer Authors'; no license on the page. The COPYRIGHT file in github.com/pgbouncer/pgbouncer (opened 2026-11-12) states the ISC License (Copyright 2007-2009 Marko Kreen, Skype Technologies OU); ISC is not in the enum and the file covers the software, not necessarily the docs site, so unknown. Possibly more advanced than Unit 0 needs; pooling modes only."
+    notes: "NO-AUTHOR: project documentation. Site footer says 'Website (c) 2026 PgBouncer Authors'; no license on the page. The COPYRIGHT file in github.com/pgbouncer/pgbouncer (opened 2026-11-12) states the ISC License (Copyright 2007-2009 Marko Kreen, Skype Technologies OU); The file covers the software, not necessarily the docs site, so the docs license stays unknown. Possibly more advanced than Unit 0 needs; pooling modes only."
 
   - id: mysql-84-optimization-indexes
     title: "MySQL 8.4 Reference Manual: 10.3 Optimization and Indexes"
@@ -549,13 +549,13 @@ sources:
     doi: null
     published: "2026-10-08"
     accessed: "2026-11-12"
-    license: unknown
+    license: CC-BY-SA-2.5
     usage: rewrite-only
     access: free
     units: [0]
     topics: [request-lifecycle, http, client-server, proxies]
     status: candidate
-    notes: "NO-AUTHOR: community docs. Date is the page's 'last modified'. MDN's attribution page (developer.mozilla.org/en-US/docs/MDN/Writing_guidelines/Attrib_copyright_license, opened 2026-11-12) says: unless otherwise indicated, content is under CC-BY-SA v2.5 or any later version; code samples added on or after 2010-08-20 are CC0. The enum has only CC-BY-SA-4.0, so license stays unknown; exact license is CC-BY-SA 2.5 or later (ShareAlike applies if adapted). Scope: the page covers only the HTTP part of the request lifecycle (not DNS, TCP, TLS)."
+    notes: "NO-AUTHOR: community docs. Date is the page's 'last modified'. MDN's attribution page (developer.mozilla.org/en-US/docs/MDN/Writing_guidelines/Attrib_copyright_license, opened 2026-11-12) says: unless otherwise indicated, content is under CC-BY-SA v2.5 or any later version; code samples added on or after 2010-08-20 are CC0. Exact license: CC-BY-SA 2.5 or later (ShareAlike applies if adapted); recorded as CC-BY-SA-2.5. Scope: the page covers only the HTTP part of the request lifecycle (not DNS, TCP, TLS)."
 
   - id: sqlite-appropriate-uses
     title: "Appropriate Uses For SQLite"
@@ -1018,13 +1018,13 @@ sources:
     doi: null
     published: "2026-08-14"
     accessed: "2026-11-12"
-    license: unknown
+    license: CC-BY-SA-2.5
     usage: rewrite-only
     access: free
     units: [2]
     topics: [http-caching, cache, cache-control, cdn, validation]
     status: candidate
-    notes: "NO-AUTHOR: community docs. Date is the page's 'last modified'. Footer says content is under a Creative Commons license without naming the version; the MDN attribution page (recorded in mdn-http-overview notes) says CC-BY-SA 2.5 or later, so license stays unknown here (ShareAlike if adapted). Covers private vs shared caches, Cache-Control, Vary, validation, request collapse."
+    notes: "NO-AUTHOR: community docs. Date is the page's 'last modified'. Footer says content is under a Creative Commons license without naming the version; the MDN attribution page (recorded in mdn-http-overview notes) says CC-BY-SA 2.5 or later; recorded as CC-BY-SA-2.5 (ShareAlike if adapted). Covers private vs shared caches, Cache-Control, Vary, validation, request collapse."
 
   - id: mdn-cdn-glossary
     title: "CDN (MDN Web Docs Glossary)"
@@ -1036,7 +1036,7 @@ sources:
     doi: null
     published: "2025-07-11"
     accessed: "2026-11-12"
-    license: unknown
+    license: CC-BY-SA-2.5
     usage: rewrite-only
     access: free
     units: [2]
@@ -1253,14 +1253,14 @@ sources:
     doi: null
     published: ""
     accessed: "2026-11-12"
-    license: unknown
+    license: PostgreSQL
     usage: rewrite-only
     access: free
     units: [3]
     topics: [transactions, isolation-levels, anomalies, snapshot-isolation, serializability]
     status: candidate
     version: "PostgreSQL 18 (18.6)"
-    notes: "NO-AUTHOR: corporate documentation. Real license: the PostgreSQL License (permissive; see the registry entry pg-docs-indexes-intro for the legalnotice text read 2026-11-12). Footer: Copyright 1996-2026 PGDG; schema enum cannot express it so license stays unknown (treat as rewrite-only). Covers Read Committed, Repeatable Read (snapshot isolation), Serializable (SSI), the anomaly table, SQLSTATE 40001 and retry advice. Notes in references/notes."
+    notes: "NO-AUTHOR: corporate documentation. Real license: the PostgreSQL License (permissive; see the registry entry pg-docs-indexes-intro for the legalnotice text read 2026-11-12). Footer: Copyright 1996-2026 PGDG. Covers Read Committed, Repeatable Read (snapshot isolation), Serializable (SSI), the anomaly table, SQLSTATE 40001 and retry advice. Notes in references/notes."
 
   - id: pg-docs-mvcc-intro
     title: "PostgreSQL 18 Documentation: 13.1. Introduction (Concurrency Control, MVCC)"
@@ -1272,14 +1272,14 @@ sources:
     doi: null
     published: ""
     accessed: "2026-11-12"
-    license: unknown
+    license: PostgreSQL
     usage: rewrite-only
     access: free
     units: [3]
     topics: [mvcc, transactions, concurrency-control]
     status: candidate
     version: "PostgreSQL 18 (18.6)"
-    notes: "NO-AUTHOR: corporate documentation. Real license: the PostgreSQL License (permissive; see the registry entry pg-docs-indexes-intro for the legalnotice text read 2026-11-12). Footer: Copyright 1996-2026 PGDG; schema enum cannot express it so license stays unknown (treat as rewrite-only). Three-paragraph intro: snapshots per statement, readers do not block writers. Short page."
+    notes: "NO-AUTHOR: corporate documentation. Real license: the PostgreSQL License (permissive; see the registry entry pg-docs-indexes-intro for the legalnotice text read 2026-11-12). Footer: Copyright 1996-2026 PGDG. Three-paragraph intro: snapshots per statement, readers do not block writers. Short page."
 
   - id: pg-docs-index-types
     title: "PostgreSQL 18 Documentation: 11.2. Index Types"
@@ -1291,14 +1291,14 @@ sources:
     doi: null
     published: ""
     accessed: "2026-11-12"
-    license: unknown
+    license: PostgreSQL
     usage: rewrite-only
     access: free
     units: [3]
     topics: [indexes, btree, hash-index, secondary-indexes]
     status: candidate
     version: "PostgreSQL 18 (18.6)"
-    notes: "NO-AUTHOR: corporate documentation. Real license: the PostgreSQL License (permissive; see the registry entry pg-docs-indexes-intro for the legalnotice text read 2026-11-12). Footer: Copyright 1996-2026 PGDG; schema enum cannot express it so license stays unknown (treat as rewrite-only). B-tree, Hash, GiST, SP-GiST, GIN, BRIN; B-tree supported operators and anchored LIKE rule. No LSM here (PostgreSQL uses B-trees)."
+    notes: "NO-AUTHOR: corporate documentation. Real license: the PostgreSQL License (permissive; see the registry entry pg-docs-indexes-intro for the legalnotice text read 2026-11-12). Footer: Copyright 1996-2026 PGDG. B-tree, Hash, GiST, SP-GiST, GIN, BRIN; B-tree supported operators and anchored LIKE rule. No LSM here (PostgreSQL uses B-trees)."
 
   - id: pg-docs-high-availability
     title: "PostgreSQL 18 Documentation: Chapter 26. High Availability, Load Balancing, and Replication"
@@ -1310,14 +1310,14 @@ sources:
     doi: null
     published: ""
     accessed: "2026-11-12"
-    license: unknown
+    license: PostgreSQL
     usage: rewrite-only
     access: free
     units: [3]
     topics: [replication, sync-vs-async, replication-lag, failover]
     status: candidate
     version: "PostgreSQL 18 (18.6)"
-    notes: "NO-AUTHOR: corporate documentation. Real license: the PostgreSQL License (permissive; see the registry entry pg-docs-indexes-intro for the legalnotice text read 2026-11-12). Footer: Copyright 1996-2026 PGDG; schema enum cannot express it so license stays unknown (treat as rewrite-only). Chapter intro only was opened (the 26.1 solution comparison is a sub-page, not read). States the sync vs async trade-off, stale reads and possible loss on failover."
+    notes: "NO-AUTHOR: corporate documentation. Real license: the PostgreSQL License (permissive; see the registry entry pg-docs-indexes-intro for the legalnotice text read 2026-11-12). Footer: Copyright 1996-2026 PGDG. Chapter intro only was opened (the 26.1 solution comparison is a sub-page, not read). States the sync vs async trade-off, stale reads and possible loss on failover."
 
   - id: pg-docs-log-shipping-standby
     title: "PostgreSQL 18 Documentation: 26.2. Log-Shipping Standby Servers"
@@ -1329,14 +1329,14 @@ sources:
     doi: null
     published: ""
     accessed: "2026-11-12"
-    license: unknown
+    license: PostgreSQL
     usage: rewrite-only
     access: free
     units: [3]
     topics: [replication, leader-follower, streaming-replication, replication-lag, synchronous-replication, failover, read-replicas]
     status: candidate
     version: "PostgreSQL 18 (18.6)"
-    notes: "NO-AUTHOR: corporate documentation. Real license: the PostgreSQL License (permissive; see the registry entry pg-docs-indexes-intro for the legalnotice text read 2026-11-12). Footer: Copyright 1996-2026 PGDG; schema enum cannot express it so license stays unknown (treat as rewrite-only). Streaming and file-based standby, lag monitoring (26.2.5.2), replication slots, cascading, synchronous commit modes (26.2.8). Failover (26.3) URL guess returned 404 and was not read; hot standby read queries (26.4) not read."
+    notes: "NO-AUTHOR: corporate documentation. Real license: the PostgreSQL License (permissive; see the registry entry pg-docs-indexes-intro for the legalnotice text read 2026-11-12). Footer: Copyright 1996-2026 PGDG. Streaming and file-based standby, lag monitoring (26.2.5.2), replication slots, cascading, synchronous commit modes (26.2.8). Failover (26.3) URL guess returned 404 and was not read; hot standby read queries (26.4) not read."
 
   - id: pg-docs-table-partitioning
     title: "PostgreSQL 18 Documentation: 5.12. Table Partitioning"
@@ -1348,14 +1348,14 @@ sources:
     doi: null
     published: ""
     accessed: "2026-11-12"
-    license: unknown
+    license: PostgreSQL
     usage: rewrite-only
     access: free
     units: [3]
     topics: [partitioning, range-partitioning, hash-partitioning, partition-pruning]
     status: candidate
     version: "PostgreSQL 18 (18.6)"
-    notes: "NO-AUTHOR: corporate documentation. Real license: the PostgreSQL License (permissive; see the registry entry pg-docs-indexes-intro for the legalnotice text read 2026-11-12). Footer: Copyright 1996-2026 PGDG; schema enum cannot express it so license stays unknown (treat as rewrite-only). Single-node table partitioning, not sharding across servers; useful as the stepping stone before sharding. 5.12.1 gives a trigger-like hint: benefits usually matter when a table exceeds server memory."
+    notes: "NO-AUTHOR: corporate documentation. Real license: the PostgreSQL License (permissive; see the registry entry pg-docs-indexes-intro for the legalnotice text read 2026-11-12). Footer: Copyright 1996-2026 PGDG. Single-node table partitioning, not sharding across servers; useful as the stepping stone before sharding. 5.12.1 gives a trigger-like hint: benefits usually matter when a table exceeds server memory."
 
   - id: mysql-84-replication
     title: "MySQL 8.4 Reference Manual: 19 Replication"
@@ -1864,13 +1864,13 @@ sources:
     doi: null
     published: "2019-02-19"
     accessed: "2026-11-12"
-    license: unknown
+    license: CC-BY-3.0
     usage: rewrite-only
     access: free
     units: [4]
     topics: [outbox, dual-write, cdc, change-data-capture, debezium, at-least-once, idempotent-consumer]
     status: candidate
-    notes: "Real license: the page says the Debezium website and documentation are CC BY 3.0 (software is Apache 2.0). CC-BY-3.0 is not in the schema enum, so license stays unknown (treat as rewrite-only). Sections: The Issue of Dual Writes, The Outbox Pattern, An Implementation Based on Change Data Capture, The Outbox Table, Duplicate Detection in the Consuming Service. The only opened source that explains CDC from the transaction log as the relay."
+    notes: "Real license: the page says the Debezium website and documentation are CC BY 3.0 (software is Apache 2.0). Sections: The Issue of Dual Writes, The Outbox Pattern, An Implementation Based on Change Data Capture, The Outbox Table, Duplicate Detection in the Consuming Service. The only opened source that explains CDC from the transaction log as the relay."
 
   - id: debezium-docs-outbox-event-router
     title: "Outbox Event Router (Debezium documentation)"
@@ -2029,13 +2029,13 @@ sources:
     doi: null
     published: null
     accessed: "2026-11-12"
-    license: unknown
+    license: CC-BY-3.0
     usage: rewrite-only
     access: free
     units: [5]
     topics: [consensus, raft, leader-election, visualization, implementations]
     status: candidate
-    notes: "NO-AUTHOR, NO-DATE on the page. Official project documentation/hub for Raft. The page states CC BY 3.0 Unported, which is not in the schema enum, so license stays unknown (treat as rewrite-only). Hub page: links RaftScope and 'The Secret Lives of Data' visualizations, the paper, Ongaro's dissertation, talks, courses, implementation table. Use as a pointer to the visualizations, not as a primary explanation."
+    notes: "NO-AUTHOR, NO-DATE on the page. Official project documentation/hub for Raft. The page states CC BY 3.0 Unported. Hub page: links RaftScope and 'The Secret Lives of Data' visualizations, the paper, Ongaro's dissertation, talks, courses, implementation table. Use as a pointer to the visualizations, not as a primary explanation."
 
   - id: lamport-time-clocks-1978
     title: "Time, Clocks, and the Ordering of Events in a Distributed System"
@@ -2137,13 +2137,13 @@ sources:
     doi: null
     published: "2016-02-08"
     accessed: "2026-11-12"
-    license: unknown
+    license: CC-BY-3.0
     usage: rewrite-only
     access: free
     units: [5]
     topics: [distributed-locks, leases, fencing-tokens, redlock, clock-jumps, process-pauses, consensus]
     status: candidate
-    notes: "Reopened 2026-11-12, full page read. Footer: Creative Commons Attribution 3.0 Unported, which is not in the schema enum, so license stays unknown (treat as rewrite-only). Page dated 8 Feb 2016; update note says Salvatore Sanfilippo (Redlock author) posted a rebuttal on 9 Feb 2016 and Kleppmann kept his conclusions. Author is a researcher and the DDIA author, but this is a blog post, so Tier 2 is a judgment call. Core argument: a lease alone cannot protect against paused clients; a monotonically increasing fencing token checked by the storage layer can; Redlock gives no fencing token and depends on timing. The rebuttal itself was not opened."
+    notes: "Reopened 2026-11-12, full page read. Footer: Creative Commons Attribution 3.0 Unported. Page dated 8 Feb 2016; update note says Salvatore Sanfilippo (Redlock author) posted a rebuttal on 9 Feb 2016 and Kleppmann kept his conclusions. Author is a researcher and the DDIA author, but this is a blog post, so Tier 2 is a judgment call. Core argument: a lease alone cannot protect against paused clients; a monotonically increasing fencing token checked by the storage layer can; Redlock gives no fencing token and depends on timing. The rebuttal itself was not opened."
 
   - id: kleppmann-stop-calling-cp-ap-2015
     title: "Please stop calling databases CP or AP"
@@ -2155,13 +2155,13 @@ sources:
     doi: null
     published: "2015-05-11"
     accessed: "2026-11-12"
-    license: unknown
+    license: CC-BY-3.0
     usage: rewrite-only
     access: free
     units: [5]
     topics: [cap-theorem, linearizability, availability, partitions, critique]
     status: candidate
-    notes: "Real license: footer says Creative Commons Attribution 3.0 Unported (not in schema enum), so license unknown. Critique of CAP: formal definitions are narrow (consistency = linearizability, availability = every live node answers, single register), many real systems fit neither CP nor AP. Opinionated; present as a critique next to Brewer 2012."
+    notes: "Real license: footer says Creative Commons Attribution 3.0 Unported. Critique of CAP: formal definitions are narrow (consistency = linearizability, availability = every live node answers, single register), many real systems fit neither CP nor AP. Opinionated; present as a critique next to Brewer 2012."
 
   - id: brewer-cap-twelve-years-2012
     title: "CAP Twelve Years Later: How the \"Rules\" Have Changed"

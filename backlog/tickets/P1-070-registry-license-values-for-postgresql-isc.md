@@ -5,7 +5,7 @@ milestone: M1
 type: infra
 owner: agent
 review: agent
-status: todo
+status: in-progress
 priority: medium
 depends_on: [P1-010]
 estimate: 1
@@ -25,11 +25,13 @@ Found in P1-069. Several clearly open sources cannot be recorded accurately: the
 
 ## Done criteria
 
-- [ ] New license values documented, validated, and tested
-- [ ] Tier table covers official documentation
-- [ ] Registry entries updated where the verified license is now expressible
-- [ ] `python scripts/validate.py` passes
+- [x] New license values documented, validated, and tested
+- [x] Tier table covers official documentation
+- [x] Registry entries updated where the verified license is now expressible
+- [x] `python scripts/validate.py` passes
 
 ## Notes
 
 Entries affected so far: pg-docs-* (PostgreSQL License), pgbouncer-features (ISC for the software), mdn-http-overview (CC-BY-SA 2.5+), hikaricp-about-pool-sizing (Apache-2.0 repo, wiki unspecified).
+
+Done 2026-11-12: added `PostgreSQL`, `ISC`, `CC-BY-SA-2.5`, `CC-BY-3.0` (all in `OPEN_LICENSES`; CC-BY-3.0 added because Debezium/Raft/Kleppmann entries hit the same gap). Official docs = Tier 2 (rules in research-protocol.md). Switched 13 pg-docs-*, 3 MDN, 4 CC-BY-3.0 entries. Left `unknown`: pgbouncer-features (ISC covers software only), hikaricp-about-pool-sizing, debezium-docs-outbox-event-router (no license on page). ADR 0002 rule 5 updated to match the validator. Reviewed by source-verifier; its findings were fixed.

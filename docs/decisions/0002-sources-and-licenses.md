@@ -13,7 +13,7 @@ The materials are distilled from books, papers, engineering articles, and postmo
 2. **Default for every source: rewrite.** Take concepts and facts, write them in your own words and structure, and link the source.
 3. **Direct quotes:** at most one short sentence (< 15 words) per source per lesson, and only when the exact wording matters.
 4. **Diagrams are always original.** No diagram is copied or traced from a source.
-5. **Adaptation** (taking structure or text and modifying it) is allowed only for sources with `license: CC-BY-*` or public domain, with attribution per `docs/conventions/citation-guide.md`.
+5. **Adaptation** (taking structure or text and modifying it) is allowed only for sources with an open license (`CC-BY-*`, `CC-BY-SA-*`, `MIT`, `Apache-2.0`, `ISC`, `PostgreSQL`, or public domain; see `OPEN_LICENSES` in `scripts/validate.py`; ShareAlike licenses require the adaptation to carry the same license), with attribution per `docs/conventions/citation-guide.md`.
 6. **Tier 6 sources** (interview-prep courses/books) are used only to map common topics and questions, never as a content source.
 
 ## Consequences

@@ -19,7 +19,7 @@ sources:
     published: "2026-02"              # YYYY, YYYY-MM, or YYYY-MM-DD
     edition: "2"                      # optional
     accessed: "2026-11-12"            # date the page was opened
-    license: all-rights-reserved      # all-rights-reserved | CC-BY-4.0 | CC-BY-SA-4.0 | CC-BY-NC-4.0 | CC-BY-NC-SA-4.0 | CC-BY-NC-ND-4.0 | MIT | Apache-2.0 | public-domain | unknown
+    license: all-rights-reserved      # all-rights-reserved | CC-BY-4.0 | CC-BY-SA-4.0 | CC-BY-NC-4.0 | CC-BY-NC-SA-4.0 | CC-BY-NC-ND-4.0 | CC-BY-3.0 | CC-BY-SA-2.5 | MIT | Apache-2.0 | ISC | PostgreSQL | public-domain | unknown
     usage: rewrite-only               # rewrite-only | adapt-with-attribution | map-only
     access: paywalled                 # free | partial | paywalled
     units: [3, 4, 5]                  # curriculum units 0–6 (0 = single-server starting unit)
@@ -39,7 +39,7 @@ Required for every entry: `id`, `title`, `url`, `accessed`, `type`, `tier`, `lic
 
 Validator rules (errors unless marked warning):
 - Unknown field names are rejected, with a "did you mean" hint.
-- `usage: adapt-with-attribution` only for licenses `CC-BY-4.0`, `CC-BY-SA-4.0`, `MIT`, `Apache-2.0`, or `public-domain`.
+- `usage: adapt-with-attribution` only for licenses `CC-BY-4.0`, `CC-BY-3.0`, `CC-BY-SA-4.0`, `CC-BY-SA-2.5`, `MIT`, `Apache-2.0`, `ISC`, `PostgreSQL`, or `public-domain`.
 - `tier: 6` requires `usage: map-only`. (warning) `map-only` on other tiers.
 - (warning) `type: postmortem` should be tier 4 and `type: paper` tier 3. (warning) tier 5 with a non-open license.
 - (warning) `type: paper` without a `doi`.
