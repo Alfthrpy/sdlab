@@ -14,7 +14,7 @@ sources:
     tier: 1
     url: https://www.oreilly.com/library/view/-/9781098119058
     doi: null
-    published: "2026-02"
+    published: "2026-03"
     edition: "2"
     accessed: "2026-11-12"
     license: all-rights-reserved
@@ -23,17 +23,19 @@ sources:
     units: [1, 3, 4, 5]
     topics: [reliability, scalability, data-models, replication, partitioning, transactions, consistency, stream-processing, cloud-storage]
     status: candidate
-    notes: "SEED. The O'Reilly page says Feb 2026, some bookstores say Mar 2026 — check. Paywalled: needs a free companion source per topic."
+    free_companion: [system-design-primer, brooker-tail-latency-matters, brooker-telling-stories-littles-law]
+    notes: "Second edition (2nd ed., O'Reilly, ISBN 9781098119065 paperback, 9781098119027 ebook, 670 pages) per the authors' own page martin.kleppmann.com/2026/03/24/designing-data-intensive-applications-2e.html, which says release 'March 2026' (opened 2026-11-12). Retailer listings disagree (27 Feb, 24 Mar, 31 Mar 2026), and the O'Reilly page returns HTTP 403 to automated fetches, so the publisher date could not be opened; published is set to 2026-03 from the author. Paywalled: free_companion lists free sources for the Unit 1 topics; add per-topic companions for later units."
+    verified_on: "2026-11-12"
 
   - id: google-sre-book
     title: "Site Reliability Engineering: How Google Runs Production Systems"
-    authors: []
+    authors: [Betsy Beyer, Chris Jones, Jennifer Petoff, Niall Richard Murphy]
     publisher: Google / O'Reilly Media
     type: book
     tier: 1
     url: https://sre.google/sre-book/table-of-contents/
     doi: null
-    published: "2016"
+    published: "2017"
     accessed: "2026-11-12"
     license: CC-BY-NC-ND-4.0
     usage: rewrite-only
@@ -41,7 +43,8 @@ sources:
     units: [1, 2, 5, 6]
     topics: [slo, load-balancing, overload, cascading-failures, distributed-consensus, monitoring]
     status: candidate
-    notes: "SEED. License CC BY-NC-ND 4.0 stated on the page (NoDerivatives → rewrite + link only). The page says copyright 2017; check publication year and editor list. Relevant chapters: 19–23."
+    notes: "Editors from sre.google/books (opened 2026-11-12). The table-of-contents page shows 'Copyright 2017 Google, Inc.', 'Published by O'Reilly Media', and 'Licensed under CC BY-NC-ND 4.0' (NoDerivatives -> rewrite + link only), so published is the copyright year; the first-print year is not shown on the pages opened. sre.google/books also lists a separate 'Site Reliability Engineering, 2nd Edition' (Google Books purchase link only); this entry is the free online first edition. Chapter titles checked: 3 Embracing Risk, 4 Service Level Objectives, 6 Monitoring Distributed Systems, 19 Load Balancing at the Frontend, 20 Load Balancing in the Datacenter, 21 Handling Overload, 22 Addressing Cascading Failures, 23 Managing Critical State."
+    verified_on: "2026-11-12"
 
   - id: aws-builders-timeouts-retries
     title: "Timeouts, retries, and backoff with jitter"
@@ -69,7 +72,7 @@ sources:
     tier: 5
     url: https://github.com/donnemartin/system-design-primer
     doi: null
-    published: ""
+    published: "2017-02"
     accessed: "2026-11-12"
     license: CC-BY-4.0
     usage: adapt-with-attribution
@@ -77,7 +80,9 @@ sources:
     units: [1, 2, 3, 4]
     topics: [cap, dns, cdn, load-balancer, reverse-proxy, caching, sql-nosql, replication, sharding, async, rpc-rest]
     status: candidate
-    notes: "SEED. License CC BY 4.0 verified from LICENSE.txt. Last commit date unknown — check whether it is still maintained; some links point to web.archive.org."
+    attribution: "Sebagian materi diadaptasi dari System Design Primer oleh Donne Martin, CC BY 4.0, https://github.com/donnemartin/system-design-primer. Telah diubah."
+    notes: "License CC BY 4.0 verified: raw LICENSE.txt (Copyright 2017 Donne Martin) opened 2026-11-12; the GitHub API reports the license as NOASSERTION only because it is a custom file. Repo created 2017-02-26 (GitHub API), last push 2026-09-15, not archived, so maintained. Many README links point to web.archive.org (original posts gone), so check the cited originals. Large README, only the first 100k characters were read."
+    verified_on: "2026-11-12"
 
   - id: jepsen-consistency-models
     title: "Consistency Models"
@@ -185,7 +190,8 @@ sources:
     units: [1, 2, 3, 4, 5, 6]
     topics: [delivery-framework, core-concepts, key-technologies, interview-questions]
     status: candidate
-    notes: "SEED. Only for mapping topic coverage and common questions (Tier 6)."
+    notes: "NO-AUTHOR: the page names no author (says 'built by FAANG hiring managers and staff engineers'). NO-DATE: no date; footer '(c) 2026 Optick Labs Inc. All rights reserved'. Introduction and guide text readable free; some linked material and Premium are locked (partial). Only for mapping topic coverage and common questions (Tier 6)."
+    verified_on: "2026-11-12"
 
   - id: alex-xu-sdi-vol1-vol2
     title: "System Design Interview – An Insider's Guide, Vol. 1 & 2"
@@ -203,9 +209,11 @@ sources:
     units: [1, 2, 3, 4, 5, 6]
     topics: [interview-questions]
     status: candidate
-    notes: "SEED. Only for mapping the case-study list (Tier 6). Sahn Lam is the Vol. 2 co-author — check."
+    free_companion: [system-design-primer]
+    notes: "NO-DATE: covers two volumes; Vol. 2 is listed as 2022 by booksellers (Byte Code LLC), the publisher page was not used and Vol. 1 year is not verified. Authors: bytebytego.com names none ('Written by Amazon Bestselling Authors'); Alex Xu and Sahn Lam (Vol. 2) per bookseller listings (booksamillion). Courses are paid with free preview chapters; footer 'Copyright 2022-2026 ByteByteGo Inc. All rights reserved'. Only for mapping the case-study list (Tier 6)."
 
   # --- P1-069: candidates for Unit 0 (single-server backend), accessed 2026-11-12 ---
+    verified_on: "2026-11-12"
   - id: pg-docs-indexes-intro
     title: "PostgreSQL 18 Documentation: Chapter 11. Indexes (11.1 Introduction)"
     authors: []
@@ -650,6 +658,7 @@ sources:
     topics: [sli, slo, sla, percentiles, error-budget, aggregation]
     status: candidate
     notes: "Chapter-level entry for google-sre-book (same license). Page: written by Jones, Wilkes, Murphy with Cody Smith; edited by Betsy Beyer; copyright 2017 Google, Inc., published by O'Reilly; footer says Licensed under CC BY-NC-ND 4.0. Covers SLI/SLO/SLA terms, choosing indicators, why averages hide tail latency, choosing targets. Written for Google-scale services, so learners need small-service examples. Year note: the chapter page shows copyright 2017, while the google-sre-book entry records 2016 for the book as a whole (not independently verified); the chapter year here is the page copyright year."
+    verified_on: "2026-11-12"
 
   - id: sre-book-embracing-risk-ch3
     title: "Site Reliability Engineering, Chapter 3: Embracing Risk"
@@ -668,6 +677,7 @@ sources:
     topics: [availability, risk, error-budget, slo]
     status: candidate
     notes: "Chapter-level entry for google-sre-book. Page: written by Marc Alvidrez, edited by Kavita Guliani; Error Budgets section written by Mark Roth; copyright 2017 Google, Inc.; CC BY-NC-ND 4.0. Useful for 'how reliable is reliable enough', which feeds the 'is this stage still enough' question. Year note: the chapter page shows copyright 2017, while the google-sre-book entry records 2016 for the book as a whole (not independently verified); the chapter year here is the page copyright year."
+    verified_on: "2026-11-12"
 
   - id: sre-workbook-implementing-slos
     title: "The Site Reliability Workbook, Chapter 2: Implementing SLOs"
@@ -686,6 +696,7 @@ sources:
     topics: [sli, slo, error-budget, measurement, time-window]
     status: candidate
     notes: "Page shows copyright 2018 Google, Inc., published by O'Reilly, CC BY-NC-ND 4.0; authors listed on the page as Steven Thurgood and David Ferguson with Alex Hidalgo and Betsy Beyer. Practical how-to for picking SLIs, starter SLOs, and a four-week rolling window. Example service is a mobile game, so beginners may need simpler examples."
+    verified_on: "2026-11-12"
 
   - id: sre-book-handling-overload-ch21
     title: "Site Reliability Engineering, Chapter 21: Handling Overload"
@@ -704,6 +715,7 @@ sources:
     topics: [overload, load-shedding, capacity, retries, load-balancing, cascading-failure]
     status: candidate
     notes: "Chapter-level entry for google-sre-book. Page: written by Alejandro Forero Cuervo, edited by Sarah Chavis; copyright 2017 Google, Inc.; CC BY-NC-ND 4.0. Useful as a trigger for 'a stage stops being enough' (QPS is a poor capacity metric; resource-based limits). Advanced parts (criticality, client-side throttling) go beyond the Unit 1-2 level. Year note: the chapter page shows copyright 2017, while the google-sre-book entry records 2016 for the book as a whole (not independently verified); the chapter year here is the page copyright year."
+    verified_on: "2026-11-12"
 
   - id: sre-book-load-balancing-frontend-ch19
     title: "Site Reliability Engineering, Chapter 19: Load Balancing at the Frontend"
@@ -733,13 +745,14 @@ sources:
     doi: null
     published: "2013"
     accessed: "2026-11-12"
-    license: unknown
+    license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [1]
     topics: [tail-latency, percentiles, latency, hedged-requests, fan-out]
     status: candidate
-    notes: "Opened the Google Research publication page (abstract only): Communications of the ACM vol. 56, 2013, pp. 74-80. The page shows no DOI and no license/copyright statement, so license is unknown (treat as all-rights-reserved). Full text was not read in this session, so no reading notes yet. Re-checked: dl.acm.org and cacm.acm.org returned HTTP 403 (a guessed doi.org link redirected to dl.acm.org, which also returned 403; the DOI was not confirmed to match this paper), so the ACM DL page could not be opened and no DOI is recorded (the Google Research page links only to cacm.acm.org/magazines/2013/2/160173-the-tail-at-scale/fulltext and shows no copyright text). Access status and DOI remain unverified."
+    notes: "Opened the Google Research publication page (abstract only): Communications of the ACM vol. 56, 2013, pp. 74-80. The page shows no DOI and no license/copyright statement, so it is treated as all-rights-reserved (copyright by default). Full text was not read in this session, so no reading notes yet. Re-checked: dl.acm.org and cacm.acm.org returned HTTP 403 (a guessed doi.org link redirected to dl.acm.org, which also returned 403; the DOI was not confirmed to match this paper), so the ACM DL page could not be opened and no DOI is recorded (the Google Research page links only to cacm.acm.org/magazines/2013/2/160173-the-tail-at-scale/fulltext and shows no copyright text). Access status and DOI remain unverified."
+    verified_on: "2026-11-12"
 
   - id: little-2011-littles-law-50th
     title: "Little's Law as Viewed on Its 50th Anniversary"
@@ -757,7 +770,7 @@ sources:
     units: [1]
     topics: [littles-law, queueing, concurrency, latency, throughput]
     status: candidate
-    notes: "Operations Research 59(3), pp. 536-549, May-June 2011, DOI 10.1287/opre.1110.0940 (taken from the PDF header). The PDF header says copyright 2011 INFORMS. The canonical url is the DOI link (redirects to pubsonline.informs.org, which returned HTTP 403 on re-check, so official access status is unverified). The text was read from a course-hosted copy at https://people.cs.umass.edu/~emery/classes/cmpsci691st/readings/OS/Littles-Law-50-Years-Later.pdf (alternative link; posting rights unverified, do not redistribute). Section 4.1 applies L = arrival rate x W to servers."
+    notes: "NOT RE-VERIFIED 2026-11-12: doi.org redirects to pubsonline.informs.org/doi/10.1287/opre.1110.0940 (confirms the DOI resolves to INFORMS), but INFORMS returned HTTP 403, so title/pages/date were not re-checked. Operations Research 59(3), pp. 536-549, May-June 2011, DOI 10.1287/opre.1110.0940 (taken from the PDF header). The PDF header says copyright 2011 INFORMS. The canonical url is the DOI link (redirects to pubsonline.informs.org, which returned HTTP 403 on re-check, so official access status is unverified). The text was read from a course-hosted copy at https://people.cs.umass.edu/~emery/classes/cmpsci691st/readings/OS/Littles-Law-50-Years-Later.pdf (alternative link; posting rights unverified, do not redistribute). Section 4.1 applies L = arrival rate x W to servers."
 
   - id: brooker-telling-stories-littles-law
     title: "Telling Stories About Little's Law"
@@ -775,7 +788,9 @@ sources:
     units: [1]
     topics: [littles-law, concurrency, feedback-loops, retries, capacity]
     status: candidate
-    notes: "Date taken from the post URL (the page text itself shows no date). Personal blog by an AWS engineer (the blog says opinions are the author's own); footer license is CC BY 4.0. Good bridge from the formula to feedback loops and retry storms."
+    attribution: "Sebagian materi diadaptasi dari 'Telling Stories About Little's Law' oleh Marc Brooker, CC BY 4.0, https://brooker.co.za/blog/2018/06/20/littles-law.html. Telah diubah."
+    notes: "Date taken from the post URL (the page text itself shows no date). Personal blog by an AWS engineer (the blog says opinions are the author's own); footer license is CC BY 4.0 (re-read 2026-11-12: 'This work is licensed under a Creative Commons Attribution 4.0 International License'; page shows no date). Good bridge from the formula to feedback loops and retry storms."
+    verified_on: "2026-11-12"
 
   - id: brooker-tail-latency-matters
     title: "Tail Latency Might Matter More Than You Think"
@@ -793,7 +808,9 @@ sources:
     units: [1]
     topics: [tail-latency, percentiles, fan-out, latency]
     status: candidate
-    notes: "Date taken from the post URL (the page text itself showed no date); footer license is CC BY 4.0. Personal blog by an AWS engineer. Explains why fan-out and serial chains make rare slow calls common. Free companion for the paywalled-or-abstract-only tail-at-scale-cacm13."
+    attribution: "Sebagian materi diadaptasi dari 'Tail Latency Might Matter More Than You Think' oleh Marc Brooker, CC BY 4.0, https://brooker.co.za/blog/2021/04/19/latency.html. Telah diubah."
+    notes: "Date taken from the post URL (the page text itself showed no date); footer license is CC BY 4.0 (re-read 2026-11-12; page shows no date). Personal blog by an AWS engineer. Explains why fan-out and serial chains make rare slow calls common. Free companion for the paywalled-or-abstract-only tail-at-scale-cacm13."
+    verified_on: "2026-11-12"
 
   - id: prometheus-histograms-practices
     title: "Histograms and summaries (Prometheus best practices)"
@@ -805,13 +822,14 @@ sources:
     doi: null
     published: ""
     accessed: "2026-11-12"
-    license: unknown
+    license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [1]
     topics: [percentiles, histograms, quantiles, metrics, latency-measurement]
     status: candidate
-    notes: "NO-AUTHOR / NO-DATE: project documentation, no version shown. Footer says Prometheus components are available under Apache 2, which does not clearly cover the docs text, so license is unknown (same handling as prometheus-instrumentation-practices). Explains why quantiles are estimates and how histogram bucket width bounds the error."
+    notes: "NO-AUTHOR: project documentation (footer '(c) Prometheus Authors 2014-2026'). NO-DATE: no date or version on the page. The footer says all components are under the Apache 2 License, but nothing says this covers the docs text (see prometheus-instrumentation-practices for the prometheus/docs repo check), so the conservative reading all-rights-reserved is recorded."
+    verified_on: "2026-11-12"
 
   - id: tene-how-not-to-measure-latency
     title: "How NOT to Measure Latency"
@@ -830,6 +848,7 @@ sources:
     topics: [latency-measurement, percentiles, coordinated-omission, benchmarking]
     status: candidate
     notes: "Page opened (abstract only; the video was not watched in this session). Speaker Gil Tene, CTO of Azul Systems. InfoQ footer: copyright 2006-2026 C4Media Inc., no separate license for the talk. Date shown on the page is March 26, 2016. Needs a full viewing before any claims are taken from it."
+    verified_on: "2026-11-12"
 
   - id: highscalability-back-of-envelope-2011
     title: "Google Pro Tip: Use Back-of-the-envelope-calculations to Choose the Best Design"
@@ -841,13 +860,14 @@ sources:
     doi: null
     published: "2011-01-26"
     accessed: "2026-11-12"
-    license: unknown
+    license: all-rights-reserved
     usage: map-only
     access: free
     units: [1]
     topics: [estimation, back-of-envelope, latency-numbers]
     status: candidate
-    notes: "Secondary write-up of advice attributed on the page to Jeff Dean; the primary source (his talk/slides) was NOT opened, so this is a pointer only. The page shows no license, so license is unknown. Worked example: serial vs parallel loading of 30 thumbnails. Registered as tier 6 map-only because the validator requires map-only for tier 6; it is a tutorial, not an interview course."
+    notes: "Secondary write-up of advice attributed on the page to Jeff Dean; the primary source (his talk/slides) was NOT opened, so this is a pointer only. The page and footer show no license (re-checked 2026-11-12), so it is treated as all-rights-reserved. Worked example: serial vs parallel loading of 30 thumbnails. Registered as tier 6 map-only because the validator requires map-only for tier 6; it is a tutorial, not an interview course."
+    verified_on: "2026-11-12"
 
   - id: dean-software-engineering-advice-slides
     title: "Software Engineering Advice from Building Large-Scale Distributed Systems"
@@ -859,13 +879,14 @@ sources:
     doi: null
     published: ""
     accessed: "2026-11-12"
-    license: unknown
+    license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [1]
     topics: [estimation, back-of-envelope, latency-numbers, failure]
     status: candidate
-    notes: "NO-DATE: the slides show no date or venue (search results attribute a Stanford talk circa 2010 but that was not verified on the deck). Image-only PDF, Google logo on each slide, no license statement; the copy is hosted on a university course site, so posting rights are unverified; link only, do not redistribute. Slide 13 'Numbers Everyone Should Know' lists latency figures (L1 reference 0.5 ns up to a CA-Netherlands-CA packet at 150 ms); slides 14-16 'Back of the Envelope Calculations' compare serial vs parallel thumbnail reads (560 ms vs 18 ms, 'really more like 30-60 ms'). Hardware numbers are old; teach as method, not current values. The 'Joys of Real Hardware' slide gives first-year cluster failure counts. This is the primary source behind the tier 6 pointers in the registry."
+    notes: "NO-DATE: the slides show no date or venue (search results attribute a Stanford talk circa 2010 but that was not verified on the deck). Image-only PDF, Google logo on each slide, no license statement (re-checked 2026-11-12: the fetched PDF is image-only, nothing readable beyond images), so treated as all-rights-reserved; the copy is hosted on a university course site, so posting rights are unverified; link only, do not redistribute. Slide 13 'Numbers Everyone Should Know' lists latency figures (L1 reference 0.5 ns up to a CA-Netherlands-CA packet at 150 ms); slides 14-16 'Back of the Envelope Calculations' compare serial vs parallel thumbnail reads (560 ms vs 18 ms, 'really more like 30-60 ms'). Hardware numbers are old; teach as method, not current values. The 'Joys of Real Hardware' slide gives first-year cluster failure counts. This is the primary source behind the tier 6 pointers in the registry."
+    verified_on: "2026-11-12"
 
   - id: latency-numbers-gist
     title: "Latency Numbers Every Programmer Should Know (gist)"
@@ -877,13 +898,14 @@ sources:
     doi: null
     published: ""
     accessed: "2026-11-12"
-    license: unknown
+    license: all-rights-reserved
     usage: map-only
     access: free
     units: [1]
     topics: [estimation, back-of-envelope, latency-numbers]
     status: candidate
-    notes: "NO-DATE: figures labeled about 2012 with some 2026 additions, last active 2026-11-11. The page credits Jeff Dean and Peter Norvig as originators and calls itself a community effort; no license stated. Commenters flag outdated/imprecise figures, so use only as an order-of-magnitude pointer and cross-check each number before citing. Tier 6 map-only because it is not a primary source."
+    notes: "NO-DATE: figures labeled about 2012 with some 2026 additions, last active 2026-11-11. The page credits Jeff Dean and Peter Norvig as originators and calls itself a community effort; no license stated (re-checked 2026-11-12), so treated as all-rights-reserved; the gist says 'not my original work; it's a community effort'. Commenters flag outdated/imprecise figures, so use only as an order-of-magnitude pointer and cross-check each number before citing. Tier 6 map-only because it is not a primary source."
+    verified_on: "2026-11-12"
 
   - id: aws-builders-caching-challenges
     title: "Caching challenges and strategies"
@@ -920,6 +942,7 @@ sources:
     topics: [overload, load-shedding, queues, goodput, load-balancer, cascading-failure]
     status: candidate
     notes: "The aws.amazon.com/builders-library URL redirects (301) here. The page names the author only as 'David' (Sr. Principal Engineer at AWS), same as aws-builders-implementing-health-checks. Footer: (c) 2026 AWS, all rights reserved. Shows how latency problems turn into availability problems past a tipping point."
+    verified_on: "2026-11-12"
 
   - id: aws-builders-idempotent-apis
     title: "Making retries safe with idempotent APIs"
@@ -1203,13 +1226,14 @@ sources:
     doi: null
     published: "2025-07-07"
     accessed: "2026-11-12"
-    license: unknown
+    license: CC-BY-4.0
     usage: rewrite-only
     access: free
     units: [1, 2, 6]
     topics: [grpc, deadlines, timeouts, propagation]
     status: candidate
-    notes: "NO-AUTHOR: project docs; date is last modified. Footer copyright 2026 gRPC Authors; license text not read, so unknown. No deadline by default; propagation defaults differ by language; remaining time is sent as a timeout to avoid clock skew."
+    notes: "NO-AUTHOR: project docs; date is last modified. Footer copyright 2026 gRPC Authors; License: the footer links to github.com/grpc/grpc.io/blob/main/LICENSE, which says repository content is CC BY 4.0 and code samples Apache-2.0 (opened 2026-11-12), so recorded as CC-BY-4.0. No deadline by default; propagation defaults differ by language; remaining time is sent as a timeout to avoid clock skew."
+    verified_on: "2026-11-12"
 
   - id: fielding-rest-dissertation-ch5
     title: "Fielding Dissertation, Chapter 5: Representational State Transfer (REST), in Architectural Styles and the Design of Network-based Software Architectures"
@@ -2960,6 +2984,7 @@ sources:
     topics: [autoscaling, network-saturation, provisioning-bottleneck, health-check, cascading-failure, dashboards-dependency]
     status: candidate
     notes: "Published 2021-02-01, updated 2021-02-03. Footer: (c) 2026 Slack Technologies, LLC, all rights reserved. Older than the 2023-2026 target but a clear cascading-failure story: overloaded AWS Transit Gateway, thread waits lowered CPU so autoscaling scaled down then massively up, provisioning service overloaded, half-provisioned instances hit the group maximum."
+    verified_on: "2026-11-12"
 
   - id: atlassian-pir-april-2022
     title: "Post-Incident Review on the Atlassian April 2022 outage"
