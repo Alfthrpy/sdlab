@@ -1,51 +1,51 @@
-# SD Lab (nama kerja)
+# SD Lab (working name)
 
-Platform gratis untuk belajar **backend system design** secara interaktif: lesson singkat, kuis, lab simulasi, dan insiden nyata. Semua materi disuling dari referensi yang terverifikasi.
+A free platform for learning **backend system design** interactively: short lessons, quizzes, simulation labs, and real incidents. All material is distilled from verified references. Learner-facing content is in Indonesian; everything agents read is in English (see [ADR 0005](docs/decisions/0005-agent-facing-language.md)).
 
-Repo ini berisi **Fase 1: pengumpulan & produksi materi**. Simulator dan aplikasi menyusul di fase berikutnya, di repo yang sama atau terpisah.
+This repo holds **Phase 1: collecting & producing materials**. The simulator and application follow in later phases, in this repo or a separate one.
 
-## Mulai dari mana
+## Where to start
 
-| Kamu adalah | Baca |
+| You are | Read |
 | --- | --- |
-| Agent (Claude atau lainnya) | [`AGENTS.md`](AGENTS.md), lalu [`backlog/BOARD.md`](backlog/BOARD.md) |
-| Manusia (owner/reviewer) | [`docs/PLAN-FASE-1.md`](docs/PLAN-FASE-1.md), lalu [`docs/workflow.md`](docs/workflow.md) |
+| An agent (Claude or other) | [`AGENTS.md`](AGENTS.md), then [`backlog/BOARD.md`](backlog/BOARD.md) |
+| A human (owner/reviewer) | [`docs/PLAN-PHASE-1.md`](docs/PLAN-PHASE-1.md), then [`docs/workflow.md`](docs/workflow.md) |
 
-## Peta repo
+## Repo map
 
 ```
-AGENTS.md               aturan kerja agent (wajib dibaca tiap sesi)
+AGENTS.md               agent working rules (read every session)
 docs/
-  ROADMAP.md            3 fase besar proyek
-  PLAN-FASE-1.md        rencana detail fase materi (milestone, gerbang)
-  workflow.md           sistem ticket, alur sesi, branch, PR, review
-  decisions/            ADR: keputusan yang sudah diambil
-  conventions/          panduan sitasi, gaya tulisan, skema konten
+  ROADMAP.md            the 3 major project phases
+  PLAN-PHASE-1.md       detailed plan for the materials phase (milestones, gates)
+  workflow.md           ticket system, session flow, branch, PR, review
+  decisions/            ADRs: decisions already made
+  conventions/          citation guide, writing style, content schema
 backlog/
-  BOARD.md              papan status (generate: python scripts/board.py)
-  tickets/              satu file = satu ticket
+  BOARD.md              status board (generate: python scripts/board.py)
+  tickets/              one file = one ticket
 references/
-  registry.yaml         Registry Referensi (satu-satunya sumber yang boleh dikutip)
-  notes/                catatan baca per sumber
-curriculum/             peta kurikulum (konsep, prasyarat, studi kasus)
-content/                lesson, soal, spesifikasi lab, insiden, studi kasus
-templates/              template ticket, konsep, soal, catatan sumber, log sesi
-sessions/               log tiap sesi kerja
+  registry.yaml         Reference Registry (the only sources that may be cited)
+  notes/                reading notes per source
+curriculum/             curriculum map (concepts, prerequisites, case studies)
+content/                lessons, questions, lab specs, incidents, case studies
+templates/              templates for tickets, concepts, questions, source notes, session logs
+sessions/               log of each work session
 scripts/                validate.py, board.py, new_ticket.py
-.claude/                subagent & slash command untuk Claude Code
+.claude/                subagents & slash commands for Claude Code
 ```
 
-## Perintah
+## Commands
 
 ```bash
 pip install pyyaml
-python scripts/validate.py      # cek ticket, registry, kurikulum, konten
+python scripts/validate.py      # check tickets, registry, curriculum, content
 python scripts/board.py         # regenerate backlog/BOARD.md
-python scripts/new_ticket.py "Judul ticket" --milestone M4 --type content
+python scripts/new_ticket.py "Ticket title" --milestone M4 --type content
 ```
 
-## Lisensi
+## License
 
-- Kode (folder `scripts/`, `.github/`): MIT.
-- Konten (`content/`, `curriculum/`, `docs/`): CC BY 4.0, kecuali dinyatakan lain di file.
-- Materi pihak ketiga hanya ditautkan dan ditulis ulang, tidak disalin. Lihat [`docs/conventions/citation-guide.md`](docs/conventions/citation-guide.md).
+- Code (`scripts/`, `.github/`): MIT.
+- Content (`content/`, `curriculum/`, `docs/`): CC BY 4.0, unless stated otherwise in a file.
+- Third-party material is only linked and rewritten, never copied. See [`docs/conventions/citation-guide.md`](docs/conventions/citation-guide.md).

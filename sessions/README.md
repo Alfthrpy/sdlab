@@ -1,3 +1,3 @@
-# Log sesi
+# Session logs
 
-Satu file per sesi: `YYYY-MM-DD-<ID>.md`, dibuat dari `templates/session-log.md`. Log terbaru dibaca di awal sesi berikutnya supaya agent tahu konteks terakhir.
+One file per session: `YYYY-MM-DD-<ID>.md`, created from `templates/session-log.md`. The latest log is read at the start of the next session so the agent knows the last context.

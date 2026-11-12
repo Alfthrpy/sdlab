@@ -1,19 +1,19 @@
-# Kurikulum
+# Curriculum
 
-File di folder ini dibuat di milestone M2:
+Files in this folder are created in milestone M2. Structural fields are English; learner-facing text (concept `title`, `objectives`) is Indonesian.
 
-| File | Dibuat di ticket | Skema |
+| File | Created in ticket | Schema |
 | --- | --- | --- |
 | `concepts.yaml` | P1-020, P1-021, P1-023 | `docs/conventions/content-schema.md` §2 |
 | `case-studies.yaml` | P1-022 | `docs/conventions/content-schema.md` §3 |
 
-## Unit (titik awal dari rencana induk)
+## Units (starting point from the master plan)
 
-| Unit | Konsep inti |
+| Unit | Core concepts |
 | --- | --- |
-| 1. Fondasi | Latency vs throughput, estimasi back-of-envelope, hukum Little, persentil, SLI/SLO |
+| 1. Foundations | Latency vs. throughput, back-of-envelope estimation, Little's law, percentiles, SLI/SLO |
 | 2. Building blocks | Load balancer, reverse proxy, cache, CDN, API (REST/gRPC), idempotency |
-| 3. Data | Model data, indeks, replikasi, partisi, transaksi & isolasi |
-| 4. Asinkron & aliran | Message queue, log, semantik pengiriman, outbox, backpressure |
-| 5. Konsistensi & koordinasi | CAP/PACELC, model konsistensi, consensus, lock & lease, waktu & jam |
-| 6. Reliabilitas produksi | Timeout, retry + backoff + jitter, circuit breaker, load shedding, cascading & metastable failure, observability, deploy aman |
+| 3. Data | Data models, indexes, replication, partitioning, transactions & isolation |
+| 4. Async & streams | Message queue, log, delivery semantics, outbox, backpressure |
+| 5. Consistency & coordination | CAP/PACELC, consistency models, consensus, locks & leases, time & clocks |
+| 6. Production reliability | Timeout, retry + backoff + jitter, circuit breaker, load shedding, cascading & metastable failure, observability, safe deploys |

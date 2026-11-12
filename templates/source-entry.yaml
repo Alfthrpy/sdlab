@@ -1,5 +1,5 @@
-# Salin ke references/registry.yaml di bawah `sources:`. Semua field diisi dari halaman yang dibuka.
-- id: kebab-case-unik
+# Copy into references/registry.yaml under `sources:`. Every field is filled from the page you opened.
+- id: unique-kebab-case
   title: ""
   authors: []
   publisher: ""
@@ -8,11 +8,11 @@
   url: ""
   doi: null
   published: ""          # YYYY / YYYY-MM / YYYY-MM-DD
-  accessed: ""           # tanggal dibuka
+  accessed: ""           # date opened
   license: unknown       # all-rights-reserved | CC-BY-4.0 | CC-BY-SA-4.0 | CC-BY-NC-ND-4.0 | MIT | public-domain | unknown
   usage: rewrite-only    # rewrite-only | adapt-with-attribution | map-only
   access: free           # free | partial | paywalled
   units: []
   topics: []
   status: candidate
-  notes: ""
+  notes: ""              # English

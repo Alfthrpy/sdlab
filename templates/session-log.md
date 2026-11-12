@@ -1,27 +1,27 @@
-# Sesi YYYY-MM-DD — P1-000
+# Session YYYY-MM-DD — P1-000
 
-- **Dikerjakan oleh:** agent (model/nama) | human
-- **Ticket:** P1-000 — judul
-- **Status akhir:** done | review | in-progress | blocked
+- **Done by:** agent (model/name) | human
+- **Ticket:** P1-000 — title
+- **Final status:** done | review | in-progress | blocked
 
-## Yang dikerjakan
+## What was done
 
 - ...
 
-## Keputusan yang diambil
+## Decisions made
 
-- ... (beserta alasan singkat)
+- ... (with a short reason)
 
-## Hasil review
+## Review result
 
 - Reviewer: source-verifier | content-reviewer | human
-- Kesimpulan: ...
-- Temuan yang diperbaiki: ...
+- Conclusion: ...
+- Findings fixed: ...
 
-## Belum selesai / untuk sesi berikutnya
+## Not finished / for the next session
 
 - ...
 
-## Ticket baru yang dibuat
+## New tickets created
 
 - ...

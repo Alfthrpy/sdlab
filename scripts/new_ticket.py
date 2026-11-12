@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Buat ticket baru dari template.
+"""Create a new ticket from the template.
 
   python scripts/new_ticket.py "Lesson: dasar caching" --milestone M4 --type content \
       --depends P1-041 [--id P1-041a] [--owner agent] [--review agent] [--priority medium]
 
-Tanpa --id, nomor berikutnya yang kosong dipakai (P1-0xx).
-Dengan --depends ke sebuah epic dan tanpa --id, id sub-ticket (P1-041a, b, ...) dibuat otomatis.
+Without --id, the next free number is used (P1-0xx).
+With --depends on an epic and no --id, a sub-ticket id (P1-041a, b, ...) is generated automatically.
 """
 from __future__ import annotations
 
@@ -27,7 +27,7 @@ def next_id(existing: set[str], phase: str, parent: str | None) -> str:
             cand = parent + ch
             if cand not in existing:
                 return cand
-        raise SystemExit("Sub-ticket habis (a–z).")
+        raise SystemExit("Out of sub-ticket ids (a–z).")
     nums = [int(m.group(1)) for i in existing if (m := re.match(rf"^{phase}-(\d{{3}})$", i))]
     n = max(nums, default=0) + 1
     while f"{phase}-{n:03d}" in existing:
@@ -47,14 +47,14 @@ def main():
     ap.add_argument("--priority", default="medium", choices=PRIORITIES)
     ap.add_argument("--depends", nargs="*", default=[])
     ap.add_argument("--estimate", type=int, default=1)
-    ap.add_argument("--sub", action="store_true", help="paksa id sub-ticket dari dependensi pertama")
+    ap.add_argument("--sub", action="store_true", help="force a sub-ticket id derived from the first dependency")
     a = ap.parse_args()
 
     existing = {t.get("id") for t in load_tickets()}
     parent = a.depends[0] if a.depends and (a.sub or a.milestone == "M4") else None
     tid = a.id or next_id(existing, a.phase, parent)
     if tid in existing:
-        raise SystemExit(f"{tid} sudah ada.")
+        raise SystemExit(f"{tid} already exists.")
 
     deps = "[" + ", ".join(a.depends) + "]"
     text = f"""---
@@ -71,22 +71,22 @@ estimate: {a.estimate}
 outputs: []
 ---
 
-## Konteks
+## Context
 
-(Kenapa ticket ini ada.)
+(Why this ticket exists.)
 
-## Tugas
+## Tasks
 
 1. ...
 
-## Kriteria selesai
+## Done criteria
 
 - [ ] ...
-- [ ] `python scripts/validate.py` lolos
+- [ ] `python scripts/validate.py` passes
 
-## Catatan
+## Notes
 
-(Diisi saat dikerjakan.)
+(Filled in during the work.)
 """
     path = TICKETS_DIR / f"{tid}-{slugify(a.title)}.md"
     path.write_text(text, encoding="utf-8")

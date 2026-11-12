@@ -1,6 +1,6 @@
 ---
 id: P1-000
-title: Judul singkat dalam bentuk perintah
+title: Short title in imperative form
 milestone: M0
 type: research
 owner: agent
@@ -12,20 +12,20 @@ estimate: 1
 outputs: []
 ---
 
-## Konteks
+## Context
 
-Kenapa ticket ini ada dan apa hubungannya dengan milestone.
+Why this ticket exists and how it relates to the milestone.
 
-## Tugas
+## Tasks
 
-1. Langkah konkret pertama.
+1. First concrete step.
 2. ...
 
-## Kriteria selesai
+## Done criteria
 
-- [ ] Kriteria yang bisa dicek secara objektif
-- [ ] `python scripts/validate.py` lolos
+- [ ] An objectively checkable criterion
+- [ ] `python scripts/validate.py` passes
 
-## Catatan
+## Notes
 
-(Diisi saat dikerjakan: keputusan, temuan, hal yang belum selesai.)
+(Filled in during the work: decisions, findings, anything unfinished.)

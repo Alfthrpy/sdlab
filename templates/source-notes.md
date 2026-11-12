@@ -1,29 +1,29 @@
 ---
-source: id-registry
+source: registry-id
 read_by: agent | human
 date: YYYY-MM-DD
-sections_read: ["bab/bagian yang dibaca"]
+sections_read: ["chapters/sections read"]
 ---
 
-# Catatan: <judul sumber>
+# Notes: <source title>
 
-> Catatan ini ditulis dengan kata sendiri. Jangan menyalin kalimat sumber. Setiap poin menyebut lokasinya.
+> Notes are in English and in your own words. Do not copy source sentences. Every point gives its location.
 
-## Poin kunci
+## Key points
 
-- (bab X) Poin dengan kata sendiri.
+- (ch. X) Point in your own words.
 - ...
 
-## Angka & fakta yang bisa dikutip
+## Citable numbers & facts
 
-| Fakta | Lokasi | Catatan konteks |
+| Fact | Location | Context note |
 | --- | --- | --- |
 | | | |
 
-## Relevan untuk konsep
+## Relevant to concepts
 
-- `concept-id`: kenapa relevan
+- `concept-id`: why it is relevant
 
-## Peringatan
+## Warnings
 
-- Bagian yang sudah usang, asumsi khusus, atau hal yang mudah disalahpahami.
+- Outdated parts, special assumptions, or things that are easy to misread.
