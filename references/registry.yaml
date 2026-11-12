@@ -211,9 +211,8 @@ sources:
     status: candidate
     free_companion: [system-design-primer]
     notes: "NO-DATE: covers two volumes; Vol. 2 is listed as 2022 by booksellers (Byte Code LLC), the publisher page was not used and Vol. 1 year is not verified. Authors: bytebytego.com names none ('Written by Amazon Bestselling Authors'); Alex Xu and Sahn Lam (Vol. 2) per bookseller listings (booksamillion). Courses are paid with free preview chapters; footer 'Copyright 2022-2026 ByteByteGo Inc. All rights reserved'. Only for mapping the case-study list (Tier 6)."
-
-  # --- P1-069: candidates for Unit 0 (single-server backend), accessed 2026-11-12 ---
     verified_on: "2026-11-12"
+  # --- P1-069: candidates for Unit 0 (single-server backend), accessed 2026-11-12 ---
   - id: pg-docs-indexes-intro
     title: "PostgreSQL 18 Documentation: Chapter 11. Indexes (11.1 Introduction)"
     authors: []
@@ -523,7 +522,7 @@ sources:
     units: [0, 1, 6]
     topics: [monitoring, golden-signals, black-box-monitoring, alerting, observability, red-use]
     status: candidate
-    notes: "Chapter-level entry for the parent google-sre-book (same license, CC BY-NC-ND 4.0). The date 2017 is the copyright year shown on this chapter page, while the parent entry says 2016. Page says written by Rob Ewaschuk, edited by Betsy Beyer, copyright 2017 Google, CC BY-NC-ND 4.0. Written for large systems; Unit 0 should use only symptoms vs causes and the four signals."
+    notes: "Chapter-level entry for the parent google-sre-book (same license, CC BY-NC-ND 4.0). The date 2017 is the copyright year shown on this chapter page, and the parent google-sre-book entry now records the same copyright year. Page says written by Rob Ewaschuk, edited by Betsy Beyer, copyright 2017 Google, CC BY-NC-ND 4.0. Written for large systems; Unit 0 should use only symptoms vs causes and the four signals."
     verified_on: "2026-11-12"
 
   - id: systemd-service-man
@@ -657,7 +656,7 @@ sources:
     units: [1]
     topics: [sli, slo, sla, percentiles, error-budget, aggregation]
     status: candidate
-    notes: "Chapter-level entry for google-sre-book (same license). Page: written by Jones, Wilkes, Murphy with Cody Smith; edited by Betsy Beyer; copyright 2017 Google, Inc., published by O'Reilly; footer says Licensed under CC BY-NC-ND 4.0. Covers SLI/SLO/SLA terms, choosing indicators, why averages hide tail latency, choosing targets. Written for Google-scale services, so learners need small-service examples. Year note: the chapter page shows copyright 2017, while the google-sre-book entry records 2016 for the book as a whole (not independently verified); the chapter year here is the page copyright year."
+    notes: "Chapter-level entry for google-sre-book (same license). Page: written by Jones, Wilkes, Murphy with Cody Smith; edited by Betsy Beyer; copyright 2017 Google, Inc., published by O'Reilly; footer says Licensed under CC BY-NC-ND 4.0. Covers SLI/SLO/SLA terms, choosing indicators, why averages hide tail latency, choosing targets. Written for Google-scale services, so learners need small-service examples. Year note: the chapter page shows copyright 2017, and the google-sre-book entry now records 2017 too (copyright year); the chapter year here is the page copyright year."
     verified_on: "2026-11-12"
 
   - id: sre-book-embracing-risk-ch3
@@ -676,7 +675,7 @@ sources:
     units: [1]
     topics: [availability, risk, error-budget, slo]
     status: candidate
-    notes: "Chapter-level entry for google-sre-book. Page: written by Marc Alvidrez, edited by Kavita Guliani; Error Budgets section written by Mark Roth; copyright 2017 Google, Inc.; CC BY-NC-ND 4.0. Useful for 'how reliable is reliable enough', which feeds the 'is this stage still enough' question. Year note: the chapter page shows copyright 2017, while the google-sre-book entry records 2016 for the book as a whole (not independently verified); the chapter year here is the page copyright year."
+    notes: "Chapter-level entry for google-sre-book. Page: written by Marc Alvidrez, edited by Kavita Guliani; Error Budgets section written by Mark Roth; copyright 2017 Google, Inc.; CC BY-NC-ND 4.0. Useful for 'how reliable is reliable enough', which feeds the 'is this stage still enough' question. Year note: the chapter page shows copyright 2017, and the google-sre-book entry now records 2017 too (copyright year); the chapter year here is the page copyright year."
     verified_on: "2026-11-12"
 
   - id: sre-workbook-implementing-slos
@@ -714,7 +713,7 @@ sources:
     units: [1, 2, 4, 6]
     topics: [overload, load-shedding, capacity, retries, load-balancing, cascading-failure]
     status: candidate
-    notes: "Chapter-level entry for google-sre-book. Page: written by Alejandro Forero Cuervo, edited by Sarah Chavis; copyright 2017 Google, Inc.; CC BY-NC-ND 4.0. Useful as a trigger for 'a stage stops being enough' (QPS is a poor capacity metric; resource-based limits). Advanced parts (criticality, client-side throttling) go beyond the Unit 1-2 level. Year note: the chapter page shows copyright 2017, while the google-sre-book entry records 2016 for the book as a whole (not independently verified); the chapter year here is the page copyright year."
+    notes: "Chapter-level entry for google-sre-book. Page: written by Alejandro Forero Cuervo, edited by Sarah Chavis; copyright 2017 Google, Inc.; CC BY-NC-ND 4.0. Useful as a trigger for 'a stage stops being enough' (QPS is a poor capacity metric; resource-based limits). Advanced parts (criticality, client-side throttling) go beyond the Unit 1-2 level. Year note: the chapter page shows copyright 2017, and the google-sre-book entry now records 2017 too (copyright year); the chapter year here is the page copyright year."
     verified_on: "2026-11-12"
 
   - id: sre-book-load-balancing-frontend-ch19
@@ -733,7 +732,7 @@ sources:
     units: [2]
     topics: [load-balancer, dns, virtual-ip, consistent-hashing]
     status: candidate
-    notes: "Chapter-level entry for google-sre-book. Page: written by Piotr Lewandowski, edited by Sarah Chavis; copyright 2017 Google, Inc.; CC BY-NC-ND 4.0. Only the first three section headings were visible in the fetched summary (Power Isn't the Answer, Load Balancing Using DNS, Load Balancing at the Virtual IP Address). Google-scale; learners need a small-fleet translation. Year note: the chapter page shows copyright 2017, while the google-sre-book entry records 2016 for the book as a whole (not independently verified); the chapter year here is the page copyright year."
+    notes: "Chapter-level entry for google-sre-book. Page: written by Piotr Lewandowski, edited by Sarah Chavis; copyright 2017 Google, Inc.; CC BY-NC-ND 4.0. Only the first three section headings were visible in the fetched summary (Power Isn't the Answer, Load Balancing Using DNS, Load Balancing at the Virtual IP Address). Google-scale; learners need a small-fleet translation. Year note: the chapter page shows copyright 2017, and the google-sre-book entry now records 2017 too (copyright year); the chapter year here is the page copyright year."
 
   - id: tail-at-scale-cacm13
     title: "The Tail at Scale"
@@ -2411,7 +2410,7 @@ sources:
     units: [5]
     topics: [consensus, paxos, split-brain, leader-election, cap-theorem, replicated-state-machine, quorum]
     status: candidate
-    notes: "Chapter-level entry for google-sre-book (same license). Reopened 2026-11-12: byline Laura Nolan, edited by Tim Harvey (editor, so not listed in authors). Footer: Copyright 2017 Google, Inc. Published by O'Reilly Media, Inc. Licensed under CC BY-NC-ND 4.0. published 2017 is this chapter footer copyright year; the google-sre-book entry records 2016 (book first-edition year), so the two differ. Sections read: CAP Theorem; Motivating the Use of Consensus (three split-brain/failover/group-membership case studies); How Distributed Consensus Works (Paxos overview, architecture patterns); Distributed Consensus Performance (Multi-Paxos flow, stable leaders, batching, disk access)."
+    notes: "Chapter-level entry for google-sre-book (same license). Reopened 2026-11-12: byline Laura Nolan, edited by Tim Harvey (editor, so not listed in authors). Footer: Copyright 2017 Google, Inc. Published by O'Reilly Media, Inc. Licensed under CC BY-NC-ND 4.0. published 2017 is this chapter footer copyright year; the google-sre-book entry also records 2017 (copyright year). Sections read: CAP Theorem; Motivating the Use of Consensus (three split-brain/failover/group-membership case studies); How Distributed Consensus Works (Paxos overview, architecture patterns); Distributed Consensus Performance (Multi-Paxos flow, stable leaders, batching, disk access)."
 
   - id: kulkarni-hybrid-logical-clocks
     title: "Logical Physical Clocks and Consistent Snapshots in Globally Distributed Databases"

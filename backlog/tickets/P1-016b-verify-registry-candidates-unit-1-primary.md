@@ -5,7 +5,7 @@ milestone: M1
 type: research
 owner: agent
 review: agent
-status: in-progress
+status: review
 priority: high
 depends_on: []
 estimate: 1
@@ -40,3 +40,4 @@ Follow P1-016 Tasks 1–5 for each entry in scope, SEED and Tier 1–3 first:
 (Filled in during the work.)
 
 2026-11-12: 21 entries with primary unit 1 reopened. 20 have `verified_on`; `little-2011-littles-law-50th` does NOT (INFORMS page returns HTTP 403 to automated fetches; DOI resolves to INFORMS, metadata from the earlier PDF header stays unrechecked, so that criterion stays open for it). Changes: all 5 SEED notes resolved (DDIA 2e date set to 2026-03 from the authors' own page, since the O'Reilly page returns 403; SRE book editors added and 2nd-edition existence noted; System Design Primer license CC BY 4.0 confirmed from LICENSE.txt, repo maintained, attribution added; Tier 6 pages got NO-AUTHOR/NO-DATE). `free_companion` set for the two paywalled entries (DDIA, Alex Xu). Licenses: 5 unknown -> all-rights-reserved (no license stated), grpc docs -> CC-BY-4.0 (repo LICENSE linked from footer); attribution lines added for 2 Brooker posts. Open gaps: Tail at Scale DOI still unconfirmed (ACM 403); Dean slides are an image-only PDF so nothing beyond existence/absence of license could be checked.
+Reviewer pass done 2026-11-12: fixed stale SRE '2016' wording in chapter notes, a stale 'license: unknown' in references/notes/prometheus-histograms-practices.md, and a misplaced verified_on.
