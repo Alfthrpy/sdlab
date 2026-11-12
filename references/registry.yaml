@@ -588,10 +588,10 @@ sources:
     license: all-rights-reserved
     usage: rewrite-only
     access: free
-    units: [0]
-    topics: [indexes, query-basics, execution-plans]
+    units: [0, 3]
+    topics: [indexes, query-basics, execution-plans, btree]
     status: candidate
-    notes: "NO-DATE: only the copyright range 2010-2026 is shown. Footer says all rights reserved (page has a typo). Free to read online. Vendor-neutral with PostgreSQL and MySQL notes. Only the home page and chapter list were opened; chapters not read. Tier 2 (not Tier 1: single-author web edition). The home page says this is the free web edition of the book 'SQL Performance Explained'. Footer: 'Copyright 2010-2026 Markus Winand. All righs reserved.'"
+    notes: "NO-DATE: only the copyright range 2010-2026 is shown. Footer says all rights reserved (page has a typo). Free to read online. Vendor-neutral with PostgreSQL and MySQL notes. Only the home page, chapter list, and the 'Anatomy of an SQL Index' intro page (use-the-index-luke.com/sql/anatomy: sorted index, doubly linked leaf list plus balanced tree) were opened; chapters not read. Tier 2 (not Tier 1: single-author web edition). The home page says this is the free web edition of the book 'SQL Performance Explained'. Footer: 'Copyright 2010-2026 Markus Winand. All righs reserved.'"
 
   - id: craver-stack-overflow-architecture-2016
     title: "Stack Overflow: The Architecture - 2016 Edition"
@@ -1242,3 +1242,392 @@ sources:
     topics: [api-design, rest, grpc, resource-oriented-design]
     status: candidate
     notes: "NO-AUTHOR / NO-DATE: footer says content is licensed under CC BY 4.0 and code samples under Apache 2.0 unless otherwise noted. Only the landing page was opened; individual AIPs (for example resource-oriented design, request identification) were not read, so numbers must be confirmed. The older cloud.google.com/apis/design page redirects to docs.cloud.google.com and showed no license or date, so it is not recorded."
+
+  - id: pg-docs-transaction-iso
+    title: "PostgreSQL 18 Documentation: 13.2. Transaction Isolation"
+    authors: []
+    publisher: PostgreSQL Global Development Group
+    type: docs
+    tier: 2
+    url: https://www.postgresql.org/docs/current/transaction-iso.html
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [transactions, isolation-levels, anomalies, snapshot-isolation, serializability]
+    status: candidate
+    version: "PostgreSQL 18 (18.6)"
+    notes: "NO-AUTHOR: corporate documentation. Real license: the PostgreSQL License (permissive; see the registry entry pg-docs-indexes-intro for the legalnotice text read 2026-11-12). Footer: Copyright 1996-2026 PGDG; schema enum cannot express it so license stays unknown (treat as rewrite-only). Covers Read Committed, Repeatable Read (snapshot isolation), Serializable (SSI), the anomaly table, SQLSTATE 40001 and retry advice. Notes in references/notes."
+
+  - id: pg-docs-mvcc-intro
+    title: "PostgreSQL 18 Documentation: 13.1. Introduction (Concurrency Control, MVCC)"
+    authors: []
+    publisher: PostgreSQL Global Development Group
+    type: docs
+    tier: 2
+    url: https://www.postgresql.org/docs/current/mvcc-intro.html
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [mvcc, transactions, concurrency-control]
+    status: candidate
+    version: "PostgreSQL 18 (18.6)"
+    notes: "NO-AUTHOR: corporate documentation. Real license: the PostgreSQL License (permissive; see the registry entry pg-docs-indexes-intro for the legalnotice text read 2026-11-12). Footer: Copyright 1996-2026 PGDG; schema enum cannot express it so license stays unknown (treat as rewrite-only). Three-paragraph intro: snapshots per statement, readers do not block writers. Short page."
+
+  - id: pg-docs-index-types
+    title: "PostgreSQL 18 Documentation: 11.2. Index Types"
+    authors: []
+    publisher: PostgreSQL Global Development Group
+    type: docs
+    tier: 2
+    url: https://www.postgresql.org/docs/current/indexes-types.html
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [indexes, btree, hash-index, secondary-indexes]
+    status: candidate
+    version: "PostgreSQL 18 (18.6)"
+    notes: "NO-AUTHOR: corporate documentation. Real license: the PostgreSQL License (permissive; see the registry entry pg-docs-indexes-intro for the legalnotice text read 2026-11-12). Footer: Copyright 1996-2026 PGDG; schema enum cannot express it so license stays unknown (treat as rewrite-only). B-tree, Hash, GiST, SP-GiST, GIN, BRIN; B-tree supported operators and anchored LIKE rule. No LSM here (PostgreSQL uses B-trees)."
+
+  - id: pg-docs-high-availability
+    title: "PostgreSQL 18 Documentation: Chapter 26. High Availability, Load Balancing, and Replication"
+    authors: []
+    publisher: PostgreSQL Global Development Group
+    type: docs
+    tier: 2
+    url: https://www.postgresql.org/docs/current/high-availability.html
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [replication, sync-vs-async, replication-lag, failover]
+    status: candidate
+    version: "PostgreSQL 18 (18.6)"
+    notes: "NO-AUTHOR: corporate documentation. Real license: the PostgreSQL License (permissive; see the registry entry pg-docs-indexes-intro for the legalnotice text read 2026-11-12). Footer: Copyright 1996-2026 PGDG; schema enum cannot express it so license stays unknown (treat as rewrite-only). Chapter intro only was opened (the 26.1 solution comparison is a sub-page, not read). States the sync vs async trade-off, stale reads and possible loss on failover."
+
+  - id: pg-docs-log-shipping-standby
+    title: "PostgreSQL 18 Documentation: 26.2. Log-Shipping Standby Servers"
+    authors: []
+    publisher: PostgreSQL Global Development Group
+    type: docs
+    tier: 2
+    url: https://www.postgresql.org/docs/current/warm-standby.html
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [replication, leader-follower, streaming-replication, replication-lag, synchronous-replication, failover, read-replicas]
+    status: candidate
+    version: "PostgreSQL 18 (18.6)"
+    notes: "NO-AUTHOR: corporate documentation. Real license: the PostgreSQL License (permissive; see the registry entry pg-docs-indexes-intro for the legalnotice text read 2026-11-12). Footer: Copyright 1996-2026 PGDG; schema enum cannot express it so license stays unknown (treat as rewrite-only). Streaming and file-based standby, lag monitoring (26.2.5.2), replication slots, cascading, synchronous commit modes (26.2.8). Failover (26.3) URL guess returned 404 and was not read; hot standby read queries (26.4) not read."
+
+  - id: pg-docs-table-partitioning
+    title: "PostgreSQL 18 Documentation: 5.12. Table Partitioning"
+    authors: []
+    publisher: PostgreSQL Global Development Group
+    type: docs
+    tier: 2
+    url: https://www.postgresql.org/docs/current/ddl-partitioning.html
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [partitioning, range-partitioning, hash-partitioning, partition-pruning]
+    status: candidate
+    version: "PostgreSQL 18 (18.6)"
+    notes: "NO-AUTHOR: corporate documentation. Real license: the PostgreSQL License (permissive; see the registry entry pg-docs-indexes-intro for the legalnotice text read 2026-11-12). Footer: Copyright 1996-2026 PGDG; schema enum cannot express it so license stays unknown (treat as rewrite-only). Single-node table partitioning, not sharding across servers; useful as the stepping stone before sharding. 5.12.1 gives a trigger-like hint: benefits usually matter when a table exceeds server memory."
+
+  - id: mysql-84-replication
+    title: "MySQL 8.4 Reference Manual: 19 Replication"
+    authors: []
+    publisher: Oracle Corporation (MySQL)
+    type: docs
+    tier: 2
+    url: https://dev.mysql.com/doc/refman/8.4/en/replication.html
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [replication, leader-follower, read-replicas, sync-vs-async, replication-lag]
+    status: candidate
+    version: "MySQL 8.4"
+    notes: "NO-AUTHOR / NO-DATE: corporate documentation. Footer shows only '(c) 2026 Oracle' with links to copyright and terms pages (not followed), so rights are recorded as all-rights-reserved. Overview of source/replica, async default, semisync, delayed replication, GTID vs binlog position; lists scale-out of reads as a use. Does not discuss load-induced lag or failover procedures itself."
+
+  - id: mongodb-docs-sharding
+    title: "MongoDB Database Manual: Sharding Introduction and Architecture"
+    authors: []
+    publisher: MongoDB, Inc.
+    type: docs
+    tier: 2
+    url: https://www.mongodb.com/docs/manual/sharding/
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [sharding, shard-key, hashed-sharding, range-sharding, rebalancing, hot-spots]
+    status: candidate
+    version: "Database Manual 9.0 (current)"
+    notes: "NO-AUTHOR / NO-DATE: vendor documentation. Footer shows only '(c) 2026 MongoDB, Inc.', no license statement. Original URL docs.mongodb.com/manual/sharding/ redirects here (301). Says vertical scaling has a ceiling and sharding adds complexity (trigger hint); ranged vs hashed trade-off; monotonically increasing keys concentrate writes; balancer moves chunks."
+
+  - id: mongodb-docs-data-modeling
+    title: "MongoDB Database Manual: Data Modeling"
+    authors: []
+    publisher: MongoDB, Inc.
+    type: docs
+    tier: 2
+    url: https://www.mongodb.com/docs/manual/data-modeling/
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [data-models, document-model, embedding-vs-referencing]
+    status: candidate
+    version: "Database Manual 9.0 (current)"
+    notes: "NO-AUTHOR / NO-DATE: vendor documentation. Footer shows only '(c) 2026 MongoDB, Inc.'. Vendor perspective: pushes embedding and 'data accessed together is stored together'; read critically next to relational normalization."
+
+  - id: cassandra-docs-dynamo
+    title: "Apache Cassandra Documentation: Dynamo (Architecture)"
+    authors: []
+    publisher: The Apache Software Foundation
+    type: docs
+    tier: 2
+    url: https://cassandra.apache.org/doc/latest/cassandra/architecture/dynamo.html
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: Apache-2.0
+    usage: adapt-with-attribution
+    access: free
+    units: [3]
+    topics: [partitioning, consistent-hashing, vnodes, leaderless-replication, quorum, wide-column]
+    status: candidate
+    version: "Cassandra 5.0 docs (prerelease; /latest/ URL is a moving target, pin before approval)"
+    notes: "NO-AUTHOR / NO-DATE: project documentation. Footer: 'c 2009- The Apache Software Foundation under the terms of the Apache License 2.0' (page text; docs license read from footer only, not LICENSE file). The page itself says it is a prerelease 5.0 page and links to a newer (6.0-alpha2) 'latest'; /latest/ URL may shift. Token ring, vnodes, RF, consistency levels (W+R>RF); hinted handoff and read repair only listed."
+
+  - id: dynamodb-docs-partition-key-design
+    title: "Amazon DynamoDB Developer Guide: Best practices for designing and using partition keys effectively"
+    authors: []
+    publisher: Amazon Web Services
+    type: docs
+    tier: 2
+    url: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-partition-key-design.html
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [partitioning, partition-key, hot-partitions, write-sharding, key-value]
+    status: candidate
+    notes: "NO-AUTHOR / NO-DATE: vendor documentation. Footer not visible in the fetched text, so license unknown. States per-partition limits (3,000 read units/s, 1,000 write units/s) and the advice to spread activity uniformly; sub-pages on write sharding not opened."
+
+  - id: dynamodb-docs-secondary-indexes
+    title: "Amazon DynamoDB Developer Guide: Improving data access with secondary indexes"
+    authors: []
+    publisher: Amazon Web Services
+    type: docs
+    tier: 2
+    url: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SecondaryIndexes.html
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [secondary-indexes, global-secondary-index, local-secondary-index, key-value]
+    status: candidate
+    notes: "NO-AUTHOR / NO-DATE: vendor documentation. Footer not visible in the fetched text, so license unknown. GSI vs LSI comparison table: GSI is its own partition space, eventually consistent only, own throughput; LSI shares partition key and allows strong reads. Good illustration of secondary-index-in-partitioned-store trade-off."
+
+  - id: couchdb-docs-replication-intro
+    title: "Apache CouchDB Documentation: 2.1. Introduction to Replication"
+    authors: []
+    publisher: The Apache Software Foundation
+    type: docs
+    tier: 2
+    url: https://docs.couchdb.org/en/stable/replication/intro.html
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [replication, multi-leader, conflicts]
+    status: candidate
+    version: "stable"
+    notes: "NO-AUTHOR / NO-DATE: project documentation. No footer, license or copyright was present in the fetched content, so license unknown (CouchDB code is Apache-2.0 but docs license not verified here). Version only 'stable'. Short intro: master-master as two opposite one-way tasks, conflicts possible, continuous vs one-shot."
+
+  - id: neo4j-graph-database-concepts
+    title: "Neo4j Getting Started: Graph database concepts"
+    authors: []
+    publisher: Neo4j, Inc.
+    type: docs
+    tier: 2
+    url: https://neo4j.com/docs/getting-started/appendix/graphdb-concepts/
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [data-models, graph-model, property-graph]
+    status: candidate
+    notes: "NO-AUTHOR / NO-DATE: vendor documentation. No footer/license in the fetched content; version not stated. Nodes, labels, typed directed relationships, properties, traversals. Does not mention index-free adjacency on this page."
+
+  - id: notion-sharding-postgres-2021
+    title: "Herding elephants: Lessons learned from sharding Postgres at Notion"
+    authors: [Garrett Fidalgo]
+    publisher: Notion Labs, Inc.
+    type: article
+    tier: 2
+    url: https://www.notion.com/blog/sharding-postgres-at-notion
+    doi: null
+    published: "2021-10-06"
+    accessed: "2026-11-12"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [sharding, shard-key, logical-shards, migration, trigger]
+    status: candidate
+    notes: "Operator engineering blog. Footer '(c) 2026 Notion Labs, Inc.' with no separate license, treated as all-rights-reserved. Gives a concrete trigger: VACUUM stalls and transaction-ID wraparound risk on a single Postgres monolith. 480 logical shards over 32 physical DBs, workspace-ID shard key, double-write migration. Author title on page: Infrastructure Technical Lead. Vendor-specific numbers; use as case study, not general rule."
+
+  - id: dynamo-sosp07
+    title: "Dynamo: Amazon's Highly Available Key-value Store"
+    authors: [Giuseppe DeCandia, Deniz Hastorun, Madan Jampani, Gunavardhan Kakulapati, Avinash Lakshman, Alex Pilchin, Swaminathan Sivasubramanian, Peter Vosshall, Werner Vogels]
+    publisher: ACM (SOSP '07)
+    type: paper
+    tier: 3
+    url: https://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf
+    doi: null
+    published: "2007-10"
+    accessed: "2026-11-12"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [partitioning, consistent-hashing, leaderless-replication, quorum, vector-clocks, hinted-handoff, key-value]
+    status: candidate
+    notes: "First page: 'SOSP'07, October 14-17, 2007, Stevenson, Washington, USA. Copyright 2007 ACM 978-1-59593-591-5/07/0010'; permission is granted to copy for personal or classroom use without fee, not for profit. Free PDF copy hosted on allthingsdistributed.com (author Werner Vogels' blog). No DOI verified from an opened page, so doi: null. Read via text extraction of the PDF: abstract, 1, 4.2, 4.3 (skimmed), 6.1-6.2; sections 4.4-4.7 (vector clocks, hinted handoff, Merkle trees) were seen as headings only, so those topics are not yet read."
+
+  - id: bigtable-osdi06
+    title: "Bigtable: A Distributed Storage System for Structured Data"
+    authors: [Fay Chang, Jeffrey Dean, Sanjay Ghemawat, Wilson C. Hsieh, Deborah A. Wallach, Mike Burrows, Tushar Chandra, Andrew Fikes, Robert E. Gruber]
+    publisher: Google Research (OSDI '06)
+    type: paper
+    tier: 3
+    url: https://research.google/pubs/bigtable-a-distributed-storage-system-for-structured-data/
+    doi: null
+    published: "2006"
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [data-models, wide-column, lsm-tree, partitioning]
+    status: candidate
+    notes: "Landing page lists OSDI 2006, pp. 205-218; PDF at https://storage.googleapis.com/gweb-research2023-media/pubtools/4443.pdf. The page states no license or copyright. Only the landing page (abstract) was opened, the PDF was not read, so no reading notes."
+
+  - id: berenson-critique-ansi-isolation-1995
+    title: "A Critique of ANSI SQL Isolation Levels"
+    authors: [Hal Berenson, Phil Bernstein, Jim Gray, Jim Melton, Elizabeth O'Neil, Patrick O'Neil]
+    publisher: Microsoft Research (technical report MSR-TR-95-51)
+    type: paper
+    tier: 3
+    url: https://www.microsoft.com/en-us/research/publication/a-critique-of-ansi-sql-isolation-levels/
+    doi: null
+    published: "1995-06"
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [transactions, isolation-levels, anomalies, snapshot-isolation, write-skew]
+    status: candidate
+    notes: "Landing page lists it as MSR-TR-95-51, June 1995, venue not stated on the page (an ACM link exists but was not followed). PDF: https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/tr-95-51.pdf. No copyright statement on the page. Only the abstract page was opened; PDF not read."
+
+  - id: oneil-lsm-tree
+    title: "The Log-Structured Merge-Tree (LSM-Tree)"
+    authors: [Patrick O'Neil, Edward Cheng, Dieter Gawlick, Elizabeth O'Neil]
+    publisher: University of Massachusetts Boston (author-hosted PDF)
+    type: paper
+    tier: 3
+    url: https://www.cs.umb.edu/~poneil/lsmtree.pdf
+    doi: null
+    published: null
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [indexes, lsm-tree, write-optimized-storage]
+    status: candidate
+    notes: "NO-DATE: the PDF says only 'To be published: Acta Informatica' and has no date or volume; its text refers to 1995 prices, so the year is not recorded. No copyright or license text in the file. Abstract and introduction read from text extraction; 32 pages, rest not read. Original B-tree-versus-LSM motivation (history-table inserts)."
+
+  - id: karger-consistent-hashing
+    title: "Consistent Hashing and Random Trees: Distributed Caching Protocols for Relieving Hot Spots on the World Wide Web"
+    authors: [David Karger, Eric Lehman, Tom Leighton, Matthew Levine, Daniel Lewin, Rina Panigrahy]
+    publisher: Author-hosted PDF copy (cs.brown.edu course page)
+    type: paper
+    tier: 3
+    url: https://cs.brown.edu/courses/csci2950-u/f09/papers/chash97stoc.pdf
+    doi: null
+    published: null
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [partitioning, consistent-hashing, hot-spots]
+    status: candidate
+    notes: "NO-DATE: the opened PDF (10 pages) shows no venue, year or copyright line; the first page's references cite ACM STOC proceedings, but this copy does not state where it was published. A web search listing suggested STOC 1997 (ACM DOI 10.1145/258533.258660) but the ACM and dblp pages could not be opened (403), so venue, year and DOI are NOT recorded. Section 4 defines consistent hash functions. Copy is a course-hosted file; replace with a canonical URL when one can be opened."
+
+  - id: codd-relational-model-1970
+    title: "A Relational Model of Data for Large Shared Data Banks"
+    authors: [E. F. Codd]
+    publisher: Communications of the ACM (author-hosted PDF copy)
+    type: paper
+    tier: 3
+    url: https://www.engineering.upenn.edu/~zives/03f/cis550/codd.pdf
+    doi: null
+    published: "1970-06"
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [data-models, relational-model]
+    status: candidate
+    notes: "Page header: 'Communications of the ACM, Volume 13, Number 6, June 1970'. Copy hosted on a UPenn course page; no copyright/permission text found in the extracted text, so license unknown. Original URL seas.upenn.edu redirects (301) to the engineering.upenn.edu host. Defines n-ary relations, normal form, data independence; compares to network/tree models. DOI not verified, so null. Historical source; not a practical guide."
