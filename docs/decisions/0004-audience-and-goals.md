@@ -42,7 +42,7 @@
 ### Consequences
 
 1. **A new starting unit** covers the single-server backend: one database, indexes, connection pooling, backups, deploys, and basic monitoring. Its exact scope, name, and numbering are decided in P1-068.
-2. **Each concept names its trigger:** the symptom or number that says "it is time to use this" (and, through the existing trade-off section, when not to). Triggers also feed questions and labs.
+2. **Each concept in Units 1–6 names its trigger** (Unit 0 is the baseline and may omit it; a missing trigger is a warning until the concept reaches `review`, then an error): the symptom or number that says "it is time to use this" (and, through the existing trade-off section, when not to). Triggers also feed questions and labs.
 3. **Honest anti-over-engineering.** Lessons say plainly when the simpler stage is enough. This serves goals 1 and 2 and keeps the interview goal intact.
 4. **Reader prerequisites stay as in `curriculum/README.md`.** The new unit must not assume more than those prerequisites.
 5. **Costs accepted:** scope and duration grow beyond the ±22 weeks in `docs/PLAN-PHASE-1.md` (P1-068 re-estimates), and sources for "start small" material are scarcer at Tier 1–3, so research must look for them deliberately.

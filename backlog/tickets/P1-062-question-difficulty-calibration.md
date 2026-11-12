@@ -7,7 +7,7 @@ owner: agent
 review: agent
 status: todo
 priority: low
-depends_on: [P1-040, P1-041, P1-042]
+depends_on: [P1-040, P1-041, P1-042, P1-048]
 estimate: 1
 outputs:
   - content/concepts/

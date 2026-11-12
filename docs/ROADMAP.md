@@ -12,7 +12,7 @@ The phases are **not strictly sequential**. After pedagogy design is done (M3), 
 
 ## Audience and goals
 
-Students and junior engineers (ADR 0004). Three equal goals: (1) understand production-scale systems, (2) learn new things, (3) prepare for system design interviews. The first two are served by content built on primary sources and real incidents; the interview goal is served through formats (case studies with a delivery framework and time limits), not by copying interview-prep content.
+Students, junior engineers, and solo developers or beginners starting backend work (ADR 0004, Amendment 1). The course is a growth ladder: start from a single-server backend and add each distributed-systems idea when the previous stage stops being enough. Three equal goals: (1) understand production-scale systems, (2) learn new things, (3) prepare for system design interviews. The first two are served by content built on primary sources and real incidents; the interview goal is served through formats (case studies with a delivery framework and time limits), not by copying interview-prep content.
 
 ## Principles for all phases
 

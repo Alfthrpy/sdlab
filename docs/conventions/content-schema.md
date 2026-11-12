@@ -22,7 +22,7 @@ sources:
     license: all-rights-reserved      # all-rights-reserved | CC-BY-4.0 | CC-BY-SA-4.0 | CC-BY-NC-4.0 | CC-BY-NC-SA-4.0 | CC-BY-NC-ND-4.0 | MIT | Apache-2.0 | public-domain | unknown
     usage: rewrite-only               # rewrite-only | adapt-with-attribution | map-only
     access: paywalled                 # free | partial | paywalled
-    units: [3, 4, 5]                  # curriculum units 1–6
+    units: [3, 4, 5]                  # curriculum units 0–6 (0 = single-server starting unit)
     topics: [replication, partitioning, transactions]
     status: candidate                 # candidate | approved | rejected | deprecated
     free_companion: []                # registry ids of FREE sources covering the same topics (required if approved + paywalled)
@@ -61,15 +61,18 @@ Validator rules (errors unless marked warning):
 ```yaml
 concepts:
   - id: caching-basics                # kebab-case
-    unit: 2
+    unit: 2                           # 0–6; Unit 0 is the single-server starting unit
     title: Dasar caching              # Indonesian (learner-facing)
     objectives:                       # 1–4 testable objectives, Indonesian, starting with "Bisa ..."
       - Bisa menjelaskan kapan cache-aside lebih cocok daripada write-through
+    trigger: Bacaan database mendominasi beban dan query yang sama diulang terus   # Indonesian; the symptom/number that says it is time to use this (units 1–6; optional in Unit 0)
     prerequisites: [latency-throughput]   # other concept ids; must form a DAG
     sources: [system-design-primer, aws-builders-caching]   # ≥2 registry ids
     formats: [lesson, quiz, lab]      # lesson | quiz | lab | incident
     status: planned                   # planned | drafting | review | published
 ```
+
+Rules: `unit` is an integer 0–6. `trigger` (growth ladder, ADR 0004 Amendment 1) is a short learner-facing string; concepts in units 1–6 get a warning without it until they reach `review`, where it becomes an error. Unit 0 concepts are the baseline and may omit it.
 
 ## 3. `curriculum/case-studies.yaml`
 

@@ -247,8 +247,8 @@ def check_registry() -> dict[str, dict]:
         _str_list(w, s, "free_companion")
         units = s.get("units")
         if units is not None:
-            if not isinstance(units, list) or not all(_is_int(u) and 1 <= u <= 6 for u in units):
-                err(w, f"units={units!r} must be a list of integers 1–6")
+            if not isinstance(units, list) or not all(_is_int(u) and 0 <= u <= 6 for u in units):
+                err(w, f"units={units!r} must be a list of integers 0–6 (0 = single-server starting unit)")
             elif len(set(units)) != len(units):
                 err(w, f"units has duplicate entries: {units!r}")
         for tp in _str_list(w, s, "topics"):
@@ -327,8 +327,8 @@ def check_curriculum(registry: dict[str, dict]) -> dict[str, dict]:
         if cid in concepts:
             err(w, "duplicate id")
         concepts[cid] = c
-        if c.get("unit") not in range(1, 7):
-            err(w, "unit must be 1–6")
+        if not _is_int(c.get("unit")) or c.get("unit") not in range(0, 7):
+            err(w, f"unit={c.get('unit')!r} must be an integer 0–6 (0 = single-server starting unit)")
         if not c.get("title"):
             err(w, "title is required")
         objs = c.get("objectives") or []
@@ -338,6 +338,16 @@ def check_curriculum(registry: dict[str, dict]) -> dict[str, dict]:
             # objectives are learner-facing, hence Indonesian (ADR 0005)
             if not str(o).startswith("Bisa "):
                 warn(w, f"learning objective should start with 'Bisa ...' (Indonesian, learner-facing): {o!r}")
+        # growth ladder (ADR 0004 Amendment 1): beyond Unit 0, say when the concept becomes necessary
+        trig = c.get("trigger")
+        if trig is not None and (not isinstance(trig, str) or not trig.strip()):
+            err(w, f"trigger must be a non-empty string, got {trig!r}")
+        elif not trig and c.get("unit") != 0:
+            if c.get("status") in ("review", "published"):
+                err(w, "a review/published concept in units 1–6 needs a trigger (the symptom or number that "
+                       "says it is time to use it)")
+            else:
+                warn(w, "concept has no trigger yet (the symptom or number that says it is time to use it)")
         srcs = c.get("sources") or []
         for s in srcs:
             if s not in registry:

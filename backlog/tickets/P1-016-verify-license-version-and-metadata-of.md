@@ -7,7 +7,7 @@ owner: agent
 review: agent
 status: todo
 priority: high
-depends_on: [P1-011, P1-012, P1-013, P1-014, P1-015]
+depends_on: [P1-011, P1-012, P1-013, P1-014, P1-015, P1-069]
 estimate: 2
 outputs:
   - references/registry.yaml

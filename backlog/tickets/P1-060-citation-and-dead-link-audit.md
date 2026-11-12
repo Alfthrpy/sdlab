@@ -7,7 +7,7 @@ owner: agent
 review: agent
 status: todo
 priority: medium
-depends_on: [P1-040, P1-041, P1-042, P1-043, P1-044, P1-045]
+depends_on: [P1-040, P1-041, P1-042, P1-043, P1-044, P1-045, P1-048]
 estimate: 1
 outputs:
   - references/registry.yaml

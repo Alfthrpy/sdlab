@@ -141,6 +141,8 @@ class Registry(unittest.TestCase):
         self.assertErr(["abc"], "mapping")
         self.assertErr([entry(title=["x"])], "title")
         self.assertErr([entry(units=[True])], "units")
+        self.assertErr([entry(units=[7])], "0–6")
+        self.assertClean([entry(units=[0, 1])])
         self.assertErr([entry(units=[1, 1])], "duplicate")
         self.assertErr([entry(topics=["Bad Topic"])], "kebab-case")
 

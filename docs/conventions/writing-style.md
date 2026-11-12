@@ -2,7 +2,7 @@
 
 This guide governs **learner-facing content**, which is written in Indonesian. The guide itself is in English; examples of Indonesian text are kept in Indonesian on purpose.
 
-Readers are students and junior engineers (ADR 0004). They know basic programming, HTTP, and basic SQL, but have not operated a distributed system, and they are busy. Writing must be direct, specific, and must not sound machine-made. Explain the problem a concept solves and what breaks without it before describing the mechanism; explain every term on first use.
+Readers are students, junior engineers, and solo developers or beginners (ADR 0004). They know basic programming, HTTP, and basic SQL, but have not operated a distributed system, and they are busy. Writing must be direct, specific, and must not sound machine-made. Explain the problem a concept solves and what breaks without it before describing the mechanism; explain every term on first use.
 
 ## Language
 
@@ -16,6 +16,7 @@ Readers are students and junior engineers (ADR 0004). They know basic programmin
 - One lesson = one idea. Length 300–600 words, readable in 3–5 minutes.
 - Must include **one concrete example** with real (sourced) numbers or a real scenario.
 - Must include **one "when not to use it"** or trade-off.
+- Units 1–6: state the concept's **trigger** (the symptom or number that says it is time to use it).
 - Diagrams are written as Mermaid or as a description to be redrawn. No copied images.
 - Avoid these filler phrases (Indonesian originals; in English: "very important", "in the modern era", "let's dive in", "in conclusion"), emoji, and bullet lists that are really one sentence: "sangat penting", "di era modern", "mari kita selami", "kesimpulannya".
 

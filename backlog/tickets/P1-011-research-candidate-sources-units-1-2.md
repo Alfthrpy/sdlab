@@ -16,7 +16,7 @@ outputs:
 
 ## Context
 
-Fill the Reference Registry for Unit 1: Foundations (latency/throughput, estimation, Little's law, percentiles, SLI/SLO); Unit 2: Building blocks (load balancer, reverse proxy, cache, CDN, REST/gRPC API, idempotency). Use the `researcher` subagent; review by `source-verifier`.
+Unit 0 (single-server backend) is researched in P1-069. Fill the Reference Registry for Unit 1: Foundations (latency/throughput, estimation, Little's law, percentiles, SLI/SLO); Unit 2: Building blocks (load balancer, reverse proxy, cache, CDN, REST/gRPC API, idempotency). Use the `researcher` subagent; review by `source-verifier`.
 
 ## Tasks
 
