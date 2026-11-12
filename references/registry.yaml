@@ -534,7 +534,7 @@ sources:
     license: all-rights-reserved
     usage: rewrite-only
     access: free
-    units: [0]
+    units: [0, 2]
     topics: [web-server, reverse-proxy, request-lifecycle]
     status: candidate
     notes: "NO-AUTHOR: corporate documentation; no date on the page. Footer: (c) 2026 F5, Inc., all rights reserved. Only this page was opened. nginx.org/en/docs/beginners_guide.html failed to load, so the beginner's guide is unverified."
@@ -610,3 +610,635 @@ sources:
     topics: [scale-up, vertical-scaling, case-study]
     status: candidate
     notes: "Replaces the rejected third-party summary (High Scalability, 2009), which was removed from the registry. First-person account by an engineer describing the infrastructure he works on (the page does not state his job title). Footer shows only '2026', no license; the stackoverflow.blog mirror is an excerpt with 'Site design / logo (c) 2026 Stack Exchange Inc.'. Sections: Ground Rules, The Internets, Load Balancers (HAProxy), Web Tier, Service Tier, Cache & Pub/Sub (Redis), Websockets, Search (Elasticsearch), Databases (SQL Server), Libraries. Data is from 2016 and the fleet is not single-server (several web and SQL servers); use only as evidence that a small, well-tuned fleet on big hardware serves very large traffic. Only the top of the page was summarized by the fetch tool; read it fully before approval."
+
+  - id: sre-book-slo-ch4
+    title: "Site Reliability Engineering, Chapter 4: Service Level Objectives"
+    authors: [Chris Jones, John Wilkes, Niall Murphy, Cody Smith]
+    publisher: Google / O'Reilly Media
+    type: book
+    tier: 1
+    url: https://sre.google/sre-book/service-level-objectives/
+    doi: null
+    published: "2017"
+    accessed: "2026-11-12"
+    license: CC-BY-NC-ND-4.0
+    usage: rewrite-only
+    access: free
+    units: [1]
+    topics: [sli, slo, sla, percentiles, error-budget, aggregation]
+    status: candidate
+    notes: "Chapter-level entry for google-sre-book (same license). Page: written by Jones, Wilkes, Murphy with Cody Smith; edited by Betsy Beyer; copyright 2017 Google, Inc., published by O'Reilly; footer says Licensed under CC BY-NC-ND 4.0. Covers SLI/SLO/SLA terms, choosing indicators, why averages hide tail latency, choosing targets. Written for Google-scale services, so learners need small-service examples. Year note: the chapter page shows copyright 2017, while the google-sre-book entry records 2016 for the book as a whole (not independently verified); the chapter year here is the page copyright year."
+
+  - id: sre-book-embracing-risk-ch3
+    title: "Site Reliability Engineering, Chapter 3: Embracing Risk"
+    authors: [Marc Alvidrez]
+    publisher: Google / O'Reilly Media
+    type: book
+    tier: 1
+    url: https://sre.google/sre-book/embracing-risk/
+    doi: null
+    published: "2017"
+    accessed: "2026-11-12"
+    license: CC-BY-NC-ND-4.0
+    usage: rewrite-only
+    access: free
+    units: [1]
+    topics: [availability, risk, error-budget, slo]
+    status: candidate
+    notes: "Chapter-level entry for google-sre-book. Page: written by Marc Alvidrez, edited by Kavita Guliani; Error Budgets section written by Mark Roth; copyright 2017 Google, Inc.; CC BY-NC-ND 4.0. Useful for 'how reliable is reliable enough', which feeds the 'is this stage still enough' question. Year note: the chapter page shows copyright 2017, while the google-sre-book entry records 2016 for the book as a whole (not independently verified); the chapter year here is the page copyright year."
+
+  - id: sre-workbook-implementing-slos
+    title: "The Site Reliability Workbook, Chapter 2: Implementing SLOs"
+    authors: [Steven Thurgood, David Ferguson, Alex Hidalgo, Betsy Beyer]
+    publisher: Google / O'Reilly Media
+    type: book
+    tier: 1
+    url: https://sre.google/workbook/implementing-slos/
+    doi: null
+    published: "2018"
+    accessed: "2026-11-12"
+    license: CC-BY-NC-ND-4.0
+    usage: rewrite-only
+    access: free
+    units: [1]
+    topics: [sli, slo, error-budget, measurement, time-window]
+    status: candidate
+    notes: "Page shows copyright 2018 Google, Inc., published by O'Reilly, CC BY-NC-ND 4.0; authors listed on the page as Steven Thurgood and David Ferguson with Alex Hidalgo and Betsy Beyer. Practical how-to for picking SLIs, starter SLOs, and a four-week rolling window. Example service is a mobile game, so beginners may need simpler examples."
+
+  - id: sre-book-handling-overload-ch21
+    title: "Site Reliability Engineering, Chapter 21: Handling Overload"
+    authors: [Alejandro Forero Cuervo]
+    publisher: Google / O'Reilly Media
+    type: book
+    tier: 1
+    url: https://sre.google/sre-book/handling-overload/
+    doi: null
+    published: "2017"
+    accessed: "2026-11-12"
+    license: CC-BY-NC-ND-4.0
+    usage: rewrite-only
+    access: free
+    units: [1, 2]
+    topics: [overload, load-shedding, capacity, retries, load-balancing]
+    status: candidate
+    notes: "Chapter-level entry for google-sre-book. Page: written by Alejandro Forero Cuervo, edited by Sarah Chavis; copyright 2017 Google, Inc.; CC BY-NC-ND 4.0. Useful as a trigger for 'a stage stops being enough' (QPS is a poor capacity metric; resource-based limits). Advanced parts (criticality, client-side throttling) go beyond the Unit 1-2 level. Year note: the chapter page shows copyright 2017, while the google-sre-book entry records 2016 for the book as a whole (not independently verified); the chapter year here is the page copyright year."
+
+  - id: sre-book-load-balancing-frontend-ch19
+    title: "Site Reliability Engineering, Chapter 19: Load Balancing at the Frontend"
+    authors: [Piotr Lewandowski]
+    publisher: Google / O'Reilly Media
+    type: book
+    tier: 1
+    url: https://sre.google/sre-book/load-balancing-frontend/
+    doi: null
+    published: "2017"
+    accessed: "2026-11-12"
+    license: CC-BY-NC-ND-4.0
+    usage: rewrite-only
+    access: free
+    units: [2]
+    topics: [load-balancer, dns, virtual-ip, consistent-hashing]
+    status: candidate
+    notes: "Chapter-level entry for google-sre-book. Page: written by Piotr Lewandowski, edited by Sarah Chavis; copyright 2017 Google, Inc.; CC BY-NC-ND 4.0. Only the first three section headings were visible in the fetched summary (Power Isn't the Answer, Load Balancing Using DNS, Load Balancing at the Virtual IP Address). Google-scale; learners need a small-fleet translation. Year note: the chapter page shows copyright 2017, while the google-sre-book entry records 2016 for the book as a whole (not independently verified); the chapter year here is the page copyright year."
+
+  - id: tail-at-scale-cacm13
+    title: "The Tail at Scale"
+    authors: [Jeffrey Dean, Luiz Andre Barroso]
+    publisher: Google Research / Communications of the ACM
+    type: paper
+    tier: 3
+    url: https://research.google/pubs/the-tail-at-scale/
+    doi: null
+    published: "2013"
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [1]
+    topics: [tail-latency, percentiles, latency, hedged-requests, fan-out]
+    status: candidate
+    notes: "Opened the Google Research publication page (abstract only): Communications of the ACM vol. 56, 2013, pp. 74-80. The page shows no DOI and no license/copyright statement, so license is unknown (treat as all-rights-reserved). Full text was not read in this session, so no reading notes yet. Re-checked: dl.acm.org and cacm.acm.org returned HTTP 403 (a guessed doi.org link redirected to dl.acm.org, which also returned 403; the DOI was not confirmed to match this paper), so the ACM DL page could not be opened and no DOI is recorded (the Google Research page links only to cacm.acm.org/magazines/2013/2/160173-the-tail-at-scale/fulltext and shows no copyright text). Access status and DOI remain unverified."
+
+  - id: little-2011-littles-law-50th
+    title: "Little's Law as Viewed on Its 50th Anniversary"
+    authors: [John D. C. Little]
+    publisher: INFORMS (Operations Research)
+    type: paper
+    tier: 3
+    url: https://doi.org/10.1287/opre.1110.0940
+    doi: 10.1287/opre.1110.0940
+    published: "2011-05"
+    accessed: "2026-11-12"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [1]
+    topics: [littles-law, queueing, concurrency, latency, throughput]
+    status: candidate
+    notes: "Operations Research 59(3), pp. 536-549, May-June 2011, DOI 10.1287/opre.1110.0940 (taken from the PDF header). The PDF header says copyright 2011 INFORMS. The canonical url is the DOI link (redirects to pubsonline.informs.org, which returned HTTP 403 on re-check, so official access status is unverified). The text was read from a course-hosted copy at https://people.cs.umass.edu/~emery/classes/cmpsci691st/readings/OS/Littles-Law-50-Years-Later.pdf (alternative link; posting rights unverified, do not redistribute). Section 4.1 applies L = arrival rate x W to servers."
+
+  - id: brooker-telling-stories-littles-law
+    title: "Telling Stories About Little's Law"
+    authors: [Marc Brooker]
+    publisher: Marc's Blog (brooker.co.za)
+    type: article
+    tier: 2
+    url: https://brooker.co.za/blog/2018/06/20/littles-law.html
+    doi: null
+    published: "2018-06-20"
+    accessed: "2026-11-12"
+    license: CC-BY-4.0
+    usage: adapt-with-attribution
+    access: free
+    units: [1]
+    topics: [littles-law, concurrency, feedback-loops, retries, capacity]
+    status: candidate
+    notes: "Date taken from the post URL (the page text itself shows no date). Personal blog by an AWS engineer (the blog says opinions are the author's own); footer license is CC BY 4.0. Good bridge from the formula to feedback loops and retry storms."
+
+  - id: brooker-tail-latency-matters
+    title: "Tail Latency Might Matter More Than You Think"
+    authors: [Marc Brooker]
+    publisher: Marc's Blog (brooker.co.za)
+    type: article
+    tier: 2
+    url: https://brooker.co.za/blog/2021/04/19/latency.html
+    doi: null
+    published: "2021-04-19"
+    accessed: "2026-11-12"
+    license: CC-BY-4.0
+    usage: adapt-with-attribution
+    access: free
+    units: [1]
+    topics: [tail-latency, percentiles, fan-out, latency]
+    status: candidate
+    notes: "Date taken from the post URL (the page text itself showed no date); footer license is CC BY 4.0. Personal blog by an AWS engineer. Explains why fan-out and serial chains make rare slow calls common. Free companion for the paywalled-or-abstract-only tail-at-scale-cacm13."
+
+  - id: prometheus-histograms-practices
+    title: "Histograms and summaries (Prometheus best practices)"
+    authors: []
+    publisher: Prometheus Authors (Linux Foundation)
+    type: docs
+    tier: 2
+    url: https://prometheus.io/docs/practices/histograms/
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [1]
+    topics: [percentiles, histograms, quantiles, metrics, latency-measurement]
+    status: candidate
+    notes: "NO-AUTHOR / NO-DATE: project documentation, no version shown. Footer says Prometheus components are available under Apache 2, which does not clearly cover the docs text, so license is unknown (same handling as prometheus-instrumentation-practices). Explains why quantiles are estimates and how histogram bucket width bounds the error."
+
+  - id: tene-how-not-to-measure-latency
+    title: "How NOT to Measure Latency"
+    authors: [Gil Tene]
+    publisher: InfoQ (QCon San Francisco 2015)
+    type: talk
+    tier: 2
+    url: https://www.infoq.com/presentations/latency-response-time/
+    doi: null
+    published: "2016-03-26"
+    accessed: "2026-11-12"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [1]
+    topics: [latency-measurement, percentiles, coordinated-omission, benchmarking]
+    status: candidate
+    notes: "Page opened (abstract only; the video was not watched in this session). Speaker Gil Tene, CTO of Azul Systems. InfoQ footer: copyright 2006-2026 C4Media Inc., no separate license for the talk. Date shown on the page is March 26, 2016. Needs a full viewing before any claims are taken from it."
+
+  - id: highscalability-back-of-envelope-2011
+    title: "Google Pro Tip: Use Back-of-the-envelope-calculations to Choose the Best Design"
+    authors: [High Scalability]
+    publisher: High Scalability
+    type: article
+    tier: 6
+    url: https://highscalability.com/google-pro-tip-use-back-of-the-envelope-calculations-to-choo/
+    doi: null
+    published: "2011-01-26"
+    accessed: "2026-11-12"
+    license: unknown
+    usage: map-only
+    access: free
+    units: [1]
+    topics: [estimation, back-of-envelope, latency-numbers]
+    status: candidate
+    notes: "Secondary write-up of advice attributed on the page to Jeff Dean; the primary source (his talk/slides) was NOT opened, so this is a pointer only. The page shows no license, so license is unknown. Worked example: serial vs parallel loading of 30 thumbnails. Registered as tier 6 map-only because the validator requires map-only for tier 6; it is a tutorial, not an interview course."
+
+  - id: dean-software-engineering-advice-slides
+    title: "Software Engineering Advice from Building Large-Scale Distributed Systems"
+    authors: [Jeff Dean]
+    publisher: Google (slides; copy hosted on Princeton COS 518 course site)
+    type: talk
+    tier: 3
+    url: https://www.cs.princeton.edu/courses/archive/spr17/cos518/papers/jeff-dean-numbers.pdf
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [1]
+    topics: [estimation, back-of-envelope, latency-numbers, failure]
+    status: candidate
+    notes: "NO-DATE: the slides show no date or venue (search results attribute a Stanford talk circa 2010 but that was not verified on the deck). Image-only PDF, Google logo on each slide, no license statement; the copy is hosted on a university course site, so posting rights are unverified; link only, do not redistribute. Slide 13 'Numbers Everyone Should Know' lists latency figures (L1 reference 0.5 ns up to a CA-Netherlands-CA packet at 150 ms); slides 14-16 'Back of the Envelope Calculations' compare serial vs parallel thumbnail reads (560 ms vs 18 ms, 'really more like 30-60 ms'). Hardware numbers are old; teach as method, not current values. The 'Joys of Real Hardware' slide gives first-year cluster failure counts. This is the primary source behind the tier 6 pointers in the registry."
+
+  - id: latency-numbers-gist
+    title: "Latency Numbers Every Programmer Should Know (gist)"
+    authors: [jboner]
+    publisher: GitHub Gist
+    type: repo
+    tier: 6
+    url: https://gist.github.com/jboner/2841832
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: unknown
+    usage: map-only
+    access: free
+    units: [1]
+    topics: [estimation, back-of-envelope, latency-numbers]
+    status: candidate
+    notes: "NO-DATE: figures labeled about 2012 with some 2026 additions, last active 2026-11-11. The page credits Jeff Dean and Peter Norvig as originators and calls itself a community effort; no license stated. Commenters flag outdated/imprecise figures, so use only as an order-of-magnitude pointer and cross-check each number before citing. Tier 6 map-only because it is not a primary source."
+
+  - id: aws-builders-caching-challenges
+    title: "Caching challenges and strategies"
+    authors: [Jas Chhabra]
+    publisher: Amazon Builders' Library (now served at builder.aws.com)
+    type: article
+    tier: 2
+    url: https://builder.aws.com/content/3K9TeXp6strMiJ4vhakpRD7BQWO/caching-challenges-and-strategies
+    doi: null
+    published: "2019-12-05"
+    accessed: "2026-11-12"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [2]
+    topics: [cache, cache-expiration, thundering-herd, local-cache, external-cache]
+    status: candidate
+    notes: "The old aws.amazon.com/builders-library/caching-challenges-and-strategies/ URL redirects (301) to this one. Page shows published and last modified Dec 5, 2019; footer: (c) 2026 AWS, all rights reserved. Covers when to cache, local vs external, inline vs side caches, TTL and eviction, request coalescing."
+
+  - id: aws-builders-load-shedding
+    title: "Using load shedding to avoid overload"
+    authors: [David]
+    publisher: Amazon Builders' Library (now served at builder.aws.com)
+    type: article
+    tier: 2
+    url: https://builder.aws.com/content/3Eun1EEyX6p2e3VYNyRLSJzLuMV/using-load-shedding-to-avoid-overload
+    doi: null
+    published: "2019-12-05"
+    accessed: "2026-11-12"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [1, 2]
+    topics: [overload, load-shedding, queues, goodput, load-balancer]
+    status: candidate
+    notes: "The aws.amazon.com/builders-library URL redirects (301) here. The page names the author only as 'David' (Sr. Principal Engineer at AWS), same as aws-builders-implementing-health-checks. Footer: (c) 2026 AWS, all rights reserved. Shows how latency problems turn into availability problems past a tipping point."
+
+  - id: aws-builders-idempotent-apis
+    title: "Making retries safe with idempotent APIs"
+    authors: [Malcolm Featonby]
+    publisher: Amazon Builders' Library (aws.amazon.com)
+    type: article
+    tier: 2
+    url: https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [2]
+    topics: [idempotency, retries, idempotency-key, api-design]
+    status: candidate
+    notes: "NO-DATE: the fetched page shows no publication date. Author shown as Malcolm Featonby (Principal Engineer, AWS). Footer: (c) 2026 AWS, all rights reserved. This URL did not redirect when opened. Core Unit 2 idempotency source (client request ID, semantic equivalence, same-ID-different-parameters error)."
+
+  - id: stripe-docs-idempotent-requests
+    title: "Idempotent requests (Stripe API Reference)"
+    authors: []
+    publisher: Stripe
+    type: docs
+    tier: 2
+    url: https://docs.stripe.com/api/idempotent_requests
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [2]
+    topics: [idempotency, idempotency-key, api-design, payments]
+    status: candidate
+    notes: "NO-AUTHOR / NO-DATE: vendor API docs; no license or footer text appeared in the fetched content, so license is unknown. Describes API v1 behavior (key up to 255 chars, pruned after at least 24 hours, saved response replayed) versus API v2. Product-specific details may change."
+
+  - id: stripe-blog-idempotency
+    title: "Designing robust and predictable APIs with idempotency"
+    authors: [Brandur Leach]
+    publisher: Stripe
+    type: article
+    tier: 2
+    url: https://stripe.com/blog/idempotency
+    doi: null
+    published: "2017-02-22"
+    accessed: "2026-11-12"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [2]
+    topics: [idempotency, retries, exponential-backoff, jitter, api-design]
+    status: candidate
+    notes: "Footer: (c) 2026 Stripe, LLC; no separate license for the article. Author shown as Brandur Leach. Written in 2017, so check against the current Stripe docs (stripe-docs-idempotent-requests) for details."
+
+  - id: ietf-idempotency-key-header-draft
+    title: "The Idempotency-Key HTTP Header Field (draft-ietf-httpapi-idempotency-key-header-08)"
+    authors: [Jayadeba Jena, Sanjay Dalal, Dmitrii Tishkin]
+    publisher: IETF (HTTPAPI Working Group)
+    type: docs
+    tier: 2
+    url: https://www.ietf.org/archive/id/draft-ietf-httpapi-idempotency-key-header-08.html
+    doi: null
+    published: "2026-10-22"
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [2]
+    topics: [idempotency, idempotency-key, http, api-design]
+    status: candidate
+    version: "draft-08"
+    notes: "Internet-Draft, not a standard: datatracker shows -08 (22 Oct 2026, active, Standards Track intended, expires 25 April 2027); cite only as work in progress and re-check for a newer revision. Third author (Dmitrii Tishkin) added in -08. Copyright 2026 IETF Trust and the document authors; license enum has no match, so unknown. Re-checked in -08: Section 2.6 (Idempotency Enforcement) and 2.7 (Error Handling) still hold: 400 for a missing key, 422 for a key reused with a different payload, 409 for a retry while the original is still processing. Other sections: 2.2 uniqueness, 2.3 validity and expiry, 2.4 fingerprint, 2.5 client/resource responsibilities. Appendix A: -08 updates references (RFC 9110, 9457, 9562, 9651) and notes the Retry case text (issue #48) is still open for discussion."
+
+  - id: rfc-9110-http-semantics
+    title: "RFC 9110: HTTP Semantics"
+    authors: [Roy T. Fielding (ed.), Mark Nottingham (ed.), Julian Reschke (ed.)]
+    publisher: IETF / RFC Editor
+    type: docs
+    tier: 2
+    url: https://www.rfc-editor.org/rfc/rfc9110.html
+    doi: null
+    published: "2022-06"
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [2]
+    topics: [http, idempotent-methods, safe-methods, rest, status-codes]
+    status: candidate
+    notes: "Page opened showed title, editors, date June 2022. Copyright 2022 IETF Trust and the persons identified as the document authors, all rights reserved, subject to BCP 78 and the IETF Trust Legal Provisions; license unknown. Sections 9.2.1 (Safe Methods) and 9.2.2 (Idempotent Methods) are the relevant ones. Only the first 100,000 characters of a very long page were read."
+
+  - id: rfc-9111-http-caching
+    title: "RFC 9111: HTTP Caching"
+    authors: [Roy T. Fielding (ed.), Mark Nottingham (ed.), Julian Reschke (ed.)]
+    publisher: IETF / RFC Editor
+    type: docs
+    tier: 2
+    url: https://www.rfc-editor.org/rfc/rfc9111.html
+    doi: null
+    published: "2022-06"
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [2]
+    topics: [http-caching, cache, cache-control, freshness, validation]
+    status: candidate
+    notes: "STD 98, obsoletes RFC 7234 (from the page). Copyright 2022 IETF Trust and the persons identified as the document authors, all rights reserved; license unknown. Sections: Overview of Cache Operation, Storing Responses in Caches, Constructing Responses from Caches, Field Definitions (Cache-Control etc.). Normative reference; beginners should start from mdn-http-caching."
+
+  - id: mdn-http-caching
+    title: "HTTP caching (MDN Web Docs)"
+    authors: []
+    publisher: Mozilla (MDN Web Docs)
+    type: docs
+    tier: 2
+    url: https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Caching
+    doi: null
+    published: "2026-08-14"
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [2]
+    topics: [http-caching, cache, cache-control, cdn, validation]
+    status: candidate
+    notes: "NO-AUTHOR: community docs. Date is the page's 'last modified'. Footer says content is under a Creative Commons license without naming the version; the MDN attribution page (recorded in mdn-http-overview notes) says CC-BY-SA 2.5 or later, so license stays unknown here (ShareAlike if adapted). Covers private vs shared caches, Cache-Control, Vary, validation, request collapse."
+
+  - id: mdn-cdn-glossary
+    title: "CDN (MDN Web Docs Glossary)"
+    authors: []
+    publisher: Mozilla (MDN Web Docs)
+    type: docs
+    tier: 2
+    url: https://developer.mozilla.org/en-US/docs/Glossary/CDN
+    doi: null
+    published: "2025-07-11"
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [2]
+    topics: [cdn, edge, static-assets]
+    status: candidate
+    notes: "NO-AUTHOR: glossary page; date is 'last modified'. Short definition with benefits and drawbacks (third-party dependency, SRI, extra DNS lookups). Same MDN license handling as mdn-http-caching. Too brief to be the only CDN source."
+
+  - id: cloudflare-docs-default-cache-behavior
+    title: "Default cache behavior (Cloudflare Cache docs)"
+    authors: []
+    publisher: Cloudflare
+    type: docs
+    tier: 2
+    url: https://developers.cloudflare.com/cache/concepts/default-cache-behavior/
+    doi: null
+    published: "2026-09-14"
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [2]
+    topics: [cdn, cache, cache-control, edge-ttl, request-collapsing]
+    status: candidate
+    notes: "NO-AUTHOR: vendor docs; date is the page's 'last updated'. No license or copyright footer in the fetched content, so license is unknown. Vendor-specific defaults (TTL by status code, plan size limits) should be taught as an example of a CDN, not as general rules. cloudflare.com/learning/cdn/what-is-a-cdn/ returned 403 and was not read."
+
+  - id: azure-cache-aside-pattern
+    title: "Cache-Aside Pattern (Azure Architecture Center)"
+    authors: []
+    publisher: Microsoft Learn
+    type: docs
+    tier: 2
+    url: https://learn.microsoft.com/en-us/azure/architecture/patterns/cache-aside
+    doi: null
+    published: "2025-09-11"
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [2]
+    topics: [cache, cache-aside, invalidation, ttl, eviction]
+    status: candidate
+    notes: "NO-AUTHOR in the page text (front matter lists a git author handle only). Date is ms.date from the page front matter (updated_at 2025-12-09). No license text appeared in the fetched content; Microsoft Learn docs license was not verified, so license is unknown. Vendor-neutral enough for the pattern; code is C#/Azure Redis. Notes the update-store-then-invalidate order."
+
+  - id: nishtala-memcache-nsdi13
+    title: "Scaling Memcache at Facebook"
+    authors: [Rajesh Nishtala, Hans Fugal, Steven Grimm, Marc Kwiatkowski, Herman Lee, Harry C. Li, Ryan McElroy, Mike Paleczny, Daniel Peek, Paul Saab, David Stafford, Tony Tung, Venkateshwaran Venkataramani]
+    publisher: USENIX Association (NSDI '13)
+    type: paper
+    tier: 3
+    url: https://www.usenix.org/conference/nsdi13/technical-sessions/presentation/nishtala
+    doi: null
+    published: "2013-04"
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [2]
+    topics: [cache, memcached, invalidation, scaling]
+    status: candidate
+    notes: "NSDI '13, Lombard IL, pp. 385-398, ISBN 978-1-931971-00-3. Page shows (c) USENIX and says papers are freely available once the event begins; no paper-specific license, so unknown. Only the abstract page was opened, not the PDF. Beyond the Unit 2 level in full; the leases and thundering-herd parts are the useful bit later."
+
+  - id: maglev-nsdi16
+    title: "Maglev: A Fast and Reliable Software Network Load Balancer"
+    authors: [Danielle E. Eisenbud, Cheng Yi, Carlo Contavalli, Cody Smith, Roman Kononov, Eric Mann-Hielscher, Ardas Cilingiroglu, Bin Cheyney, Wentao Shang, Jinnah Dylan Hosein]
+    publisher: USENIX Association (NSDI '16)
+    type: paper
+    tier: 3
+    url: https://www.usenix.org/conference/nsdi16/technical-sessions/presentation/eisenbud
+    doi: null
+    published: "2016-03"
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [2]
+    topics: [load-balancer, consistent-hashing, ecmp, connection-tracking]
+    status: candidate
+    notes: "NSDI '16, Santa Clara, Operational Systems Track, pp. 523-535. Page shows (c) USENIX; open access, no paper-specific license, so unknown. Only the abstract page was opened. Advanced for beginners; use as a 'how a big operator does it' pointer after the basics."
+
+  - id: envoy-docs-lb-overview
+    title: "Load balancing overview (Envoy documentation)"
+    authors: []
+    publisher: Envoy Project
+    type: docs
+    tier: 2
+    url: https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/upstream/load_balancing/overview
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [2]
+    topics: [load-balancer, health-checks, zone-aware-routing, proxy]
+    status: candidate
+    version: "1.41.0-dev-c30136"
+    notes: "NO-AUTHOR / NO-DATE: docs. Version shown on the page: 1.41.0-dev-c30136 (a development build). Footer: (c) 2016-2026 Envoy Project Authors, no license stated. The overview is thin; algorithm details are on a separate page not opened."
+
+  - id: nginx-http-load-balancing
+    title: "Using nginx as HTTP load balancer"
+    authors: []
+    publisher: nginx (F5, Inc.)
+    type: docs
+    tier: 2
+    url: https://nginx.org/en/docs/http/load_balancing.html
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [2]
+    topics: [load-balancer, round-robin, least-connections, ip-hash, health-checks]
+    status: candidate
+    notes: "NO-AUTHOR / NO-DATE: docs, no version shown. Footer: (c) F5, Inc., all rights reserved. Covers round-robin, least_conn, ip_hash, least_time (the page says least_time and active health checks need NGINX Plus), passive health checks via max_fails and fail_timeout."
+
+  - id: grpc-core-concepts
+    title: "Core concepts, architecture and lifecycle (gRPC)"
+    authors: []
+    publisher: gRPC Authors
+    type: docs
+    tier: 2
+    url: https://grpc.io/docs/what-is-grpc/core-concepts/
+    doi: null
+    published: "2026-05-11"
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [2]
+    topics: [grpc, rpc, deadlines, streaming, api-design]
+    status: candidate
+    notes: "NO-AUTHOR: project docs; date is the page's last modified. Footer has a License link to the grpc.io repo but its text was not read, so license is unknown. Covers four RPC types, deadlines, cancellation, metadata, channels."
+
+  - id: grpc-docs-deadlines
+    title: "Deadlines (gRPC)"
+    authors: []
+    publisher: gRPC Authors
+    type: docs
+    tier: 2
+    url: https://grpc.io/docs/guides/deadlines/
+    doi: null
+    published: "2025-07-07"
+    accessed: "2026-11-12"
+    license: unknown
+    usage: rewrite-only
+    access: free
+    units: [1, 2]
+    topics: [grpc, deadlines, timeouts, propagation]
+    status: candidate
+    notes: "NO-AUTHOR: project docs; date is last modified. Footer copyright 2026 gRPC Authors; license text not read, so unknown. No deadline by default; propagation defaults differ by language; remaining time is sent as a timeout to avoid clock skew."
+
+  - id: fielding-rest-dissertation-ch5
+    title: "Fielding Dissertation, Chapter 5: Representational State Transfer (REST), in Architectural Styles and the Design of Network-based Software Architectures"
+    authors: [Roy Thomas Fielding]
+    publisher: University of California, Irvine (doctoral dissertation)
+    type: paper
+    tier: 3
+    url: https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm
+    doi: null
+    published: "2000"
+    accessed: "2026-11-12"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [2]
+    topics: [rest, api-design, stateless, uniform-interface, cache]
+    status: candidate
+    notes: "Full dissertation title, from the index page (ics.uci.edu/~fielding/pubs/dissertation/top.htm): 'Architectural Styles and the Design of Network-based Software Architectures', Roy Thomas Fielding, UC Irvine, 2000. The chapter page header reads 'Fielding Dissertation: CHAPTER 5: Representational State Transfer (REST)'. A doctoral thesis, not peer-reviewed in the conference sense. Page says (c) Roy Thomas Fielding, 2000, all rights reserved. Section 5.1 lists the constraints; modern 'REST APIs' often ignore hypermedia, so teach it as an origin, not a checklist."
+
+  - id: microsoft-rest-api-guidelines
+    title: "Microsoft REST API Guidelines"
+    authors: []
+    publisher: Microsoft
+    type: repo
+    tier: 2
+    url: https://github.com/microsoft/api-guidelines
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: CC-BY-4.0
+    usage: adapt-with-attribution
+    access: free
+    units: [2]
+    topics: [rest, api-design, versioning, errors]
+    status: candidate
+    notes: "NO-AUTHOR / NO-DATE: corporate repo; no latest commit date visible in the fetch (953 commits on the vNext branch). Repo shows a CC BY 4.0 badge and a license.txt; the text of license.txt was not read. The content of Guidelines.md itself was not read in this session, only the repo listing, so section references are not yet known."
+
+  - id: aip-dev-api-improvement-proposals
+    title: "API Improvement Proposals (AIP)"
+    authors: []
+    publisher: Google (aip.dev)
+    type: docs
+    tier: 2
+    url: https://google.aip.dev/
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: CC-BY-4.0
+    usage: adapt-with-attribution
+    access: free
+    units: [2]
+    topics: [api-design, rest, grpc, resource-oriented-design]
+    status: candidate
+    notes: "NO-AUTHOR / NO-DATE: footer says content is licensed under CC BY 4.0 and code samples under Apache 2.0 unless otherwise noted. Only the landing page was opened; individual AIPs (for example resource-oriented design, request identification) were not read, so numbers must be confirmed. The older cloud.google.com/apis/design page redirects to docs.cloud.google.com and showed no license or date, so it is not recorded."
