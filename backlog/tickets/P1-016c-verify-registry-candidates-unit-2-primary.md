@@ -29,12 +29,14 @@ Follow P1-016 Tasks 1–5 for each entry in scope, SEED and Tier 1–3 first:
 
 ## Done criteria
 
-- [ ] Every in-scope entry reopened this session and has `verified_on`
-- [ ] No empty `authors`/`published` without a `NO-AUTHOR`/`NO-DATE` explanation
-- [ ] No `license: unknown` without an explanation; no `SEED` notes left
+- [x] Every in-scope entry reopened this session and has `verified_on`
+- [x] No empty `authors`/`published` without a `NO-AUTHOR`/`NO-DATE` explanation
+- [x] No `license: unknown` without an explanation; no `SEED` notes left
 - [ ] `source-verifier` passes (sample)
-- [ ] `python scripts/validate.py` passes
+- [x] `python scripts/validate.py` passes
 
 ## Notes
 
 (Filled in during the work.)
+
+2026-11-12: all 24 entries with primary unit 2 reopened; all have `verified_on`; metadata matched the registry (titles, authors, dates). Licenses: 10 `unknown` resolved. all-rights-reserved: Stripe docs, IETF draft and RFC 9110/9111 (IETF Trust 'all rights reserved' boilerplate), Cloudflare docs and blog (no footer), Envoy docs (Apache-2.0 repo does not state it covers docs), USENIX papers (open access to read, no license named). CC-BY-4.0: gRPC docs (repo LICENSE linked from footer), Azure cache-aside (inferred from the public MicrosoftDocs/architecture-center README; page itself shows no footer; usage stays rewrite-only). Attribution lines added for the two adapt-with-attribution entries (Microsoft REST API guidelines, Google AIP). Open: Microsoft api-guidelines CC BY 4.0 comes from a README badge; the scope over text and license.txt contents were not read.

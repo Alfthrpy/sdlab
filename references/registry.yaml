@@ -155,6 +155,7 @@ sources:
     topics: [dns, race-condition, dependency, blast-radius, recovery-backlog, metastable-failure, health-check, throttling]
     status: candidate
     notes: "NO-AUTHOR: corporate postmortem. NO-DATE: the page shows no publication date; the page says the event started 2025-10-19 23:48 PDT and ended 2025-10-20 14:20 PDT, but its own timeline shows Redshift recovering last, with impaired clusters restored only by 2025-10-21 04:05 PDT (so the stated end time understates the tail). ECS, EKS, and Fargate were recovered by 14:20 PDT but were not the last services. Footer: (c) 2026 AWS, all rights reserved. Mechanism: race between two DNS Enactors left an empty DNS record for the DynamoDB regional endpoint; then EC2 DropletWorkflow Manager congestive collapse, network-state propagation backlog, and NLB health-check failover that removed capacity. Recovery needed manual throttling and disabling automatic failover. Candidate for incident pack P1-046. Notes: references/notes/aws-pes-dynamodb-2025-10.md."
+    verified_on: "2026-11-12"
 
   - id: cloudflare-outage-2025-11-18
     title: "Cloudflare outage on November 18, 2025"
@@ -733,6 +734,7 @@ sources:
     topics: [load-balancer, dns, virtual-ip, consistent-hashing]
     status: candidate
     notes: "Chapter-level entry for google-sre-book. Page: written by Piotr Lewandowski, edited by Sarah Chavis; copyright 2017 Google, Inc.; CC BY-NC-ND 4.0. Only the first three section headings were visible in the fetched summary (Power Isn't the Answer, Load Balancing Using DNS, Load Balancing at the Virtual IP Address). Google-scale; learners need a small-fleet translation. Year note: the chapter page shows copyright 2017, and the google-sre-book entry now records 2017 too (copyright year); the chapter year here is the page copyright year."
+    verified_on: "2026-11-12"
 
   - id: tail-at-scale-cacm13
     title: "The Tail at Scale"
@@ -923,6 +925,7 @@ sources:
     topics: [cache, cache-expiration, thundering-herd, local-cache, external-cache]
     status: candidate
     notes: "The old aws.amazon.com/builders-library/caching-challenges-and-strategies/ URL redirects (301) to this one. Page shows published and last modified Dec 5, 2019; footer: (c) 2026 AWS, all rights reserved. Covers when to cache, local vs external, inline vs side caches, TTL and eviction, request coalescing."
+    verified_on: "2026-11-12"
 
   - id: aws-builders-load-shedding
     title: "Using load shedding to avoid overload"
@@ -960,6 +963,7 @@ sources:
     topics: [idempotency, retries, idempotency-key, api-design]
     status: candidate
     notes: "NO-DATE: the fetched page shows no publication date. Author shown as Malcolm Featonby (Principal Engineer, AWS). Footer: (c) 2026 AWS, all rights reserved. This URL did not redirect when opened. Core Unit 2 idempotency source (client request ID, semantic equivalence, same-ID-different-parameters error)."
+    verified_on: "2026-11-12"
 
   - id: stripe-docs-idempotent-requests
     title: "Idempotent requests (Stripe API Reference)"
@@ -971,13 +975,14 @@ sources:
     doi: null
     published: ""
     accessed: "2026-11-12"
-    license: unknown
+    license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [2]
     topics: [idempotency, idempotency-key, api-design, payments]
     status: candidate
-    notes: "NO-AUTHOR / NO-DATE: vendor API docs; no license or footer text appeared in the fetched content, so license is unknown. Describes API v1 behavior (key up to 255 chars, pruned after at least 24 hours, saved response replayed) versus API v2. Product-specific details may change."
+    notes: "NO-AUTHOR: vendor API docs. NO-DATE: no date on the page. No license stated on the page or footer (re-checked 2026-11-12), so treated as all-rights-reserved (copyright by default). Describes API v1 behavior (key up to 255 chars, pruned after 24 hours, saved results include 500 errors, POST only) and mentions API v2 differs (reopened 2026-11-12). Pair with stripe-blog-idempotency."
+    verified_on: "2026-11-12"
 
   - id: stripe-blog-idempotency
     title: "Designing robust and predictable APIs with idempotency"
@@ -996,6 +1001,7 @@ sources:
     topics: [idempotency, retries, exponential-backoff, jitter, api-design]
     status: candidate
     notes: "Footer: (c) 2026 Stripe, LLC; no separate license for the article. Author shown as Brandur Leach. Written in 2017, so check against the current Stripe docs (stripe-docs-idempotent-requests) for details."
+    verified_on: "2026-11-12"
 
   - id: ietf-idempotency-key-header-draft
     title: "The Idempotency-Key HTTP Header Field (draft-ietf-httpapi-idempotency-key-header-08)"
@@ -1007,14 +1013,15 @@ sources:
     doi: null
     published: "2026-10-22"
     accessed: "2026-11-12"
-    license: unknown
+    license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [2]
     topics: [idempotency, idempotency-key, http, api-design]
     status: candidate
     version: "draft-08"
-    notes: "Internet-Draft, not a standard: datatracker shows -08 (22 Oct 2026, active, Standards Track intended, expires 25 April 2027); cite only as work in progress and re-check for a newer revision. Third author (Dmitrii Tishkin) added in -08. Copyright 2026 IETF Trust and the document authors; license enum has no match, so unknown. Re-checked in -08: Section 2.6 (Idempotency Enforcement) and 2.7 (Error Handling) still hold: 400 for a missing key, 422 for a key reused with a different payload, 409 for a retry while the original is still processing. Other sections: 2.2 uniqueness, 2.3 validity and expiry, 2.4 fingerprint, 2.5 client/resource responsibilities. Appendix A: -08 updates references (RFC 9110, 9457, 9562, 9651) and notes the Retry case text (issue #48) is still open for discussion."
+    notes: "License: page says 'Copyright (c) 2026 IETF Trust and the document authors. All rights reserved', subject to BCP 78 and IETF Trust Legal Provisions (code components Revised BSD), so recorded as all-rights-reserved (reopened 2026-11-12). Internet-Draft, not a standard: datatracker shows -08 (22 Oct 2026, active, Standards Track intended, expires 25 April 2027); cite only as work in progress and re-check for a newer revision. Third author (Dmitrii Tishkin) added in -08. Copyright 2026 IETF Trust and the document authors. Re-checked in -08: Section 2.6 (Idempotency Enforcement) and 2.7 (Error Handling) still hold: 400 for a missing key, 422 for a key reused with a different payload, 409 for a retry while the original is still processing. Other sections: 2.2 uniqueness, 2.3 validity and expiry, 2.4 fingerprint, 2.5 client/resource responsibilities. Appendix A: -08 updates references (RFC 9110, 9457, 9562, 9651) and notes the Retry case text (issue #48) is still open for discussion."
+    verified_on: "2026-11-12"
 
   - id: rfc-9110-http-semantics
     title: "RFC 9110: HTTP Semantics"
@@ -1026,13 +1033,14 @@ sources:
     doi: null
     published: "2022-06"
     accessed: "2026-11-12"
-    license: unknown
+    license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [2]
     topics: [http, idempotent-methods, safe-methods, rest, status-codes]
     status: candidate
-    notes: "Page opened showed title, editors, date June 2022. Copyright 2022 IETF Trust and the persons identified as the document authors, all rights reserved, subject to BCP 78 and the IETF Trust Legal Provisions; license unknown. Sections 9.2.1 (Safe Methods) and 9.2.2 (Idempotent Methods) are the relevant ones. Only the first 100,000 characters of a very long page were read."
+    notes: "License: 'Copyright (c) 2022 IETF Trust and the persons identified as the document authors. All rights reserved', subject to BCP 78 and IETF Trust Legal Provisions; code components Revised BSD (reopened 2026-11-12), so recorded as all-rights-reserved. STD 97. Page opened showed title, editors, date June 2022. Copyright 2022 IETF Trust and the persons identified as the document authors, all rights reserved, subject to BCP 78 and the IETF Trust Legal Provisions. Sections 9.2.1 (Safe Methods) and 9.2.2 (Idempotent Methods) are the relevant ones. Only the first 100,000 characters of a very long page were read."
+    verified_on: "2026-11-12"
 
   - id: rfc-9111-http-caching
     title: "RFC 9111: HTTP Caching"
@@ -1044,13 +1052,14 @@ sources:
     doi: null
     published: "2022-06"
     accessed: "2026-11-12"
-    license: unknown
+    license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [2]
     topics: [http-caching, cache, cache-control, freshness, validation]
     status: candidate
-    notes: "STD 98, obsoletes RFC 7234 (from the page). Copyright 2022 IETF Trust and the persons identified as the document authors, all rights reserved; license unknown. Sections: Overview of Cache Operation, Storing Responses in Caches, Constructing Responses from Caches, Field Definitions (Cache-Control etc.). Normative reference; beginners should start from mdn-http-caching."
+    notes: "License: 'Copyright (c) 2022 IETF Trust and the persons identified as the document authors. All rights reserved', subject to BCP 78 and IETF Trust Legal Provisions (reopened 2026-11-12), so recorded as all-rights-reserved. STD 98, obsoletes RFC 7234 (from the page). Copyright 2022 IETF Trust and the persons identified as the document authors, all rights reserved. Sections: Overview of Cache Operation, Storing Responses in Caches, Constructing Responses from Caches, Field Definitions (Cache-Control etc.). Normative reference; beginners should start from mdn-http-caching."
+    verified_on: "2026-11-12"
 
   - id: mdn-http-caching
     title: "HTTP caching (MDN Web Docs)"
@@ -1069,6 +1078,7 @@ sources:
     topics: [http-caching, cache, cache-control, cdn, validation]
     status: candidate
     notes: "NO-AUTHOR: community docs. Date is the page's 'last modified'. Footer says content is under a Creative Commons license without naming the version; the MDN attribution page (recorded in mdn-http-overview notes) says CC-BY-SA 2.5 or later; recorded as CC-BY-SA-2.5 (ShareAlike if adapted). Covers private vs shared caches, Cache-Control, Vary, validation, request collapse."
+    verified_on: "2026-11-12"
 
   - id: mdn-cdn-glossary
     title: "CDN (MDN Web Docs Glossary)"
@@ -1087,6 +1097,7 @@ sources:
     topics: [cdn, edge, static-assets]
     status: candidate
     notes: "NO-AUTHOR: glossary page; date is 'last modified'. Short definition with benefits and drawbacks (third-party dependency, SRI, extra DNS lookups). Same MDN license handling as mdn-http-caching. Too brief to be the only CDN source."
+    verified_on: "2026-11-12"
 
   - id: cloudflare-docs-default-cache-behavior
     title: "Default cache behavior (Cloudflare Cache docs)"
@@ -1098,13 +1109,14 @@ sources:
     doi: null
     published: "2026-09-14"
     accessed: "2026-11-12"
-    license: unknown
+    license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [2]
     topics: [cdn, cache, cache-control, edge-ttl, request-collapsing]
     status: candidate
-    notes: "NO-AUTHOR: vendor docs; date is the page's 'last updated'. No license or copyright footer in the fetched content, so license is unknown. Vendor-specific defaults (TTL by status code, plan size limits) should be taught as an example of a CDN, not as general rules. cloudflare.com/learning/cdn/what-is-a-cdn/ returned 403 and was not read."
+    notes: "NO-AUTHOR: vendor docs; date is the page's 'last updated'. No license stated on the page or footer (re-checked 2026-11-12), so treated as all-rights-reserved (copyright by default). No author named (publisher Cloudflare). Vendor-specific defaults (TTL by status code, plan size limits) should be taught as an example of a CDN, not as general rules. cloudflare.com/learning/cdn/what-is-a-cdn/ returned 403 and was not read."
+    verified_on: "2026-11-12"
 
   - id: azure-cache-aside-pattern
     title: "Cache-Aside Pattern (Azure Architecture Center)"
@@ -1116,13 +1128,14 @@ sources:
     doi: null
     published: "2025-09-11"
     accessed: "2026-11-12"
-    license: unknown
+    license: CC-BY-4.0
     usage: rewrite-only
     access: free
     units: [2]
     topics: [cache, cache-aside, invalidation, ttl, eviction]
     status: candidate
-    notes: "NO-AUTHOR in the page text (front matter lists a git author handle only). Date is ms.date from the page front matter (updated_at 2025-12-09). No license text appeared in the fetched content; Microsoft Learn docs license was not verified, so license is unknown. Vendor-neutral enough for the pattern; code is C#/Azure Redis. Notes the update-store-then-invalidate order."
+    notes: "NO-AUTHOR: no author named in the page text (front matter lists a git author handle only). Date is ms.date from the page front matter (updated_at 2025-12-09). License: the page shows no footer license in the fetch, but the public repo MicrosoftDocs/architecture-center (README 'Legal Notices', opened 2026-11-12) says documentation is CC BY 4.0 and code MIT; the page's own source is the mirror architecture-center-pr, so scope is inferred from the public repo, and usage stays rewrite-only.. Vendor-neutral enough for the pattern; code is C#/Azure Redis. Notes the update-store-then-invalidate order."
+    verified_on: "2026-11-12"
 
   - id: nishtala-memcache-nsdi13
     title: "Scaling Memcache at Facebook"
@@ -1134,13 +1147,14 @@ sources:
     doi: null
     published: "2013-04"
     accessed: "2026-11-12"
-    license: unknown
+    license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [2]
     topics: [cache, memcached, invalidation, scaling]
     status: candidate
-    notes: "NSDI '13, Lombard IL, pp. 385-398, ISBN 978-1-931971-00-3. Page shows (c) USENIX and says papers are freely available once the event begins; no paper-specific license, so unknown. Only the abstract page was opened, not the PDF. Beyond the Unit 2 level in full; the leases and thundering-herd parts are the useful bit later."
+    notes: "NSDI '13, Lombard IL, pp. 385-398, ISBN 978-1-931971-00-3. Page shows (c) USENIX and says papers are freely available once the event begins; no paper-specific license (USENIX says it is 'committed to Open Access' and papers are freely available; no license named), so treated as all-rights-reserved, read freely, rewrite only. Only the abstract page was opened, not the PDF. Beyond the Unit 2 level in full; the leases and thundering-herd parts are the useful bit later."
+    verified_on: "2026-11-12"
 
   - id: maglev-nsdi16
     title: "Maglev: A Fast and Reliable Software Network Load Balancer"
@@ -1152,13 +1166,14 @@ sources:
     doi: null
     published: "2016-03"
     accessed: "2026-11-12"
-    license: unknown
+    license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [2]
     topics: [load-balancer, consistent-hashing, ecmp, connection-tracking]
     status: candidate
-    notes: "NSDI '16, Santa Clara, Operational Systems Track, pp. 523-535. Page shows (c) USENIX; open access, no paper-specific license, so unknown. Only the abstract page was opened. Advanced for beginners; use as a 'how a big operator does it' pointer after the basics."
+    notes: "NSDI '16, Santa Clara, Operational Systems Track, pp. 523-535. Page shows (c) USENIX; open access (USENIX: papers freely available), no paper-specific license, so treated as all-rights-reserved, rewrite only. Only the abstract page was opened. Advanced for beginners; use as a 'how a big operator does it' pointer after the basics."
+    verified_on: "2026-11-12"
 
   - id: envoy-docs-lb-overview
     title: "Load balancing overview (Envoy documentation)"
@@ -1170,14 +1185,15 @@ sources:
     doi: null
     published: ""
     accessed: "2026-11-12"
-    license: unknown
+    license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [2]
     topics: [load-balancer, health-checks, zone-aware-routing, proxy]
     status: candidate
     version: "1.41.0-dev-c30136"
-    notes: "NO-AUTHOR / NO-DATE: docs. Version shown on the page: 1.41.0-dev-c30136 (a development build). Footer: (c) 2016-2026 Envoy Project Authors, no license stated. The overview is thin; algorithm details are on a separate page not opened."
+    notes: "NO-AUTHOR: docs credit 'Envoy Project Authors'. NO-DATE: no date on the page. Version shown on the page: 1.41.0-dev-c30136 (a development build). Footer: (c) 2016-2026 Envoy Project Authors, no license stated on the page; github.com/envoyproxy/envoy shows Apache-2.0 in its sidebar but nothing says it covers the docs text (opened 2026-11-12), so treated as all-rights-reserved. The overview is thin; algorithm details are on a separate page not opened."
+    verified_on: "2026-11-12"
 
   - id: nginx-http-load-balancing
     title: "Using nginx as HTTP load balancer"
@@ -1195,7 +1211,8 @@ sources:
     units: [2]
     topics: [load-balancer, round-robin, least-connections, ip-hash, health-checks]
     status: candidate
-    notes: "NO-AUTHOR / NO-DATE: docs, no version shown. Footer: (c) F5, Inc., all rights reserved. Covers round-robin, least_conn, ip_hash, least_time (the page says least_time and active health checks need NGINX Plus), passive health checks via max_fails and fail_timeout."
+    notes: "NO-AUTHOR: NO-DATE: docs, no version shown. Footer: (c) F5, Inc., all rights reserved. Covers round-robin, least_conn, ip_hash, least_time (the page says least_time and active health checks need NGINX Plus), passive health checks via max_fails and fail_timeout."
+    verified_on: "2026-11-12"
 
   - id: grpc-core-concepts
     title: "Core concepts, architecture and lifecycle (gRPC)"
@@ -1207,13 +1224,14 @@ sources:
     doi: null
     published: "2026-05-11"
     accessed: "2026-11-12"
-    license: unknown
+    license: CC-BY-4.0
     usage: rewrite-only
     access: free
     units: [2]
     topics: [grpc, rpc, deadlines, streaming, api-design]
     status: candidate
-    notes: "NO-AUTHOR: project docs; date is the page's last modified. Footer has a License link to the grpc.io repo but its text was not read, so license is unknown. Covers four RPC types, deadlines, cancellation, metadata, channels."
+    notes: "NO-AUTHOR: project docs; date is the page's last modified. Footer has a License link to the grpc.io repo but The license link was read 2026-11-12: github.com/grpc/grpc.io LICENSE says repository content is CC BY 4.0 and code samples Apache-2.0, so recorded as CC-BY-4.0. Covers four RPC types, deadlines, cancellation, metadata, channels."
+    verified_on: "2026-11-12"
 
   - id: grpc-docs-deadlines
     title: "Deadlines (gRPC)"
@@ -1251,6 +1269,7 @@ sources:
     topics: [rest, api-design, stateless, uniform-interface, cache]
     status: candidate
     notes: "Full dissertation title, from the index page (ics.uci.edu/~fielding/pubs/dissertation/top.htm): 'Architectural Styles and the Design of Network-based Software Architectures', Roy Thomas Fielding, UC Irvine, 2000. The chapter page header reads 'Fielding Dissertation: CHAPTER 5: Representational State Transfer (REST)'. A doctoral thesis, not peer-reviewed in the conference sense. Page says (c) Roy Thomas Fielding, 2000, all rights reserved. Section 5.1 lists the constraints; modern 'REST APIs' often ignore hypermedia, so teach it as an origin, not a checklist."
+    verified_on: "2026-11-12"
 
   - id: microsoft-rest-api-guidelines
     title: "Microsoft REST API Guidelines"
@@ -1268,7 +1287,9 @@ sources:
     units: [2]
     topics: [rest, api-design, versioning, errors]
     status: candidate
-    notes: "NO-AUTHOR / NO-DATE: corporate repo; no latest commit date visible in the fetch (953 commits on the vNext branch). Repo shows a CC BY 4.0 badge and a license.txt; the text of license.txt was not read. The content of Guidelines.md itself was not read in this session, only the repo listing, so section references are not yet known."
+    attribution: "Sebagian materi diadaptasi dari Microsoft REST API Guidelines oleh Microsoft, CC BY 4.0, https://github.com/microsoft/api-guidelines. Telah diubah."
+    notes: "NO-AUTHOR: NO-DATE: corporate repo; no latest commit date visible in the fetch (953 commits on the vNext branch). Repo shows a CC BY 4.0 badge and a license.txt; the text of license.txt was not read. The content of Guidelines.md itself was not read in this session, only the repo listing, so section references are not yet known."
+    verified_on: "2026-11-12"
 
   - id: aip-dev-api-improvement-proposals
     title: "API Improvement Proposals (AIP)"
@@ -1286,7 +1307,9 @@ sources:
     units: [2]
     topics: [api-design, rest, grpc, resource-oriented-design]
     status: candidate
-    notes: "NO-AUTHOR / NO-DATE: footer says content is licensed under CC BY 4.0 and code samples under Apache 2.0 unless otherwise noted. Only the landing page was opened; individual AIPs (for example resource-oriented design, request identification) were not read, so numbers must be confirmed. The older cloud.google.com/apis/design page redirects to docs.cloud.google.com and showed no license or date, so it is not recorded."
+    attribution: "Sebagian materi diadaptasi dari API Improvement Proposals (AIP) oleh Google, CC BY 4.0, https://google.aip.dev/. Telah diubah."
+    notes: "NO-AUTHOR: NO-DATE: footer says content is licensed under CC BY 4.0 and code samples under Apache 2.0 unless otherwise noted. Only the landing page was opened; individual AIPs (for example resource-oriented design, request identification) were not read, so numbers must be confirmed. The older cloud.google.com/apis/design page redirects to docs.cloud.google.com and showed no license or date, so it is not recorded."
+    verified_on: "2026-11-12"
 
   - id: pg-docs-transaction-iso
     title: "PostgreSQL 18 Documentation: 13.2. Transaction Isolation"
@@ -1970,7 +1993,7 @@ sources:
     units: [4]
     topics: [queue, load-leveling, backpressure, spikes, dead-letter-queue, idempotent-consumer, ordering, autoscaling]
     status: candidate
-    notes: "NO-AUTHOR in the page text (front matter lists a git author handle only). Date is ms.date from the front matter. No license text in the fetched content (same situation as azure-cache-aside-pattern), so license unknown. Has an explicit 'when to use' trigger (intermittent spikes that overwhelm a downstream service) and 'not suitable' (caller needs synchronous low-latency reply, low stable volume). Warns that queue grows if producer rate exceeds consumer rate."
+    notes: "NO-AUTHOR: no author named in the page text (front matter lists a git author handle only). Date is ms.date from the front matter. No license text in the fetched content (same situation as azure-cache-aside-pattern), so license unknown. Has an explicit 'when to use' trigger (intermittent spikes that overwhelm a downstream service) and 'not suitable' (caller needs synchronous low-latency reply, low stable volume). Warns that queue grows if producer rate exceeds consumer rate."
 
   - id: azure-competing-consumers
     title: "Competing Consumers Pattern (Azure Architecture Center)"
@@ -2867,13 +2890,14 @@ sources:
     doi: null
     published: "2025-06-12"
     accessed: "2026-11-12"
-    license: unknown
+    license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [2, 6]
     topics: [dependency, third-party-outage, blast-radius, fail-closed, load-shedding, cache-refill]
     status: candidate
-    notes: "NO-AUTHOR: no author listed. Date from page metadata (datePublished 2025-06-12). No footer copyright seen: license unknown. Workers KV's central store (partly on a third-party cloud) failed, so cold reads and writes failed in many products (Access, Gateway, WARP). Some services shed load and degraded; cache refill after recovery caused errors and rate limiting. The stated duration (2 h 28 min) does not exactly match the listed timestamps."
+    notes: "NO-AUTHOR: no author listed. Date from page metadata (datePublished 2025-06-12). No license stated on the page or footer (re-checked 2026-11-12), so treated as all-rights-reserved (copyright by default). Page metadata dateModified is 2026-07-15 (later edit). Workers KV's central store (partly on a third-party cloud) failed, so cold reads and writes failed in many products (Access, Gateway, WARP). Some services shed load and degraded; cache refill after recovery caused errors and rate limiting. The stated duration (2 h 28 min) does not exactly match the listed timestamps."
+    verified_on: "2026-11-12"
 
   - id: cloudflare-control-plane-outage-2023-11
     title: "Post mortem on the Cloudflare Control Plane and Analytics Outage"
@@ -3020,6 +3044,7 @@ sources:
     topics: [latent-bug, config-trigger, cdn, blast-radius, detection-time]
     status: candidate
     notes: "Footer: (c) Fastly 2026. Older than the 2023-2026 target. Short and high level: a bug shipped on May 12 stayed dormant until a valid customer configuration change on June 8; about 85% of the network returned errors; 95% back within 49 minutes. Few technical details."
+    verified_on: "2026-11-12"
 
   - id: meta-outage-2021-10-04
     title: "More details about the October 4 outage"
@@ -3038,3 +3063,4 @@ sources:
     topics: [maintenance-command, audit-tool-bug, bgp, dns, out-of-band-access, staged-restart]
     status: candidate
     notes: "Footer: (c) 2026 Meta. Older than the 2023-2026 target. A backbone-capacity check command disconnected all backbone links; the audit tool that should have blocked it had a bug; DNS servers withdrew BGP routes when they lost the data centers; recovery needed physical access and a gradual restart to avoid a surge."
+    verified_on: "2026-11-12"
