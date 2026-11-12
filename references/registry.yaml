@@ -1212,7 +1212,7 @@ sources:
     units: [2]
     topics: [load-balancer, round-robin, least-connections, ip-hash, health-checks]
     status: candidate
-    notes: "NO-AUTHOR: NO-DATE: docs, no version shown. Footer: (c) F5, Inc., all rights reserved. Covers round-robin, least_conn, ip_hash, least_time (the page says least_time and active health checks need NGINX Plus), passive health checks via max_fails and fail_timeout."
+    notes: "NO-AUTHOR: no author named. NO-DATE: no date shown. docs, no version shown. Footer: (c) F5, Inc., all rights reserved. Covers round-robin, least_conn, ip_hash, least_time (the page says least_time and active health checks need NGINX Plus), passive health checks via max_fails and fail_timeout."
     verified_on: "2026-11-12"
 
   - id: grpc-core-concepts
@@ -1289,7 +1289,7 @@ sources:
     topics: [rest, api-design, versioning, errors]
     status: candidate
     attribution: "Sebagian materi diadaptasi dari Microsoft REST API Guidelines oleh Microsoft, CC BY 4.0, https://github.com/microsoft/api-guidelines. Telah diubah."
-    notes: "NO-AUTHOR: NO-DATE: corporate repo; no latest commit date visible in the fetch (953 commits on the vNext branch). Repo shows a CC BY 4.0 badge and a license.txt; the text of license.txt was not read. The content of Guidelines.md itself was not read in this session, only the repo listing, so section references are not yet known."
+    notes: "NO-AUTHOR: no author named. NO-DATE: no date shown. corporate repo; no latest commit date visible in the fetch (953 commits on the vNext branch). Repo shows a CC BY 4.0 badge and a license.txt; the text of license.txt was not read. The content of Guidelines.md itself was not read in this session, only the repo listing, so section references are not yet known."
     verified_on: "2026-11-12"
 
   - id: aip-dev-api-improvement-proposals
@@ -1309,7 +1309,7 @@ sources:
     topics: [api-design, rest, grpc, resource-oriented-design]
     status: candidate
     attribution: "Sebagian materi diadaptasi dari API Improvement Proposals (AIP) oleh Google, CC BY 4.0, https://google.aip.dev/. Telah diubah."
-    notes: "NO-AUTHOR: NO-DATE: footer says content is licensed under CC BY 4.0 and code samples under Apache 2.0 unless otherwise noted. Only the landing page was opened; individual AIPs (for example resource-oriented design, request identification) were not read, so numbers must be confirmed. The older cloud.google.com/apis/design page redirects to docs.cloud.google.com and showed no license or date, so it is not recorded."
+    notes: "NO-AUTHOR: no author named. NO-DATE: no date shown. footer says content is licensed under CC BY 4.0 and code samples under Apache 2.0 unless otherwise noted. Only the landing page was opened; individual AIPs (for example resource-oriented design, request identification) were not read, so numbers must be confirmed. The older cloud.google.com/apis/design page redirects to docs.cloud.google.com and showed no license or date, so it is not recorded."
     verified_on: "2026-11-12"
 
   - id: pg-docs-transaction-iso
@@ -1449,7 +1449,7 @@ sources:
     topics: [replication, leader-follower, read-replicas, sync-vs-async, replication-lag]
     status: candidate
     version: "MySQL 8.4"
-    notes: "NO-AUTHOR: corporate documentation, no author on the page. NO-DATE: no date; footer (c) 2026 Oracle. Version MySQL 8.4 (reopened 2026-11-12). NO-AUTHOR / NO-DATE: corporate documentation. Footer shows only '(c) 2026 Oracle' with links to copyright and terms pages (not followed), so rights are recorded as all-rights-reserved. Overview of source/replica, async default, semisync, delayed replication, GTID vs binlog position; lists scale-out of reads as a use. Does not discuss load-induced lag or failover procedures itself."
+    notes: "NO-AUTHOR: corporate documentation, no author on the page. NO-DATE: no date; footer (c) 2026 Oracle. Version MySQL 8.4 (reopened 2026-11-12). corporate documentation. Footer shows only '(c) 2026 Oracle' with links to copyright and terms pages (not followed), so rights are recorded as all-rights-reserved. Overview of source/replica, async default, semisync, delayed replication, GTID vs binlog position; lists scale-out of reads as a use. Does not discuss load-induced lag or failover procedures itself."
     verified_on: "2026-11-12"
 
   - id: mongodb-docs-sharding
@@ -1489,7 +1489,7 @@ sources:
     topics: [data-models, document-model, embedding-vs-referencing]
     status: candidate
     version: "Database Manual 9.0 (current)"
-    notes: "NO-AUTHOR: NO-DATE: vendor documentation. Footer shows only '(c) 2026 MongoDB, Inc.'. Vendor perspective: pushes embedding and 'data accessed together is stored together'; read critically next to relational normalization."
+    notes: "NO-AUTHOR: no author named. NO-DATE: no date shown. vendor documentation. The github.com/mongodb/docs README says documentation is under CC BY-NC-SA 3.0 (not in the enum, NonCommercial), so all-rights-reserved is recorded; see mongodb-docs-sharding. Footer shows only '(c) 2026 MongoDB, Inc.'. Vendor perspective: pushes embedding and 'data accessed together is stored together'; read critically next to relational normalization."
     verified_on: "2026-11-12"
 
   - id: cassandra-docs-dynamo
@@ -1510,7 +1510,7 @@ sources:
     status: candidate
     version: "Cassandra 5.0 docs (prerelease; /latest/ URL is a moving target, pin before approval)"
     attribution: "Sebagian materi diadaptasi dari Apache Cassandra Documentation (Dynamo) oleh The Apache Software Foundation, Apache License 2.0, https://cassandra.apache.org/doc/latest/cassandra/architecture/dynamo.html. Telah diubah."
-    notes: "NO-AUTHOR: NO-DATE: project documentation. Footer: 'c 2009- The Apache Software Foundation under the terms of the Apache License 2.0' (page text; docs license read from footer only, not LICENSE file). The page itself says it is a prerelease 5.0 page and links to a newer (6.0-alpha2) 'latest'; /latest/ URL may shift. Token ring, vnodes, RF, consistency levels (W+R>RF); hinted handoff and read repair only listed."
+    notes: "NO-AUTHOR: no author named. NO-DATE: no date shown. project documentation. Footer: 'c 2009- The Apache Software Foundation under the terms of the Apache License 2.0' (page text; docs license read from footer only, not LICENSE file). The page itself says it is a prerelease 5.0 page and links to a newer (6.0-alpha2) 'latest'; /latest/ URL may shift. Token ring, vnodes, RF, consistency levels (W+R>RF); hinted handoff and read repair only listed."
     verified_on: "2026-11-12"
 
   - id: dynamodb-docs-partition-key-design
@@ -1529,7 +1529,7 @@ sources:
     units: [3]
     topics: [partitioning, partition-key, hot-partitions, write-sharding, key-value]
     status: candidate
-    notes: "NO-AUTHOR: AWS documentation, no author. NO-DATE: no date in the fetched text. No license statement in the fetched content (re-checked 2026-11-12), so treated as all-rights-reserved. NO-AUTHOR / NO-DATE: vendor documentation. States per-partition limits (3,000 read units/s, 1,000 write units/s) and the advice to spread activity uniformly; sub-pages on write sharding not opened."
+    notes: "NO-AUTHOR: AWS documentation, no author. NO-DATE: no date in the fetched text. No license statement in the fetched content (re-checked 2026-11-12), so treated as all-rights-reserved. vendor documentation. States per-partition limits (3,000 read units/s, 1,000 write units/s) and the advice to spread activity uniformly; sub-pages on write sharding not opened."
     verified_on: "2026-11-12"
 
   - id: dynamodb-docs-secondary-indexes
@@ -1548,7 +1548,7 @@ sources:
     units: [3]
     topics: [secondary-indexes, global-secondary-index, local-secondary-index, key-value]
     status: candidate
-    notes: "NO-AUTHOR: AWS documentation, no author. NO-DATE: no date in the fetched text. No license statement in the fetched content (re-checked 2026-11-12), so treated as all-rights-reserved. NO-AUTHOR / NO-DATE: vendor documentation. GSI vs LSI comparison table: GSI is its own partition space, eventually consistent only, own throughput; LSI shares partition key and allows strong reads. Good illustration of secondary-index-in-partitioned-store trade-off."
+    notes: "NO-AUTHOR: AWS documentation, no author. NO-DATE: no date in the fetched text. No license statement in the fetched content (re-checked 2026-11-12), so treated as all-rights-reserved. vendor documentation. GSI vs LSI comparison table: GSI is its own partition space, eventually consistent only, own throughput; LSI shares partition key and allows strong reads. Good illustration of secondary-index-in-partitioned-store trade-off."
     verified_on: "2026-11-12"
 
   - id: couchdb-docs-replication-intro
@@ -1568,7 +1568,7 @@ sources:
     topics: [replication, multi-leader, conflicts]
     status: candidate
     version: "stable"
-    notes: "NO-AUTHOR: NO-DATE: project documentation. No footer, license or copyright was present in the fetched content, but the docs source directory src/docs in github.com/apache/couchdb has its own LICENSE file, which is the Apache License 2.0 (opened 2026-11-12), so recorded as Apache-2.0; usage stays rewrite-only. Version only 'stable'. Short intro: master-master as two opposite one-way tasks, conflicts possible, continuous vs one-shot."
+    notes: "NO-AUTHOR: no author named. NO-DATE: no date shown. project documentation. No footer, license or copyright was present in the fetched content, but the docs source directory src/docs in github.com/apache/couchdb has its own LICENSE file, which is the Apache License 2.0 (opened 2026-11-12), so recorded as Apache-2.0; usage stays rewrite-only. Version only 'stable'. Short intro: master-master as two opposite one-way tasks, conflicts possible, continuous vs one-shot."
     verified_on: "2026-11-12"
 
   - id: neo4j-graph-database-concepts
@@ -1587,7 +1587,7 @@ sources:
     units: [3]
     topics: [data-models, graph-model, property-graph]
     status: candidate
-    notes: "NO-AUTHOR: NO-DATE: vendor documentation. No footer/license in the fetched content, but the source repo github.com/neo4j/docs-getting-started has LICENSE.txt = CC BY-NC-SA 4.0 (raw file opened 2026-11-12), NonCommercial so rewrite-only; version not stated. Nodes, labels, typed directed relationships, properties, traversals. Does not mention index-free adjacency on this page."
+    notes: "NO-AUTHOR: no author named. NO-DATE: no date shown. vendor documentation. No footer/license in the fetched content, but the source repo github.com/neo4j/docs-getting-started has LICENSE.txt = CC BY-NC-SA 4.0 (raw file opened 2026-11-12), NonCommercial so rewrite-only; version not stated. Nodes, labels, typed directed relationships, properties, traversals. Does not mention index-free adjacency on this page."
     verified_on: "2026-11-12"
 
   - id: notion-sharding-postgres-2021

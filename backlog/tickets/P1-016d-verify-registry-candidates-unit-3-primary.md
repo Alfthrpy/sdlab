@@ -5,7 +5,7 @@ milestone: M1
 type: research
 owner: agent
 review: agent
-status: in-progress
+status: review
 priority: high
 depends_on: []
 estimate: 1
@@ -40,3 +40,4 @@ Follow P1-016 Tasks 1–5 for each entry in scope, SEED and Tier 1–3 first:
 (Filled in during the work.)
 
 2026-11-12: 23 entries with primary unit 3 reopened; 22 have `verified_on`. `codd-relational-model-1970` does not: its PDF on the UPenn course site is now a scanned image with no readable text, so its CACM metadata was not rechecked (it stays a candidate with a NOT RE-VERIFIED note; replace with a readable canonical URL). Licenses: 11 `unknown` resolved. Apache-2.0: CouchDB docs (src/docs/LICENSE in apache/couchdb). CC-BY-NC-SA-4.0: Neo4j getting-started (repo LICENSE.txt). all-rights-reserved: MongoDB (repo README says CC BY-NC-SA 3.0, not in enum, NonCommercial), DynamoDB docs x2, Bigtable, Berenson critique, O'Neil LSM, Karger, Jepsen. Cassandra docs (Apache-2.0 footer) got an attribution line. PDFs read by text extraction (pdftotext): Dynamo (Copyright 2007 ACM), LSM-tree, Karger; none shows a license. Jepsen SEED resolved.
+Reviewer pass done 2026-11-12 (PASS): cosmetic note wording fixes only.
