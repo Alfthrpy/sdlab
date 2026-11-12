@@ -1,13 +1,14 @@
 ---
 concept: concept-id
-title: Judul lesson
+title: Judul lesson          # Indonesian (learner-facing)
 status: drafting           # drafting | review | published
 sources:
   - id: registry-id
-    loc: "bab/bagian"
+    loc: "bab/bagian"      # chapter/section
 reviewed_by: null          # content-reviewer | human
 ---
 
+<!-- Body is written in Indonesian. -->
 Kalimat pertama adalah inti konsepnya.
 
 Penjelasan singkat dengan satu contoh konkret.[^registry-id]

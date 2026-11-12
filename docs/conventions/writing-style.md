@@ -1,34 +1,36 @@
-# Panduan gaya tulisan (v0, difinalkan di P1-031)
+# Writing style guide (v0, finalized in P1-031)
 
-Pembacanya engineer yang sibuk. Tulisan harus langsung, spesifik, dan tidak terdengar seperti dibuat mesin.
+This guide governs **learner-facing content**, which is written in Indonesian. The guide itself is in English; examples of Indonesian text are kept in Indonesian on purpose.
 
-## Bahasa
+Readers are busy engineers and students. Writing must be direct, specific, and must not sound machine-made.
 
-- Bahasa Indonesia baku tapi santai. Sapaan "kamu".
-- Istilah teknis tetap dalam bahasa Inggris dan dicetak miring saat pertama muncul, lalu dijelaskan singkat. Contoh: *throughput* (jumlah request yang selesai per detik).
-- Jangan menerjemahkan paksa: "cache", bukan "tembolok"; "load balancer", bukan "penyeimbang beban".
+## Language
 
-## Lesson
+- Standard Indonesian but relaxed. Address the reader as "kamu".
+- Technical terms stay in English and are italicized on first appearance, then briefly explained. Example: *throughput* (jumlah request yang selesai per detik).
+- Do not force translations: "cache", not "tembolok"; "load balancer", not "penyeimbang beban".
 
-- Kalimat pertama adalah intinya. Jangan dibuka dengan "Pada lesson ini kita akan...".
-- Satu lesson = satu ide. Panjang 300–600 kata, bisa dibaca dalam 3–5 menit.
-- Wajib ada **satu contoh konkret** dengan angka atau skenario nyata (bersumber).
-- Wajib ada **satu "kapan tidak dipakai"** atau trade-off.
-- Diagram ditulis sebagai Mermaid atau deskripsi untuk dibuat ulang. Tidak ada gambar yang disalin.
-- Hindari: "sangat penting", "di era modern", "mari kita selami", "kesimpulannya", emoji, dan daftar berpoin yang sebenarnya satu kalimat.
+## Lessons
 
-## Soal
+- The first sentence is the core point. Do not open with "Pada lesson ini kita akan...".
+- One lesson = one idea. Length 300–600 words, readable in 3–5 minutes.
+- Must include **one concrete example** with real (sourced) numbers or a real scenario.
+- Must include **one "when not to use it"** or trade-off.
+- Diagrams are written as Mermaid or as a description to be redrawn. No copied images.
+- Avoid these filler phrases (Indonesian originals; in English: "very important", "in the modern era", "let's dive in", "in conclusion"), emoji, and bullet lists that are really one sentence: "sangat penting", "di era modern", "mari kita selami", "kesimpulannya".
 
-- Uji pemahaman atau penerapan, bukan hafalan definisi.
-- **Anti-bocor:** judul, kata kunci di pertanyaan, dan panjang opsi tidak boleh mengarah ke jawaban. Opsi benar tidak boleh selalu yang paling panjang atau paling detail.
-- Pengecoh harus masuk akal: diambil dari miskonsepsi nyata di `misconceptions.md`.
-- Setiap soal punya pembahasan 1–3 kalimat: kenapa jawaban benar, dan kenapa pengecoh utama salah.
-- Soal estimasi memberi rentang jawaban yang diterima, bukan satu angka.
+## Questions
 
-## Contoh singkat
+- Test understanding or application, not memorized definitions.
+- **Anti-leak:** the title, keywords in the question, and option length must not point to the answer. The correct option must not always be the longest or most detailed.
+- Distractors must be plausible: drawn from real misconceptions in `misconceptions.md`.
+- Every question has a 1–3 sentence explanation: why the answer is right, and why the main distractor is wrong.
+- Estimation questions give an accepted range, not a single number.
 
-Buruk:
+## Short example
+
+Bad (generic filler):
 > Caching adalah teknik yang sangat penting dalam system design modern untuk meningkatkan performa.
 
-Baik:
+Good (core point first, concrete, with trade-off):
 > Cache menyimpan hasil yang sering dibaca di tempat yang lebih cepat dari sumber aslinya. Kalau 90% request membaca 10% data yang sama, cache di depan database bisa memangkas sebagian besar beban baca. Tapi data di cache bisa basi, jadi kamu harus memutuskan seberapa basi yang masih bisa diterima.

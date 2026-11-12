@@ -1,11 +1,13 @@
-# Konten
+# Content
 
-| Folder | Isi | Dibuat di |
+Learner-facing content in this folder is written in Indonesian (see ADR 0005).
+
+| Folder | Contents | Created in |
 | --- | --- | --- |
-| `concepts/<concept-id>/` | `lesson.md`, `questions.yaml`, `misconceptions.md`, `lab.yaml` (opsional) | M3 (pilot), M4 |
-| `incidents/` | Skenario insiden dari postmortem publik | P1-046 |
-| `case-studies/` | Studi kasus dengan rubrik | P1-047 |
+| `concepts/<concept-id>/` | `lesson.md`, `questions.yaml`, `misconceptions.md`, `lab.yaml` (optional) | M3 (pilot), M4 |
+| `incidents/` | Incident scenarios from public postmortems | P1-046 |
+| `case-studies/` | Case studies with rubrics | P1-047 |
 
-Template ada di `templates/concept/`. Skema ada di `docs/conventions/content-schema.md`.
+Templates are in `templates/concept/`. The schema is in `docs/conventions/content-schema.md`.
 
-Lisensi konten di folder ini: CC BY 4.0 (sementara, lihat ADR 0003).
+Content license for this folder: CC BY 4.0 (interim, see ADR 0003).

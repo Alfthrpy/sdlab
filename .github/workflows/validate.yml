@@ -14,7 +14,7 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install pyyaml
-      - name: Validasi ticket, registry, kurikulum, konten
+      - name: Validate tickets, registry, curriculum, content
         run: python scripts/validate.py
-      - name: BOARD.md sudah diperbarui
+      - name: BOARD.md is up to date
         run: python scripts/board.py --check

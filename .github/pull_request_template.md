@@ -2,23 +2,23 @@
 
 [P1-0xx] — `backlog/tickets/...`
 
-## Ringkasan
+## Summary
 
 -
 
-## Output
+## Outputs
 
 -
 
-## Kriteria selesai
+## Done criteria
 
-- [ ] (salin dari ticket)
-- [ ] `python scripts/validate.py` lolos
-- [ ] `python scripts/board.py` dijalankan
-- [ ] Log sesi ditulis di `sessions/`
+- [ ] (copy from the ticket)
+- [ ] `python scripts/validate.py` passes
+- [ ] `python scripts/board.py` was run
+- [ ] Session log written in `sessions/`
 
 ## Review
 
-- Jenis review: agent / human
+- Review type: agent / human
 - Reviewer: source-verifier / content-reviewer / owner
-- Hasil:
+- Result:

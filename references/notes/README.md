@@ -1,5 +1,5 @@
-# Catatan baca sumber
+# Source reading notes
 
-Satu file per sumber penting: `<registry-id>.md`, dibuat dari `templates/source-notes.md`.
+One file per important source: `<registry-id>.md`, created from `templates/source-notes.md`.
 
-Catatan ditulis dengan **kata sendiri** dan menyebut lokasi (bab/bagian/halaman) setiap poin. Catatan ini menjadi bahan utama `content-writer`, jadi harus cukup detail untuk menulis lesson tanpa membuka sumbernya lagi. Kalimat sumber tidak boleh disalin.
+Notes are written in English and **in your own words**, and give the location (chapter/section/page) of every point. These notes are the main input for `content-writer`, so they must be detailed enough to write a lesson without reopening the source. Source sentences must not be copied.

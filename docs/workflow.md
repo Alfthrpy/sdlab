@@ -1,84 +1,84 @@
-# Workflow: ticket, sesi, review
+# Workflow: tickets, sessions, review
 
-Semua pekerjaan berjalan lewat **ticket**. Satu sesi kerja (agent atau manusia) mengambil satu ticket, menyelesaikannya sampai kriteria selesai terpenuhi, lalu menyerahkannya untuk review. Tidak ada pekerjaan di luar ticket. Kalau ada pekerjaan baru yang ditemukan, buat ticket baru.
+All work goes through **tickets**. One work session (agent or human) takes one ticket, finishes it until its done-criteria are met, then hands it over for review. No work happens outside a ticket. If you discover new work, create a new ticket.
 
-## 1. Ticket
+## 1. Tickets
 
-Satu file Markdown di `backlog/tickets/`, nama file `<ID>-<slug>.md`, dengan frontmatter YAML:
+One Markdown file in `backlog/tickets/`, named `<ID>-<slug>.md`, with YAML frontmatter:
 
 ```yaml
-id: P1-011               # P1 = Fase 1, nomor unik
-title: Riset kandidat sumber — Unit 1 & 2
-milestone: M1            # lihat docs/PLAN-FASE-1.md
+id: P1-011               # P1 = Phase 1, unique number
+title: Research candidate sources — Units 1 & 2
+milestone: M1            # see docs/PLAN-PHASE-1.md
 type: research           # research | curriculum | content | review | decision | infra
-owner: agent             # siapa yang MENGERJAKAN: agent | human
-review: agent            # siapa yang MEREVIEW: agent | human | none
+owner: agent             # who DOES the work: agent | human
+review: agent            # who REVIEWS it: agent | human | none
 status: todo             # todo | in-progress | review | done | blocked
 priority: high           # high | medium | low
-depends_on: [P1-010]     # ticket yang harus done dulu
-estimate: 1              # perkiraan jumlah sesi
-outputs:                 # file yang dibuat/diubah ticket ini
+depends_on: [P1-010]     # tickets that must be done first
+estimate: 1              # estimated number of sessions
+outputs:                 # files this ticket creates/changes
   - references/registry.yaml
 ```
 
-Badan ticket berisi: **Konteks**, **Tugas**, **Kriteria selesai** (checklist), dan **Catatan** (diisi saat dikerjakan).
+The ticket body has: **Context**, **Tasks**, **Done criteria** (checklist), and **Notes** (filled in during the work).
 
-### Siapa mengerjakan apa
+### Who does what
 
-Proyek ini **agent-heavy**. Aturan penentuan owner dan review:
+This project is **agent-heavy**. Rules for assigning owner and review:
 
-| Jenis pekerjaan | owner | review |
+| Kind of work | owner | review |
 | --- | --- | --- |
-| Riset sumber, ringkasan, pemetaan, draft kurikulum, draft konten, skema, script | agent | agent |
-| Keputusan produk (bahasa, target, nama, prioritas) | human | none |
-| Gerbang milestone (approve registry, kurikulum, pilot) | agent menyiapkan, human memutuskan | human |
-| Uji ke pengguna nyata | human | none |
-| Akses eksternal (buat repo, akun, undang reviewer) | human | none |
-| Konten yang menyangkut klaim berisiko (angka performa, perilaku produk spesifik) | agent | agent + sampel human di ticket QA |
+| Source research, summaries, mapping, curriculum drafts, content drafts, schemas, scripts | agent | agent |
+| Product decisions (language, audience, name, priorities) | human | none |
+| Milestone gates (approve registry, curriculum, pilot) | agent prepares, human decides | human |
+| Testing with real users | human | none |
+| External access (create repo, accounts, invite reviewers) | human | none |
+| Content with risky claims (performance numbers, specific product behavior) | agent | agent + human sample in the QA ticket |
 
-`review: agent` berarti ticket diverifikasi oleh **subagent reviewer yang tidak ikut mengerjakan** (`.claude/agents/content-reviewer.md` atau `source-verifier.md`). Setelah lolos dan CI hijau, agent boleh merge PR-nya sendiri.
+`review: agent` means the ticket is verified by a **reviewer subagent that did not do the work** (`.claude/agents/content-reviewer.md` or `source-verifier.md`). After it passes and CI is green, the agent may merge its own PR.
 
-`review: human` berarti PR menunggu approval owner repo. Agent tidak boleh merge.
+`review: human` means the PR waits for the repo owner's approval. The agent must not merge.
 
 ### Status
 
 ```
 todo → in-progress → review → done
           ↓
-       blocked  (tulis alasannya di Catatan + ticket penghalang di depends_on)
+       blocked  (write the reason in Notes + the blocking ticket in depends_on)
 ```
 
-Ticket hanya boleh diambil kalau semua `depends_on` sudah `done`.
+A ticket may only be taken when all its `depends_on` are `done`.
 
-## 2. Alur satu sesi
+## 2. Flow of one session
 
-1. **Orientasi.** Baca `AGENTS.md`, `backlog/BOARD.md`, dan log sesi terakhir di `sessions/`.
-2. **Pilih ticket.** Kalau owner tidak menunjuk, ambil ticket `todo` dengan `owner: agent`, semua dependensi `done`, prioritas tertinggi, nomor terkecil.
-3. **Klaim.** Buat branch `t/<ID>-<slug>`, ubah status ke `in-progress`, commit.
-4. **Kerjakan** sesuai Tugas. Kalau ticket terlalu besar untuk satu sesi, pecah jadi sub-ticket (`P1-040a`, `P1-040b`) dan kerjakan yang pertama.
-5. **Validasi.** `python scripts/validate.py` harus lolos. Centang Kriteria selesai yang terpenuhi.
-6. **Review.** `review: agent` → panggil subagent reviewer, perbaiki temuannya. `review: human` → set status `review`.
-7. **Catat.** Tulis log sesi di `sessions/YYYY-MM-DD-<ID>.md` (template di `templates/session-log.md`). Isi bagian Catatan di ticket.
-8. **Serahkan.** Jalankan `python scripts/board.py`, commit, push, buka PR berjudul `[<ID>] <judul>`. Kalau `review: agent` dan CI hijau, merge dan set `done`.
+1. **Orient.** Read `AGENTS.md`, `backlog/BOARD.md`, and the latest session log in `sessions/`.
+2. **Pick a ticket.** If the owner does not name one, take the `todo` ticket with `owner: agent`, all dependencies `done`, highest priority, lowest number.
+3. **Claim.** Create branch `t/<ID>-<slug>`, set status to `in-progress`, commit.
+4. **Work** per the Tasks. If the ticket is too big for one session, split it into sub-tickets (`P1-040a`, `P1-040b`) and do the first.
+5. **Validate.** `python scripts/validate.py` must pass. Tick the Done criteria that are met.
+6. **Review.** `review: agent` → call a reviewer subagent, fix its findings. `review: human` → set status to `review`.
+7. **Record.** Write the session log at `sessions/YYYY-MM-DD-<ID>.md` (template: `templates/session-log.md`). Fill in the Notes section of the ticket.
+8. **Hand off.** Run `python scripts/board.py`, commit, push, open a PR titled `[<ID>] <title>`. If `review: agent` and CI is green, merge and set `done`.
 
-Satu sesi = satu ticket (atau satu sub-ticket). Kalau sesi berhenti di tengah, status tetap `in-progress` dan log sesi menjelaskan sampai mana.
+One session = one ticket (or one sub-ticket). If a session stops midway, the status stays `in-progress` and the session log explains how far it got.
 
 ## 3. Branch, commit, PR
 
-- Branch: `t/P1-011-riset-fondasi`
-- Commit: `[P1-011] tambah 12 kandidat sumber unit fondasi`
-- PR: judul `[P1-011] <judul ticket>`, isi = ringkasan, daftar output, checklist kriteria selesai, hasil review agent.
-- `main` hanya berubah lewat PR.
+- Branch: `t/P1-011-foundation-research`
+- Commit: `[P1-011] add 12 candidate sources for foundations unit`
+- PR: title `[P1-011] <ticket title>`, body = summary, list of outputs, done-criteria checklist, agent review result.
+- `main` changes only through PRs.
 
-## 4. Peran manusia (owner)
+## 4. The human (owner) role
 
-Kamu cukup melakukan empat hal:
+You only need to do four things:
 
-1. Mengerjakan ticket `owner: human` (keputusan, gerbang, uji pengguna).
-2. Mereview PR `review: human`.
-3. Sesekali spot-check PR `review: agent` yang sudah di-merge (ada ticket QA khusus untuk ini).
-4. Memulai sesi agent: "kerjakan ticket berikutnya" atau "kerjakan P1-0xx".
+1. Do `owner: human` tickets (decisions, gates, user tests).
+2. Review `review: human` PRs.
+3. Occasionally spot-check merged `review: agent` PRs (there is a dedicated QA ticket for this).
+4. Start agent sessions: "do the next ticket" or "do P1-0xx".
 
-## 5. Kenapa ticket di file, bukan GitHub Issues
+## 5. Why tickets are files, not GitHub Issues
 
-Lihat [ADR 0001](decisions/0001-ticket-di-repo.md). Ringkasnya: agent di cloud selalu bisa membaca file tanpa token API, riwayat ticket ikut di Git, dan perubahan ticket direview dalam PR yang sama dengan hasil kerjanya. Mirror ke GitHub Issues/Projects bisa ditambahkan nanti (ticket P1-004).
+See [ADR 0001](decisions/0001-tickets-in-repo.md). In short: cloud agents can always read files without an API token, ticket history lives in Git, and ticket changes are reviewed in the same PR as the work. A mirror to GitHub Issues/Projects can be added later (ticket P1-004).
