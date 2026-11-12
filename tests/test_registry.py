@@ -17,7 +17,8 @@ BASE = dict(
     license="all-rights-reserved", usage="rewrite-only", access="free", status="candidate",
 )
 OPEN = dict(BASE, id="open-src", type="repo", tier=5, license="CC-BY-4.0", usage="adapt-with-attribution",
-            status="approved", authors=["A"], published="2020", units=[1], topics=["caching"])
+            status="approved", authors=["A"], published="2020", units=[1], topics=["caching"],
+            verified_on="2026-11-12", attribution="Adapted from X, CC BY 4.0.")
 
 
 def run(entries):
@@ -49,14 +50,15 @@ class Registry(unittest.TestCase):
         self.assertEqual(run(entries), ([], []))
 
     def test_diverse_approved_entries_pass(self):
-        approved = dict(authors=["A"], published="2020", units=[1], topics=["x"], status="approved")
+        approved = dict(authors=["A"], published="2020", units=[1], topics=["x"], status="approved",
+                        verified_on="2026-11-12")
         self.assertClean([
             OPEN,
             entry(id="book", type="book", tier=1, edition="2", access="paywalled",
                   free_companion=["open-src"], **approved),
             entry(id="paper", type="paper", tier=3, doi="10.1145/3713082.3730380", access="partial", **approved),
             entry(id="pm", type="postmortem", tier=4, authors=[], status="approved", units=[6], topics=["dns"],
-                  notes="NO-AUTHOR: corporate postmortem", published="2025-10"),
+                  notes="NO-AUTHOR: corporate postmortem", published="2025-10", verified_on="2026-11-12"),
             entry(id="t6", type="course", tier=6, usage="map-only", access="paywalled",
                   free_companion=["open-src"], **approved),
         ])
@@ -82,7 +84,8 @@ class Registry(unittest.TestCase):
         self.assertErr([entry(doi="https://doi.org/10.1/x")], "bare DOI")
 
     def test_approved_rules(self):
-        base = dict(status="approved", authors=["A"], published="2020", units=[1], topics=["x"])
+        base = dict(status="approved", authors=["A"], published="2020", units=[1], topics=["x"],
+                    verified_on="2026-11-12")
         self.assertErr([entry(**dict(base, license="unknown"))], "unknown")
         self.assertErr([entry(**dict(base, notes="SEED. check"))], "SEED")
         self.assertErr([entry(**dict(base, authors=[]))], "NO-AUTHOR")
@@ -92,6 +95,34 @@ class Registry(unittest.TestCase):
         self.assertErr([entry(**dict(base, access="paywalled"))], "free_companion")
         self.assertErr([entry(**dict(base, authors=[], notes="x"))], "NO-AUTHOR")  # vague notes are not enough
         self.assertClean([entry(**dict(base, notes="Seeds of the idea"))])  # only the standalone word SEED trips
+
+    def test_new_optional_fields(self):
+        base = dict(status="approved", authors=["A"], published="2020", units=[1], topics=["x"],
+                    verified_on="2026-11-12")
+        self.assertErr([entry(**dict(base, verified_on=""))], "verified_on")
+        self.assertErr([entry(**dict(base, verified_on="2026-13-45"))], "verified_on")
+        self.assertErr([entry(**dict(base, verified_on="2999-01-01"))], "future")
+        self.assertErr([entry(lang="fr")], "lang")
+        self.assertErr([entry(archive_url="web.archive.org/x")], "archive_url")
+        self.assertErr([entry(version=["1"])], "version")
+        self.assertErr([entry(**dict(base, license="MIT", usage="adapt-with-attribution"))], "attribution")
+        self.assertErr([entry(lang="")], "lang")
+        self.assertErr([entry(lang=1)], "lang")
+        self.assertErr([entry(archive_url="ftp://x/y")], "archive_url")
+        self.assertErr([entry(attribution=["x"])], "attribution")
+        self.assertErr([entry(verified_on="2026-1-5")], "verified_on")
+        self.assertErr([entry(verified_on=True)], "verified_on")
+        self.assertErr([entry(verified_on="2026-13-45")], "verified_on")  # invalid on a candidate too
+        self.assertErr([entry(**dict(base, attribution="   ", license="MIT", usage="adapt-with-attribution"))], "attribution")
+        self.assertErr([entry(**dict(base, verified_on="   "))], "verified_on")
+        self.assertClean([entry(lang=None, verified_on="")])  # absent/empty is fine on a candidate
+        self.assertClean([entry(**dict(base))])  # rewrite-only approved needs no attribution
+        self.assertClean([entry(version="commit 1a2b3c4", lang="id", archive_url="https://web.archive.org/web/1/x")])
+
+    def test_unquoted_date_hint(self):
+        import datetime
+        errs, _ = run([entry(verified_on=datetime.date(2026, 11, 12))])
+        self.assertTrue(any("quote it" in e for e in errs), errs)
 
     def test_free_companion(self):
         self.assertErr([entry(free_companion=["ghost"])], "unknown source id")

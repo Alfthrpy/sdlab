@@ -5,7 +5,7 @@ milestone: M1
 type: infra
 owner: agent
 review: agent
-status: todo
+status: done
 priority: medium
 depends_on: [P1-010]
 estimate: 1
@@ -24,9 +24,10 @@ Found by the P1-010 review. The schema is declared final, but some fields are ch
 
 ## Done criteria
 
-- [ ] Chosen fields documented, validated, and tested
-- [ ] `python scripts/validate.py` passes
+- [x] Chosen fields documented, validated, and tested
+- [x] `python scripts/validate.py` passes
 
 ## Notes
 
-Ideally done before P1-011.
+Decisions: all five fields added. `version` (free string) and `archive_url` (http/https) and `lang` (en|id, absent means en) are optional. `verified_on` (valid non-future date) is required for approved entries; `attribution` is required for approved `adapt-with-attribution` entries. Fields are set at verification time (P1-016), so P1-016 and P1-019 and research-protocol.md were updated to say so.
+Review: `content-reviewer` gave "pass with minor fixes"; fixed the P1-016/P1-019 process gap, whitespace-only values, an unquoted-date hint, wording, and test gaps. Left as is: `verified_on` is not compared with `accessed`, and `date.today()` is local time (CI runs in UTC).

@@ -21,7 +21,7 @@ Gate G0. The agent has prepared the registry, coverage, and gap list. The owner 
 
 1. Read `references/coverage.md` (a ready-to-decide summary is prepared by the agent in the Notes section).
 2. Decide: approve, or ask for more research on specific gaps.
-3. After approval, the agent changes the status of the chosen sources to `approved`.
+3. After approval, the agent changes the status of the chosen sources to `approved`. The validator requires `verified_on` (and `attribution` for adapt-with-attribution sources) on each of them.
 
 ## Done criteria
 

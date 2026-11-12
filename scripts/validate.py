@@ -124,7 +124,8 @@ SEED_MARK = re.compile(r"\bSEED\b")
 OPEN_LICENSES = {"CC-BY-4.0", "CC-BY-SA-4.0", "MIT", "Apache-2.0", "public-domain"}
 REQUIRED_FIELDS = ["id", "title", "url", "accessed", "type", "tier", "license", "usage", "access", "status"]
 OPTIONAL_FIELDS = ["authors", "publisher", "doi", "published", "edition", "units", "topics", "notes",
-                   "free_companion", "superseded_by"]
+                   "free_companion", "superseded_by", "version", "archive_url", "attribution", "lang", "verified_on"]
+LANGS = ["en", "id"]
 KNOWN_FIELDS = set(REQUIRED_FIELDS + OPTIONAL_FIELDS)
 # Tier implied by type, as a consistency hint (warning only). See research-protocol.md "Tiers".
 TYPE_TIER_HINT = {"postmortem": {4}, "paper": {3}}
@@ -194,9 +195,11 @@ def check_registry() -> dict[str, dict]:
             if s.get(f) in (None, ""):
                 err(w, f"required field '{f}' is missing or empty")
 
-        for f in ("title", "publisher", "url", "edition", "notes", "doi", "published", "accessed"):
+        for f in ("title", "publisher", "url", "edition", "notes", "doi", "published", "accessed",
+                  "version", "archive_url", "attribution", "verified_on"):
             if s.get(f) is not None and not isinstance(s[f], (str, int)) or isinstance(s.get(f), bool):
-                err(w, f"{f} must be a string, got {s.get(f)!r}")
+                hint = " (quote it in YAML, e.g. \"2026-11-12\" or \"1.2\")" if isinstance(s.get(f), (date, float)) else ""
+                err(w, f"{f} must be a string, got {s.get(f)!r}{hint}")
         if s.get("url") and not str(s["url"]).startswith(("https://", "http://")):
             err(w, f"url={s['url']!r} must start with http:// or https://")
         _enum(w, s, "type", REG_TYPES)
@@ -231,6 +234,15 @@ def check_registry() -> dict[str, dict]:
         if s.get("doi") and not DOI.match(str(s["doi"])):
             err(w, f"doi={s['doi']!r} must be a bare DOI like 10.1145/3713082.3730380 (no https://doi.org/ prefix)")
 
+        if s.get("archive_url") and not str(s["archive_url"]).startswith(("https://", "http://")):
+            err(w, f"archive_url={s['archive_url']!r} must start with http:// or https://")
+        if s.get("lang") is not None:
+            _enum(w, s, "lang", LANGS)
+        ver = str(s.get("verified_on") or "")
+        if ver and not (FULL_DATE.match(ver) and _valid_date(ver)):
+            err(w, f"verified_on={ver!r} must be a valid full date YYYY-MM-DD")
+        elif ver and ver > date.today().isoformat():
+            err(w, f"verified_on={ver!r} is in the future")
         _str_list(w, s, "authors")
         _str_list(w, s, "free_companion")
         units = s.get("units")
@@ -257,6 +269,12 @@ def check_registry() -> dict[str, dict]:
                 err(w, "approved source has no authors; add them, or put 'NO-AUTHOR: <reason>' in notes")
             if not s.get("published") and "NO-DATE:" not in notes:
                 err(w, "approved source has no published date; add it, or put 'NO-DATE: <reason>' in notes")
+            if not str(s.get("verified_on") or "").strip():
+                err(w, "approved source needs verified_on: YYYY-MM-DD (the day source-verifier or a human "
+                       "reopened the page and checked the metadata)")
+            if s.get("usage") == "adapt-with-attribution" and not str(s.get("attribution") or "").strip():
+                err(w, "approved adapt-with-attribution source needs attribution: the ready-made credit line "
+                       "(see citation-guide.md)")
             if not s.get("units"):
                 err(w, "approved source must list the curriculum units it serves (units: [..])")
             if not s.get("topics"):
