@@ -5,7 +5,7 @@ milestone: M1
 type: research
 owner: agent
 review: agent
-status: in-progress
+status: review
 priority: high
 depends_on: []
 estimate: 1
@@ -40,3 +40,4 @@ Follow P1-016 Tasks 1–5 for each entry in scope, SEED and Tier 1–3 first:
 (Filled in during the work.)
 
 2026-11-12: all 24 entries with primary unit 2 reopened; all have `verified_on`; metadata matched the registry (titles, authors, dates). Licenses: 10 `unknown` resolved. all-rights-reserved: Stripe docs, IETF draft and RFC 9110/9111 (IETF Trust 'all rights reserved' boilerplate), Cloudflare docs and blog (no footer), Envoy docs (Apache-2.0 repo does not state it covers docs), USENIX papers (open access to read, no license named). CC-BY-4.0: gRPC docs (repo LICENSE linked from footer), Azure cache-aside (inferred from the public MicrosoftDocs/architecture-center README; page itself shows no footer; usage stays rewrite-only). Attribution lines added for the two adapt-with-attribution entries (Microsoft REST API guidelines, Google AIP). Open: Microsoft api-guidelines CC BY 4.0 comes from a README badge; the scope over text and license.txt contents were not read.
+Reviewer pass done 2026-11-12 (PASS): cosmetic note fixes only. Follow-up: azure-queue-based-load-leveling, azure-competing-consumers, azure-publisher-subscriber (Unit 4) and azure-circuit-breaker-pattern, azure-retry-pattern (Unit 6) should get the same MicrosoftDocs/architecture-center README check in P1-016e/g.

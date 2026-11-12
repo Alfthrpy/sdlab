@@ -1134,7 +1134,7 @@ sources:
     units: [2]
     topics: [cache, cache-aside, invalidation, ttl, eviction]
     status: candidate
-    notes: "NO-AUTHOR: no author named in the page text (front matter lists a git author handle only). Date is ms.date from the page front matter (updated_at 2025-12-09). License: the page shows no footer license in the fetch, but the public repo MicrosoftDocs/architecture-center (README 'Legal Notices', opened 2026-11-12) says documentation is CC BY 4.0 and code MIT; the page's own source is the mirror architecture-center-pr, so scope is inferred from the public repo, and usage stays rewrite-only.. Vendor-neutral enough for the pattern; code is C#/Azure Redis. Notes the update-store-then-invalidate order."
+    notes: "NO-AUTHOR: no author named in the page text (front matter lists a git author handle only). Date is ms.date from the page front matter (updated_at 2025-12-09). License: the page shows no footer license in the fetch, but the public repo MicrosoftDocs/architecture-center (README 'Legal Notices', opened 2026-11-12) says documentation is CC BY 4.0 and code MIT; the page's own source is the mirror architecture-center-pr, so scope is inferred from the public repo, and usage stays rewrite-only. Vendor-neutral enough for the pattern; code is C#/Azure Redis. Notes the update-store-then-invalidate order."
     verified_on: "2026-11-12"
 
   - id: nishtala-memcache-nsdi13
@@ -1230,7 +1230,7 @@ sources:
     units: [2]
     topics: [grpc, rpc, deadlines, streaming, api-design]
     status: candidate
-    notes: "NO-AUTHOR: project docs; date is the page's last modified. Footer has a License link to the grpc.io repo but The license link was read 2026-11-12: github.com/grpc/grpc.io LICENSE says repository content is CC BY 4.0 and code samples Apache-2.0, so recorded as CC-BY-4.0. Covers four RPC types, deadlines, cancellation, metadata, channels."
+    notes: "NO-AUTHOR: project docs; date is the page's last modified. Footer has a License link to the grpc.io repo; the link was read 2026-11-12: github.com/grpc/grpc.io LICENSE says repository content is CC BY 4.0 and code samples Apache-2.0, so recorded as CC-BY-4.0. Covers four RPC types, deadlines, cancellation, metadata, channels."
     verified_on: "2026-11-12"
 
   - id: grpc-docs-deadlines
