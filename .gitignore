@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.venv/
+.DS_Store
+# jangan commit salinan sumber pihak ketiga
+*.pdf
+references/raw/

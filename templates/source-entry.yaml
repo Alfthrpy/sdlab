@@ -1,0 +1,18 @@
+# Salin ke references/registry.yaml di bawah `sources:`. Semua field diisi dari halaman yang dibuka.
+- id: kebab-case-unik
+  title: ""
+  authors: []
+  publisher: ""
+  type: article          # book | paper | article | postmortem | docs | repo | course | talk
+  tier: 2                # 1–6
+  url: ""
+  doi: null
+  published: ""          # YYYY / YYYY-MM / YYYY-MM-DD
+  accessed: ""           # tanggal dibuka
+  license: unknown       # all-rights-reserved | CC-BY-4.0 | CC-BY-SA-4.0 | CC-BY-NC-ND-4.0 | MIT | public-domain | unknown
+  usage: rewrite-only    # rewrite-only | adapt-with-attribution | map-only
+  access: free           # free | partial | paywalled
+  units: []
+  topics: []
+  status: candidate
+  notes: ""

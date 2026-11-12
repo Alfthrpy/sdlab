@@ -1,0 +1,10 @@
+questions:
+  - id: concept-id-q01
+    type: mcq              # mcq | multi | order | match | estimate
+    difficulty: 1          # 1–3
+    prompt: ""
+    options: ["", "", "", ""]
+    answer: 0
+    explanation: ""
+    sources: [registry-id]
+    targets_misconception: null

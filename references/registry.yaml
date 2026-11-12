@@ -1,0 +1,206 @@
+# Registry Referensi — satu-satunya daftar sumber yang boleh dikutip konten.
+# Skema: docs/conventions/content-schema.md §1. Protokol: docs/conventions/research-protocol.md.
+#
+# SEED 2026-11-12: entri di bawah berasal dari riset awal (percakapan perencanaan).
+# Sebagian metadata diambil dari hasil pencarian, bukan dari halaman yang dibuka penuh.
+# Semuanya berstatus candidate dan WAJIB diverifikasi ulang di ticket P1-016.
+
+sources:
+  - id: ddia-2e
+    title: "Designing Data-Intensive Applications, 2nd Edition"
+    authors: [Martin Kleppmann, Chris Riccomini]
+    publisher: O'Reilly Media
+    type: book
+    tier: 1
+    url: https://www.oreilly.com/library/view/-/9781098119058
+    doi: null
+    published: "2026-02"
+    edition: "2"
+    accessed: "2026-11-12"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: paywalled
+    units: [1, 3, 4, 5]
+    topics: [reliability, scalability, data-models, replication, partitioning, transactions, consistency, stream-processing, cloud-storage]
+    status: candidate
+    notes: "SEED. Halaman O'Reilly menyebut Feb 2026, sebagian toko buku menyebut Mar 2026 — cek. Berbayar: butuh sumber pendamping gratis per topik."
+
+  - id: google-sre-book
+    title: "Site Reliability Engineering: How Google Runs Production Systems"
+    authors: []
+    publisher: Google / O'Reilly Media
+    type: book
+    tier: 1
+    url: https://sre.google/sre-book/table-of-contents/
+    doi: null
+    published: "2016"
+    accessed: "2026-11-12"
+    license: CC-BY-NC-ND-4.0
+    usage: rewrite-only
+    access: free
+    units: [1, 2, 5, 6]
+    topics: [slo, load-balancing, overload, cascading-failures, distributed-consensus, monitoring]
+    status: candidate
+    notes: "SEED. Lisensi CC BY-NC-ND 4.0 tertulis di halaman (NoDerivatives → hanya tulis ulang + tautkan). Halaman menyebut copyright 2017; cek tahun terbit dan daftar editor. Bab relevan: 19–23."
+
+  - id: aws-builders-timeouts-retries
+    title: "Timeouts, retries, and backoff with jitter"
+    authors: []
+    publisher: Amazon Builders' Library
+    type: article
+    tier: 2
+    url: https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [6]
+    topics: [timeouts, retries, backoff, jitter, retry-budget]
+    status: candidate
+    notes: "SEED. Penulis dan tanggal belum diverifikasi dari halaman. Builders' Library kini diarahkan ke builder.aws.com — cek URL kanonik."
+
+  - id: system-design-primer
+    title: "The System Design Primer"
+    authors: [Donne Martin]
+    publisher: GitHub
+    type: repo
+    tier: 5
+    url: https://github.com/donnemartin/system-design-primer
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: CC-BY-4.0
+    usage: adapt-with-attribution
+    access: free
+    units: [1, 2, 3, 4]
+    topics: [cap, dns, cdn, load-balancer, reverse-proxy, caching, sql-nosql, replication, sharding, async, rpc-rest]
+    status: candidate
+    notes: "SEED. Lisensi CC BY 4.0 diverifikasi dari LICENSE.txt. Tanggal commit terakhir belum diketahui — cek apakah masih dipelihara; sebagian tautan mengarah ke web.archive.org."
+
+  - id: jepsen-consistency-models
+    title: "Consistency Models"
+    authors: []
+    publisher: Jepsen
+    type: docs
+    tier: 2
+    url: https://jepsen.io/consistency
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [3, 5]
+    topics: [consistency-models, serializability, linearizability, isolation-anomalies]
+    status: candidate
+    notes: "SEED. Tidak ada lisensi terbuka tertulis (hak cipta Jepsen, LLC). Halaman memuat model, fenomena, dan dependensi."
+
+  - id: metastable-failures-hotos21
+    title: "Metastable Failures in Distributed Systems"
+    authors: [Nathan Bronson, Abutalib Aghayev, Aleksey Charapko, Timothy Zhu]
+    publisher: "HotOS '21, ACM"
+    type: paper
+    tier: 3
+    url: https://doi.org/10.1145/3458336.3465286
+    doi: 10.1145/3458336.3465286
+    published: "2021-06"
+    accessed: "2026-11-12"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: partial
+    units: [6]
+    topics: [metastable-failure, retry-storm, sustaining-effect, overload]
+    status: candidate
+    notes: "SEED. Metadata dari catatan bibliografi PSU dan salinan PDF; buka halaman DOI untuk verifikasi dan cek akses gratis (versi penulis)."
+
+  - id: analyzing-metastable-hotos25
+    title: "Analyzing Metastable Failures"
+    authors: []
+    publisher: "HotOS '25, ACM"
+    type: paper
+    tier: 3
+    url: https://doi.org/10.1145/3713082.3730380
+    doi: 10.1145/3713082.3730380
+    published: "2025-05"
+    accessed: "2026-11-12"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: partial
+    units: [6]
+    topics: [metastable-failure, queueing-model, simulation, ctmc, discrete-event-simulation]
+    status: candidate
+    notes: "SEED. Relevan juga untuk desain simulator (Fase 2). Daftar penulis belum diverifikasi."
+
+  - id: aws-pes-dynamodb-2025-10
+    title: "Summary of the Amazon DynamoDB Service Disruption in the Northern Virginia (US-EAST-1) Region"
+    authors: []
+    publisher: Amazon Web Services
+    type: postmortem
+    tier: 4
+    url: https://aws.amazon.com/message/101925
+    doi: null
+    published: "2025-10"
+    accessed: "2026-11-12"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [2, 6]
+    topics: [dns, race-condition, dependency, blast-radius, recovery-backlog]
+    status: candidate
+    notes: "SEED. Insiden 19–20 Okt 2025. Kandidat paket insiden P1-046."
+
+  - id: cloudflare-outage-2025-11-18
+    title: "Cloudflare outage on November 18, 2025"
+    authors: []
+    publisher: Cloudflare
+    type: postmortem
+    tier: 4
+    url: https://blog.cloudflare.com/18-november-2025-outage/
+    doi: null
+    published: "2025-11-18"
+    accessed: "2026-11-12"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [6]
+    topics: [config-propagation, validation, safe-deploy, global-blast-radius]
+    status: candidate
+    notes: "SEED. Kandidat paket insiden P1-046."
+
+  - id: hello-interview-sd-in-a-hurry
+    title: "System Design in a Hurry"
+    authors: []
+    publisher: Hello Interview
+    type: course
+    tier: 6
+    url: https://www.hellointerview.com/learn/system-design/in-a-hurry/introduction
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: all-rights-reserved
+    usage: map-only
+    access: partial
+    units: [1, 2, 3, 4, 5, 6]
+    topics: [delivery-framework, core-concepts, key-technologies, interview-questions]
+    status: candidate
+    notes: "SEED. Hanya untuk memetakan cakupan topik dan soal umum (Tier 6)."
+
+  - id: alex-xu-sdi-vol1-vol2
+    title: "System Design Interview – An Insider's Guide, Vol. 1 & 2"
+    authors: [Alex Xu, Sahn Lam]
+    publisher: ByteByteGo
+    type: book
+    tier: 6
+    url: https://bytebytego.com/
+    doi: null
+    published: ""
+    accessed: "2026-11-12"
+    license: all-rights-reserved
+    usage: map-only
+    access: paywalled
+    units: [1, 2, 3, 4, 5, 6]
+    topics: [interview-questions]
+    status: candidate
+    notes: "SEED. Hanya pemetaan daftar studi kasus (Tier 6). Sahn Lam adalah penulis pendamping Vol. 2 — cek."
