@@ -5,7 +5,7 @@ milestone: M1
 type: infra
 owner: agent
 review: agent
-status: in-progress
+status: done
 priority: medium
 depends_on: [P1-010]
 estimate: 1
@@ -35,3 +35,5 @@ Found in P1-069. Several clearly open sources cannot be recorded accurately: the
 Entries affected so far: pg-docs-* (PostgreSQL License), pgbouncer-features (ISC for the software), mdn-http-overview (CC-BY-SA 2.5+), hikaricp-about-pool-sizing (Apache-2.0 repo, wiki unspecified).
 
 Done 2026-11-12: added `PostgreSQL`, `ISC`, `CC-BY-SA-2.5`, `CC-BY-3.0` (all in `OPEN_LICENSES`; CC-BY-3.0 added because Debezium/Raft/Kleppmann entries hit the same gap). Official docs = Tier 2 (rules in research-protocol.md). Switched 13 pg-docs-*, 3 MDN, 4 CC-BY-3.0 entries. Left `unknown`: pgbouncer-features (ISC covers software only), hikaricp-about-pool-sizing, debezium-docs-outbox-event-router (no license on page). ADR 0002 rule 5 updated to match the validator. Reviewed by source-verifier; its findings were fixed.
+
+2026-11-13: Status was left at in-progress after PR #14 merged; all done criteria were already met, so only the status is changed here. `license: unknown` now appears in no registry entry.
