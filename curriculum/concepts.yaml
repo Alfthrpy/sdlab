@@ -1,4 +1,4 @@
-# Concept list v0 (P1-020). Prerequisites are added in P1-021 (DAG), sources in P1-023.
+# Concept list v0 (P1-020) with prerequisites (P1-021). Sources are added in P1-023.
 # Learner-facing text (title, objectives, trigger) is Indonesian; ids and keys are English.
 #
 # v1 scope notes (deliberately deferred; the list is capped at 50 concepts):
@@ -13,6 +13,7 @@ concepts:
   # ------------------------------------------------------------------ Unit 0: Single-server backend
   - id: request-lifecycle
     unit: 0
+    prerequisites: []
     title: Perjalanan satu request di satu mesin
     objectives:
       - Bisa menggambar urutan tahap yang dilalui sebuah HTTP request dari browser sampai database dan kembali
@@ -22,6 +23,7 @@ concepts:
 
   - id: app-plus-database
     unit: 0
+    prerequisites: [request-lifecycle]
     title: Satu aplikasi dan satu database
     objectives:
       - Bisa menghitung dari angka pengguna dan request per detik bahwa satu aplikasi dengan satu database masih cukup untuk sebuah produk
@@ -31,6 +33,7 @@ concepts:
 
   - id: indexes-query-basics
     unit: 0
+    prerequisites: [app-plus-database]
     title: Index dan dasar optimasi query
     objectives:
       - Bisa membaca output EXPLAIN dan menentukan apakah sebuah query memakai index atau full scan
@@ -41,6 +44,7 @@ concepts:
 
   - id: connection-pooling
     unit: 0
+    prerequisites: [app-plus-database]
     title: Connection pooling
     objectives:
       - Bisa menjelaskan mengapa membuka koneksi database baru di setiap request memboroskan sumber daya
@@ -51,6 +55,7 @@ concepts:
 
   - id: backup-recovery
     unit: 0
+    prerequisites: [app-plus-database]
     title: Backup dan recovery dasar
     objectives:
       - Bisa membedakan backup (salinan terpisah berkala) dari replica/mirror (dibahas di Unit 3), dari sisi jenis kerusakan yang masing-masing lindungi
@@ -61,6 +66,7 @@ concepts:
 
   - id: simple-deploys
     unit: 0
+    prerequisites: [app-plus-database]
     title: Deploy sederhana di satu server
     objectives:
       - Bisa menyusun langkah deploy satu versi baru, termasuk migrasi database dan rollback
@@ -71,6 +77,7 @@ concepts:
 
   - id: basic-monitoring
     unit: 0
+    prerequisites: [request-lifecycle]
     title: Monitoring dasar - log, metrik, dan health check
     objectives:
       - Bisa membedakan kegunaan log, metrik, dan health check untuk satu masalah yang sama
@@ -81,6 +88,7 @@ concepts:
 
   - id: single-machine-limits
     unit: 0
+    prerequisites: [basic-monitoring, connection-pooling]
     title: Batas satu mesin dan cara mengenalinya
     objectives:
       - Bisa mengenali apakah CPU, memori, disk, atau jumlah koneksi yang menjadi bottleneck dari gejala dan metrik
@@ -92,6 +100,7 @@ concepts:
   # ------------------------------------------------------------------ Unit 1: Foundations
   - id: latency-throughput
     unit: 1
+    prerequisites: [request-lifecycle]
     title: Latency dan throughput
     objectives:
       - Bisa membedakan latency dan throughput dan menjelaskan mengapa menaikkan satu tidak otomatis menaikkan yang lain
@@ -102,6 +111,7 @@ concepts:
 
   - id: percentiles-tail-latency
     unit: 1
+    prerequisites: [latency-throughput]
     title: Percentile dan tail latency
     objectives:
       - Bisa menghitung p50, p95, dan p99 dari sekumpulan data latency
@@ -113,6 +123,7 @@ concepts:
 
   - id: littles-law
     unit: 1
+    prerequisites: [latency-throughput, connection-pooling]
     title: Little's law
     objectives:
       - Bisa memakai L = λW untuk menghitung jumlah request yang sedang diproses dari throughput dan latency
@@ -123,6 +134,7 @@ concepts:
 
   - id: back-of-envelope-estimation
     unit: 1
+    prerequisites: [latency-throughput, single-machine-limits]
     title: Estimasi kasar (back-of-envelope)
     objectives:
       - Bisa memperkirakan QPS puncak, kebutuhan storage, dan bandwidth dari jumlah pengguna dan pola pemakaian
@@ -133,6 +145,7 @@ concepts:
 
   - id: sli-slo
     unit: 1
+    prerequisites: [percentiles-tail-latency, basic-monitoring]
     title: SLI, SLO, dan error budget
     objectives:
       - Bisa memilih SLI yang relevan untuk sebuah service dan menulis SLO yang terukur
@@ -144,6 +157,7 @@ concepts:
 
   - id: capacity-headroom
     unit: 1
+    prerequisites: [littles-law, single-machine-limits, sli-slo]
     title: Headroom kapasitas
     objectives:
       - Bisa menghitung headroom dari beban puncak terukur dan kapasitas terukur satu server (misalnya dari load test)
@@ -155,6 +169,7 @@ concepts:
   # ------------------------------------------------------------------ Unit 2: Building blocks
   - id: stateless-services-sessions
     unit: 2
+    prerequisites: [app-plus-database]
     title: Service stateless dan session
     objectives:
       - Bisa mengenali state di dalam proses aplikasi (session di memori, file lokal, cache lokal) yang mencegah request dilayani instance mana pun
@@ -165,6 +180,7 @@ concepts:
 
   - id: dns-networking-basics
     unit: 2
+    prerequisites: [latency-throughput]
     title: Dasar DNS dan jaringan - DNS, TTL, TCP, dan TLS
     objectives:
       - Bisa menggambar tahap resolusi DNS dan menjelaskan bagaimana TTL memengaruhi kecepatan perpindahan traffic ke alamat baru
@@ -176,6 +192,7 @@ concepts:
 
   - id: load-balancer-reverse-proxy
     unit: 2
+    prerequisites: [stateless-services-sessions, dns-networking-basics, single-machine-limits, simple-deploys]
     title: Load balancer dan reverse proxy
     objectives:
       - Bisa menjelaskan bagaimana satu alamat dapat melayani beberapa instance aplikasi di belakangnya, termasuk fungsi reverse proxy (TLS termination, routing, buffering)
@@ -187,6 +204,7 @@ concepts:
 
   - id: caching-basics
     unit: 2
+    prerequisites: [indexes-query-basics, latency-throughput]
     title: Dasar caching
     objectives:
       - Bisa menjelaskan kapan cache-aside lebih cocok daripada write-through atau write-back
@@ -198,6 +216,7 @@ concepts:
 
   - id: cache-stampede-hot-keys
     unit: 2
+    prerequisites: [caching-basics]
     title: Cache stampede dan hot key
     objectives:
       - Bisa menjelaskan bagaimana kunci yang kedaluwarsa bersamaan membanjiri database
@@ -209,6 +228,7 @@ concepts:
 
   - id: cdn
     unit: 2
+    prerequisites: [caching-basics, dns-networking-basics]
     title: CDN
     objectives:
       - Bisa menentukan konten mana yang cocok disajikan lewat CDN dan mana yang tidak
@@ -220,6 +240,7 @@ concepts:
 
   - id: api-design-rest-grpc
     unit: 2
+    prerequisites: [request-lifecycle]
     title: Desain API - REST dan gRPC
     objectives:
       - Bisa membandingkan REST dan gRPC dari sisi format, kontrak, dan kecocokan untuk klien publik atau antar-service
@@ -231,6 +252,7 @@ concepts:
 
   - id: idempotency
     unit: 2
+    prerequisites: [api-design-rest-grpc, app-plus-database]
     title: Idempotency
     objectives:
       - Bisa membedakan operasi yang idempotent dan yang tidak, termasuk pada metode HTTP
@@ -242,6 +264,7 @@ concepts:
 
   - id: rate-limiting
     unit: 2
+    prerequisites: [load-balancer-reverse-proxy]
     title: Rate limiting
     objectives:
       - Bisa membandingkan algoritma token bucket, fixed window, dan sliding window dari sisi burst dan akurasi
@@ -255,6 +278,7 @@ concepts:
   # ------------------------------------------------------------------ Unit 3: Data
   - id: data-models
     unit: 3
+    prerequisites: [app-plus-database]
     title: Model data - relasional, dokumen, key-value, dan graph
     objectives:
       - Bisa memilih model data (relasional, dokumen, key-value, graph) untuk sebuah kebutuhan berdasarkan pola akses dan relasi antar data
@@ -265,6 +289,7 @@ concepts:
 
   - id: index-structures
     unit: 3
+    prerequisites: [indexes-query-basics]
     title: Struktur index - B-tree dan LSM-tree
     objectives:
       - Bisa membandingkan B-tree dan LSM-tree dari sisi biaya baca, tulis, dan write amplification
@@ -275,6 +300,7 @@ concepts:
 
   - id: replication
     unit: 3
+    prerequisites: [backup-recovery]
     title: Replication leader-follower
     objectives:
       - Bisa menjelaskan alur replication satu leader dengan beberapa follower, sinkron maupun asinkron
@@ -286,6 +312,7 @@ concepts:
 
   - id: replication-lag-failover
     unit: 3
+    prerequisites: [replication]
     title: Replication lag dan failover
     objectives:
       - Bisa mendiagnosis kegagalan read-your-writes akibat replication lag dan memilih mitigasinya (baca dari leader setelah menulis, baca dengan syarat posisi replikasi)
@@ -297,6 +324,7 @@ concepts:
 
   - id: partitioning-sharding
     unit: 3
+    prerequisites: [replication]
     title: Partitioning dan sharding
     objectives:
       - Bisa memilih partition key dan menjelaskan risiko hot partition
@@ -308,6 +336,7 @@ concepts:
 
   - id: consistent-hashing
     unit: 3
+    prerequisites: [partitioning-sharding, caching-basics]
     title: Consistent hashing
     objectives:
       - Bisa menjelaskan mengapa hash modulo N memindahkan hampir semua key saat jumlah node berubah
@@ -318,6 +347,7 @@ concepts:
 
   - id: transactions-acid
     unit: 3
+    prerequisites: [app-plus-database]
     title: Transaksi dan ACID
     objectives:
       - Bisa menjelaskan arti atomicity, consistency, isolation, dan durability dengan contoh transfer saldo
@@ -328,6 +358,7 @@ concepts:
 
   - id: isolation-levels
     unit: 3
+    prerequisites: [transactions-acid]
     title: Isolation level dan anomali
     objectives:
       - Bisa mengenali anomali (dirty read, lost update, write skew) dari sebuah urutan operasi
@@ -339,6 +370,7 @@ concepts:
   # ------------------------------------------------------------------ Unit 4: Async and streams
   - id: message-queue
     unit: 4
+    prerequisites: [latency-throughput]
     title: Message queue
     objectives:
       - Bisa menentukan pekerjaan mana yang layak dipindah dari jalur request ke antrian
@@ -350,6 +382,7 @@ concepts:
 
   - id: event-log-streaming
     unit: 4
+    prerequisites: [message-queue, partitioning-sharding]
     title: Log dan event streaming
     objectives:
       - Bisa membedakan message queue dan log yang append-only dari sisi retensi, replay, dan consumer group
@@ -360,6 +393,7 @@ concepts:
 
   - id: delivery-semantics
     unit: 4
+    prerequisites: [message-queue, idempotency]
     title: Semantik pengiriman - at-most-once, at-least-once, exactly-once
     objectives:
       - Bisa membedakan tiga semantik pengiriman dan kapan pesan hilang atau terduplikasi
@@ -371,6 +405,7 @@ concepts:
 
   - id: outbox-cdc
     unit: 4
+    prerequisites: [delivery-semantics, transactions-acid]
     title: Transactional outbox dan change data capture
     objectives:
       - Bisa menjelaskan masalah dual write antara database dan message broker
@@ -382,6 +417,7 @@ concepts:
 
   - id: backpressure-consumer-lag
     unit: 4
+    prerequisites: [message-queue, littles-law, basic-monitoring]
     title: Backpressure dan consumer lag
     objectives:
       - Bisa mendiagnosis antrian yang terus memanjang dari metrik umur pesan dan consumer lag
@@ -394,6 +430,7 @@ concepts:
   # ------------------------------------------------------------------ Unit 5: Consistency and coordination
   - id: cap-pacelc
     unit: 5
+    prerequisites: [consistency-models, latency-throughput]
     title: CAP dan PACELC
     objectives:
       - Bisa menentukan, untuk satu operasi saat network partition terjadi, apakah operasi itu ditolak atau dijawab dengan data yang mungkin basi, beserta akibatnya bagi pengguna
@@ -404,6 +441,7 @@ concepts:
 
   - id: consistency-models
     unit: 5
+    prerequisites: [replication-lag-failover, time-and-clocks]
     title: Model konsistensi
     objectives:
       - Bisa membedakan linearizability, causal, dan eventual consistency lewat contoh urutan operasi (sequential consistency hanya sebagai catatan tambahan)
@@ -415,6 +453,7 @@ concepts:
 
   - id: consensus
     unit: 5
+    prerequisites: [consistency-models]
     title: Consensus dan leader election
     objectives:
       - Bisa menjelaskan masalah yang diselesaikan consensus dan mengapa dibutuhkan mayoritas node
@@ -426,6 +465,7 @@ concepts:
 
   - id: locks-leases-fencing
     unit: 5
+    prerequisites: [consensus, idempotency, transactions-acid]
     title: Lock terdistribusi, lease, dan fencing token
     objectives:
       - Bisa menjelaskan mengapa lock terdistribusi tanpa lease bisa macet selamanya
@@ -437,6 +477,7 @@ concepts:
 
   - id: distributed-transactions
     unit: 5
+    prerequisites: [outbox-cdc, consensus, isolation-levels]
     title: Transaksi terdistribusi - saga dan two-phase commit
     objectives:
       - Bisa menjelaskan alur two-phase commit dan mengapa koordinator yang mati membuat peserta tertahan
@@ -448,6 +489,7 @@ concepts:
 
   - id: time-and-clocks
     unit: 5
+    prerequisites: [replication]
     title: Waktu dan jam di sistem terdistribusi
     objectives:
       - Bisa menjelaskan mengapa jam fisik antar mesin tidak bisa dipakai untuk mengurutkan peristiwa dengan pasti
@@ -461,6 +503,7 @@ concepts:
   # ------------------------------------------------------------------ Unit 6: Production reliability
   - id: timeouts
     unit: 6
+    prerequisites: [api-design-rest-grpc, littles-law, percentiles-tail-latency]
     title: Timeout dan deadline
     objectives:
       - Bisa menentukan nilai timeout dari distribusi latency dependency
@@ -472,6 +515,7 @@ concepts:
 
   - id: retry-backoff-jitter
     unit: 6
+    prerequisites: [timeouts, idempotency]
     title: Retry, exponential backoff, dan jitter
     objectives:
       - Bisa merancang kebijakan retry dengan jumlah maksimum dan backoff eksponensial yang diberi jitter
@@ -483,6 +527,7 @@ concepts:
 
   - id: circuit-breaker
     unit: 6
+    prerequisites: [retry-backoff-jitter]
     title: Circuit breaker
     objectives:
       - Bisa menjelaskan tiga state circuit breaker (closed, open, half-open) dan transisinya
@@ -493,6 +538,7 @@ concepts:
 
   - id: load-shedding
     unit: 6
+    prerequisites: [rate-limiting, capacity-headroom, backpressure-consumer-lag]
     title: Load shedding dan graceful degradation
     objectives:
       - Bisa membedakan load shedding (menolak sebagian request saat server hampir jenuh) dari rate limiting (membatasi per klien)
@@ -504,6 +550,7 @@ concepts:
 
   - id: cascading-failure
     unit: 6
+    prerequisites: [retry-backoff-jitter, capacity-headroom, load-balancer-reverse-proxy]
     title: Cascading failure
     objectives:
       - Bisa menelusuri bagaimana satu komponen yang kelebihan beban menyebabkan komponen lain gagal berurutan
@@ -515,6 +562,7 @@ concepts:
 
   - id: metastable-failure
     unit: 6
+    prerequisites: [cascading-failure, load-shedding, cache-stampede-hot-keys]
     title: Metastable failure
     objectives:
       - Bisa mengenali pola sistem yang tetap gagal setelah pemicu awalnya hilang
@@ -527,6 +575,7 @@ concepts:
 
   - id: observability
     unit: 6
+    prerequisites: [basic-monitoring, api-design-rest-grpc]
     title: Observability - trace dan penelusuran lintas service
     objectives:
       - Bisa menelusuri satu request lambat lewat distributed trace dan correlation id untuk menemukan service penyebabnya
@@ -538,6 +587,7 @@ concepts:
 
   - id: safe-deploys
     unit: 6
+    prerequisites: [sli-slo, load-balancer-reverse-proxy]
     title: Deploy aman - canary, blue-green, dan feature flag
     objectives:
       - Bisa membandingkan rolling, blue-green, dan canary dari sisi risiko dan biaya
