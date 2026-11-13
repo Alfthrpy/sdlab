@@ -7,7 +7,7 @@ owner: human
 review: human
 status: todo
 priority: high
-depends_on: [P1-016, P1-017, P1-018]
+depends_on: [P1-016, P1-017, P1-018, P1-072, P1-073, P1-074, P1-075, P1-076, P1-077]
 estimate: 1
 outputs:
   - references/registry.yaml

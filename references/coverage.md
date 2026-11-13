@@ -168,3 +168,13 @@ Actions use four labels: **research** (new research ticket, agent), **accept** (
 - Every sub-topic has at least one free Tier 1-2 source, so no sub-topic is blocked by the ticket's own rule, and every unit meets the PLAN's G0 criterion (Units 0 and 4 only narrowly).
 - Ten sub-topics have at most one free concept source (A1-A9, A10); several rest mostly on official docs. Four more Unit 0 gaps are listed in A11-A14. Of these, A1, A2, A6, A7, A8, A9 deserve research tickets; A3, A4 are acceptable; A5 is best merged with Load balancer.
 - Suggested follow-up tickets (not created yet): Unit 0 gaps (A1, A2, A11-A13), Unit 3 depth (A7, A8, B5), Unit 4 depth (A9, A10, B7, B8), Unit 5/6 depth (B9, B11, B12), pinning moving URLs (C4). The owner decides at G0 which are worth doing before M2.
+
+## Dispositions (recorded 2026-11-13, delegated by the owner)
+
+The owner read the summary and delegated the gap list to the agent.
+
+- **research:** A1, A2, A11, A12, A13 -> P1-072; A6 -> P1-073; A7, A8, B5 -> P1-074; A9, A10, B7, B8 -> P1-075; B9, B12 -> P1-076; C4 -> P1-077.
+- **accept (docs-only or existing sources are enough for v1):** A3, A4, A14, B1, B2, B3, B4, B6, B10, B13, B14, C2, C6.
+- **merge in M2 (P1-020):** A5 Reverse proxy folds into Load balancer as one concept.
+- **drop from v1:** adaptive concurrency limits (part of B12).
+- **left to the owner / later:** B11 (full read of Tail at Scale, blocked for agents) and C1 (`ddia-2e` chapter list, then per-unit `free_companion`) need the owner. C3 (abstract-only reads) is done before M4 when the citing concepts are written. C5 is covered by P1-070 (done).
