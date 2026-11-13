@@ -1,9 +1,8 @@
 # Reference Registry — the only list of sources that content may cite.
 # Schema: docs/conventions/content-schema.md §1. Protocol: docs/conventions/research-protocol.md.
 #
-# SEED 2026-11-12: the entries below come from the initial research (planning conversation).
-# Some metadata was taken from search results, not from fully opened pages.
-# All are candidates and MUST be re-verified in ticket P1-016.
+# All entries were re-verified in P1-016 (and sub-tickets 016a-g); `verified_on` records the date.
+# Two entries could not be fully re-opened and are tracked in P1-071.
 
 sources:
   - id: ddia-2e
@@ -2906,8 +2905,9 @@ sources:
     units: [6]
     topics: [rolling-update, rollback, safe-deploy, max-surge, canary]
     status: candidate
+    attribution: "Sebagian materi diadaptasi dari 'Deployments' dalam dokumentasi Kubernetes oleh The Kubernetes Authors, CC BY 4.0, https://kubernetes.io/docs/concepts/workloads/controllers/deployment/. Telah diubah."
     version: "unversioned /docs/ path (current docs); page last modified 2026-07-07"
-    notes: "NO-AUTHOR / NO-DATE: project docs; last-modified date is in the version field. Footer: content licensed CC BY 4.0, (c) 2026 The Kubernetes Authors (read from the second part of the fetched page). Rolling update with maxSurge/maxUnavailable (defaults 25%), rollout undo and revisionHistoryLimit (default 10); no built-in canary mode, it describes running a second Deployment. Long page; only the rolling update, rollback and canary parts were read. Attribution line still to be written when approved. Reopened 2026-11-12; footer 'Documentation Distributed under CC BY 4.0' confirmed."
+    notes: "NO-AUTHOR / NO-DATE: project docs; last-modified date is in the version field. Footer: content licensed CC BY 4.0, (c) 2026 The Kubernetes Authors (read from the second part of the fetched page). Rolling update with maxSurge/maxUnavailable (defaults 25%), rollout undo and revisionHistoryLimit (default 10); no built-in canary mode, it describes running a second Deployment. Long page; only the rolling update, rollback and canary parts were read. Reopened 2026-11-12; footer 'Documentation Distributed under CC BY 4.0' confirmed."
 
   # ---- P1-015: official postmortems (Tier 4), all opened 2026-11-12. License: no open license; rewrite-only. ----
 

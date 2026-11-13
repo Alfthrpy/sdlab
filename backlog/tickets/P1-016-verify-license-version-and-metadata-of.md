@@ -5,7 +5,7 @@ milestone: M1
 type: research
 owner: agent
 review: agent
-status: todo
+status: done
 priority: high
 depends_on: [P1-011, P1-012, P1-013, P1-014, P1-015, P1-069, P1-016a, P1-016b, P1-016c, P1-016d, P1-016e, P1-016f, P1-016g]
 estimate: 2
@@ -27,13 +27,15 @@ Includes the 11 SEED entries from the initial research, some of whose metadata c
 
 ## Done criteria
 
-- [ ] No entry has empty `published` or `authors` unless truly unavailable (explained in notes)
-- [ ] No `license: unknown` without an explanation
-- [ ] All 'SEED' notes are removed or resolved
-- [ ] Every entry intended for approval has `verified_on` (and `attribution` where required)
-- [ ] `source-verifier` passes
-- [ ] `python scripts/validate.py` passes
+- [x] No entry has empty `published` or `authors` unless truly unavailable (explained in notes)
+- [x] No `license: unknown` without an explanation
+- [x] All 'SEED' notes are removed or resolved
+- [x] Every entry intended for approval has `verified_on` (and `attribution` where required) — except Little 2011 and Codd 1970, tracked in P1-071
+- [x] `source-verifier` passes
+- [x] `python scripts/validate.py` passes
 
 ## Notes
 
 Split on 2026-11-12 into P1-016a–g (one per primary unit 0–6, 20–26 entries each) because 163 candidate entries do not fit one session. This ticket closes when all seven are done and a final `python scripts/validate.py` plus a sample `source-verifier` pass confirm the done criteria across the whole registry.
+
+2026-11-13: Final pass done. Whole-registry script check, k8s attribution added, SEED header removed, `source-verifier` sample (11 entries) passed. Exceptions: two entries without `verified_on` are in P1-071. See `sessions/2026-11-13-P1-016.md`.
