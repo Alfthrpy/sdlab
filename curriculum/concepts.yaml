@@ -1,4 +1,4 @@
-# Concept list v0 (P1-020) with prerequisites (P1-021). Sources are added in P1-023.
+# Concept list v0 (P1-020) with prerequisites (P1-021). Sources mapped in P1-023.
 # Learner-facing text (title, objectives, trigger) is Indonesian; ids and keys are English.
 #
 # v1 scope notes (deliberately deferred; the list is capped at 50 concepts):
@@ -14,6 +14,7 @@ concepts:
   - id: request-lifecycle
     unit: 0
     prerequisites: []
+    sources: [mdn-http-overview, nginx-reverse-proxy-admin-guide]
     title: Perjalanan satu request di satu mesin
     objectives:
       - Bisa menggambar urutan tahap yang dilalui sebuah HTTP request dari browser sampai database dan kembali
@@ -24,6 +25,7 @@ concepts:
   - id: app-plus-database
     unit: 0
     prerequisites: [request-lifecycle]
+    sources: [twelve-factor-app, sqlite-appropriate-uses, craver-stack-overflow-architecture-2016]
     title: Satu aplikasi dan satu database
     objectives:
       - Bisa menghitung dari angka pengguna dan request per detik bahwa satu aplikasi dengan satu database masih cukup untuk sebuah produk
@@ -34,6 +36,7 @@ concepts:
   - id: indexes-query-basics
     unit: 0
     prerequisites: [app-plus-database]
+    sources: [use-the-index-luke, pg-docs-indexes-intro, pg-docs-using-explain, mysql-84-optimization-indexes]
     title: Index dan dasar optimasi query
     objectives:
       - Bisa membaca output EXPLAIN dan menentukan apakah sebuah query memakai index atau full scan
@@ -45,6 +48,7 @@ concepts:
   - id: connection-pooling
     unit: 0
     prerequisites: [app-plus-database]
+    sources: [pg-wiki-number-of-connections, hikaricp-about-pool-sizing, pg-docs-connections, pgbouncer-features]
     title: Connection pooling
     objectives:
       - Bisa menjelaskan mengapa membuka koneksi database baru di setiap request memboroskan sumber daya
@@ -56,6 +60,7 @@ concepts:
   - id: backup-recovery
     unit: 0
     prerequisites: [app-plus-database]
+    sources: [pg-docs-backup-restore, mysql-84-backup-recovery, atlassian-pir-april-2022]
     title: Backup dan recovery dasar
     objectives:
       - Bisa membedakan backup (salinan terpisah berkala) dari replica/mirror (dibahas di Unit 3), dari sisi jenis kerusakan yang masing-masing lindungi
@@ -67,6 +72,7 @@ concepts:
   - id: simple-deploys
     unit: 0
     prerequisites: [app-plus-database]
+    sources: [twelve-factor-app, systemd-service-man, fowler-bluegreen-deployment]
     title: Deploy sederhana di satu server
     objectives:
       - Bisa menyusun langkah deploy satu versi baru, termasuk migrasi database dan rollback
@@ -78,6 +84,7 @@ concepts:
   - id: basic-monitoring
     unit: 0
     prerequisites: [request-lifecycle]
+    sources: [google-sre-book-monitoring-ch6, prometheus-instrumentation-practices, aws-builders-implementing-health-checks, twelve-factor-app]
     title: Monitoring dasar - log, metrik, dan health check
     objectives:
       - Bisa membedakan kegunaan log, metrik, dan health check untuk satu masalah yang sama
@@ -89,6 +96,7 @@ concepts:
   - id: single-machine-limits
     unit: 0
     prerequisites: [basic-monitoring, connection-pooling]
+    sources: [gregg-use-method, pg-docs-kernel-resources, google-sre-book-monitoring-ch6, craver-stack-overflow-architecture-2016]
     title: Batas satu mesin dan cara mengenalinya
     objectives:
       - Bisa mengenali apakah CPU, memori, disk, atau jumlah koneksi yang menjadi bottleneck dari gejala dan metrik
@@ -101,6 +109,7 @@ concepts:
   - id: latency-throughput
     unit: 1
     prerequisites: [request-lifecycle]
+    sources: [brooker-tail-latency-matters, tene-how-not-to-measure-latency, brooker-telling-stories-littles-law, aws-builders-load-shedding]
     title: Latency dan throughput
     objectives:
       - Bisa membedakan latency dan throughput dan menjelaskan mengapa menaikkan satu tidak otomatis menaikkan yang lain
@@ -112,6 +121,7 @@ concepts:
   - id: percentiles-tail-latency
     unit: 1
     prerequisites: [latency-throughput]
+    sources: [sre-book-slo-ch4, brooker-tail-latency-matters, tene-how-not-to-measure-latency, tail-at-scale-cacm13, prometheus-histograms-practices]
     title: Percentile dan tail latency
     objectives:
       - Bisa menghitung p50, p95, dan p99 dari sekumpulan data latency
@@ -124,6 +134,7 @@ concepts:
   - id: littles-law
     unit: 1
     prerequisites: [latency-throughput, connection-pooling]
+    sources: [brooker-telling-stories-littles-law, little-2011-littles-law-50th]
     title: Little's law
     objectives:
       - Bisa memakai L = λW untuk menghitung jumlah request yang sedang diproses dari throughput dan latency
@@ -135,6 +146,7 @@ concepts:
   - id: back-of-envelope-estimation
     unit: 1
     prerequisites: [latency-throughput, single-machine-limits]
+    sources: [dean-software-engineering-advice-slides, brooker-telling-stories-littles-law, sre-book-handling-overload-ch21]
     title: Estimasi kasar (back-of-envelope)
     objectives:
       - Bisa memperkirakan QPS puncak, kebutuhan storage, dan bandwidth dari jumlah pengguna dan pola pemakaian
@@ -146,6 +158,7 @@ concepts:
   - id: sli-slo
     unit: 1
     prerequisites: [percentiles-tail-latency, basic-monitoring]
+    sources: [sre-book-slo-ch4, sre-book-embracing-risk-ch3, sre-workbook-implementing-slos]
     title: SLI, SLO, dan error budget
     objectives:
       - Bisa memilih SLI yang relevan untuk sebuah service dan menulis SLO yang terukur
@@ -158,6 +171,7 @@ concepts:
   - id: capacity-headroom
     unit: 1
     prerequisites: [littles-law, single-machine-limits, sli-slo]
+    sources: [sre-book-handling-overload-ch21, gregg-use-method, brooker-telling-stories-littles-law]
     title: Headroom kapasitas
     objectives:
       - Bisa menghitung headroom dari beban puncak terukur dan kapasitas terukur satu server (misalnya dari load test)
@@ -170,6 +184,7 @@ concepts:
   - id: stateless-services-sessions
     unit: 2
     prerequisites: [app-plus-database]
+    sources: [twelve-factor-app, fielding-rest-dissertation-ch5, mdn-http-overview, system-design-primer]
     title: Service stateless dan session
     objectives:
       - Bisa mengenali state di dalam proses aplikasi (session di memori, file lokal, cache lokal) yang mencegah request dilayani instance mana pun
@@ -181,6 +196,7 @@ concepts:
   - id: dns-networking-basics
     unit: 2
     prerequisites: [latency-throughput]
+    sources: [sre-book-load-balancing-frontend-ch19, system-design-primer, mdn-http-overview]
     title: Dasar DNS dan jaringan - DNS, TTL, TCP, dan TLS
     objectives:
       - Bisa menggambar tahap resolusi DNS dan menjelaskan bagaimana TTL memengaruhi kecepatan perpindahan traffic ke alamat baru
@@ -193,6 +209,7 @@ concepts:
   - id: load-balancer-reverse-proxy
     unit: 2
     prerequisites: [stateless-services-sessions, dns-networking-basics, single-machine-limits, simple-deploys]
+    sources: [sre-book-load-balancing-frontend-ch19, nginx-http-load-balancing, envoy-docs-lb-overview, nginx-reverse-proxy-admin-guide, maglev-nsdi16]
     title: Load balancer dan reverse proxy
     objectives:
       - Bisa menjelaskan bagaimana satu alamat dapat melayani beberapa instance aplikasi di belakangnya, termasuk fungsi reverse proxy (TLS termination, routing, buffering)
@@ -205,6 +222,7 @@ concepts:
   - id: caching-basics
     unit: 2
     prerequisites: [indexes-query-basics, latency-throughput]
+    sources: [azure-cache-aside-pattern, aws-builders-caching-challenges, mdn-http-caching, system-design-primer]
     title: Dasar caching
     objectives:
       - Bisa menjelaskan kapan cache-aside lebih cocok daripada write-through atau write-back
@@ -217,6 +235,7 @@ concepts:
   - id: cache-stampede-hot-keys
     unit: 2
     prerequisites: [caching-basics]
+    sources: [aws-builders-caching-challenges, nishtala-memcache-nsdi13, cloudflare-workers-kv-outage-2025-06-12]
     title: Cache stampede dan hot key
     objectives:
       - Bisa menjelaskan bagaimana kunci yang kedaluwarsa bersamaan membanjiri database
@@ -229,6 +248,7 @@ concepts:
   - id: cdn
     unit: 2
     prerequisites: [caching-basics, dns-networking-basics]
+    sources: [mdn-cdn-glossary, mdn-http-caching, cloudflare-docs-default-cache-behavior, system-design-primer]
     title: CDN
     objectives:
       - Bisa menentukan konten mana yang cocok disajikan lewat CDN dan mana yang tidak
@@ -241,6 +261,7 @@ concepts:
   - id: api-design-rest-grpc
     unit: 2
     prerequisites: [request-lifecycle]
+    sources: [fielding-rest-dissertation-ch5, microsoft-rest-api-guidelines, grpc-core-concepts, aip-dev-api-improvement-proposals, rfc-9110-http-semantics]
     title: Desain API - REST dan gRPC
     objectives:
       - Bisa membandingkan REST dan gRPC dari sisi format, kontrak, dan kecocokan untuk klien publik atau antar-service
@@ -253,6 +274,7 @@ concepts:
   - id: idempotency
     unit: 2
     prerequisites: [api-design-rest-grpc, app-plus-database]
+    sources: [aws-builders-idempotent-apis, stripe-blog-idempotency, stripe-docs-idempotent-requests, rfc-9110-http-semantics]
     title: Idempotency
     objectives:
       - Bisa membedakan operasi yang idempotent dan yang tidak, termasuk pada metode HTTP
@@ -265,6 +287,7 @@ concepts:
   - id: rate-limiting
     unit: 2
     prerequisites: [load-balancer-reverse-proxy]
+    sources: [sre-book-handling-overload-ch21, aws-builders-load-shedding]
     title: Rate limiting
     objectives:
       - Bisa membandingkan algoritma token bucket, fixed window, dan sliding window dari sisi burst dan akurasi
@@ -279,6 +302,7 @@ concepts:
   - id: data-models
     unit: 3
     prerequisites: [app-plus-database]
+    sources: [codd-relational-model-1970, mongodb-docs-data-modeling, neo4j-graph-database-concepts, dynamo-sosp07, bigtable-osdi06]
     title: Model data - relasional, dokumen, key-value, dan graph
     objectives:
       - Bisa memilih model data (relasional, dokumen, key-value, graph) untuk sebuah kebutuhan berdasarkan pola akses dan relasi antar data
@@ -290,6 +314,7 @@ concepts:
   - id: index-structures
     unit: 3
     prerequisites: [indexes-query-basics]
+    sources: [oneil-lsm-tree, pg-docs-index-types, use-the-index-luke, bigtable-osdi06]
     title: Struktur index - B-tree dan LSM-tree
     objectives:
       - Bisa membandingkan B-tree dan LSM-tree dari sisi biaya baca, tulis, dan write amplification
@@ -301,6 +326,7 @@ concepts:
   - id: replication
     unit: 3
     prerequisites: [backup-recovery]
+    sources: [pg-docs-log-shipping-standby, mysql-84-replication, couchdb-docs-replication-intro, dynamo-sosp07]
     title: Replication leader-follower
     objectives:
       - Bisa menjelaskan alur replication satu leader dengan beberapa follower, sinkron maupun asinkron
@@ -313,6 +339,7 @@ concepts:
   - id: replication-lag-failover
     unit: 3
     prerequisites: [replication]
+    sources: [pg-docs-high-availability, pg-docs-log-shipping-standby, mysql-84-replication]
     title: Replication lag dan failover
     objectives:
       - Bisa mendiagnosis kegagalan read-your-writes akibat replication lag dan memilih mitigasinya (baca dari leader setelah menulis, baca dengan syarat posisi replikasi)
@@ -325,6 +352,7 @@ concepts:
   - id: partitioning-sharding
     unit: 3
     prerequisites: [replication]
+    sources: [notion-sharding-postgres-2021, mongodb-docs-sharding, pg-docs-table-partitioning, dynamodb-docs-partition-key-design]
     title: Partitioning dan sharding
     objectives:
       - Bisa memilih partition key dan menjelaskan risiko hot partition
@@ -337,6 +365,7 @@ concepts:
   - id: consistent-hashing
     unit: 3
     prerequisites: [partitioning-sharding, caching-basics]
+    sources: [karger-consistent-hashing, dynamo-sosp07, cassandra-docs-dynamo]
     title: Consistent hashing
     objectives:
       - Bisa menjelaskan mengapa hash modulo N memindahkan hampir semua key saat jumlah node berubah
@@ -348,6 +377,7 @@ concepts:
   - id: transactions-acid
     unit: 3
     prerequisites: [app-plus-database]
+    sources: [pg-docs-mvcc-intro, pg-docs-transaction-iso, jepsen-consistency-models]
     title: Transaksi dan ACID
     objectives:
       - Bisa menjelaskan arti atomicity, consistency, isolation, dan durability dengan contoh transfer saldo
@@ -359,6 +389,7 @@ concepts:
   - id: isolation-levels
     unit: 3
     prerequisites: [transactions-acid]
+    sources: [pg-docs-transaction-iso, berenson-critique-ansi-isolation-1995, pg-docs-mvcc-intro, jepsen-consistency-models]
     title: Isolation level dan anomali
     objectives:
       - Bisa mengenali anomali (dirty read, lost update, write skew) dari sebuah urutan operasi
@@ -371,6 +402,7 @@ concepts:
   - id: message-queue
     unit: 4
     prerequisites: [latency-throughput]
+    sources: [aws-sqs-standard-queues, rabbitmq-tutorial-work-queues, azure-queue-based-load-leveling, azure-competing-consumers, aws-sqs-dead-letter-queues]
     title: Message queue
     objectives:
       - Bisa menentukan pekerjaan mana yang layak dipindah dari jalur request ke antrian
@@ -383,6 +415,7 @@ concepts:
   - id: event-log-streaming
     unit: 4
     prerequisites: [message-queue, partitioning-sharding]
+    sources: [kafka-docs-design, kafka-docs-introduction, kafka-netdb-2011, azure-publisher-subscriber]
     title: Log dan event streaming
     objectives:
       - Bisa membedakan message queue dan log yang append-only dari sisi retensi, replay, dan consumer group
@@ -394,6 +427,7 @@ concepts:
   - id: delivery-semantics
     unit: 4
     prerequisites: [message-queue, idempotency]
+    sources: [confluent-exactly-once-2017, kafka-docs-design, aws-sqs-visibility-timeout, rabbitmq-docs-confirms, microservices-io-idempotent-consumer]
     title: Semantik pengiriman - at-most-once, at-least-once, exactly-once
     objectives:
       - Bisa membedakan tiga semantik pengiriman dan kapan pesan hilang atau terduplikasi
@@ -406,6 +440,7 @@ concepts:
   - id: outbox-cdc
     unit: 4
     prerequisites: [delivery-semantics, transactions-acid]
+    sources: [microservices-io-transactional-outbox, debezium-outbox-pattern-2019, debezium-docs-outbox-event-router, microservices-io-idempotent-consumer]
     title: Transactional outbox dan change data capture
     objectives:
       - Bisa menjelaskan masalah dual write antara database dan message broker
@@ -418,6 +453,7 @@ concepts:
   - id: backpressure-consumer-lag
     unit: 4
     prerequisites: [message-queue, littles-law, basic-monitoring]
+    sources: [aws-builders-insurmountable-queue-backlogs, azure-queue-based-load-leveling, kafka-docs-basic-operations, nodejs-backpressure-streams]
     title: Backpressure dan consumer lag
     objectives:
       - Bisa mendiagnosis antrian yang terus memanjang dari metrik umur pesan dan consumer lag
@@ -431,6 +467,7 @@ concepts:
   - id: cap-pacelc
     unit: 5
     prerequisites: [consistency-models, latency-throughput]
+    sources: [brewer-cap-twelve-years-2012, abadi-pacelc-2012, kleppmann-stop-calling-cp-ap-2015, sre-book-managing-critical-state-ch23]
     title: CAP dan PACELC
     objectives:
       - Bisa menentukan, untuk satu operasi saat network partition terjadi, apakah operasi itu ditolak atau dijawab dengan data yang mungkin basi, beserta akibatnya bagi pengguna
@@ -442,6 +479,7 @@ concepts:
   - id: consistency-models
     unit: 5
     prerequisites: [replication-lag-failover, time-and-clocks]
+    sources: [jepsen-consistency-models, vogels-eventually-consistent-2008, kleppmann-stop-calling-cp-ap-2015, dynamo-sosp07]
     title: Model konsistensi
     objectives:
       - Bisa membedakan linearizability, causal, dan eventual consistency lewat contoh urutan operasi (sequential consistency hanya sebagai catatan tambahan)
@@ -454,6 +492,7 @@ concepts:
   - id: consensus
     unit: 5
     prerequisites: [consistency-models]
+    sources: [raft-extended-paper, lamport-paxos-made-simple, sre-book-managing-critical-state-ch23, flp-impossibility-1985]
     title: Consensus dan leader election
     objectives:
       - Bisa menjelaskan masalah yang diselesaikan consensus dan mengapa dibutuhkan mayoritas node
@@ -466,6 +505,7 @@ concepts:
   - id: locks-leases-fencing
     unit: 5
     prerequisites: [consensus, idempotency, transactions-acid]
+    sources: [kleppmann-distributed-locking-2016, chubby-lock-service, zookeeper-atc-paper]
     title: Lock terdistribusi, lease, dan fencing token
     objectives:
       - Bisa menjelaskan mengapa lock terdistribusi tanpa lease bisa macet selamanya
@@ -478,6 +518,7 @@ concepts:
   - id: distributed-transactions
     unit: 5
     prerequisites: [outbox-cdc, consensus, isolation-levels]
+    sources: [spanner-osdi12, microservices-io-transactional-outbox]
     title: Transaksi terdistribusi - saga dan two-phase commit
     objectives:
       - Bisa menjelaskan alur two-phase commit dan mengapa koordinator yang mati membuat peserta tertahan
@@ -490,6 +531,7 @@ concepts:
   - id: time-and-clocks
     unit: 5
     prerequisites: [replication]
+    sources: [lamport-time-clocks-1978, spanner-osdi12, cockroach-living-without-atomic-clocks]
     title: Waktu dan jam di sistem terdistribusi
     objectives:
       - Bisa menjelaskan mengapa jam fisik antar mesin tidak bisa dipakai untuk mengurutkan peristiwa dengan pasti
@@ -504,6 +546,7 @@ concepts:
   - id: timeouts
     unit: 6
     prerequisites: [api-design-rest-grpc, littles-law, percentiles-tail-latency]
+    sources: [aws-builders-timeouts-retries, grpc-docs-deadlines, sre-book-addressing-cascading-failures-ch22]
     title: Timeout dan deadline
     objectives:
       - Bisa menentukan nilai timeout dari distribusi latency dependency
@@ -516,6 +559,7 @@ concepts:
   - id: retry-backoff-jitter
     unit: 6
     prerequisites: [timeouts, idempotency]
+    sources: [aws-arch-blog-exponential-backoff-jitter, aws-builders-timeouts-retries, azure-retry-pattern, grpc-docs-retry]
     title: Retry, exponential backoff, dan jitter
     objectives:
       - Bisa merancang kebijakan retry dengan jumlah maksimum dan backoff eksponensial yang diberi jitter
@@ -528,6 +572,7 @@ concepts:
   - id: circuit-breaker
     unit: 6
     prerequisites: [retry-backoff-jitter]
+    sources: [fowler-circuit-breaker, azure-circuit-breaker-pattern, aws-builders-timeouts-retries]
     title: Circuit breaker
     objectives:
       - Bisa menjelaskan tiga state circuit breaker (closed, open, half-open) dan transisinya
@@ -539,6 +584,7 @@ concepts:
   - id: load-shedding
     unit: 6
     prerequisites: [rate-limiting, capacity-headroom, backpressure-consumer-lag]
+    sources: [aws-builders-load-shedding, sre-book-handling-overload-ch21, sre-book-addressing-cascading-failures-ch22]
     title: Load shedding dan graceful degradation
     objectives:
       - Bisa membedakan load shedding (menolak sebagian request saat server hampir jenuh) dari rate limiting (membatasi per klien)
@@ -551,6 +597,7 @@ concepts:
   - id: cascading-failure
     unit: 6
     prerequisites: [retry-backoff-jitter, capacity-headroom, load-balancer-reverse-proxy]
+    sources: [sre-book-addressing-cascading-failures-ch22, sre-book-handling-overload-ch21, aws-builders-load-shedding]
     title: Cascading failure
     objectives:
       - Bisa menelusuri bagaimana satu komponen yang kelebihan beban menyebabkan komponen lain gagal berurutan
@@ -563,6 +610,7 @@ concepts:
   - id: metastable-failure
     unit: 6
     prerequisites: [cascading-failure, load-shedding, cache-stampede-hot-keys]
+    sources: [metastable-failures-hotos21, metastable-failures-osdi22, sre-book-addressing-cascading-failures-ch22]
     title: Metastable failure
     objectives:
       - Bisa mengenali pola sistem yang tetap gagal setelah pemicu awalnya hilang
@@ -576,6 +624,7 @@ concepts:
   - id: observability
     unit: 6
     prerequisites: [basic-monitoring, api-design-rest-grpc]
+    sources: [opentelemetry-docs-observability-primer, dapper-2010, google-sre-book-monitoring-ch6, grafana-red-method]
     title: Observability - trace dan penelusuran lintas service
     objectives:
       - Bisa menelusuri satu request lambat lewat distributed trace dan correlation id untuk menemukan service penyebabnya
@@ -588,6 +637,7 @@ concepts:
   - id: safe-deploys
     unit: 6
     prerequisites: [sli-slo, load-balancer-reverse-proxy]
+    sources: [sre-workbook-canarying-releases-ch16, aws-builders-automating-safe-deployments, fowler-bluegreen-deployment, hodgson-feature-toggles]
     title: Deploy aman - canary, blue-green, dan feature flag
     objectives:
       - Bisa membandingkan rolling, blue-green, dan canary dari sisi risiko dan biaya
