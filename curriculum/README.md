@@ -6,6 +6,7 @@ Files in this folder are created in milestone M2. Structural fields are English;
 | --- | --- | --- |
 | `concepts.yaml` | P1-020, P1-021, P1-023 | `docs/conventions/content-schema.md` §2 |
 | `case-studies.yaml` | P1-022 | `docs/conventions/content-schema.md` §3 |
+| `graph.md` | P1-021 | Generated from `concepts.yaml` by `python scripts/graph.py` (Mermaid prerequisite graph); `validate.py` fails if it is stale |
 
 ## Reader prerequisite knowledge
 

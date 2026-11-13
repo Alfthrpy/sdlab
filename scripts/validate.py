@@ -312,6 +312,42 @@ def check_registry() -> dict[str, dict]:
 
 
 # --------------------------------------------------------------------------- curriculum
+def check_prerequisite_graph(where: str, concepts: dict, has_cycle: bool) -> None:
+    """P1-021: prerequisites point backward in unit order, stay minimal, and every concept is reachable from Unit 0."""
+    for cid, c in concepts.items():
+        w = f"{where} [{cid}]"
+        prereqs = [p for p in (c.get("prerequisites") or []) if p in concepts]
+        for p in prereqs:
+            pu, cu = concepts[p].get("unit"), c.get("unit")
+            if isinstance(pu, int) and isinstance(cu, int) and pu > cu:
+                err(w, f"prerequisite {p} is in a later unit ({pu}) than the concept ({cu})")
+        # growth ladder: units 1–6 must hang off the earlier stages, so a concept with no prerequisites is a root,
+        # and only Unit 0 may have roots (otherwise the concept cannot be reached from the single-server baseline)
+        if not prereqs and c.get("unit") not in (0, None):
+            msg = "no prerequisites: a concept in units 1–6 must build on an earlier concept (unreachable from Unit 0)"
+            if c.get("status") in ("review", "published"):
+                err(w, msg)
+            else:
+                warn(w, msg)
+    if has_cycle:
+        return
+    graph = {k: [p for p in (v.get("prerequisites") or []) if p in concepts] for k, v in concepts.items()}
+    memo: dict[str, set[str]] = {}
+
+    def ancestors(n: str) -> set[str]:
+        if n not in memo:
+            memo[n] = set()
+            for p in graph[n]:
+                memo[n] |= {p} | ancestors(p)
+        return memo[n]
+
+    for cid, prereqs in graph.items():
+        for p in prereqs:
+            via = [q for q in prereqs if q != p and p in ancestors(q)]
+            if via:
+                warn(f"{where} [{cid}]", f"redundant prerequisite {p}: already implied through {via[0]}")
+
+
 def check_curriculum(registry: dict[str, dict]) -> dict[str, dict]:
     data = load_yaml(CONCEPTS)
     if data is None:
@@ -365,6 +401,7 @@ def check_curriculum(registry: dict[str, dict]) -> dict[str, dict]:
     cyc = find_cycle({k: list(v.get("prerequisites") or []) for k, v in concepts.items()})
     if cyc:
         err(where, "prerequisite cycle: " + " -> ".join(cyc))
+    check_prerequisite_graph(where, concepts, bool(cyc))
 
     cases = load_yaml(CASES)
     if cases is not None:
@@ -502,10 +539,24 @@ def check_content(registry: dict[str, dict], concepts: dict[str, dict]):
             err(rel(d), "published concept without questions.yaml")
 
 
+def check_graph_fresh() -> None:
+    """curriculum/graph.md is generated from concepts.yaml (scripts/graph.py); a stale copy is an error."""
+    import graph
+    try:
+        text = graph.build()
+    except SystemExit as e:
+        err("curriculum/graph.md", f"cannot generate graph: {e}")
+        return
+    if not graph.OUT.exists() or graph.OUT.read_text() != text:
+        err("curriculum/graph.md", "out of date: run python scripts/graph.py")
+
+
 def main():
     check_tickets()
     registry = check_registry()
     concepts = check_curriculum(registry)
+    if not errors:  # graph.py needs a valid, acyclic prerequisite graph
+        check_graph_fresh()
     check_content(registry, concepts)
     for line in warnings:
         print(line)
