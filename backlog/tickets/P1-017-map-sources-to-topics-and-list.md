@@ -5,7 +5,7 @@ milestone: M1
 type: research
 owner: agent
 review: agent
-status: in-progress
+status: done
 priority: medium
 depends_on: [P1-016]
 estimate: 1
@@ -25,10 +25,10 @@ Input for the G0 decision: is every unit covered by adequate sources.
 
 ## Done criteria
 
-- [ ] `references/coverage.md` contains the matrix and the gap list
-- [ ] Every gap has a proposed action
-- [ ] `python scripts/validate.py` passes
+- [x] `references/coverage.md` contains the matrix and the gap list
+- [x] Every gap has a proposed action
+- [x] `python scripts/validate.py` passes
 
 ## Notes
 
-(Filled in during the work.)
+2026-11-13: `references/coverage.md` written (matrix, G0 per-unit check, gap list with actions). All units meet the PLAN G0 criterion; Units 0 and 4 only narrowly. `source-verifier` failed the first pass; fixes applied, no second pass. No follow-up tickets created yet, see the Summary for G0 in the file. See `sessions/2026-11-13-P1-017.md`.
