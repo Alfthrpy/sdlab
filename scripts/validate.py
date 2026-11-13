@@ -312,11 +312,23 @@ def check_registry() -> dict[str, dict]:
 
 
 # --------------------------------------------------------------------------- curriculum
+def prereq_list(c: dict) -> list[str]:
+    """The concept's prerequisites if well-formed (a list of strings), else [] (the type error is reported separately)."""
+    raw = c.get("prerequisites")
+    return list(raw) if isinstance(raw, list) and all(isinstance(p, str) for p in raw) else []
+
+
 def check_prerequisite_graph(where: str, concepts: dict, has_cycle: bool) -> None:
     """P1-021: prerequisites point backward in unit order, stay minimal, and every concept is reachable from Unit 0."""
     for cid, c in concepts.items():
         w = f"{where} [{cid}]"
-        prereqs = [p for p in (c.get("prerequisites") or []) if p in concepts]
+        raw = c.get("prerequisites")
+        if raw is not None and not (isinstance(raw, list) and all(isinstance(p, str) for p in raw)):
+            err(w, f"prerequisites must be a list of concept ids, got {raw!r}")
+            continue
+        if raw and len(set(raw)) != len(raw):
+            err(w, "duplicate entries in prerequisites")
+        prereqs = [p for p in (raw or []) if p in concepts]
         for p in prereqs:
             pu, cu = concepts[p].get("unit"), c.get("unit")
             if isinstance(pu, int) and isinstance(cu, int) and pu > cu:
@@ -331,7 +343,7 @@ def check_prerequisite_graph(where: str, concepts: dict, has_cycle: bool) -> Non
                 warn(w, msg)
     if has_cycle:
         return
-    graph = {k: [p for p in (v.get("prerequisites") or []) if p in concepts] for k, v in concepts.items()}
+    graph = {k: [p for p in prereq_list(v) if p in concepts] for k, v in concepts.items()}
     memo: dict[str, set[str]] = {}
 
     def ancestors(n: str) -> set[str]:
@@ -395,10 +407,10 @@ def check_curriculum(registry: dict[str, dict]) -> dict[str, dict]:
         elif len(srcs) < 2:
             warn(w, "a concept needs ≥ 2 sources before production")
     for cid, c in concepts.items():
-        for p in c.get("prerequisites") or []:
+        for p in prereq_list(c):
             if p not in concepts:
                 err(f"{where} [{cid}]", f"unknown prerequisite: {p}")
-    cyc = find_cycle({k: list(v.get("prerequisites") or []) for k, v in concepts.items()})
+    cyc = find_cycle({k: prereq_list(v) for k, v in concepts.items()})
     if cyc:
         err(where, "prerequisite cycle: " + " -> ".join(cyc))
     check_prerequisite_graph(where, concepts, bool(cyc))
@@ -547,7 +559,7 @@ def check_graph_fresh() -> None:
     except SystemExit as e:
         err("curriculum/graph.md", f"cannot generate graph: {e}")
         return
-    if not graph.OUT.exists() or graph.OUT.read_text() != text:
+    if not graph.OUT.exists() or graph.OUT.read_text(encoding="utf-8") != text:
         err("curriculum/graph.md", "out of date: run python scripts/graph.py")
 
 

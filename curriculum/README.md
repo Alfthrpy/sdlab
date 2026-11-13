@@ -37,3 +37,11 @@ Per ADR 0004 Amendment 1, the course is taught as a ladder: start with a single-
 | 4. Async & streams | Message queue, log, delivery semantics, outbox, backpressure |
 | 5. Consistency & coordination | CAP/PACELC, consistency models, consensus, locks & leases, time & clocks |
 | 6. Production reliability | Timeout, retry + backoff + jitter, circuit breaker, load shedding, cascading & metastable failure, observability, safe deploys |
+
+## Prerequisites (P1-021)
+
+`prerequisites` in `concepts.yaml` lists the concepts whose vocabulary or ideas a lesson uses, kept minimal (no edge that is already implied through another one; `validate.py` warns on redundant edges). Rules checked by `validate.py`: no cycles, no unknown ids, a prerequisite is never in a later unit, and every concept in units 1–6 must build on an earlier one so the whole graph is reachable from `request-lifecycle` in Unit 0. `graph.md` shows the result.
+
+- **Triggers are not prerequisites.** A trigger (for example "CPU above 70%") says when to reach for a concept; it does not by itself require the measurement concept as a prerequisite. A lesson introduces a measurement inline unless the idea is first taught elsewhere. Where a lesson needs a term taught in another concept, that concept is a prerequisite.
+- **Ideas from later units** (for example sharded cache nodes in `cache-stampede-hot-keys`, or timeouts inside lease expiry in `locks-leases-fencing`) cannot be prerequisites, so those lessons explain them in one or two sentences inline.
+
