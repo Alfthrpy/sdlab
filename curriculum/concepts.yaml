@@ -1,0 +1,548 @@
+# Concept list v0 (P1-020). Prerequisites are added in P1-021 (DAG), sources in P1-023.
+# Learner-facing text (title, objectives, trigger) is Indonesian; ids and keys are English.
+#
+# v1 scope notes (deliberately deferred; the list is capped at 50 concepts):
+#   - object storage (blob store, large files)
+#   - search (inverted index, full-text search)
+#   - pub/sub fan-out (feed, notification fan-out)
+#   - WebSocket / server push
+#   - autoscaling
+#   - multi-region (geo-replication, active-active)
+#   - service discovery
+concepts:
+  # ------------------------------------------------------------------ Unit 0: Single-server backend
+  - id: request-lifecycle
+    unit: 0
+    title: Perjalanan satu request di satu mesin
+    objectives:
+      - Bisa menggambar urutan tahap yang dilalui sebuah HTTP request dari browser sampai database dan kembali
+      - Bisa menentukan tahap mana yang paling mungkin lambat jika diberi data waktu per tahap
+    status: planned
+    formats: [lesson, quiz]
+
+  - id: app-plus-database
+    unit: 0
+    title: Satu aplikasi dan satu database
+    objectives:
+      - Bisa menghitung dari angka pengguna dan request per detik bahwa satu aplikasi dengan satu database masih cukup untuk sebuah produk
+      - Bisa membedakan state yang disimpan di database dari state yang hilang saat proses aplikasi restart
+    status: planned
+    formats: [lesson, quiz]
+
+  - id: indexes-query-basics
+    unit: 0
+    title: Index dan dasar optimasi query
+    objectives:
+      - Bisa membaca output EXPLAIN dan menentukan apakah sebuah query memakai index atau full scan
+      - Bisa memilih kolom yang layak diberi index untuk sebuah query yang lambat
+      - Bisa menjelaskan biaya index pada operasi tulis
+    status: planned
+    formats: [lesson, quiz, lab]
+
+  - id: connection-pooling
+    unit: 0
+    title: Connection pooling
+    objectives:
+      - Bisa menjelaskan mengapa membuka koneksi database baru di setiap request memboroskan sumber daya
+      - Bisa menghitung ukuran pool yang masuk akal dari jumlah core, beban query, dan batas koneksi database, lalu memvalidasinya dengan pengukuran
+      - Bisa mendiagnosis gejala pool yang habis (request menunggu koneksi)
+    status: planned
+    formats: [lesson, quiz, lab]
+
+  - id: backup-recovery
+    unit: 0
+    title: Backup dan recovery dasar
+    objectives:
+      - Bisa membedakan backup (salinan terpisah berkala) dari replica/mirror (dibahas di Unit 3), dari sisi jenis kerusakan yang masing-masing lindungi
+      - Bisa menentukan frekuensi backup dari batas kehilangan data (RPO) dan waktu pemulihan (RTO) yang diterima
+      - Bisa menjelaskan mengapa backup yang belum pernah di-restore belum bisa dianggap aman
+    status: planned
+    formats: [lesson, quiz]
+
+  - id: simple-deploys
+    unit: 0
+    title: Deploy sederhana di satu server
+    objectives:
+      - Bisa menyusun langkah deploy satu versi baru, termasuk migrasi database dan rollback
+      - Bisa menjelaskan mengapa deploy langsung ke satu server menyebabkan downtime singkat dan bagaimana menguranginya
+      - Bisa memisahkan konfigurasi dari kode sesuai prinsip twelve-factor
+    status: planned
+    formats: [lesson, quiz]
+
+  - id: basic-monitoring
+    unit: 0
+    title: Monitoring dasar - log, metrik, dan health check
+    objectives:
+      - Bisa membedakan kegunaan log, metrik, dan health check untuk satu masalah yang sama
+      - Bisa memilih metrik minimum untuk memantau sebuah service (rate, error, duration)
+      - Bisa membedakan health check yang hanya menjawab "proses hidup" dari yang memeriksa dependency
+    status: planned
+    formats: [lesson, quiz]
+
+  - id: single-machine-limits
+    unit: 0
+    title: Batas satu mesin dan cara mengenalinya
+    objectives:
+      - Bisa mengenali apakah CPU, memori, disk, atau jumlah koneksi yang menjadi bottleneck dari gejala dan metrik
+      - Bisa menerapkan USE method (utilization, saturation, errors) pada satu resource
+      - Bisa memutuskan apakah menaikkan spesifikasi mesin (vertical scaling) cukup, dari data utilisasi per resource dan batas harga atau spesifikasi mesin terbesar yang tersedia
+    status: planned
+    formats: [lesson, quiz, lab]
+
+  # ------------------------------------------------------------------ Unit 1: Foundations
+  - id: latency-throughput
+    unit: 1
+    title: Latency dan throughput
+    objectives:
+      - Bisa membedakan latency dan throughput dan menjelaskan mengapa menaikkan satu tidak otomatis menaikkan yang lain
+      - Bisa menjelaskan mengapa latency naik tajam ketika utilisasi mendekati penuh
+    trigger: Pengguna mengeluh lambat padahal CPU belum penuh, atau throughput berhenti naik walau traffic bertambah
+    status: planned
+    formats: [lesson, quiz, lab]
+
+  - id: percentiles-tail-latency
+    unit: 1
+    title: Percentile dan tail latency
+    objectives:
+      - Bisa menghitung p50, p95, dan p99 dari sekumpulan data latency
+      - Bisa menjelaskan mengapa rata-rata menyembunyikan request yang lambat
+      - Bisa menghitung peluang pengguna terkena request lambat ketika satu halaman memanggil banyak backend
+    trigger: Rata-rata latency terlihat normal tetapi sebagian pengguna tetap mengeluh lambat
+    status: planned
+    formats: [lesson, quiz]
+
+  - id: littles-law
+    unit: 1
+    title: Little's law
+    objectives:
+      - Bisa memakai L = λW untuk menghitung jumlah request yang sedang diproses dari throughput dan latency
+      - Bisa menentukan ukuran thread pool atau antrian dari target throughput dan latency
+    trigger: Antrian request terus memanjang padahal CPU rendah, atau pool thread/koneksi habis saat jam sibuk
+    status: planned
+    formats: [lesson, quiz, lab]
+
+  - id: back-of-envelope-estimation
+    unit: 1
+    title: Estimasi kasar (back-of-envelope)
+    objectives:
+      - Bisa memperkirakan QPS puncak, kebutuhan storage, dan bandwidth dari jumlah pengguna dan pola pemakaian
+      - Bisa membandingkan hasil estimasi dengan kapasitas satu mesin untuk menyimpulkan perlu tidaknya scale out
+    trigger: Estimasi QPS puncak fitur baru beberapa kali lipat dari kapasitas satu mesin yang terukur di load test
+    status: planned
+    formats: [lesson, quiz]
+
+  - id: sli-slo
+    unit: 1
+    title: SLI, SLO, dan error budget
+    objectives:
+      - Bisa memilih SLI yang relevan untuk sebuah service dan menulis SLO yang terukur
+      - Bisa menghitung error budget dari sebuah SLO ketersediaan
+      - Bisa memutuskan kapan sebuah insiden sudah menghabiskan budget yang cukup untuk menghentikan rilis fitur
+    trigger: Tim berdebat apakah service "cukup andal" tanpa angka yang disepakati
+    status: planned
+    formats: [lesson, quiz]
+
+  - id: capacity-headroom
+    unit: 1
+    title: Headroom kapasitas
+    objectives:
+      - Bisa menghitung headroom dari beban puncak terukur dan kapasitas terukur satu server (misalnya dari load test)
+      - Bisa memutuskan dengan angka apakah server tunggal saat ini masih cukup untuk pertumbuhan beban yang diperkirakan
+    trigger: Utilisasi saat jam puncak mendekati 70-80% atau p99 mendekati batas latency yang dijanjikan
+    status: planned
+    formats: [lesson, quiz, lab]
+
+  # ------------------------------------------------------------------ Unit 2: Building blocks
+  - id: stateless-services-sessions
+    unit: 2
+    title: Service stateless dan session
+    objectives:
+      - Bisa mengenali state di dalam proses aplikasi (session di memori, file lokal, cache lokal) yang mencegah request dilayani instance mana pun
+      - Bisa membandingkan session di cookie bertanda tangan, session store bersama, dan sticky session dari sisi skala dan risiko
+    trigger: Pengguna terlempar keluar (logout sendiri) atau keranjang hilang setelah ada lebih dari satu instance aplikasi
+    status: planned
+    formats: [lesson, quiz]
+
+  - id: dns-networking-basics
+    unit: 2
+    title: Dasar DNS dan jaringan - DNS, TTL, TCP, dan TLS
+    objectives:
+      - Bisa menggambar tahap resolusi DNS dan menjelaskan bagaimana TTL memengaruhi kecepatan perpindahan traffic ke alamat baru
+      - Bisa menghitung round trip yang dibutuhkan untuk membuka koneksi TCP dan TLS sebelum byte pertama response
+      - Bisa menjelaskan mengapa koneksi yang dipakai ulang (keep-alive) menurunkan latency
+    trigger: Pindah server atau failover tidak diikuti sebagian pengguna selama menit-menit karena TTL DNS, atau latency pengguna jauh tinggi sebelum request pertama diproses
+    status: planned
+    formats: [lesson, quiz]
+
+  - id: load-balancer-reverse-proxy
+    unit: 2
+    title: Load balancer dan reverse proxy
+    objectives:
+      - Bisa menjelaskan bagaimana satu alamat dapat melayani beberapa instance aplikasi di belakangnya, termasuk fungsi reverse proxy (TLS termination, routing, buffering)
+      - Bisa memilih algoritma pembagian beban (round robin, least connections, hash) untuk sebuah pola traffic
+      - Bisa menjelaskan peran health check dan mengapa load balancer sendiri bisa menjadi single point of failure
+    trigger: Satu server aplikasi sudah penuh (CPU atau koneksi mendekati batas) atau kamu butuh deploy tanpa downtime, sehingga perlu lebih dari satu instance di belakang satu alamat
+    status: planned
+    formats: [lesson, quiz, lab]
+
+  - id: caching-basics
+    unit: 2
+    title: Dasar caching
+    objectives:
+      - Bisa menjelaskan kapan cache-aside lebih cocok daripada write-through atau write-back
+      - Bisa memilih TTL dan strategi invalidation berdasarkan toleransi data basi
+      - Bisa menghitung dampak hit ratio terhadap beban database dan rata-rata latency
+    trigger: Bacaan mendominasi lebih dari 80% query database dan query yang sama diulang terus
+    status: planned
+    formats: [lesson, quiz, lab]
+
+  - id: cache-stampede-hot-keys
+    unit: 2
+    title: Cache stampede dan hot key
+    objectives:
+      - Bisa menjelaskan bagaimana kunci yang kedaluwarsa bersamaan membanjiri database
+      - Bisa memilih mitigasi stampede (request coalescing, TTL jitter, refresh di latar belakang) untuk sebuah skenario
+      - Bisa menjelaskan mengapa satu hot key membebani satu node cache saja sehingga menambah node tidak membantu, dan memilih mitigasinya (replika key, cache lokal)
+    trigger: Database mendadak penuh setiap kali cache kosong, atau satu node cache jenuh oleh satu key yang sangat populer
+    status: planned
+    formats: [lesson, quiz]
+
+  - id: cdn
+    unit: 2
+    title: CDN
+    objectives:
+      - Bisa menentukan konten mana yang cocok disajikan lewat CDN dan mana yang tidak
+      - Bisa mengatur header cache (Cache-Control, ETag) agar CDN dan browser menyajikan versi yang benar
+      - Bisa menjelaskan dampak CDN terhadap latency pengguna yang jauh dan beban server asal
+    trigger: Pengguna di wilayah jauh mengalami latency tinggi, atau aset statis memakan bandwidth server asal
+    status: planned
+    formats: [lesson, quiz]
+
+  - id: api-design-rest-grpc
+    unit: 2
+    title: Desain API - REST dan gRPC
+    objectives:
+      - Bisa membandingkan REST dan gRPC dari sisi format, kontrak, dan kecocokan untuk klien publik atau antar-service
+      - Bisa merancang endpoint REST dengan resource, metode HTTP, dan status code yang tepat
+      - Bisa membedakan perubahan API yang kompatibel mundur dari yang merusak klien lama
+    trigger: Ada lebih dari satu klien atau service yang memanggil backend dan perubahan kecil mulai merusak mereka
+    status: planned
+    formats: [lesson, quiz]
+
+  - id: idempotency
+    unit: 2
+    title: Idempotency
+    objectives:
+      - Bisa membedakan operasi yang idempotent dan yang tidak, termasuk pada metode HTTP
+      - Bisa merancang idempotency key untuk operasi pembayaran atau pembuatan order
+      - Bisa menjelaskan mengapa retry tanpa idempotency bisa menggandakan efek
+    trigger: Klien me-retry request saat timeout dan efek ganda (dua order, dua penagihan) mulai muncul
+    status: planned
+    formats: [lesson, quiz, lab]
+
+  - id: rate-limiting
+    unit: 2
+    title: Rate limiting
+    objectives:
+      - Bisa membandingkan algoritma token bucket, fixed window, dan sliding window dari sisi burst dan akurasi
+      - Bisa menentukan di mana limit dipasang dan kunci yang dipakai (per pengguna, per IP, per API key)
+      - Bisa menjelaskan mengapa counter harus dibagi (misalnya di store bersama) ketika limit dipasang di beberapa instance load balancer, dan apa akibatnya jika tidak
+      - Bisa merancang respons yang benar ketika limit terlampaui (status 429, header Retry-After)
+    trigger: Satu klien atau bot menghabiskan kapasitas sehingga pengguna lain ikut lambat
+    status: planned
+    formats: [lesson, quiz, lab]
+
+  # ------------------------------------------------------------------ Unit 3: Data
+  - id: data-models
+    unit: 3
+    title: Model data - relasional, dokumen, key-value, dan graph
+    objectives:
+      - Bisa memilih model data (relasional, dokumen, key-value, graph) untuk sebuah kebutuhan berdasarkan pola akses dan relasi antar data
+      - Bisa menjelaskan trade-off normalisasi dan denormalisasi pada contoh skema yang sama
+    trigger: Query utama butuh join berat lintas banyak tabel, atau dokumen yang sering dibaca utuh terus dipecah ke banyak tabel
+    status: planned
+    formats: [lesson, quiz]
+
+  - id: index-structures
+    unit: 3
+    title: Struktur index - B-tree dan LSM-tree
+    objectives:
+      - Bisa membandingkan B-tree dan LSM-tree dari sisi biaya baca, tulis, dan write amplification
+      - Bisa memilih jenis storage engine untuk beban yang berat tulis atau berat baca
+    trigger: Beban tulis tinggi membuat index B-tree menjadi bottleneck
+    status: planned
+    formats: [lesson, quiz]
+
+  - id: replication
+    unit: 3
+    title: Replication leader-follower
+    objectives:
+      - Bisa menjelaskan alur replication satu leader dengan beberapa follower, sinkron maupun asinkron
+      - Bisa memutuskan kapan read replica cukup untuk menurunkan beban baca
+      - Bisa menjelaskan apa yang terjadi pada tulisan yang belum tereplikasi ketika leader mati
+    trigger: CPU database di atas 70% dengan lebih dari 90% query berupa bacaan, atau kamu butuh salinan siap pakai saat database utama mati
+    status: planned
+    formats: [lesson, quiz, lab]
+
+  - id: replication-lag-failover
+    unit: 3
+    title: Replication lag dan failover
+    objectives:
+      - Bisa mendiagnosis kegagalan read-your-writes akibat replication lag dan memilih mitigasinya (baca dari leader setelah menulis, baca dengan syarat posisi replikasi)
+      - Bisa mendiagnosis kegagalan monotonic reads (data terlihat mundur antar request) dan memilih mitigasinya (mengikat pengguna ke satu replica)
+      - Bisa menyusun langkah failover manual, menjelaskan risiko split brain, dan menjelaskan fencing manual (mematikan leader lama) untuk mencegahnya
+    trigger: Replica tertinggal beberapa detik dari leader, sehingga pengguna tidak melihat data yang baru saja ia simpan atau datanya terlihat mundur
+    status: planned
+    formats: [lesson, quiz, lab]
+
+  - id: partitioning-sharding
+    unit: 3
+    title: Partitioning dan sharding
+    objectives:
+      - Bisa memilih partition key dan menjelaskan risiko hot partition
+      - Bisa membandingkan partitioning berdasarkan range dan berdasarkan hash
+      - Bisa menjelaskan biaya sharding (query lintas shard, rebalancing) dan kapan sebaiknya dihindari
+    trigger: Data atau beban tulis melebihi kapasitas satu mesin walau sudah diberi index, cache, dan replica
+    status: planned
+    formats: [lesson, quiz, lab]
+
+  - id: consistent-hashing
+    unit: 3
+    title: Consistent hashing
+    objectives:
+      - Bisa menjelaskan mengapa hash modulo N memindahkan hampir semua key saat jumlah node berubah
+      - Bisa menjelaskan bagaimana consistent hashing dan virtual node membatasi jumlah key yang berpindah
+    trigger: Menambah atau mengurangi node cache atau shard memindahkan terlalu banyak data sekaligus
+    status: planned
+    formats: [lesson, quiz]
+
+  - id: transactions-acid
+    unit: 3
+    title: Transaksi dan ACID
+    objectives:
+      - Bisa menjelaskan arti atomicity, consistency, isolation, dan durability dengan contoh transfer saldo
+      - Bisa menentukan operasi mana yang harus dibungkus satu transaksi
+    trigger: Beberapa tulisan harus berhasil bersama atau tidak sama sekali, dan kegagalan di tengah menyisakan data setengah jadi
+    status: planned
+    formats: [lesson, quiz]
+
+  - id: isolation-levels
+    unit: 3
+    title: Isolation level dan anomali
+    objectives:
+      - Bisa mengenali anomali (dirty read, lost update, write skew) dari sebuah urutan operasi
+      - Bisa memilih isolation level atau kunci yang mencegah anomali tertentu
+    trigger: Dua transaksi yang berjalan bersamaan menghasilkan data yang salah, misalnya stok negatif atau saldo hilang
+    status: planned
+    formats: [lesson, quiz, lab]
+
+  # ------------------------------------------------------------------ Unit 4: Async and streams
+  - id: message-queue
+    unit: 4
+    title: Message queue
+    objectives:
+      - Bisa menentukan pekerjaan mana yang layak dipindah dari jalur request ke antrian
+      - Bisa menjelaskan visibility timeout, acknowledgement, dan competing consumers
+      - Bisa menjelaskan fungsi dead-letter queue untuk pesan yang terus gagal
+    trigger: Request lambat karena pekerjaan berat dikerjakan di jalur request, atau lonjakan traffic membuat backend kewalahan
+    status: planned
+    formats: [lesson, quiz, lab]
+
+  - id: event-log-streaming
+    unit: 4
+    title: Log dan event streaming
+    objectives:
+      - Bisa membedakan message queue dan log yang append-only dari sisi retensi, replay, dan consumer group
+      - Bisa menjelaskan jaminan urutan per partition dan batasannya
+    trigger: Beberapa sistem berbeda perlu membaca aliran peristiwa yang sama, atau kamu perlu memutar ulang data lama
+    status: planned
+    formats: [lesson, quiz]
+
+  - id: delivery-semantics
+    unit: 4
+    title: Semantik pengiriman - at-most-once, at-least-once, exactly-once
+    objectives:
+      - Bisa membedakan tiga semantik pengiriman dan kapan pesan hilang atau terduplikasi
+      - Bisa merancang consumer yang idempotent agar aman terhadap pengiriman ganda
+      - Bisa menjelaskan mengapa exactly-once pada umumnya adalah at-least-once ditambah pemrosesan idempotent (effectively-once), dan bahwa jaminan exactly-once hanya berlaku di dalam batas satu sistem sehingga efek samping di luarnya tetap butuh idempotency
+    trigger: Consumer memproses pesan yang sama dua kali atau ada pesan yang hilang setelah crash
+    status: planned
+    formats: [lesson, quiz, lab]
+
+  - id: outbox-cdc
+    unit: 4
+    title: Transactional outbox dan change data capture
+    objectives:
+      - Bisa menjelaskan masalah dual write antara database dan message broker
+      - Bisa menjelaskan bagaimana outbox memastikan setiap perubahan data yang tersimpan akhirnya terbit sebagai event (at-least-once), sehingga consumer tetap harus idempotent
+      - Bisa membandingkan polling outbox dengan change data capture
+    trigger: Database sudah berubah tetapi event tidak terkirim, atau sebaliknya
+    status: planned
+    formats: [lesson, quiz]
+
+  - id: backpressure-consumer-lag
+    unit: 4
+    title: Backpressure dan consumer lag
+    objectives:
+      - Bisa mendiagnosis antrian yang terus memanjang dari metrik umur pesan dan consumer lag
+      - Bisa memilih respons (menambah consumer, membatasi producer) untuk sebuah skenario
+      - Bisa membedakan backpressure (memperlambat atau menahan producer) dari load shedding (menolak sebagian request) dan menentukan kapan masing-masing dipakai (dibahas lebih dalam di load-shedding)
+    trigger: Umur pesan tertua terus naik atau consumer lag tidak turun
+    status: planned
+    formats: [lesson, quiz, lab]
+
+  # ------------------------------------------------------------------ Unit 5: Consistency and coordination
+  - id: cap-pacelc
+    unit: 5
+    title: CAP dan PACELC
+    objectives:
+      - Bisa menentukan, untuk satu operasi saat network partition terjadi, apakah operasi itu ditolak atau dijawab dengan data yang mungkin basi, beserta akibatnya bagi pengguna
+      - Bisa menjelaskan trade-off latency dan consistency saat tidak ada partition menurut PACELC
+    trigger: Koneksi antar wilayah terputus dan kamu harus memutuskan menolak tulisan atau menerimanya lalu merekonsiliasi nanti, atau latency tulis lintas wilayah 100+ ms membuat checkout lambat
+    status: planned
+    formats: [lesson, quiz]
+
+  - id: consistency-models
+    unit: 5
+    title: Model konsistensi
+    objectives:
+      - Bisa membedakan linearizability, causal, dan eventual consistency lewat contoh urutan operasi (sequential consistency hanya sebagai catatan tambahan)
+      - Bisa memilih model konsistensi minimum yang cukup untuk sebuah fitur
+      - Bisa menjelaskan quorum baca dan tulis (R + W > N) dan mengapa overlap quorum belum berarti linearizability (sloppy quorum, tulisan konkuren atau gagal sebagian)
+    trigger: Pengguna melihat data yang bertentangan antar replica atau region, dan kamu perlu menentukan jaminan yang benar-benar dibutuhkan
+    status: planned
+    formats: [lesson, quiz, lab]
+
+  - id: consensus
+    unit: 5
+    title: Consensus dan leader election
+    objectives:
+      - Bisa menjelaskan masalah yang diselesaikan consensus dan mengapa dibutuhkan mayoritas node
+      - Bisa menjelaskan alur dasar Raft - election, log replication, dan commit
+      - Bisa menghitung berapa kegagalan node yang masih ditoleransi sebuah cluster
+    trigger: Failover otomatis menghasilkan dua leader sekaligus, atau cluster harus tetap hidup walau 1 dari 3 node mati
+    status: planned
+    formats: [lesson, quiz]
+
+  - id: locks-leases-fencing
+    unit: 5
+    title: Lock terdistribusi, lease, dan fencing token
+    objectives:
+      - Bisa menjelaskan mengapa lock terdistribusi tanpa lease bisa macet selamanya
+      - Bisa menjelaskan bagaimana proses yang terjeda (GC pause) merusak data dan bagaimana fencing token mencegahnya
+      - Bisa memutuskan kapan lock tidak diperlukan karena operasi bisa dibuat idempotent atau memakai transaksi database
+    trigger: Job terjadwal berjalan dua kali karena ada dua instance aplikasi yang sama-sama mengira dirinya yang bertugas
+    status: planned
+    formats: [lesson, quiz, lab]
+
+  - id: distributed-transactions
+    unit: 5
+    title: Transaksi terdistribusi - saga dan two-phase commit
+    objectives:
+      - Bisa menjelaskan alur two-phase commit dan mengapa koordinator yang mati membuat peserta tertahan
+      - Bisa merancang saga dengan langkah kompensasi untuk sebuah alur lintas service (misalnya pesan, bayar, kirim), dan menjelaskan bahwa saga tidak punya isolation sehingga state perantara terlihat oleh transaksi lain
+      - Bisa memilih antara two-phase commit dan saga berdasarkan kebutuhan atomicity dan toleransi data sementara tidak konsisten
+    trigger: Satu alur bisnis mengubah data di dua service atau database berbeda dan kegagalan di tengah meninggalkan data setengah jadi yang tidak bisa dibatalkan satu transaksi
+    status: planned
+    formats: [lesson, quiz, lab]
+
+  - id: time-and-clocks
+    unit: 5
+    title: Waktu dan jam di sistem terdistribusi
+    objectives:
+      - Bisa menjelaskan mengapa jam fisik antar mesin tidak bisa dipakai untuk mengurutkan peristiwa dengan pasti
+      - Bisa menjelaskan mengapa pada Lamport clock A terjadi sebelum B berarti L(A) < L(B), tetapi kebalikannya tidak berlaku, sehingga peristiwa konkuren tidak bisa dideteksi
+      - Bisa membandingkan dua vector clock untuk menentukan apakah peristiwanya berurutan atau konkuren
+      - Bisa menjelaskan bagaimana interval ketidakpastian dan commit wait pada TrueTime mengurutkan transaksi (pengayaan)
+    trigger: Urutan peristiwa antar mesin berdasarkan timestamp menghasilkan hasil yang salah, misalnya tulisan lama menimpa yang baru
+    status: planned
+    formats: [lesson, quiz]
+
+  # ------------------------------------------------------------------ Unit 6: Production reliability
+  - id: timeouts
+    unit: 6
+    title: Timeout dan deadline
+    objectives:
+      - Bisa menentukan nilai timeout dari distribusi latency dependency
+      - Bisa menjelaskan mengapa panggilan tanpa timeout menghabiskan thread dan menyebarkan kegagalan
+      - Bisa menjelaskan propagasi deadline antar service
+    trigger: Thread atau koneksi menumpuk karena menunggu dependency yang lambat atau tidak menjawab
+    status: planned
+    formats: [lesson, quiz, lab]
+
+  - id: retry-backoff-jitter
+    unit: 6
+    title: Retry, exponential backoff, dan jitter
+    objectives:
+      - Bisa merancang kebijakan retry dengan jumlah maksimum dan backoff eksponensial yang diberi jitter
+      - Bisa memutuskan error mana dan operasi mana (hanya operasi yang idempotent atau dilindungi idempotency key) yang layak di-retry
+      - Bisa menjelaskan retry storm dan bagaimana retry berlapis melipatgandakan beban
+    trigger: Kegagalan sesaat membuat pengguna melihat error, atau retry klien memperparah dependency yang sedang bermasalah
+    status: planned
+    formats: [lesson, quiz, lab]
+
+  - id: circuit-breaker
+    unit: 6
+    title: Circuit breaker
+    objectives:
+      - Bisa menjelaskan tiga state circuit breaker (closed, open, half-open) dan transisinya
+      - Bisa menentukan ambang kegagalan dan perilaku fallback untuk sebuah dependency
+    trigger: Dependency yang sudah rusak terus dipanggil dan menyeret latency serta thread service kamu
+    status: planned
+    formats: [lesson, quiz, lab]
+
+  - id: load-shedding
+    unit: 6
+    title: Load shedding dan graceful degradation
+    objectives:
+      - Bisa membedakan load shedding (menolak sebagian request saat server hampir jenuh) dari rate limiting (membatasi per klien)
+      - Bisa menentukan request mana yang ditolak lebih dulu berdasarkan prioritas
+      - Bisa merancang mode degradasi (menonaktifkan fitur non-kritis) dan menentukan sinyal beban yang memicunya
+    trigger: Beban melampaui kapasitas dan semua request menjadi lambat atau gagal bersama-sama
+    status: planned
+    formats: [lesson, quiz, lab]
+
+  - id: cascading-failure
+    unit: 6
+    title: Cascading failure
+    objectives:
+      - Bisa menelusuri bagaimana satu komponen yang kelebihan beban menyebabkan komponen lain gagal berurutan
+      - Bisa memilih langkah memutus rantai kegagalan (bulkhead, batas konkurensi, penambahan kapasitas) untuk sebuah skenario
+      - Bisa menjelaskan mengapa menambah server saat overload kadang malah memperburuk keadaan
+    trigger: Satu service kelebihan beban lalu service lain gagal berurutan, dan menambah server tidak membantu
+    status: planned
+    formats: [lesson, quiz, lab]
+
+  - id: metastable-failure
+    unit: 6
+    title: Metastable failure
+    objectives:
+      - Bisa mengenali pola sistem yang tetap gagal setelah pemicu awalnya hilang
+      - Bisa menjelaskan loop penguat (retry, cache dingin, antrian) yang mempertahankan kegagalan
+      - Bisa memilih tindakan pemulihan (mengurangi beban, mem-bypass loop) untuk sebuah skenario
+      - Bisa membedakan cascading failure (perambatan antar komponen) dari metastable failure (loop penopang yang bertahan setelah pemicu hilang), dan menjelaskan bahwa keduanya bisa terjadi bersamaan
+    trigger: Pemicu awal sudah hilang tetapi sistem tidak pulih sendiri dan butuh pengurangan beban untuk bangkit
+    status: planned
+    formats: [lesson, quiz]
+
+  - id: observability
+    unit: 6
+    title: Observability - trace dan penelusuran lintas service
+    objectives:
+      - Bisa menelusuri satu request lambat lewat distributed trace dan correlation id untuk menemukan service penyebabnya
+      - Bisa menjelaskan mengapa, menurut pendekatan observability, pertanyaan baru yang belum diantisipasi membutuhkan data berdimensi tinggi (event/trace terstruktur), bukan hanya metrik teragregasi
+      - Bisa merancang alert yang berbasis gejala pengguna, bukan penyebab internal
+    trigger: Sebuah request melewati banyak service dan kamu tidak bisa menentukan di mana ia lambat atau gagal
+    status: planned
+    formats: [lesson, quiz]
+
+  - id: safe-deploys
+    unit: 6
+    title: Deploy aman - canary, blue-green, dan feature flag
+    objectives:
+      - Bisa membandingkan rolling, blue-green, dan canary dari sisi risiko dan biaya
+      - Bisa menentukan sinyal yang memicu rollback otomatis pada canary
+      - Bisa menjelaskan peran feature flag dalam memisahkan deploy dari rilis
+    trigger: Sebuah deploy pernah menyebabkan insiden besar, atau deploy di server banyak tidak lagi bisa dilakukan sekaligus
+    status: planned
+    formats: [lesson, quiz]
