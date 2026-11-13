@@ -5,7 +5,7 @@ milestone: M1
 type: research
 owner: agent
 review: agent
-status: todo
+status: done
 priority: medium
 depends_on: []
 estimate: 1
@@ -24,9 +24,9 @@ Left over from P1-016b and P1-016d: three entries could not be re-verified becau
 
 ## Done criteria
 
-- [ ] All three entries have `verified_on` and confirmed metadata
-- [ ] `python scripts/validate.py` passes
+- [x] All three entries have `verified_on` and confirmed metadata
+- [x] `python scripts/validate.py` passes
 
 ## Notes
 
-(Filled in during the work.)
+2026-11-13: All three entries confirmed via Crossref, DOIs added for Codd and Tail at Scale, `verified_on` set. `source-verifier` passed after one note fix. See `sessions/2026-11-13-P1-071.md`.

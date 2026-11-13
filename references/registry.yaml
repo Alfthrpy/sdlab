@@ -747,7 +747,7 @@ sources:
     type: paper
     tier: 3
     url: https://research.google/pubs/the-tail-at-scale/
-    doi: null
+    doi: 10.1145/2408776.2408794
     published: "2013"
     accessed: "2026-11-12"
     license: all-rights-reserved
@@ -756,8 +756,8 @@ sources:
     units: [1]
     topics: [tail-latency, percentiles, latency, hedged-requests, fan-out]
     status: candidate
-    notes: "Opened the Google Research publication page (abstract only): Communications of the ACM vol. 56, 2013, pp. 74-80. The page shows no DOI and no license/copyright statement, so it is treated as all-rights-reserved (copyright by default). Full text was not read in this session, so no reading notes yet. Re-checked: dl.acm.org and cacm.acm.org returned HTTP 403 (a guessed doi.org link redirected to dl.acm.org, which also returned 403; the DOI was not confirmed to match this paper), so the ACM DL page could not be opened and no DOI is recorded (the Google Research page links only to cacm.acm.org/magazines/2013/2/160173-the-tail-at-scale/fulltext and shows no copyright text). Access status and DOI remain unverified."
-    verified_on: "2026-11-12"
+    notes: "Opened the Google Research publication page (abstract only): Communications of the ACM vol. 56, 2013, pp. 74-80. The page shows no DOI and no license/copyright statement, so it is treated as all-rights-reserved (copyright by default). Full text was not read in this session, so no reading notes yet. Re-checked: dl.acm.org and cacm.acm.org returned HTTP 403 (the ACM DL page could not be opened; the DOI was confirmed through Crossref instead, see below) (the Google Research page links only to cacm.acm.org/magazines/2013/2/160173-the-tail-at-scale/fulltext and shows no copyright text). Access status unverified. P1-071 (2026-11-13): DOI 10.1145/2408776.2408794 confirmed via the Crossref API (title 'The tail at scale', authors Dean and Barroso, Communications of the ACM 56(2), pp. 74-80, Feb 2013, publisher ACM); ACM itself was not opened (403)."
+    verified_on: "2026-11-13"
 
   - id: little-2011-littles-law-50th
     title: "Little's Law as Viewed on Its 50th Anniversary"
@@ -767,7 +767,7 @@ sources:
     tier: 3
     url: https://doi.org/10.1287/opre.1110.0940
     doi: 10.1287/opre.1110.0940
-    published: "2011-05"
+    published: "2011-06"
     accessed: "2026-11-12"
     license: all-rights-reserved
     usage: rewrite-only
@@ -775,7 +775,8 @@ sources:
     units: [1]
     topics: [littles-law, queueing, concurrency, latency, throughput]
     status: candidate
-    notes: "NOT RE-VERIFIED 2026-11-12: doi.org redirects to pubsonline.informs.org/doi/10.1287/opre.1110.0940 (confirms the DOI resolves to INFORMS), but INFORMS returned HTTP 403, so title/pages/date were not re-checked. Operations Research 59(3), pp. 536-549, May-June 2011, DOI 10.1287/opre.1110.0940 (taken from the PDF header). The PDF header says copyright 2011 INFORMS. The canonical url is the DOI link (redirects to pubsonline.informs.org, which returned HTTP 403 on re-check, so official access status is unverified). The text was read from a course-hosted copy at https://people.cs.umass.edu/~emery/classes/cmpsci691st/readings/OS/Littles-Law-50-Years-Later.pdf (alternative link; posting rights unverified, do not redistribute). Section 4.1 applies L = arrival rate x W to servers."
+    notes: "P1-071 (2026-11-13): metadata confirmed via the Crossref API instead of INFORMS (which returns HTTP 403): DOI 10.1287/opre.1110.0940, author John D. C. Little, Operations Research 59(3), pp. 536-549, print date 2011-06 (issue is May-June 2011), publisher INFORMS. Crossref lists the title with the prefix 'OR FORUM-'; the registry keeps the short title. Earlier note: Operations Research 59(3), pp. 536-549, May-June 2011, DOI 10.1287/opre.1110.0940 (taken from the PDF header). The PDF header says copyright 2011 INFORMS. The canonical url is the DOI link (redirects to pubsonline.informs.org, which returned HTTP 403 on re-check, so official access status is unverified). The text was read from a course-hosted copy at https://people.cs.umass.edu/~emery/classes/cmpsci691st/readings/OS/Littles-Law-50-Years-Later.pdf (alternative link; posting rights unverified, do not redistribute). Section 4.1 applies L = arrival rate x W to servers."
+    verified_on: "2026-11-13"
 
   - id: brooker-telling-stories-littles-law
     title: "Telling Stories About Little's Law"
@@ -1714,7 +1715,7 @@ sources:
     type: paper
     tier: 3
     url: https://www.engineering.upenn.edu/~zives/03f/cis550/codd.pdf
-    doi: null
+    doi: 10.1145/362384.362685
     published: "1970-06"
     accessed: "2026-11-12"
     license: all-rights-reserved
@@ -1723,7 +1724,8 @@ sources:
     units: [3]
     topics: [data-models, relational-model]
     status: candidate
-    notes: "NOT RE-VERIFIED 2026-11-12: the fetched PDF is a scanned image with no readable text now, so title/date/venue were not rechecked. Page header: 'Communications of the ACM, Volume 13, Number 6, June 1970'. Copy hosted on a UPenn course page; no copyright/permission text found in the extracted text, so treated as all-rights-reserved (CACM article, copy on a course page). Original URL seas.upenn.edu redirects (301) to the engineering.upenn.edu host. Defines n-ary relations, normal form, data independence; compares to network/tree models. DOI not verified, so null. Historical source; not a practical guide."
+    notes: "P1-071 (2026-11-13): metadata confirmed via the Crossref API: DOI 10.1145/362384.362685, E. F. Codd, 'A relational model of data for large shared data banks', Communications of the ACM 13(6), pp. 377-387, June 1970, publisher ACM. The UPenn PDF is a scan (only partial OCR text), so it is kept as a free copy, not as the metadata source; posting rights unverified, do not redistribute. Page header: 'Communications of the ACM, Volume 13, Number 6, June 1970'. Copy hosted on a UPenn course page; no copyright/permission text found in the extracted text, so treated as all-rights-reserved (CACM article, copy on a course page). Original URL seas.upenn.edu redirects (301) to the engineering.upenn.edu host. Defines n-ary relations, normal form, data independence; compares to network/tree models. Historical source; not a practical guide."
+    verified_on: "2026-11-13"
 
   # ---- P1-013: Unit 4 (Async & streams) ----
   - id: kafka-docs-design
