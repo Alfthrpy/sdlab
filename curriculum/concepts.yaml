@@ -146,7 +146,7 @@ concepts:
   - id: back-of-envelope-estimation
     unit: 1
     prerequisites: [latency-throughput, single-machine-limits]
-    sources: [dean-software-engineering-advice-slides, brooker-telling-stories-littles-law, sre-book-handling-overload-ch21]
+    sources: [dean-software-engineering-advice-slides, brooker-telling-stories-littles-law]
     title: Estimasi kasar (back-of-envelope)
     objectives:
       - Bisa memperkirakan QPS puncak, kebutuhan storage, dan bandwidth dari jumlah pengguna dan pola pemakaian
@@ -222,7 +222,7 @@ concepts:
   - id: caching-basics
     unit: 2
     prerequisites: [indexes-query-basics, latency-throughput]
-    sources: [azure-cache-aside-pattern, aws-builders-caching-challenges, mdn-http-caching, system-design-primer]
+    sources: [azure-cache-aside-pattern, aws-builders-caching-challenges, mdn-http-caching, rfc-9111-http-caching, system-design-primer]
     title: Dasar caching
     objectives:
       - Bisa menjelaskan kapan cache-aside lebih cocok daripada write-through atau write-back
@@ -339,7 +339,7 @@ concepts:
   - id: replication-lag-failover
     unit: 3
     prerequisites: [replication]
-    sources: [pg-docs-high-availability, pg-docs-log-shipping-standby, mysql-84-replication]
+    sources: [pg-docs-high-availability, pg-docs-log-shipping-standby, mysql-84-replication, vogels-eventually-consistent-2008]
     title: Replication lag dan failover
     objectives:
       - Bisa mendiagnosis kegagalan read-your-writes akibat replication lag dan memilih mitigasinya (baca dari leader setelah menulis, baca dengan syarat posisi replikasi)
@@ -377,7 +377,7 @@ concepts:
   - id: transactions-acid
     unit: 3
     prerequisites: [app-plus-database]
-    sources: [pg-docs-mvcc-intro, pg-docs-transaction-iso, jepsen-consistency-models]
+    sources: [pg-docs-mvcc-intro, pg-docs-transaction-iso]
     title: Transaksi dan ACID
     objectives:
       - Bisa menjelaskan arti atomicity, consistency, isolation, dan durability dengan contoh transfer saldo
