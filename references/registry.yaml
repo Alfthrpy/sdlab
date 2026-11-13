@@ -21,7 +21,7 @@ sources:
     access: paywalled
     units: [1, 3, 4, 5]
     topics: [reliability, scalability, data-models, replication, partitioning, transactions, consistency, stream-processing, cloud-storage]
-    status: candidate
+    status: approved
     free_companion: [system-design-primer, brooker-tail-latency-matters, brooker-telling-stories-littles-law]
     notes: "Second edition (2nd ed., O'Reilly, ISBN 9781098119065 paperback, 9781098119027 ebook, 670 pages) per the authors' own page martin.kleppmann.com/2026/03/24/designing-data-intensive-applications-2e.html, which says release 'March 2026' (opened 2026-11-12). Retailer listings disagree (27 Feb, 24 Mar, 31 Mar 2026), and the O'Reilly page returns HTTP 403 to automated fetches, so the publisher date could not be opened; published is set to 2026-03 from the author. Paywalled: free_companion lists free sources for the Unit 1 topics; add per-topic companions for later units."
     verified_on: "2026-11-12"
@@ -41,7 +41,7 @@ sources:
     access: free
     units: [1, 2, 5, 6]
     topics: [slo, load-balancing, overload, cascading-failures, distributed-consensus, monitoring]
-    status: candidate
+    status: approved
     notes: "Editors from sre.google/books (opened 2026-11-12). The table-of-contents page shows 'Copyright 2017 Google, Inc.', 'Published by O'Reilly Media', and 'Licensed under CC BY-NC-ND 4.0' (NoDerivatives -> rewrite + link only), so published is the copyright year; the first-print year is not shown on the pages opened. sre.google/books also lists a separate 'Site Reliability Engineering, 2nd Edition' (Google Books purchase link only); this entry is the free online first edition. Chapter titles checked: 3 Embracing Risk, 4 Service Level Objectives, 6 Monitoring Distributed Systems, 19 Load Balancing at the Frontend, 20 Load Balancing in the Datacenter, 21 Handling Overload, 22 Addressing Cascading Failures, 23 Managing Critical State."
     verified_on: "2026-11-12"
 
@@ -61,7 +61,7 @@ sources:
     access: free
     units: [6]
     topics: [timeouts, retries, backoff, jitter, retry-budget, circuit-breaker]
-    status: candidate
+    status: approved
     notes: "NO-AUTHOR: the page byline is only the first name 'Marc' (AWS employee; the profile handle is 'mbrooker', but the page does not give a full name), so authors is left empty rather than recording a bare first name. The old aws.amazon.com/builders-library URL redirects (301) to this canonical builder.aws.com URL. Date: published and last modified 2019-12-05. Footer: (c) 2026 AWS, all rights reserved; opinions are the author's. Covers timeouts, retry amplification across layers, token-bucket retry budgets, circuit breakers, idempotency, jitter. Trigger hint: you reach for this when a second service or database call appears and one slow dependency can tie up all your threads. Reopened 2026-11-12; title, 'Marc' byline, 2019-12-05 date and footer (c) 2026 AWS confirmed."
 
   - id: system-design-primer
@@ -79,7 +79,7 @@ sources:
     access: free
     units: [1, 2, 3, 4]
     topics: [cap, dns, cdn, load-balancer, reverse-proxy, caching, sql-nosql, replication, sharding, async, rpc-rest]
-    status: candidate
+    status: approved
     attribution: "Sebagian materi diadaptasi dari System Design Primer oleh Donne Martin, CC BY 4.0, https://github.com/donnemartin/system-design-primer. Telah diubah."
     notes: "License CC BY 4.0 verified: raw LICENSE.txt (Copyright 2017 Donne Martin) opened 2026-11-12; the GitHub API reports the license as NOASSERTION only because it is a custom file. Repo created 2017-02-26 (GitHub API), last push 2026-09-15, not archived, so maintained. Many README links point to web.archive.org (original posts gone), so check the cited originals. Large README, only the first 100k characters were read."
     verified_on: "2026-11-12"
@@ -99,7 +99,7 @@ sources:
     access: free
     units: [3, 5]
     topics: [consistency-models, serializability, linearizability, isolation-anomalies]
-    status: candidate
+    status: approved
     notes: "NO-AUTHOR: the page names no author (errata contact errata@jepsen.io). NO-DATE: no date. Footer 'Copyright (c) Jepsen, LLC.' with no license terms, so treated as all-rights-reserved. Reopened 2026-11-12: this landing page is only an intro to models, phenomena and dependencies; it lists no models itself (they are on /consistency/models and sub-pages)."
     verified_on: "2026-11-12"
 
@@ -119,7 +119,7 @@ sources:
     access: free
     units: [6]
     topics: [metastable-failure, retry-storm, sustaining-effect, overload, load-shedding, cascading-failure]
-    status: candidate
+    status: approved
     notes: "Metadata (title, 4 authors, HotOS '21, May 31-June 2 2021, 7 pages, DOI) read from the first page of the PDF at sigops.org/s/conferences/hotos/2021/papers/hotos21-s11-bronson.pdf (free). dl.acm.org returned HTTP 403, so the ACM landing page was not opened; the DOI is the one printed in the paper. Copyright: (c) 2021 ACM; the paper's permission text allows personal or classroom copies without fee. Vision paper; the retry and look-aside cache examples are simplified. Trigger hint: when retries, caches and failover were added for reliability and the system still stays down after the trigger is gone. Reopened 2026-11-12; title, four authors, date and DOI re-confirmed from the Crossref record for 10.1145/3458336.3465286 (dl.acm.org still returns 403 to scripted fetches). Crossref names the ACM copyright policy as the license, so all-rights-reserved stands."
 
   - id: analyzing-metastable-hotos25
@@ -138,7 +138,7 @@ sources:
     access: partial
     units: [6]
     topics: [metastable-failure, queueing-model, simulation, ctmc, discrete-event-simulation]
-    status: candidate
+    status: approved
     notes: "Analyzing Metastable Failures, HotOS '25 (Proceedings of the Workshop on Hot Topics in Operating Systems, pp. 172-178). Reopened 2026-11-12: authors, title and 2025-05-14 date taken from the Crossref record for DOI 10.1145/3713082.3730380 (dl.acm.org returns 403 to scripted fetches, so the ACM page and the paper text were not opened). Crossref lists no license, so recorded as all-rights-reserved (conservative; usage stays rewrite-only). Also relevant to simulator design (Phase 2). Follow-up to metastable-failures-hotos21 and metastable-failures-osdi22."
 
   - id: aws-pes-dynamodb-2025-10
@@ -156,7 +156,7 @@ sources:
     access: free
     units: [2, 6]
     topics: [dns, race-condition, dependency, blast-radius, recovery-backlog, metastable-failure, health-check, throttling]
-    status: candidate
+    status: approved
     notes: "NO-AUTHOR: corporate postmortem. NO-DATE: the page shows no publication date; the page says the event started 2025-10-19 23:48 PDT and ended 2025-10-20 14:20 PDT, but its own timeline shows Redshift recovering last, with impaired clusters restored only by 2025-10-21 04:05 PDT (so the stated end time understates the tail). ECS, EKS, and Fargate were recovered by 14:20 PDT but were not the last services. Footer: (c) 2026 AWS, all rights reserved. Mechanism: race between two DNS Enactors left an empty DNS record for the DynamoDB regional endpoint; then EC2 DropletWorkflow Manager congestive collapse, network-state propagation backlog, and NLB health-check failover that removed capacity. Recovery needed manual throttling and disabling automatic failover. Candidate for incident pack P1-046. Notes: references/notes/aws-pes-dynamodb-2025-10.md."
     verified_on: "2026-11-12"
 
@@ -176,7 +176,7 @@ sources:
     access: free
     units: [6]
     topics: [config-propagation, validation, safe-deploy, global-blast-radius, kill-switch, retry-backlog]
-    status: candidate
+    status: approved
     notes: "Page lists Matthew Prince as author (sidebar) and structured metadata gives datePublished 2025-11-18 (a later dateModified exists). Mechanism: a database permissions change doubled the size of a generated Bot Management feature file; the proxy exceeded a preallocated 200-feature limit and panicked, producing 5xx; impact 11:20 to 14:30 UTC, fully resolved 17:06 UTC. Candidate for incident pack P1-046. Reopened 2026-11-12; author Matthew Prince and 2025-11-18 date confirmed. Footer is only (c) 2026 Cloudflare, Inc. with no license, so recorded as all-rights-reserved (conservative; usage stays rewrite-only)."
 
   - id: hello-interview-sd-in-a-hurry
@@ -233,7 +233,7 @@ sources:
     access: free
     units: [0]
     topics: [indexes, query-basics, write-overhead]
-    status: candidate
+    status: approved
     version: "PostgreSQL 18 (18.6)"
     notes: "NO-DATE: versioned manual page, no per-page date (only a site-wide news banner). NO-AUTHOR: corporate documentation. Real license: the PostgreSQL License (BSD/MIT-style permissive, open at postgresql.org/docs/current/legalnotice.html, read 2026-11-12: free to use, copy, modify and distribute the software and documentation without fee provided the copyright notice and license paragraphs appear in all copies; 'Portions Copyright 1996-2026 PGDG, 1994 Regents of the University of California'). Footer: Copyright 1996-2026 PGDG. Same chapter also covers index types, multicolumn indexes, partial indexes."
     verified_on: "2026-11-12"
@@ -253,7 +253,7 @@ sources:
     access: free
     units: [0]
     topics: [query-basics, explain, query-plans, indexes]
-    status: candidate
+    status: approved
     version: "PostgreSQL 18 (18.6)"
     notes: "NO-DATE: versioned manual page, no per-page date (only a site-wide news banner). NO-AUTHOR: corporate documentation. License: see pg-docs-indexes-intro (PostgreSQL License, legal notice page opened 2026-11-12). Sections 14.1.1 EXPLAIN Basics, 14.1.2 EXPLAIN ANALYZE, 14.1.3 Caveats."
     verified_on: "2026-11-12"
@@ -273,7 +273,7 @@ sources:
     access: free
     units: [0]
     topics: [backups, recovery, pitr, wal-archiving, pg-dump]
-    status: candidate
+    status: approved
     version: "PostgreSQL 18 (18.6)"
     notes: "NO-DATE: versioned manual page, no per-page date (only a site-wide news banner). NO-AUTHOR: corporate documentation. License: see pg-docs-indexes-intro (PostgreSQL License, legal notice page opened 2026-11-12). Opened the chapter index plus 25.1 SQL Dump (backup-dump.html) and 25.3 Continuous Archiving and PITR (continuous-archiving.html). Does not cover backup schedules or restore drills; those are a gap."
     verified_on: "2026-11-12"
@@ -293,7 +293,7 @@ sources:
     access: free
     units: [0]
     topics: [connection-limits, max-connections, connection-pooling]
-    status: candidate
+    status: approved
     version: "PostgreSQL 18 (18.6)"
     notes: "NO-DATE: versioned manual page, no per-page date (only a site-wide news banner). NO-AUTHOR: corporate documentation. License: see pg-docs-indexes-intro (PostgreSQL License, legal notice page opened 2026-11-12). Short reference for max_connections and reserved connection settings."
     verified_on: "2026-11-12"
@@ -313,7 +313,7 @@ sources:
     access: free
     units: [0]
     topics: [machine-limits, memory, file-descriptors, oom-killer, connection-limits]
-    status: candidate
+    status: approved
     version: "PostgreSQL 18 (18.6)"
     notes: "NO-DATE: versioned manual page, no per-page date (only a site-wide news banner). NO-AUTHOR: corporate documentation. License: see pg-docs-indexes-intro (PostgreSQL License, legal notice page opened 2026-11-12). Footer: Copyright 1996-2026 PGDG. Sections: 18.4.1 Shared Memory and Semaphores, 18.4.2 systemd RemoveIPC, 18.4.3 Resource Limits (process-per-connection, open-file limits, listen backlog/somaxconn), 18.4.4 Linux Memory Overcommit (OOM killer), 18.4.5 Linux Huge Pages. Useful for 'limits of one machine'."
     verified_on: "2026-11-12"
@@ -333,7 +333,7 @@ sources:
     access: free
     units: [0]
     topics: [monitoring, database-monitoring, pg-stat-activity, machine-limits]
-    status: candidate
+    status: approved
     version: "PostgreSQL 18 (18.6)"
     notes: "NO-DATE: versioned manual page, no per-page date (only a site-wide news banner). NO-AUTHOR: corporate documentation. License: see pg-docs-indexes-intro (PostgreSQL License, legal notice page opened 2026-11-12). Page is long (about 116k characters); only the first 100k were read, which includes the pg_stat_activity part."
     verified_on: "2026-11-12"
@@ -353,7 +353,7 @@ sources:
     access: free
     units: [0]
     topics: [connection-pooling, pool-sizing, max-connections]
-    status: candidate
+    status: approved
     notes: "NO-AUTHOR: wiki page. Date is the page's last-edit date. No license stated on the page or footer (re-checked 2026-11-12), so treated as all-rights-reserved (copyright by default). The wiki is a separate site from the docs, so the docs legal notice (PostgreSQL License) is not assumed to apply. Old (2014): the page itself says the formula was not analyzed for SSDs and may need adjustment for 9.2. Wiki, so Tier 2 is borderline."
     verified_on: "2026-11-12"
 
@@ -372,7 +372,7 @@ sources:
     access: free
     units: [0]
     topics: [connection-pooling, pool-sizing]
-    status: candidate
+    status: approved
     notes: "NO-AUTHOR: page names no author (only the last editor, Leo Bayer). Date is the last edit. No license stated on the page or footer (re-checked 2026-11-12), so treated as all-rights-reserved (copyright by default). The repository github.com/brettwooldridge/HikariCP shows Apache-2.0 in its sidebar (opened 2026-11-12), but the wiki is a separate git repo and nothing says the repo license covers wiki text, so it is not assumed to apply. Java-centric but the reasoning is general."
     verified_on: "2026-11-12"
 
@@ -391,7 +391,7 @@ sources:
     access: free
     units: [0]
     topics: [connection-pooling, pgbouncer, pooling-modes]
-    status: candidate
+    status: approved
     notes: "NO-DATE: no page date; footer shows only copyright 2026. NO-AUTHOR: project documentation. Site footer says 'Website (c) 2026 PgBouncer Authors'. No license stated on the page or footer (re-checked 2026-11-12), so treated as all-rights-reserved (copyright by default). The github.com/pgbouncer/pgbouncer.github.io repo (opened 2026-11-12) shows ISC in its sidebar but does not say it covers the site text. The COPYRIGHT file in github.com/pgbouncer/pgbouncer (opened 2026-11-12) states the ISC License (Copyright 2007-2009 Marko Kreen, Skype Technologies OU); that file covers the software, not necessarily the docs site, so the docs text stays all-rights-reserved. Possibly more advanced than Unit 0 needs; pooling modes only."
     verified_on: "2026-11-12"
 
@@ -410,7 +410,7 @@ sources:
     access: free
     units: [0]
     topics: [indexes, query-basics]
-    status: candidate
+    status: approved
     version: "MySQL 8.4"
     notes: "NO-DATE: versioned manual page, no per-page date (only a site-wide news banner). NO-AUTHOR: corporate documentation. Footer: (c) 2026 Oracle. Landing page only; subtopic pages were not opened. Version choice: 8.4 is an LTS series (the 8.4 manual preface.html says 'for the 8.4.13 LTS release'); the page's version selector marks 9.7 as current and does not itself label 8.4 as LTS. Legal notice opened at dev.mysql.com/doc/refman/8.4/en/preface.html (Copyright 1997, 2026 Oracle): it says the documentation is NOT distributed under a GPL license; personal printed copies and unaltered format conversion are allowed, publishing or distributing is not (beyond how Oracle disseminates it). So all-rights-reserved is confirmed."
     verified_on: "2026-11-12"
@@ -430,7 +430,7 @@ sources:
     access: free
     units: [0]
     topics: [backups, recovery, mysqldump, pitr]
-    status: candidate
+    status: approved
     version: "MySQL 8.4"
     notes: "NO-DATE: versioned manual page, no per-page date (only a site-wide news banner). NO-AUTHOR: corporate documentation. License and version choice: see mysql-84-optimization-indexes (legal notice opened; all-rights-reserved confirmed; 8.4 is the LTS series, preface says 8.4.13 LTS, selector marks 9.7 current). Landing page only: it lists backup types, methods, a sample strategy (9.3), mysqldump (9.4) and point-in-time recovery (9.5); subpages were not opened."
     verified_on: "2026-11-12"
@@ -450,7 +450,7 @@ sources:
     access: free
     units: [0]
     topics: [deploys, configuration, logging, stateless-processes, backing-services, dev-prod-parity]
-    status: candidate
+    status: approved
     notes: "CONFLICT: the 12factor.net footer says 'Copyright 2026 Salesforce, Inc. All rights reserved' and states no content license, while the github.com/heroku/12factor README says 'Released under the MIT License' and its LICENSE file has MIT text (Copyright (c) 2012 Adam Wiggins), opened 2026-11-12. Unresolved whether MIT covers the published site text (reopened 2026-11-12: site footer still shows only Salesforce copyright), so the conservative reading all-rights-reserved is recorded. Published 2017 is the page's 'Last updated 2017'; original publication date not seen. Only the factor list page was read; per-factor subpages were not opened. Written for PaaS-style apps, so some factors need translating to a plain VPS."
     verified_on: "2026-11-12"
 
@@ -469,7 +469,7 @@ sources:
     access: free
     units: [0, 1, 6]
     topics: [machine-limits, saturation, utilization, performance-checklist, monitoring, observability]
-    status: candidate
+    status: approved
     notes: "Page shows only 'Brendan' (nav header); full name inferred from the domain brendangregg.com, not stated on the page. Page shows a last-updated date of 2017-08-24 (original date not seen). No license stated on the page or footer (re-checked 2026-11-12), so treated as all-rights-reserved (copyright by default). Linux checklist subpages were not opened. Saturation touches Unit 1 territory."
     verified_on: "2026-11-12"
 
@@ -488,7 +488,7 @@ sources:
     access: free
     units: [0]
     topics: [monitoring, metrics, instrumentation]
-    status: candidate
+    status: approved
     notes: "NO-DATE: no page date or version; footer shows only copyright range 2014-2026. NO-AUTHOR: project documentation. The footer says the Prometheus components are available under Apache 2, and the prometheus/docs repo (opened 2026-11-12) lists Apache-2.0 for both content and generator code, but neither says the license covers the docs text, so the conservative reading is all-rights-reserved. No explicit version shown."
     verified_on: "2026-11-12"
 
@@ -507,7 +507,7 @@ sources:
     access: free
     units: [0, 2]
     topics: [health-checks, liveness, monitoring, failure-modes]
-    status: candidate
+    status: approved
     notes: "The old aws.amazon.com/builders-library/implementing-health-checks/ URL redirects (301) to this one. The page gives the author only as 'David' (Sr. Principal Engineer at AWS); full name not on the page. Written for fleets behind load balancers, so Unit 0 should use only the liveness vs. local vs. dependency check distinction. The fleet-level parts (fail open, anomaly detection, safe reaction) apply from Unit 2 on. Article sections as shown on the page: Small failures with outsized impact; Health check tradeoffs; Ways to measure health; Reacting safely to health check failures; Balancing dependency health checks with the scope of impact; Real things that have gone wrong with health checks; Conclusion."
     verified_on: "2026-11-12"
 
@@ -526,7 +526,7 @@ sources:
     access: free
     units: [0, 1, 6]
     topics: [monitoring, golden-signals, black-box-monitoring, alerting, observability, red-use]
-    status: candidate
+    status: approved
     notes: "Chapter-level entry for the parent google-sre-book (same license, CC BY-NC-ND 4.0). The date 2017 is the copyright year shown on this chapter page, and the parent google-sre-book entry now records the same copyright year. Page says written by Rob Ewaschuk, edited by Betsy Beyer, copyright 2017 Google, CC BY-NC-ND 4.0. Written for large systems; Unit 0 should use only symptoms vs causes and the four signals."
     verified_on: "2026-11-12"
 
@@ -545,7 +545,7 @@ sources:
     access: free
     units: [0]
     topics: [deploys, process-supervision, restart-policy]
-    status: candidate
+    status: approved
     version: "systemd 262 (as shown on the page)"
     notes: "NO-DATE: man page, no publication date. NO-AUTHOR: man page. No license stated on the page or footer (re-checked 2026-11-12), so treated as all-rights-reserved (copyright by default). No page date (only per-option 'Added in version' notes); version shown is systemd 262. It is a reference, not a tutorial, so beginners need a guided reading (Type=, Restart=)."
     verified_on: "2026-11-12"
@@ -565,7 +565,7 @@ sources:
     access: free
     units: [0, 2]
     topics: [web-server, reverse-proxy, request-lifecycle]
-    status: candidate
+    status: approved
     notes: "NO-DATE: no page date or version; only the copyright year. NO-AUTHOR: corporate documentation; no date on the page. Footer: (c) 2026 F5, Inc., all rights reserved. Only this page was opened. nginx.org/en/docs/beginners_guide.html failed to load, so the beginner's guide is unverified."
     verified_on: "2026-11-12"
 
@@ -584,7 +584,7 @@ sources:
     access: free
     units: [0]
     topics: [request-lifecycle, http, client-server, proxies]
-    status: candidate
+    status: approved
     notes: "NO-AUTHOR: community docs. Date is the page's 'last modified'. MDN's attribution page (developer.mozilla.org/en-US/docs/MDN/Writing_guidelines/Attrib_copyright_license, opened 2026-11-12) says: unless otherwise indicated, content is under CC-BY-SA v2.5 or any later version; code samples added on or after 2010-08-20 are CC0. Exact license: CC-BY-SA 2.5 or later (ShareAlike applies if adapted); recorded as CC-BY-SA-2.5. Scope: the page covers only the HTTP part of the request lifecycle (not DNS, TCP, TLS)."
     verified_on: "2026-11-12"
 
@@ -603,7 +603,7 @@ sources:
     access: free
     units: [0]
     topics: [one-app-one-database, database-choice, single-writer, machine-limits]
-    status: candidate
+    status: approved
     notes: "NO-AUTHOR: project documentation. Date is 'last updated'. The whentouse page itself shows no license, but www.sqlite.org/copyright.html (opened 2026-11-12) says all code and documentation in SQLite is dedicated to the public domain by the authors (build scripts such as autoconf configure may carry other licenses). Kept rewrite-only. Useful for 'when is one embedded file enough' and the single-writer limit."
     verified_on: "2026-11-12"
 
@@ -622,7 +622,7 @@ sources:
     access: free
     units: [0, 3]
     topics: [indexes, query-basics, execution-plans, btree]
-    status: candidate
+    status: approved
     notes: "NO-DATE: only the copyright range 2010-2026 is shown. Footer says all rights reserved (page has a typo). Free to read online. Vendor-neutral with PostgreSQL and MySQL notes. Only the home page, chapter list, and the 'Anatomy of an SQL Index' intro page (use-the-index-luke.com/sql/anatomy: sorted index, doubly linked leaf list plus balanced tree) were opened; chapters not read. Tier 2 (not Tier 1: single-author web edition). The home page says this is the free web edition of the book 'SQL Performance Explained'. Footer: 'Copyright 2010-2026 Markus Winand. All righs reserved.'"
     verified_on: "2026-11-12"
 
@@ -641,7 +641,7 @@ sources:
     access: free
     units: [0]
     topics: [scale-up, vertical-scaling, case-study]
-    status: candidate
+    status: approved
     notes: "Replaces the rejected third-party summary (High Scalability, 2009), which was removed from the registry. First-person account by an engineer describing the infrastructure he works on (the page does not state his job title). Footer shows only '2026', no license; the stackoverflow.blog mirror is an excerpt with 'Site design / logo (c) 2026 Stack Exchange Inc.'. Sections: Ground Rules, The Internets, Load Balancers (HAProxy), Web Tier, Service Tier, Cache & Pub/Sub (Redis), Websockets, Search (Elasticsearch), Databases (SQL Server), Libraries. Data is from 2016 and the fleet is not single-server (several web and SQL servers); use only as evidence that a small, well-tuned fleet on big hardware serves very large traffic. Only the top of the page was summarized by the fetch tool; read it fully before approval."
     verified_on: "2026-11-12"
 
@@ -660,7 +660,7 @@ sources:
     access: free
     units: [1]
     topics: [sli, slo, sla, percentiles, error-budget, aggregation]
-    status: candidate
+    status: approved
     notes: "Chapter-level entry for google-sre-book (same license). Page: written by Jones, Wilkes, Murphy with Cody Smith; edited by Betsy Beyer; copyright 2017 Google, Inc., published by O'Reilly; footer says Licensed under CC BY-NC-ND 4.0. Covers SLI/SLO/SLA terms, choosing indicators, why averages hide tail latency, choosing targets. Written for Google-scale services, so learners need small-service examples. Year note: the chapter page shows copyright 2017, and the google-sre-book entry now records 2017 too (copyright year); the chapter year here is the page copyright year."
     verified_on: "2026-11-12"
 
@@ -679,7 +679,7 @@ sources:
     access: free
     units: [1]
     topics: [availability, risk, error-budget, slo]
-    status: candidate
+    status: approved
     notes: "Chapter-level entry for google-sre-book. Page: written by Marc Alvidrez, edited by Kavita Guliani; Error Budgets section written by Mark Roth; copyright 2017 Google, Inc.; CC BY-NC-ND 4.0. Useful for 'how reliable is reliable enough', which feeds the 'is this stage still enough' question. Year note: the chapter page shows copyright 2017, and the google-sre-book entry now records 2017 too (copyright year); the chapter year here is the page copyright year."
     verified_on: "2026-11-12"
 
@@ -698,7 +698,7 @@ sources:
     access: free
     units: [1]
     topics: [sli, slo, error-budget, measurement, time-window]
-    status: candidate
+    status: approved
     notes: "Page shows copyright 2018 Google, Inc., published by O'Reilly, CC BY-NC-ND 4.0; authors listed on the page as Steven Thurgood and David Ferguson with Alex Hidalgo and Betsy Beyer. Practical how-to for picking SLIs, starter SLOs, and a four-week rolling window. Example service is a mobile game, so beginners may need simpler examples."
     verified_on: "2026-11-12"
 
@@ -717,7 +717,7 @@ sources:
     access: free
     units: [1, 2, 4, 6]
     topics: [overload, load-shedding, capacity, retries, load-balancing, cascading-failure]
-    status: candidate
+    status: approved
     notes: "Chapter-level entry for google-sre-book. Page: written by Alejandro Forero Cuervo, edited by Sarah Chavis; copyright 2017 Google, Inc.; CC BY-NC-ND 4.0. Useful as a trigger for 'a stage stops being enough' (QPS is a poor capacity metric; resource-based limits). Advanced parts (criticality, client-side throttling) go beyond the Unit 1-2 level. Year note: the chapter page shows copyright 2017, and the google-sre-book entry now records 2017 too (copyright year); the chapter year here is the page copyright year."
     verified_on: "2026-11-12"
 
@@ -736,7 +736,7 @@ sources:
     access: free
     units: [2]
     topics: [load-balancer, dns, virtual-ip, consistent-hashing]
-    status: candidate
+    status: approved
     notes: "Chapter-level entry for google-sre-book. Page: written by Piotr Lewandowski, edited by Sarah Chavis; copyright 2017 Google, Inc.; CC BY-NC-ND 4.0. Only the first three section headings were visible in the fetched summary (Power Isn't the Answer, Load Balancing Using DNS, Load Balancing at the Virtual IP Address). Google-scale; learners need a small-fleet translation. Year note: the chapter page shows copyright 2017, and the google-sre-book entry now records 2017 too (copyright year); the chapter year here is the page copyright year."
     verified_on: "2026-11-12"
 
@@ -755,7 +755,7 @@ sources:
     access: free
     units: [1]
     topics: [tail-latency, percentiles, latency, hedged-requests, fan-out]
-    status: candidate
+    status: approved
     notes: "Opened the Google Research publication page (abstract only): Communications of the ACM vol. 56, 2013, pp. 74-80. The page shows no DOI and no license/copyright statement, so it is treated as all-rights-reserved (copyright by default). Full text was not read in this session, so no reading notes yet. Re-checked: dl.acm.org and cacm.acm.org returned HTTP 403 (the ACM DL page could not be opened; the DOI was confirmed through Crossref instead, see below) (the Google Research page links only to cacm.acm.org/magazines/2013/2/160173-the-tail-at-scale/fulltext and shows no copyright text). Access status unverified. P1-071 (2026-11-13): DOI 10.1145/2408776.2408794 confirmed via the Crossref API (title 'The tail at scale', authors Dean and Barroso, Communications of the ACM 56(2), pp. 74-80, Feb 2013, publisher ACM); ACM itself was not opened (403)."
     verified_on: "2026-11-13"
 
@@ -774,7 +774,7 @@ sources:
     access: free
     units: [1]
     topics: [littles-law, queueing, concurrency, latency, throughput]
-    status: candidate
+    status: approved
     notes: "P1-071 (2026-11-13): metadata confirmed via the Crossref API instead of INFORMS (which returns HTTP 403): DOI 10.1287/opre.1110.0940, author John D. C. Little, Operations Research 59(3), pp. 536-549, print date 2011-06 (issue is May-June 2011), publisher INFORMS. Crossref lists the title with the prefix 'OR FORUM-'; the registry keeps the short title. Earlier note: Operations Research 59(3), pp. 536-549, May-June 2011, DOI 10.1287/opre.1110.0940 (taken from the PDF header). The PDF header says copyright 2011 INFORMS. The canonical url is the DOI link (redirects to pubsonline.informs.org, which returned HTTP 403 on re-check, so official access status is unverified). The text was read from a course-hosted copy at https://people.cs.umass.edu/~emery/classes/cmpsci691st/readings/OS/Littles-Law-50-Years-Later.pdf (alternative link; posting rights unverified, do not redistribute). Section 4.1 applies L = arrival rate x W to servers."
     verified_on: "2026-11-13"
 
@@ -793,7 +793,7 @@ sources:
     access: free
     units: [1]
     topics: [littles-law, concurrency, feedback-loops, retries, capacity]
-    status: candidate
+    status: approved
     attribution: "Sebagian materi diadaptasi dari 'Telling Stories About Little's Law' oleh Marc Brooker, CC BY 4.0, https://brooker.co.za/blog/2018/06/20/littles-law.html. Telah diubah."
     notes: "Date taken from the post URL (the page text itself shows no date). Personal blog by an AWS engineer (the blog says opinions are the author's own); footer license is CC BY 4.0 (re-read 2026-11-12: 'This work is licensed under a Creative Commons Attribution 4.0 International License'; page shows no date). Good bridge from the formula to feedback loops and retry storms."
     verified_on: "2026-11-12"
@@ -813,7 +813,7 @@ sources:
     access: free
     units: [1]
     topics: [tail-latency, percentiles, fan-out, latency]
-    status: candidate
+    status: approved
     attribution: "Sebagian materi diadaptasi dari 'Tail Latency Might Matter More Than You Think' oleh Marc Brooker, CC BY 4.0, https://brooker.co.za/blog/2021/04/19/latency.html. Telah diubah."
     notes: "Date taken from the post URL (the page text itself showed no date); footer license is CC BY 4.0 (re-read 2026-11-12; page shows no date). Personal blog by an AWS engineer. Explains why fan-out and serial chains make rare slow calls common. Free companion for the paywalled-or-abstract-only tail-at-scale-cacm13."
     verified_on: "2026-11-12"
@@ -833,7 +833,7 @@ sources:
     access: free
     units: [1]
     topics: [percentiles, histograms, quantiles, metrics, latency-measurement]
-    status: candidate
+    status: approved
     notes: "NO-AUTHOR: project documentation (footer '(c) Prometheus Authors 2014-2026'). NO-DATE: no date or version on the page. The footer says all components are under the Apache 2 License, but nothing says this covers the docs text (see prometheus-instrumentation-practices for the prometheus/docs repo check), so the conservative reading all-rights-reserved is recorded."
     verified_on: "2026-11-12"
 
@@ -852,7 +852,7 @@ sources:
     access: free
     units: [1]
     topics: [latency-measurement, percentiles, coordinated-omission, benchmarking]
-    status: candidate
+    status: approved
     notes: "Page opened (abstract only; the video was not watched in this session). Speaker Gil Tene, CTO of Azul Systems. InfoQ footer: copyright 2006-2026 C4Media Inc., no separate license for the talk. Date shown on the page is March 26, 2016. Needs a full viewing before any claims are taken from it."
     verified_on: "2026-11-12"
 
@@ -890,7 +890,7 @@ sources:
     access: free
     units: [1]
     topics: [estimation, back-of-envelope, latency-numbers, failure]
-    status: candidate
+    status: approved
     notes: "NO-DATE: the slides show no date or venue (search results attribute a Stanford talk circa 2010 but that was not verified on the deck). Image-only PDF, Google logo on each slide, no license statement (re-checked 2026-11-12: the fetched PDF is image-only, nothing readable beyond images), so treated as all-rights-reserved; the copy is hosted on a university course site, so posting rights are unverified; link only, do not redistribute. Slide 13 'Numbers Everyone Should Know' lists latency figures (L1 reference 0.5 ns up to a CA-Netherlands-CA packet at 150 ms); slides 14-16 'Back of the Envelope Calculations' compare serial vs parallel thumbnail reads (560 ms vs 18 ms, 'really more like 30-60 ms'). Hardware numbers are old; teach as method, not current values. The 'Joys of Real Hardware' slide gives first-year cluster failure counts. This is the primary source behind the tier 6 pointers in the registry."
     verified_on: "2026-11-12"
 
@@ -928,7 +928,7 @@ sources:
     access: free
     units: [2]
     topics: [cache, cache-expiration, thundering-herd, local-cache, external-cache]
-    status: candidate
+    status: approved
     notes: "The old aws.amazon.com/builders-library/caching-challenges-and-strategies/ URL redirects (301) to this one. Page shows published and last modified Dec 5, 2019; footer: (c) 2026 AWS, all rights reserved. Covers when to cache, local vs external, inline vs side caches, TTL and eviction, request coalescing."
     verified_on: "2026-11-12"
 
@@ -947,7 +947,7 @@ sources:
     access: free
     units: [1, 2, 4, 6]
     topics: [overload, load-shedding, queues, goodput, load-balancer, cascading-failure]
-    status: candidate
+    status: approved
     notes: "The aws.amazon.com/builders-library URL redirects (301) here. The page names the author only as 'David' (Sr. Principal Engineer at AWS), same as aws-builders-implementing-health-checks. Footer: (c) 2026 AWS, all rights reserved. Shows how latency problems turn into availability problems past a tipping point."
     verified_on: "2026-11-12"
 
@@ -966,7 +966,7 @@ sources:
     access: free
     units: [2, 4, 6]
     topics: [idempotency, retries, idempotency-key, api-design]
-    status: candidate
+    status: approved
     notes: "NO-DATE: the fetched page shows no publication date. Author shown as Malcolm Featonby (Principal Engineer, AWS). Footer: (c) 2026 AWS, all rights reserved. This URL did not redirect when opened. Core Unit 2 idempotency source (client request ID, semantic equivalence, same-ID-different-parameters error)."
     verified_on: "2026-11-12"
 
@@ -985,7 +985,7 @@ sources:
     access: free
     units: [2]
     topics: [idempotency, idempotency-key, api-design, payments]
-    status: candidate
+    status: approved
     notes: "NO-AUTHOR: vendor API docs. NO-DATE: no date on the page. No license stated on the page or footer (re-checked 2026-11-12), so treated as all-rights-reserved (copyright by default). Describes API v1 behavior (key up to 255 chars, pruned after 24 hours, saved results include 500 errors, POST only) and mentions API v2 differs (reopened 2026-11-12). Pair with stripe-blog-idempotency."
     verified_on: "2026-11-12"
 
@@ -1004,7 +1004,7 @@ sources:
     access: free
     units: [2]
     topics: [idempotency, retries, exponential-backoff, jitter, api-design]
-    status: candidate
+    status: approved
     notes: "Footer: (c) 2026 Stripe, LLC; no separate license for the article. Author shown as Brandur Leach. Written in 2017, so check against the current Stripe docs (stripe-docs-idempotent-requests) for details."
     verified_on: "2026-11-12"
 
@@ -1023,7 +1023,7 @@ sources:
     access: free
     units: [2]
     topics: [idempotency, idempotency-key, http, api-design]
-    status: candidate
+    status: approved
     version: "draft-08"
     notes: "License: page says 'Copyright (c) 2026 IETF Trust and the document authors. All rights reserved', subject to BCP 78 and IETF Trust Legal Provisions (code components Revised BSD), so recorded as all-rights-reserved (reopened 2026-11-12). Internet-Draft, not a standard: datatracker shows -08 (22 Oct 2026, active, Standards Track intended, expires 25 April 2027); cite only as work in progress and re-check for a newer revision. Third author (Dmitrii Tishkin) added in -08. Copyright 2026 IETF Trust and the document authors. Re-checked in -08: Section 2.6 (Idempotency Enforcement) and 2.7 (Error Handling) still hold: 400 for a missing key, 422 for a key reused with a different payload, 409 for a retry while the original is still processing. Other sections: 2.2 uniqueness, 2.3 validity and expiry, 2.4 fingerprint, 2.5 client/resource responsibilities. Appendix A: -08 updates references (RFC 9110, 9457, 9562, 9651) and notes the Retry case text (issue #48) is still open for discussion."
     verified_on: "2026-11-12"
@@ -1043,7 +1043,7 @@ sources:
     access: free
     units: [2]
     topics: [http, idempotent-methods, safe-methods, rest, status-codes]
-    status: candidate
+    status: approved
     notes: "License: 'Copyright (c) 2022 IETF Trust and the persons identified as the document authors. All rights reserved', subject to BCP 78 and IETF Trust Legal Provisions; code components Revised BSD (reopened 2026-11-12), so recorded as all-rights-reserved. STD 97. Page opened showed title, editors, date June 2022. Copyright 2022 IETF Trust and the persons identified as the document authors, all rights reserved, subject to BCP 78 and the IETF Trust Legal Provisions. Sections 9.2.1 (Safe Methods) and 9.2.2 (Idempotent Methods) are the relevant ones. Only the first 100,000 characters of a very long page were read."
     verified_on: "2026-11-12"
 
@@ -1062,7 +1062,7 @@ sources:
     access: free
     units: [2]
     topics: [http-caching, cache, cache-control, freshness, validation]
-    status: candidate
+    status: approved
     notes: "License: 'Copyright (c) 2022 IETF Trust and the persons identified as the document authors. All rights reserved', subject to BCP 78 and IETF Trust Legal Provisions (reopened 2026-11-12), so recorded as all-rights-reserved. STD 98, obsoletes RFC 7234 (from the page). Copyright 2022 IETF Trust and the persons identified as the document authors, all rights reserved. Sections: Overview of Cache Operation, Storing Responses in Caches, Constructing Responses from Caches, Field Definitions (Cache-Control etc.). Normative reference; beginners should start from mdn-http-caching."
     verified_on: "2026-11-12"
 
@@ -1081,7 +1081,7 @@ sources:
     access: free
     units: [2]
     topics: [http-caching, cache, cache-control, cdn, validation]
-    status: candidate
+    status: approved
     notes: "NO-AUTHOR: community docs. Date is the page's 'last modified'. Footer says content is under a Creative Commons license without naming the version; the MDN attribution page (recorded in mdn-http-overview notes) says CC-BY-SA 2.5 or later; recorded as CC-BY-SA-2.5 (ShareAlike if adapted). Covers private vs shared caches, Cache-Control, Vary, validation, request collapse."
     verified_on: "2026-11-12"
 
@@ -1100,7 +1100,7 @@ sources:
     access: free
     units: [2]
     topics: [cdn, edge, static-assets]
-    status: candidate
+    status: approved
     notes: "NO-AUTHOR: glossary page; date is 'last modified'. Short definition with benefits and drawbacks (third-party dependency, SRI, extra DNS lookups). Same MDN license handling as mdn-http-caching. Too brief to be the only CDN source."
     verified_on: "2026-11-12"
 
@@ -1119,7 +1119,7 @@ sources:
     access: free
     units: [2]
     topics: [cdn, cache, cache-control, edge-ttl, request-collapsing]
-    status: candidate
+    status: approved
     notes: "NO-AUTHOR: vendor docs; date is the page's 'last updated'. No license stated on the page or footer (re-checked 2026-11-12), so treated as all-rights-reserved (copyright by default). No author named (publisher Cloudflare). Vendor-specific defaults (TTL by status code, plan size limits) should be taught as an example of a CDN, not as general rules. cloudflare.com/learning/cdn/what-is-a-cdn/ returned 403 and was not read."
     verified_on: "2026-11-12"
 
@@ -1138,7 +1138,7 @@ sources:
     access: free
     units: [2]
     topics: [cache, cache-aside, invalidation, ttl, eviction]
-    status: candidate
+    status: approved
     notes: "NO-AUTHOR: no author named in the page text (front matter lists a git author handle only). Date is ms.date from the page front matter (updated_at 2025-12-09). License: the page shows no footer license in the fetch, but the public repo MicrosoftDocs/architecture-center (README 'Legal Notices', opened 2026-11-12) says documentation is CC BY 4.0 and code MIT; the page's own source is the mirror architecture-center-pr, so scope is inferred from the public repo, and usage stays rewrite-only. Vendor-neutral enough for the pattern; code is C#/Azure Redis. Notes the update-store-then-invalidate order."
     verified_on: "2026-11-12"
 
@@ -1157,7 +1157,7 @@ sources:
     access: free
     units: [2]
     topics: [cache, memcached, invalidation, scaling]
-    status: candidate
+    status: approved
     notes: "NSDI '13, Lombard IL, pp. 385-398, ISBN 978-1-931971-00-3. Page shows (c) USENIX and says papers are freely available once the event begins; no paper-specific license (USENIX says it is 'committed to Open Access' and papers are freely available; no license named), so treated as all-rights-reserved, read freely, rewrite only. Only the abstract page was opened, not the PDF. Beyond the Unit 2 level in full; the leases and thundering-herd parts are the useful bit later."
     verified_on: "2026-11-12"
 
@@ -1176,7 +1176,7 @@ sources:
     access: free
     units: [2]
     topics: [load-balancer, consistent-hashing, ecmp, connection-tracking]
-    status: candidate
+    status: approved
     notes: "NSDI '16, Santa Clara, Operational Systems Track, pp. 523-535. Page shows (c) USENIX; open access (USENIX: papers freely available), no paper-specific license, so treated as all-rights-reserved, rewrite only. Only the abstract page was opened. Advanced for beginners; use as a 'how a big operator does it' pointer after the basics."
     verified_on: "2026-11-12"
 
@@ -1195,7 +1195,7 @@ sources:
     access: free
     units: [2]
     topics: [load-balancer, health-checks, zone-aware-routing, proxy]
-    status: candidate
+    status: approved
     version: "1.41.0-dev-c30136"
     notes: "NO-AUTHOR: docs credit 'Envoy Project Authors'. NO-DATE: no date on the page. Version shown on the page: 1.41.0-dev-c30136 (a development build). Footer: (c) 2016-2026 Envoy Project Authors, no license stated on the page; github.com/envoyproxy/envoy shows Apache-2.0 in its sidebar but nothing says it covers the docs text (opened 2026-11-12), so treated as all-rights-reserved. The overview is thin; algorithm details are on a separate page not opened."
     verified_on: "2026-11-12"
@@ -1215,7 +1215,7 @@ sources:
     access: free
     units: [2]
     topics: [load-balancer, round-robin, least-connections, ip-hash, health-checks]
-    status: candidate
+    status: approved
     notes: "NO-AUTHOR: no author named. NO-DATE: no date shown. docs, no version shown. Footer: (c) F5, Inc., all rights reserved. Covers round-robin, least_conn, ip_hash, least_time (the page says least_time and active health checks need NGINX Plus), passive health checks via max_fails and fail_timeout."
     verified_on: "2026-11-12"
 
@@ -1234,7 +1234,7 @@ sources:
     access: free
     units: [2]
     topics: [grpc, rpc, deadlines, streaming, api-design]
-    status: candidate
+    status: approved
     notes: "NO-AUTHOR: project docs; date is the page's last modified. Footer has a License link to the grpc.io repo; the link was read 2026-11-12: github.com/grpc/grpc.io LICENSE says repository content is CC BY 4.0 and code samples Apache-2.0, so recorded as CC-BY-4.0. Covers four RPC types, deadlines, cancellation, metadata, channels."
     verified_on: "2026-11-12"
 
@@ -1253,7 +1253,7 @@ sources:
     access: free
     units: [1, 2, 6]
     topics: [grpc, deadlines, timeouts, propagation]
-    status: candidate
+    status: approved
     notes: "NO-AUTHOR: project docs; date is last modified. Footer copyright 2026 gRPC Authors; License: the footer links to github.com/grpc/grpc.io/blob/main/LICENSE, which says repository content is CC BY 4.0 and code samples Apache-2.0 (opened 2026-11-12), so recorded as CC-BY-4.0. No deadline by default; propagation defaults differ by language; remaining time is sent as a timeout to avoid clock skew."
     verified_on: "2026-11-12"
 
@@ -1272,7 +1272,7 @@ sources:
     access: free
     units: [2]
     topics: [rest, api-design, stateless, uniform-interface, cache]
-    status: candidate
+    status: approved
     notes: "Full dissertation title, from the index page (ics.uci.edu/~fielding/pubs/dissertation/top.htm): 'Architectural Styles and the Design of Network-based Software Architectures', Roy Thomas Fielding, UC Irvine, 2000. The chapter page header reads 'Fielding Dissertation: CHAPTER 5: Representational State Transfer (REST)'. A doctoral thesis, not peer-reviewed in the conference sense. Page says (c) Roy Thomas Fielding, 2000, all rights reserved. Section 5.1 lists the constraints; modern 'REST APIs' often ignore hypermedia, so teach it as an origin, not a checklist."
     verified_on: "2026-11-12"
 
@@ -1291,7 +1291,7 @@ sources:
     access: free
     units: [2]
     topics: [rest, api-design, versioning, errors]
-    status: candidate
+    status: approved
     attribution: "Sebagian materi diadaptasi dari Microsoft REST API Guidelines oleh Microsoft, CC BY 4.0, https://github.com/microsoft/api-guidelines. Telah diubah."
     notes: "NO-AUTHOR: no author named. NO-DATE: no date shown. corporate repo; no latest commit date visible in the fetch (953 commits on the vNext branch). Repo shows a CC BY 4.0 badge and a license.txt; the text of license.txt was not read. The content of Guidelines.md itself was not read in this session, only the repo listing, so section references are not yet known."
     verified_on: "2026-11-12"
@@ -1311,7 +1311,7 @@ sources:
     access: free
     units: [2]
     topics: [api-design, rest, grpc, resource-oriented-design]
-    status: candidate
+    status: approved
     attribution: "Sebagian materi diadaptasi dari API Improvement Proposals (AIP) oleh Google, CC BY 4.0, https://google.aip.dev/. Telah diubah."
     notes: "NO-AUTHOR: no author named. NO-DATE: no date shown. footer says content is licensed under CC BY 4.0 and code samples under Apache 2.0 unless otherwise noted. Only the landing page was opened; individual AIPs (for example resource-oriented design, request identification) were not read, so numbers must be confirmed. The older cloud.google.com/apis/design page redirects to docs.cloud.google.com and showed no license or date, so it is not recorded."
     verified_on: "2026-11-12"
@@ -1331,7 +1331,7 @@ sources:
     access: free
     units: [3]
     topics: [transactions, isolation-levels, anomalies, snapshot-isolation, serializability]
-    status: candidate
+    status: approved
     version: "PostgreSQL 18 (18.6)"
     notes: "NO-DATE: versioned manual page, no per-page date (PostgreSQL 18.6; only a site-wide news banner). NO-AUTHOR: corporate documentation. Real license: the PostgreSQL License (permissive; see the registry entry pg-docs-indexes-intro for the legalnotice text read 2026-11-12). Footer: Copyright 1996-2026 PGDG. Covers Read Committed, Repeatable Read (snapshot isolation), Serializable (SSI), the anomaly table, SQLSTATE 40001 and retry advice. Notes in references/notes."
     verified_on: "2026-11-12"
@@ -1351,7 +1351,7 @@ sources:
     access: free
     units: [3]
     topics: [mvcc, transactions, concurrency-control]
-    status: candidate
+    status: approved
     version: "PostgreSQL 18 (18.6)"
     notes: "NO-DATE: versioned manual page, no per-page date (PostgreSQL 18.6; only a site-wide news banner). NO-AUTHOR: corporate documentation. Real license: the PostgreSQL License (permissive; see the registry entry pg-docs-indexes-intro for the legalnotice text read 2026-11-12). Footer: Copyright 1996-2026 PGDG. Three-paragraph intro: snapshots per statement, readers do not block writers. Short page."
     verified_on: "2026-11-12"
@@ -1371,7 +1371,7 @@ sources:
     access: free
     units: [3]
     topics: [indexes, btree, hash-index, secondary-indexes]
-    status: candidate
+    status: approved
     version: "PostgreSQL 18 (18.6)"
     notes: "NO-DATE: versioned manual page, no per-page date (PostgreSQL 18.6; only a site-wide news banner). NO-AUTHOR: corporate documentation. Real license: the PostgreSQL License (permissive; see the registry entry pg-docs-indexes-intro for the legalnotice text read 2026-11-12). Footer: Copyright 1996-2026 PGDG. B-tree, Hash, GiST, SP-GiST, GIN, BRIN; B-tree supported operators and anchored LIKE rule. No LSM here (PostgreSQL uses B-trees)."
     verified_on: "2026-11-12"
@@ -1391,7 +1391,7 @@ sources:
     access: free
     units: [3]
     topics: [replication, sync-vs-async, replication-lag, failover]
-    status: candidate
+    status: approved
     version: "PostgreSQL 18 (18.6)"
     notes: "NO-DATE: versioned manual page, no per-page date (PostgreSQL 18.6; only a site-wide news banner). NO-AUTHOR: corporate documentation. Real license: the PostgreSQL License (permissive; see the registry entry pg-docs-indexes-intro for the legalnotice text read 2026-11-12). Footer: Copyright 1996-2026 PGDG. Chapter intro only was opened (the 26.1 solution comparison is a sub-page, not read). States the sync vs async trade-off, stale reads and possible loss on failover."
     verified_on: "2026-11-12"
@@ -1411,7 +1411,7 @@ sources:
     access: free
     units: [3]
     topics: [replication, leader-follower, streaming-replication, replication-lag, synchronous-replication, failover, read-replicas]
-    status: candidate
+    status: approved
     version: "PostgreSQL 18 (18.6)"
     notes: "NO-DATE: versioned manual page, no per-page date (PostgreSQL 18.6; only a site-wide news banner). NO-AUTHOR: corporate documentation. Real license: the PostgreSQL License (permissive; see the registry entry pg-docs-indexes-intro for the legalnotice text read 2026-11-12). Footer: Copyright 1996-2026 PGDG. Streaming and file-based standby, lag monitoring (26.2.5.2), replication slots, cascading, synchronous commit modes (26.2.8). Failover (26.3) URL guess returned 404 and was not read; hot standby read queries (26.4) not read."
     verified_on: "2026-11-12"
@@ -1431,7 +1431,7 @@ sources:
     access: free
     units: [3]
     topics: [partitioning, range-partitioning, hash-partitioning, partition-pruning]
-    status: candidate
+    status: approved
     version: "PostgreSQL 18 (18.6)"
     notes: "NO-DATE: versioned manual page, no per-page date (PostgreSQL 18.6; only a site-wide news banner). NO-AUTHOR: corporate documentation. Real license: the PostgreSQL License (permissive; see the registry entry pg-docs-indexes-intro for the legalnotice text read 2026-11-12). Footer: Copyright 1996-2026 PGDG. Single-node table partitioning, not sharding across servers; useful as the stepping stone before sharding. 5.12.1 gives a trigger-like hint: benefits usually matter when a table exceeds server memory."
     verified_on: "2026-11-12"
@@ -1451,7 +1451,7 @@ sources:
     access: free
     units: [3]
     topics: [replication, leader-follower, read-replicas, sync-vs-async, replication-lag]
-    status: candidate
+    status: approved
     version: "MySQL 8.4"
     notes: "NO-AUTHOR: corporate documentation, no author on the page. NO-DATE: no date; footer (c) 2026 Oracle. Version MySQL 8.4 (reopened 2026-11-12). Footer shows only '(c) 2026 Oracle' with links to copyright and terms pages (not followed), so rights are recorded as all-rights-reserved. Overview of source/replica, async default, semisync, delayed replication, GTID vs binlog position; lists scale-out of reads as a use. Does not discuss load-induced lag or failover procedures itself."
     verified_on: "2026-11-12"
@@ -1471,7 +1471,7 @@ sources:
     access: free
     units: [3]
     topics: [sharding, shard-key, hashed-sharding, range-sharding, rebalancing, hot-spots]
-    status: candidate
+    status: approved
     version: "Database Manual 9.0 (current)"
     notes: "NO-AUTHOR: vendor documentation. NO-DATE: no date. Footer shows only '(c) 2026 MongoDB, Inc.' and no license statement; the github.com/mongodb/docs README says 'All documentation is available under the terms of a Creative Commons License' linking CC BY-NC-SA 3.0 (opened 2026-11-12), which is NonCommercial and not in the schema enum, so all-rights-reserved is recorded and use stays rewrite-only. Version shown 9.0 (Current). Original URL docs.mongodb.com/manual/sharding/ redirects here (301). Says vertical scaling has a ceiling and sharding adds complexity (trigger hint); ranged vs hashed trade-off; monotonically increasing keys concentrate writes; balancer moves chunks."
     verified_on: "2026-11-12"
@@ -1491,7 +1491,7 @@ sources:
     access: free
     units: [3]
     topics: [data-models, document-model, embedding-vs-referencing]
-    status: candidate
+    status: approved
     version: "Database Manual 9.0 (current)"
     notes: "NO-AUTHOR: no author named. NO-DATE: no date shown. vendor documentation. The github.com/mongodb/docs README says documentation is under CC BY-NC-SA 3.0 (not in the enum, NonCommercial), so all-rights-reserved is recorded; see mongodb-docs-sharding. Footer shows only '(c) 2026 MongoDB, Inc.'. Vendor perspective: pushes embedding and 'data accessed together is stored together'; read critically next to relational normalization."
     verified_on: "2026-11-12"
@@ -1511,7 +1511,7 @@ sources:
     access: free
     units: [3]
     topics: [partitioning, consistent-hashing, vnodes, leaderless-replication, quorum, wide-column]
-    status: candidate
+    status: approved
     version: "Cassandra 5.0 docs (prerelease; /latest/ URL is a moving target, pin before approval)"
     attribution: "Sebagian materi diadaptasi dari Apache Cassandra Documentation (Dynamo) oleh The Apache Software Foundation, Apache License 2.0, https://cassandra.apache.org/doc/latest/cassandra/architecture/dynamo.html. Telah diubah."
     notes: "NO-AUTHOR: no author named. NO-DATE: no date shown. project documentation. Footer: 'c 2009- The Apache Software Foundation under the terms of the Apache License 2.0' (page text; docs license read from footer only, not LICENSE file). The page itself says it is a prerelease 5.0 page and links to a newer (6.0-alpha2) 'latest'; /latest/ URL may shift. Token ring, vnodes, RF, consistency levels (W+R>RF); hinted handoff and read repair only listed."
@@ -1532,7 +1532,7 @@ sources:
     access: free
     units: [3]
     topics: [partitioning, partition-key, hot-partitions, write-sharding, key-value]
-    status: candidate
+    status: approved
     notes: "NO-AUTHOR: AWS documentation, no author. NO-DATE: no date in the fetched text. No license statement in the fetched content (re-checked 2026-11-12), so treated as all-rights-reserved. vendor documentation. States per-partition limits (3,000 read units/s, 1,000 write units/s) and the advice to spread activity uniformly; sub-pages on write sharding not opened."
     verified_on: "2026-11-12"
 
@@ -1551,7 +1551,7 @@ sources:
     access: free
     units: [3]
     topics: [secondary-indexes, global-secondary-index, local-secondary-index, key-value]
-    status: candidate
+    status: approved
     notes: "NO-AUTHOR: AWS documentation, no author. NO-DATE: no date in the fetched text. No license statement in the fetched content (re-checked 2026-11-12), so treated as all-rights-reserved. vendor documentation. GSI vs LSI comparison table: GSI is its own partition space, eventually consistent only, own throughput; LSI shares partition key and allows strong reads. Good illustration of secondary-index-in-partitioned-store trade-off."
     verified_on: "2026-11-12"
 
@@ -1570,7 +1570,7 @@ sources:
     access: free
     units: [3]
     topics: [replication, multi-leader, conflicts]
-    status: candidate
+    status: approved
     version: "stable"
     notes: "NO-AUTHOR: no author named. NO-DATE: no date shown. project documentation. No footer, license or copyright was present in the fetched content, but the docs source directory src/docs in github.com/apache/couchdb has its own LICENSE file, which is the Apache License 2.0 (opened 2026-11-12), so recorded as Apache-2.0; usage stays rewrite-only. Version only 'stable'. Short intro: master-master as two opposite one-way tasks, conflicts possible, continuous vs one-shot."
     verified_on: "2026-11-12"
@@ -1590,7 +1590,7 @@ sources:
     access: free
     units: [3]
     topics: [data-models, graph-model, property-graph]
-    status: candidate
+    status: approved
     notes: "NO-AUTHOR: no author named. NO-DATE: no date shown. vendor documentation. No footer/license in the fetched content, but the source repo github.com/neo4j/docs-getting-started has LICENSE.txt = CC BY-NC-SA 4.0 (raw file opened 2026-11-12), NonCommercial so rewrite-only; version not stated. Nodes, labels, typed directed relationships, properties, traversals. Does not mention index-free adjacency on this page."
     verified_on: "2026-11-12"
 
@@ -1609,7 +1609,7 @@ sources:
     access: free
     units: [3]
     topics: [sharding, shard-key, logical-shards, migration, trigger]
-    status: candidate
+    status: approved
     notes: "Operator engineering blog. Footer '(c) 2026 Notion Labs, Inc.' with no separate license, treated as all-rights-reserved. Gives a concrete trigger: VACUUM stalls and transaction-ID wraparound risk on a single Postgres monolith. 480 logical shards over 32 physical DBs, workspace-ID shard key, double-write migration. Author title on page: Infrastructure Technical Lead. Vendor-specific numbers; use as case study, not general rule."
     verified_on: "2026-11-12"
 
@@ -1628,7 +1628,7 @@ sources:
     access: free
     units: [3, 5]
     topics: [partitioning, consistent-hashing, leaderless-replication, quorum, vector-clocks, hinted-handoff, key-value, eventual-consistency]
-    status: candidate
+    status: approved
     notes: "Reopened 2026-11-12 via text extraction of the PDF: first page shows 'SOSP'07 ... Copyright 2007 ACM'. First page: 'SOSP'07, October 14-17, 2007, Stevenson, Washington, USA. Copyright 2007 ACM 978-1-59593-591-5/07/0010'; permission is granted to copy for personal or classroom use without fee, not for profit. Free PDF copy hosted on allthingsdistributed.com (author Werner Vogels' blog). No DOI verified from an opened page, so doi: null. Read via text extraction of the PDF: abstract, 1, 4.2, 4.3 (skimmed), 6.1-6.2; sections 4.4-4.7 (vector clocks, hinted handoff, Merkle trees) were seen as headings only, so those topics are not yet read."
     verified_on: "2026-11-12"
 
@@ -1647,7 +1647,7 @@ sources:
     access: free
     units: [3]
     topics: [data-models, wide-column, lsm-tree, partitioning]
-    status: candidate
+    status: approved
     notes: "Landing page lists OSDI 2006, pp. 205-218; PDF at https://storage.googleapis.com/gweb-research2023-media/pubtools/4443.pdf. The page states no license or copyright (re-checked 2026-11-12), so treated as all-rights-reserved. Only the landing page (abstract) was opened, the PDF was not read, so no reading notes."
     verified_on: "2026-11-12"
 
@@ -1666,7 +1666,7 @@ sources:
     access: free
     units: [3]
     topics: [transactions, isolation-levels, anomalies, snapshot-isolation, write-skew]
-    status: candidate
+    status: approved
     notes: "Landing page lists it as MSR-TR-95-51, June 1995, venue not stated on the page (an ACM link exists but was not followed). PDF: https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/tr-95-51.pdf. No copyright statement on the page (re-checked 2026-11-12), so treated as all-rights-reserved. Only the abstract page was opened; PDF not read."
     verified_on: "2026-11-12"
 
@@ -1685,7 +1685,7 @@ sources:
     access: free
     units: [3]
     topics: [indexes, lsm-tree, write-optimized-storage]
-    status: candidate
+    status: approved
     notes: "NO-DATE: the PDF says only 'To be published: Acta Informatica' and has no date or volume; its text refers to 1995 prices, so the year is not recorded. No copyright or license text in the file (re-read 2026-11-12), so treated as all-rights-reserved. Abstract and introduction read from text extraction; 32 pages, rest not read. Original B-tree-versus-LSM motivation (history-table inserts)."
     verified_on: "2026-11-12"
 
@@ -1704,7 +1704,7 @@ sources:
     access: free
     units: [3]
     topics: [partitioning, consistent-hashing, hot-spots]
-    status: candidate
+    status: approved
     notes: "License: no copyright or permission text in the file (re-read 2026-11-12), so treated as all-rights-reserved. NO-DATE: the opened PDF (10 pages) shows no venue, year or copyright line; the first page's references cite ACM STOC proceedings, but this copy does not state where it was published. A web search listing suggested STOC 1997 (ACM DOI 10.1145/258533.258660) but the ACM and dblp pages could not be opened (403), so venue, year and DOI are NOT recorded. Section 4 defines consistent hash functions. Copy is a course-hosted file; replace with a canonical URL when one can be opened."
     verified_on: "2026-11-12"
 
@@ -1723,7 +1723,7 @@ sources:
     access: free
     units: [3]
     topics: [data-models, relational-model]
-    status: candidate
+    status: approved
     notes: "P1-071 (2026-11-13): metadata confirmed via the Crossref API: DOI 10.1145/362384.362685, E. F. Codd, 'A relational model of data for large shared data banks', Communications of the ACM 13(6), pp. 377-387, June 1970, publisher ACM. The UPenn PDF is a scan (only partial OCR text), so it is kept as a free copy, not as the metadata source; posting rights unverified, do not redistribute. Page header: 'Communications of the ACM, Volume 13, Number 6, June 1970'. Copy hosted on a UPenn course page; no copyright/permission text found in the extracted text, so treated as all-rights-reserved (CACM article, copy on a course page). Original URL seas.upenn.edu redirects (301) to the engineering.upenn.edu host. Defines n-ary relations, normal form, data independence; compares to network/tree models. Historical source; not a practical guide."
     verified_on: "2026-11-13"
 
@@ -1743,7 +1743,7 @@ sources:
     access: free
     units: [4]
     topics: [log, partitions, consumer-groups, offsets, retention, log-compaction, delivery-semantics, exactly-once, idempotent-producer, transactions, pull-vs-push]
-    status: candidate
+    status: approved
     version: "Apache Kafka 4.4.X docs"
     notes: "NO-AUTHOR: corporate documentation, no author on the page. NO-DATE: page shows only a version (AK 4.4.X; site Last modified 2026-10-26). Footer: content (c) 2026 ASF under Apache License v2. The unversioned #design anchor URL only shows a redirect page; the /44/ URL is version-pinned, so a newer docs release may supersede it. Sections read: Message Delivery Semantics, Using Transactions, Consumer Position, Push vs Pull, Consumer Groups, Log Compaction (retention is only mentioned in passing; the page has no dedicated Retention section). Core Unit 4 log source."
     verified_on: "2026-11-12"
@@ -1763,7 +1763,7 @@ sources:
     access: free
     units: [4]
     topics: [event-streaming, topics, partitions, replication, producers-consumers, retention, ordering-by-key]
-    status: candidate
+    status: approved
     version: "Apache Kafka 4.4.X docs"
     notes: "NO-AUTHOR: no author on the page. NO-DATE: page shows 'Last modified' only for the site build (2026-10-22), no content date. Footer: (c) 2026 ASF, Apache License v2. Short overview: topic/partition model, same key goes to same partition, reads do not delete events. Good entry point for learners."
     verified_on: "2026-11-12"
@@ -1783,7 +1783,7 @@ sources:
     access: free
     units: [4]
     topics: [consumer-lag, consumer-groups, offsets, monitoring, topic-config, quotas]
-    status: candidate
+    status: approved
     version: "Apache Kafka 4.4.X docs"
     notes: "NO-AUTHOR: no author on the page. NO-DATE: page shows 'Last modified' only for the site build (2026-10-22), no content date. Footer: (c) 2026 ASF, Apache License v2. Section 'Checking consumer position' shows kafka-consumer-groups.sh --describe with current offset, log-end offset and LAG per partition. Fetch tool summarized the page; re-read before quoting commands. Consumer lag is only described as a command output, not as an alerting practice (gap)."
     verified_on: "2026-11-12"
@@ -1803,7 +1803,7 @@ sources:
     access: free
     units: [4]
     topics: [log, partitions, offsets, consumer-groups, pull-model, delivery-guarantees, page-cache]
-    status: candidate
+    status: approved
     notes: "Reopened 2026-11-12 via pdftotext: 'NetDB'11, Jun. 12, 2011, Athens, Greece. Copyright 2011 ACM'. URL is a course-hosted copy (MIT 6.S897 reading list), not the publisher site; the PDF itself carries 'Copyright 2011 ACM' and a permission-to-copy notice, so license is treated as all-rights-reserved. The PDF was read as text; sections 1 to 6 (architecture in section 3, delivery guarantees in section 3.3). Venue (NetDB'11, Athens, June 2011) is stated in the PDF's own ACM copyright block; no official proceedings page was opened, so find the canonical URL and DOI at verification time. Early design: delivery is at-least-once, ordering only within a partition."
     verified_on: "2026-11-12"
 
@@ -1822,7 +1822,7 @@ sources:
     access: free
     units: [4]
     topics: [exactly-once, idempotent-producer, transactions, delivery-semantics, deduplication]
-    status: candidate
+    status: approved
     notes: "Page footer shows (c) Confluent 2014-2026, no content license stated; treated as all-rights-reserved. Page says last updated March 2025; described Kafka 0.11 behavior (2017), so numbers and settings may be outdated. Vendor blog, but written by Kafka's authors. Key point: the guarantee holds inside Kafka (read, state, write back); external side effects are outside it."
     verified_on: "2026-11-12"
 
@@ -1841,7 +1841,7 @@ sources:
     access: free
     units: [4]
     topics: [work-queue, task-queue, ack, redelivery, durability, prefetch, fair-dispatch, slow-work-off-request-path]
-    status: candidate
+    status: approved
     version: "RabbitMQ 4.4"
     notes: "NO-AUTHOR: corporate documentation, no author. NO-DATE: no date shown on the page (footer 'Copyright 2005-2026 Broadcom'); docs release series 4.4. Footer: Copyright 2005-2026 Broadcom (no open license on page). Python/pika code. Opens with the trigger: slow tasks that cannot finish inside an HTTP request. Covers round-robin dispatch, manual ack, requeue on worker death, durable queue plus persistent messages, prefetch=1. Sibling tutorials (publish/subscribe, routing) not opened."
     verified_on: "2026-11-12"
@@ -1861,7 +1861,7 @@ sources:
     access: free
     units: [4]
     topics: [ack, nack, redelivery, publisher-confirms, duplicates, prefetch]
-    status: candidate
+    status: approved
     version: "RabbitMQ 4.4"
     notes: "NO-AUTHOR: corporate documentation, no author. NO-DATE: no date shown on the page (footer 'Copyright 2005-2026 Broadcom'); docs version 4.4. Footer: Copyright 2005-2026 Broadcom. Sections include consumer acknowledgement modes, negative ack and requeue, channel prefetch, automatic requeue on connection loss, publisher confirms. The fetch summary says the page does not use the terms 'at-least-once' or 'poison message' itself; those are inferences from described behavior, so do not attribute the terms to the page."
     verified_on: "2026-11-12"
@@ -1881,7 +1881,7 @@ sources:
     access: free
     units: [4]
     topics: [visibility-timeout, ack, redelivery, in-flight-messages, at-least-once, heartbeat]
-    status: candidate
+    status: approved
     notes: "NO-AUTHOR: AWS documentation, no author. NO-DATE: no date in the fetched text. No license statement in the fetched content (re-checked 2026-11-12), so treated as all-rights-reserved. Facts on the page: default 30 s, extend via ChangeMessageVisibility, 12-hour maximum from first receive, about 120,000 in-flight limit for standard queues, at-least-once still allows duplicates inside the timeout. Quotas change; re-check at verification."
     verified_on: "2026-11-12"
 
@@ -1900,7 +1900,7 @@ sources:
     access: free
     units: [4]
     topics: [dlq, dead-letter-queue, redrive, max-receive-count, retention, poison-messages]
-    status: candidate
+    status: approved
     notes: "NO-AUTHOR: AWS documentation, no author. NO-DATE: no date in the fetched text. No license statement in the fetched content (re-checked 2026-11-12), so treated as all-rights-reserved. Covers redrive policy and maxReceiveCount, DLQ must be in the same account and Region, retention should be longer than the source queue, do not use a DLQ with FIFO if order matters."
     verified_on: "2026-11-12"
 
@@ -1919,7 +1919,7 @@ sources:
     access: free
     units: [4]
     topics: [message-queue, at-least-once, best-effort-ordering, decoupling, background-work]
-    status: candidate
+    status: approved
     notes: "NO-AUTHOR: AWS documentation, no author. NO-DATE: no date in the fetched text. No license statement in the fetched content (re-checked 2026-11-12), so treated as all-rights-reserved. Short page: at-least-once, possible out-of-order delivery, stored redundantly across AZs; use cases include decoupling live user requests from heavy background work (a useful trigger statement). FIFO queue page not opened."
     verified_on: "2026-11-12"
 
@@ -1938,7 +1938,7 @@ sources:
     access: free
     units: [4]
     topics: [outbox, dual-write, message-relay, polling-publisher, transaction-log-tailing, idempotent-consumer]
-    status: candidate
+    status: approved
     notes: "NO-DATE: the page gives none; footer says Copyright 2026 Chris Richardson, all rights reserved. Practitioner author (not an operator of the system), so tier 2 is a judgment call. Clear problem/solution/result-context format; states the relay can publish duplicates so consumers must be idempotent."
     verified_on: "2026-11-12"
 
@@ -1957,7 +1957,7 @@ sources:
     access: free
     units: [4]
     topics: [idempotent-consumer, at-least-once, deduplication, processed-messages-table]
-    status: candidate
+    status: approved
     notes: "Reopened 2026-11-12: no date and no license on the page; footer 'Copyright (c) 2026 Chris Richardson, All rights reserved'. NO-DATE: the page gives none (a linked blog post is dated 2020-10-16, not this page). Footer: Copyright 2026 Chris Richardson, all rights reserved. Practitioner author, tier 2 is a judgment call. Solution: store processed message IDs in the same transaction as the business update; primary key (subscriber, message id) rejects duplicates."
     verified_on: "2026-11-12"
 
@@ -1976,7 +1976,7 @@ sources:
     access: free
     units: [4]
     topics: [outbox, dual-write, cdc, change-data-capture, debezium, at-least-once, idempotent-consumer]
-    status: candidate
+    status: approved
     notes: "Footer re-read 2026-11-12: 'The website and documentation are licensed under CC BY 3.0'. Real license: the page says the Debezium website and documentation are CC BY 3.0 (software is Apache 2.0). Sections: The Issue of Dual Writes, The Outbox Pattern, An Implementation Based on Change Data Capture, The Outbox Table, Duplicate Detection in the Consuming Service. The only opened source that explains CDC from the transaction log as the relay."
     verified_on: "2026-11-12"
 
@@ -1995,7 +1995,7 @@ sources:
     access: free
     units: [4]
     topics: [outbox, cdc, debezium, kafka-connect, event-routing, ordering]
-    status: candidate
+    status: approved
     version: "Debezium 3.7 (stable)"
     notes: "NO-AUTHOR: no author named. NO-DATE: no date shown (footer 'Copyright 2026 Debezium Community', docs version 3.7 latest stable). License: this page's own footer shows no license, but the Debezium blog footer on the same site says 'The website and documentation are licensed under CC BY 3.0' (read 2026-11-12), so recorded as CC-BY-3.0; usage stays rewrite-only. The 'stable' URL will move to newer versions. Tool-specific (Kafka Connect SMT); use only as an implementation example."
     verified_on: "2026-11-12"
@@ -2015,7 +2015,7 @@ sources:
     access: free
     units: [4]
     topics: [backpressure, queue-backlog, load-shedding, multi-tenant, shuffle-sharding, dead-letter-queue, queue-age]
-    status: candidate
+    status: approved
     notes: "The aws.amazon.com/builders-library URL redirects (301) to this one. Author shown only as 'David' (Sr. Principal Engineer at AWS), same convention as aws-builders-load-shedding. Footer: AWS copyright 2026, all rights reserved. Main point: a queue can make recovery slower than a synchronous system because the backlog must be drained; measure message age; use separate queues, spillover, drop stale work, and backpressure. Core source for the backpressure sub-topic."
     verified_on: "2026-11-12"
 
@@ -2034,7 +2034,7 @@ sources:
     access: free
     units: [4]
     topics: [queue, load-leveling, backpressure, spikes, dead-letter-queue, idempotent-consumer, ordering, autoscaling]
-    status: candidate
+    status: approved
     notes: "NO-AUTHOR: no author named in the page text (front matter lists a git author handle only). Date is ms.date from the front matter. License: the page shows no footer license in the fetch, but the public repo MicrosoftDocs/architecture-center README 'Legal Notices' says documentation is CC BY 4.0 and code MIT (opened 2026-11-12, see azure-cache-aside-pattern); the page's own source is the mirror architecture-center-pr, so scope is inferred and usage stays rewrite-only. Has an explicit 'when to use' trigger (intermittent spikes that overwhelm a downstream service) and 'not suitable' (caller needs synchronous low-latency reply, low stable volume). Warns that queue grows if producer rate exceeds consumer rate."
     verified_on: "2026-11-12"
 
@@ -2053,7 +2053,7 @@ sources:
     access: free
     units: [4]
     topics: [work-queue, competing-consumers, point-to-point, ordering, poison-messages, dead-letter-queue, idempotent-consumer, peek-lock]
-    status: candidate
+    status: approved
     notes: "NO-AUTHOR: no author named in the page text (front matter lists a git author handle only). Date is ms.date from front matter. License: the page shows no footer license in the fetch, but the public repo MicrosoftDocs/architecture-center README 'Legal Notices' says documentation is CC BY 4.0 and code MIT (opened 2026-11-12, see azure-cache-aside-pattern); the page's own source is the mirror architecture-center-pr, so scope is inferred and usage stays rewrite-only. Contrasts competing consumers (one consumer gets each message) with pub/sub (all subscribers get every message). Covers ordering, poison messages, result handling, messaging system scaling."
     verified_on: "2026-11-12"
 
@@ -2072,7 +2072,7 @@ sources:
     access: free
     units: [4]
     topics: [pub-sub, topics, fan-out, delivery-semantics, at-least-once, exactly-once, ordering, backpressure, schema-evolution]
-    status: candidate
+    status: approved
     notes: "NO-AUTHOR: no author named in the page text (front matter lists a git author handle only). Date is ms.date from front matter. License: the page shows no footer license in the fetch, but the public repo MicrosoftDocs/architecture-center README 'Legal Notices' says documentation is CC BY 4.0 and code MIT (opened 2026-11-12, see azure-cache-aside-pattern); the page's own source is the mirror architecture-center-pr, so scope is inferred and usage stays rewrite-only. Covers topic vs content filtering, delivery guarantees (at-most/at-least/exactly-once trade-offs), ordering, poison messages, backpressure via flow control. Includes when-not-to-use (few consumers, strict ordering, need for atomic transaction)."
     verified_on: "2026-11-12"
 
@@ -2091,7 +2091,7 @@ sources:
     access: free
     units: [4]
     topics: [backpressure, message-driven, flow-control, responsiveness]
-    status: candidate
+    status: approved
     version: "v2.0"
     notes: "Real license: the page says it may be freely copied in any form but only in its entirety, with a copyright notice 2014-2026; this is not a standard license and allows copying only in its entirety (no adaptation), so it is recorded as all-rights-reserved (re-read 2026-11-12). Version 2.0, 2014-09-16. Position paper, not an operator report; backpressure appears in one phrase under Message Driven. Weak as a primary source: doubtful for Tier 2, use only for vocabulary."
     verified_on: "2026-11-12"
@@ -2111,7 +2111,7 @@ sources:
     access: free
     units: [4]
     topics: [backpressure, flow-control, bounded-buffer, highwatermark, drain]
-    status: candidate
+    status: approved
     notes: "NO-AUTHOR: no author on the page. NO-DATE: no date (only 'Reading Time: 18 min'). Footer: Copyright OpenJS Foundation and Node.js contributors, all rights reserved. In-process backpressure (write() returns false, 'drain' event), not a distributed queue, but the clearest free beginner explanation of why unbounded buffers exhaust memory. The page's measured memory figures come from its own demo; do not generalize them."
     verified_on: "2026-11-12"
 
@@ -2132,7 +2132,7 @@ sources:
     access: free
     units: [5]
     topics: [consensus, raft, leader-election, log-replication, quorum, membership-change, replicated-state-machine]
-    status: candidate
+    status: approved
     notes: "Read via text extraction of the PDF. First page says it is an extended version of the conference paper, 'Published May 20, 2014'; the venue (USENIX ATC 2014, Best Paper) comes from raft.github.io, not from the PDF. No copyright or license statement in the PDF text. Sections read: 1, 5.1-5.3, 5.6 (timing); 5.4 (safety) and 6 (membership) skimmed; 8 (client interaction), 7 (compaction), proofs and evaluation not read closely. Reopened 2026-11-12; title, authors, 2014-05-20 date confirmed on page 1. Still no copyright or license text in the PDF, so recorded as all-rights-reserved (conservative; usage stays rewrite-only). Free copy on the project site."
 
   - id: raft-github-io
@@ -2170,7 +2170,7 @@ sources:
     access: free
     units: [5]
     topics: [logical-clocks, happened-before, lamport-clock, total-ordering, physical-clocks, clock-drift, causality]
-    status: candidate
+    status: approved
     notes: "Read via text extraction of the PDF (the fetch tool could not read it). Page footers: 'Copyright 1978 ACM 0001-0782/78/0700-0558'; the first page grants fair use for teaching or research with ACM notice. Free copy hosted on Lamport's publication site (an azurewebsites mirror, URL may move). No DOI verified. Sections: partial ordering, logical clocks, total ordering and mutual-exclusion example, physical clocks and their synchronization bound. Vector clocks are not in this paper. Reopened 2026-11-12; title, author and (c) 1978 ACM confirmed from the PDF text."
 
   - id: lamport-paxos-made-simple
@@ -2189,7 +2189,7 @@ sources:
     access: free
     units: [5]
     topics: [consensus, paxos, quorum, acceptors, proposers, replicated-state-machine]
-    status: candidate
+    status: approved
     notes: "Read via text extraction of the PDF. Title page shows 'Leslie Lamport, 01 Nov 2001'; no venue or copyright statement in the PDF. Sections 2.1-2.5 (problem, choosing a value, learning, progress, implementation) and 3 (state machine). Short, but dense; pair with the Raft paper and SRE book ch. 23 for learners. Reopened 2026-11-12; title, author and date confirmed. No license or copyright text in the PDF, so recorded as all-rights-reserved (conservative; usage stays rewrite-only)."
 
   - id: chubby-lock-service
@@ -2208,7 +2208,7 @@ sources:
     access: free
     units: [5]
     topics: [locks, leases, leader-election, coarse-grained-locking, sessions, sequencer, fencing, consensus, paxos]
-    status: candidate
+    status: approved
     notes: "Venue and date confirmed from the USENIX OSDI '06 technical sessions page (https://www.usenix.org/legacy/event/osdi06/tech/): OSDI '06, session Distributed Storage and Locking, 8 November 2006. The PDF text itself prints no venue or year. No copyright or license text in the PDF. Read via text extraction: Abstract, 1, 2.1 rationale, 2.4 locks and sequencers, 2.8 sessions and KeepAlives, 2.9 fail-overs, 4 use and surprises, 4.6 lessons. Google-internal system; Chubby itself is not available to learners. Reopened 2026-11-12; title, author confirmed. No license or copyright text in the PDF, so recorded as all-rights-reserved (conservative; usage stays rewrite-only)."
 
   - id: zookeeper-atc-paper
@@ -2227,7 +2227,7 @@ sources:
     access: free
     units: [5]
     topics: [coordination-service, zookeeper, zab, znodes, watches, locks, leader-election, linearizable-writes]
-    status: candidate
+    status: approved
     notes: "Venue and date confirmed from the USENIX ATC '10 technical sessions page (https://www.usenix.org/legacy/event/atc10/tech/): USENIX ATC '10, 24 June 2010. The PDF text read does not print the venue or year. Read via text extraction: headings 1 Introduction, 2.3 ZooKeeper guarantees, 2.4 primitives (lock without herd effect), 3 applications, 4 implementation. Evaluation section not read closely. Reopened 2026-11-12; title and four authors confirmed. No license statement in the PDF, so recorded as all-rights-reserved (conservative; usage stays rewrite-only)."
 
   - id: spanner-osdi12
@@ -2246,7 +2246,7 @@ sources:
     access: free
     units: [5]
     topics: [truetime, external-consistency, clock-uncertainty, commit-wait, globally-distributed-database, paxos]
-    status: candidate
+    status: approved
     notes: "Only the USENIX presentation page (abstract) was opened, not the PDF, so no reading notes. Page shows 'OSDI '12, Hollywood, CA', October 2012, Best Paper; footer is only '(c) USENIX' with a statement that papers are freely available, no per-paper license. The first URL form (osdi-12 with a hyphen) returned 404; this form works. Verifier: open the PDF and confirm the TrueTime sections before approval. Reopened 2026-11-12; authors and OSDI '12 confirmed on the page. USENIX Open Access statement makes the paper freely available but names no license, so recorded as all-rights-reserved (conservative; usage stays rewrite-only). The PDF itself was not opened this pass; the TrueTime sections must be read by the content writer."
 
   - id: kleppmann-distributed-locking-2016
@@ -2265,7 +2265,7 @@ sources:
     access: free
     units: [5]
     topics: [distributed-locks, leases, fencing-tokens, redlock, clock-jumps, process-pauses, consensus]
-    status: candidate
+    status: approved
     notes: "Reopened 2026-11-12, full page read. Footer: Creative Commons Attribution 3.0 Unported. Page dated 8 Feb 2016; update note says Salvatore Sanfilippo (Redlock author) posted a rebuttal on 9 Feb 2016 and Kleppmann kept his conclusions. Author is a researcher and the DDIA author, but this is a blog post, so Tier 2 is a judgment call. Core argument: a lease alone cannot protect against paused clients; a monotonically increasing fencing token checked by the storage layer can; Redlock gives no fencing token and depends on timing. The rebuttal itself was not opened. Reopened 2026-11-12; footer links CC BY 3.0 (site-wide license)."
 
   - id: kleppmann-stop-calling-cp-ap-2015
@@ -2284,7 +2284,7 @@ sources:
     access: free
     units: [5]
     topics: [cap-theorem, linearizability, availability, partitions, critique]
-    status: candidate
+    status: approved
     notes: "Real license: footer says Creative Commons Attribution 3.0 Unported. Critique of CAP: formal definitions are narrow (consistency = linearizability, availability = every live node answers, single register), many real systems fit neither CP nor AP. Opinionated; present as a critique next to Brewer 2012. Reopened 2026-11-12; footer links CC BY 3.0 (site-wide license)."
 
   - id: brewer-cap-twelve-years-2012
@@ -2303,7 +2303,7 @@ sources:
     access: free
     units: [5]
     topics: [cap-theorem, partitions, partition-mode, recovery, compensation, crdt, availability]
-    status: candidate
+    status: approved
     notes: "Content read on the InfoQ republication (page says it first appeared in Computer, IEEE Computer Society; footer copyright C4Media 2006-2026; InfoQ date 2012-05-30 is the republication date, not the original). Original metadata confirmed from the Crossref record for DOI 10.1109/MC.2012.37 (title CAP twelve years later: How the rules have changed, Eric Brewer, Computer vol 45 issue 2, pp. 23-29, issued 2012-02). The IEEE Xplore page rendered empty, so it was not read; the article text was not compared against the IEEE version. Key ideas: 2 of 3 is misleading, partitions are rare and detected via timeouts, explicit partition mode, recovery and compensation. Reopened 2026-11-12; InfoQ footer 'copyright 2006-2026 C4Media Inc.' confirmed."
 
   - id: abadi-pacelc-2012
@@ -2322,7 +2322,7 @@ sources:
     access: free
     units: [5]
     topics: [pacelc, cap-theorem, consistency-latency-tradeoff, distributed-databases]
-    status: candidate
+    status: approved
     notes: "Read via text extraction of the PDF: cover feature, 'Daniel J. Abadi, Yale University'; page footer '0018-9162/12/$31.00 (c) 2012 IEEE, published by the IEEE Computer Society, February 2012'. Free copy on the author's page hosted at cs.umd.edu. Argument: CAP only constrains behaviour during partitions; PACELC adds the trade-off between latency and consistency that exists even when there is no partition. Only the opening was read closely; the system-classification table was not. Reopened 2026-11-12; title, author and (c) 2012 IEEE confirmed from the PDF."
 
   - id: vogels-eventually-consistent-2008
@@ -2341,7 +2341,7 @@ sources:
     access: free
     units: [5]
     topics: [eventual-consistency, read-your-writes, session-consistency, monotonic-reads, causal-consistency, quorum]
-    status: candidate
+    status: approved
     notes: "Defines causal, read-your-writes, session, monotonic reads and monotonic writes as variants of eventual consistency; says RYW and monotonic reads are the most useful. Page mentions an earlier ACM Queue version (not opened). Vocabulary differs slightly from Jepsen's formal definitions; use Jepsen for precision. Reopened 2026-11-12; page date 2008-12-23 confirmed. Page metadata names All Things Distributed as copyright holder (2008) and no license, so recorded as all-rights-reserved (usage stays rewrite-only)."
 
   - id: jepsen-linearizable
@@ -2499,7 +2499,7 @@ sources:
     access: free
     units: [5]
     topics: [consensus, paxos, split-brain, leader-election, cap-theorem, replicated-state-machine, quorum]
-    status: candidate
+    status: approved
     notes: "Chapter-level entry for google-sre-book (same license). Reopened 2026-11-12: byline Laura Nolan, edited by Tim Harvey (editor, so not listed in authors). Footer: Copyright 2017 Google, Inc. Published by O'Reilly Media, Inc. Licensed under CC BY-NC-ND 4.0. published 2017 is this chapter footer copyright year; the google-sre-book entry also records 2017 (copyright year). Sections read: CAP Theorem; Motivating the Use of Consensus (three split-brain/failover/group-membership case studies); How Distributed Consensus Works (Paxos overview, architecture patterns); Distributed Consensus Performance (Multi-Paxos flow, stable leaders, batching, disk access). Reopened 2026-11-12; footer 'Copyright 2017 Google, Inc. ... Licensed under CC BY-NC-ND 4.0' confirmed."
 
   - id: kulkarni-hybrid-logical-clocks
@@ -2557,7 +2557,7 @@ sources:
     access: free
     units: [5]
     topics: [clock-skew, truetime, uncertainty-interval, causal-reverse, max-offset, spanner, serializability]
-    status: candidate
+    status: approved
     notes: "Page shows 'Published on January 27, 2022' by Spencer Kimball and Irfan Sharif. Footer: all rights reserved, Cockroach Labs 2026. Vendor engineering post (the operator of CockroachDB). Explains clock offset, max offset (node shuts itself down if exceeded), uncertainty intervals and restarts, and the causal reverse anomaly; compares to Spanner's ~7 ms TrueTime bound vs 100-250 ms for NTP (figures from the post, vendor claims). HLC was not seen in the post, so do not cite it for HLC. Reopened 2026-11-12; authors and 'Published on January 27, 2022' confirmed."
 
   - id: mongodb-docs-causal-consistency
@@ -2596,7 +2596,7 @@ sources:
     access: free
     units: [5]
     topics: [flp-impossibility, consensus, asynchrony, crash-failures]
-    status: candidate
+    status: approved
     notes: "Opened a course-hosted scan (Princeton COS 418) with an OCR text layer; first page prints 'Journal of the ACM, Vol. 32, No. 2, April 1985, pp. 374-382', '1985 ACM', and an ACM fee-free copying permission notice, and says the work was first presented at the 2nd ACM PODS, March 1983. Abstract: every protocol for consensus in an asynchronous system has a possible non-terminating run even with one faulty process. An MIT tech report version (MIT-LCS-TR-282, September 1982) exists at dspace.mit.edu/handle/1721.1/149560 (landing page opened, no license stated). Only the first page and abstract were read; the proof was not. DOI not verified from an opened page, so doi: null. Reopened 2026-11-12; first page and ACM notice confirmed."
 
   # ---- P1-015: Unit 6 production reliability (opened 2026-11-12) ----
@@ -2617,7 +2617,7 @@ sources:
     access: free
     units: [6]
     topics: [cascading-failure, load-shedding, graceful-degradation, retries, deadline-propagation, resource-exhaustion, overload]
-    status: candidate
+    status: approved
     notes: "Chapter-level entry for google-sre-book. Page: author Mike Ulrich; copyright 2017 Google, Inc., published by O'Reilly Media; CC BY-NC-ND 4.0 (NoDerivatives: rewrite and link only). Year is the page copyright year, consistent with the other chapter entries. The page names no editor (author Mike Ulrich only). Trigger hint: you need this when one overloaded replica pushes load onto its peers and the whole service falls over. Notes: references/notes/sre-book-addressing-cascading-failures-ch22.md. Reopened 2026-11-12; footer 'Copyright 2017 Google, Inc. ... Licensed under CC BY-NC-ND 4.0' confirmed."
 
   - id: sre-workbook-canarying-releases-ch16
@@ -2636,7 +2636,7 @@ sources:
     access: free
     units: [6]
     topics: [canary, safe-deploy, progressive-rollout, rollback, release-engineering, error-budget]
-    status: candidate
+    status: approved
     notes: "Page lists Alec Warner and Štěpán Davidovič with Alex Hidalgo, Betsy Beyer, Kyle Smith, Matt Duftler; copyright 2018 Google, Inc., published by O'Reilly Media; CC BY-NC-ND 4.0. Year is the page copyright year. Covers canary population size, choosing metrics (SLI-like), canary vs control comparison, rollback. Trigger hint: when a deploy to all servers at once starts to feel too risky. Reopened 2026-11-12; footer 'Copyright 2018 Google, Inc. ... Licensed under CC BY-NC-ND 4.0' confirmed."
 
   - id: metastable-failures-osdi22
@@ -2655,7 +2655,7 @@ sources:
     access: free
     units: [6]
     topics: [metastable-failure, retry-storm, trigger, work-amplification, incident-survey, load-shedding]
-    status: candidate
+    status: approved
     notes: "Opened the USENIX presentation page (16th USENIX OSDI, Carlsbad, July 11-13 2022, pp. 73-90, ISBN 978-1-939133-28-1; page says open access, no license/copyright statement) and read the PDF at usenix.org/system/files/osdi22-huang-lexiang.pdf (abstract, intro, section 2 start). No DOI shown on these pages. Survey of public incident reports: the abstract says 22 failures from 11 organizations, while section 2.2 says 21 failures in Table 1 (count differs inside the paper). Code: github.com/lexiangh/Metastability (not opened). Extends metastable-failures-hotos21. Reopened 2026-11-12; title, eight authors and OSDI '22 confirmed on the USENIX page. The page has an Open Access statement and (c) USENIX but no per-paper license, so recorded as all-rights-reserved (conservative; usage stays rewrite-only)."
 
   - id: aws-builders-automating-safe-deployments
@@ -2674,7 +2674,7 @@ sources:
     access: free
     units: [6]
     topics: [safe-deploy, pipeline, one-box, bake-time, rollback, progressive-rollout, canary]
-    status: candidate
+    status: approved
     notes: "The aws.amazon.com/builders-library URL redirects (301) to this canonical URL. Published and last modified 2020-06-18; page lists the author as Senior Principal Engineer (Kiro). Footer: (c) 2026 AWS, all rights reserved; the page says opinions are the author's. Covers pipeline stages, waves by region/AZ/cell, one-box, bake time, automatic rollback on alarms, deployment windows. Trigger hint: when manual deploys to many hosts or regions become the main source of outages. Reopened 2026-11-12; title, author and footer (c) 2026 AWS confirmed."
 
   - id: aws-arch-blog-exponential-backoff-jitter
@@ -2693,7 +2693,7 @@ sources:
     access: free
     units: [6]
     topics: [retries, backoff, jitter, contention, simulation]
-    status: candidate
+    status: approved
     notes: "Page shows author Marc Brooker and date 04 MAR 2015. Simulation of many clients contending for one resource; compares no jitter, full jitter, equal jitter, decorrelated jitter. Free companion to aws-builders-timeouts-retries. The page also carries an update note dated May 2023: the approach still underpins Amazon's client libraries, and most AWS SDKs now support exponential backoff and jitter in their standard/adaptive retry modes. Reopened 2026-11-12; author Marc Brooker and 04 MAR 2015 confirmed. Footer is '(c) 2026, Amazon Web Services, Inc. or its affiliates. All rights reserved.', so license is all-rights-reserved."
 
   - id: fowler-circuit-breaker
@@ -2712,7 +2712,7 @@ sources:
     access: free
     units: [6]
     topics: [circuit-breaker, fail-fast, cascading-failure, monitoring]
-    status: candidate
+    status: approved
     notes: "Footer: (c) Martin Fowler, no license text. Page shows 6 March 2014 and no update date. Short bliki entry defining closed/open/half-open states with a threshold and reset timeout. Fowler is a well-known practitioner-author, not an operator of a large system, so Tier 2 is a judgment call; use together with azure-circuit-breaker-pattern. Reopened 2026-11-12; footer '(c) Martin Fowler' confirmed."
 
   - id: azure-circuit-breaker-pattern
@@ -2731,7 +2731,7 @@ sources:
     access: free
     units: [6]
     topics: [circuit-breaker, retries, cascading-failure, fail-fast, service-mesh]
-    status: candidate
+    status: approved
     version: "page metadata ms.date 2025-02-05; updated_at 2026-11-09"
     notes: "NO-AUTHOR: corporate docs (page metadata has only a GitHub handle). Date is the ms.date metadata; the page was updated later. Page title shown as 'Circuit Breaker Pattern - Azure Architecture Center'. Covers closed/open/half-open states, exception types, manual override, interplay with timeouts and retries, and when not to use it. Reopened 2026-11-12. The page footer shows only (c) Microsoft 2026. The source repo MicrosoftDocs/architecture-center README grants a CC BY 4.0 license on documentation and MIT on code, so the license is inferred from the repo (same basis as the Unit 4 Azure pages). Usage stays rewrite-only."
 
@@ -2751,7 +2751,7 @@ sources:
     access: free
     units: [6]
     topics: [retries, backoff, idempotency, transient-faults, retry-amplification]
-    status: candidate
+    status: approved
     version: "page metadata ms.date 2024-07-18; updated_at 2025-12-09"
     notes: "NO-AUTHOR: corporate docs. Date is the ms.date metadata. Gentle introduction (cancel, retry now, retry after delay, exponential delay), warns about retries at several layers and non-idempotent operations. Good beginner-level companion to the deeper AWS articles. Reopened 2026-11-12. Footer is only (c) Microsoft 2026; license inferred from the MicrosoftDocs/architecture-center README (docs CC BY 4.0, code MIT), same basis as the other Azure pattern pages. Usage stays rewrite-only."
 
@@ -2771,7 +2771,7 @@ sources:
     access: free
     units: [6]
     topics: [retries, backoff, jitter, retry-throttling, hedging, transparent-retry]
-    status: candidate
+    status: approved
     notes: "NO-AUTHOR: project docs; date is the page's last-modified date. Footer: (c) 2026 gRPC Authors. Per-method retry policy (attempts, backoff, multiplier, retryable codes, about 20% jitter), server-wide retry throttling with a token count, transparent retries. Pairs with grpc-docs-deadlines. Trigger hint: when you add an RPC layer between services and need a shared retry policy. Reopened 2026-11-12. Footer links a License page; the grpc/grpc.io repo LICENSE says content is CC BY 4.0 and code samples Apache-2.0, so the license is inferred from that file. Usage stays rewrite-only."
 
   - id: envoy-docs-circuit-breaking
@@ -2809,7 +2809,7 @@ sources:
     access: free
     units: [0, 6]
     topics: [observability, logs, metrics, traces, spans, distributed-tracing]
-    status: candidate
+    status: approved
     attribution: "Sebagian materi diadaptasi dari OpenTelemetry documentation (Observability primer), OpenTelemetry project (CNCF), CC BY 4.0, https://opentelemetry.io/docs/concepts/observability-primer/. Telah diubah."
     notes: "NO-AUTHOR: project docs, no author listed. NO-DATE: no date or version visible (re-checked 2026-11-12). License is CC BY 4.0: the README of github.com/open-telemetry/opentelemetry.io (reopened 2026-11-12) says 'Documentation: CC-BY-4.0' (the page footer was not visible in the fetch, so the README is the evidence). Defines logs, metrics, traces, spans, and distributed tracing in plain language."
     verified_on: "2026-11-12"
@@ -2830,7 +2830,7 @@ sources:
     access: free
     units: [6]
     topics: [observability, red-method, use-method, golden-signals]
-    status: candidate
+    status: approved
     notes: "Post author shown as Julie Dam; it summarizes a talk by Tom Wilkie (Grafana Labs), who the page says created RED in 2015. Footer: Copyright 2026 Grafana Labs, no separate license text, so recorded as all-rights-reserved (conservative; usage stays rewrite-only). Third-hand summary of a talk, but it is the vendor's own description of its method. Compares RED (rate, errors, duration) with USE and the four golden signals. Reopened 2026-11-12; author Julie Dam, 2018-08-03 and Tom Wilkie talk summary confirmed."
 
   - id: dapper-2010
@@ -2849,7 +2849,7 @@ sources:
     access: free
     units: [6]
     topics: [distributed-tracing, observability, sampling, spans]
-    status: candidate
+    status: approved
     notes: "Opened the Google Research publication page (abstract only; the page lists 'Google, Inc. (2010)' and no venue, so this is a technical report rather than a confirmed conference paper). No copyright or license text on the page. PDF link given on the page: research.google.com/archive/papers/dapper-2010-1.pdf (not opened). Origin of trace/span ideas behind OpenTelemetry. Full text not read. Reopened 2026-11-12; title, eight authors and 'Google, Inc. (2010)' confirmed. No license text on the page, so recorded as all-rights-reserved (conservative; usage stays rewrite-only)."
 
   - id: fowler-bluegreen-deployment
@@ -2867,7 +2867,7 @@ sources:
     access: free
     units: [0, 6]
     topics: [blue-green, safe-deploy, rollback, database-migration]
-    status: candidate
+    status: approved
     notes: "Page shows 1 March 2010, updated 5 June 2015; footer (c) Martin Fowler, no license text. Short entry: two production environments, switch traffic at the router, instant rollback, with a caveat on database schema changes (backward-compatible first). Practitioner-author, Tier 2 is a judgment call. Trigger hint: when in-place deploys cause downtime or you cannot roll back quickly."
     verified_on: "2026-11-12"
 
@@ -2887,7 +2887,7 @@ sources:
     access: free
     units: [6]
     topics: [feature-flags, safe-deploy, kill-switch, progressive-rollout, trunk-based-development]
-    status: candidate
+    status: approved
     notes: "Hosted on Martin Fowler's site but written by Pete Hodgson (independent consultant). Date: the page shows 9 October 2017; its revision history gives 19 January 2016 (first installment) and 8 February 2016 (complete article). Footer (c) Martin Fowler, no license text. Four toggle types (release, experiment, ops, permission) and toggle management advice. Practitioner-author, Tier 2 is a judgment call. Reopened 2026-11-12; author, date and footer '(c) Martin Fowler' confirmed."
 
   - id: k8s-docs-deployments
@@ -2929,7 +2929,7 @@ sources:
     access: free
     units: [6]
     topics: [config-push, null-pointer, feature-flag, global-replication, thundering-herd, backoff, kill-switch]
-    status: candidate
+    status: approved
     notes: "NO-AUTHOR: corporate report. Date: full incident report dated 2025-06-13 16:45 PDT (a mini report was posted 2025-06-12 23:34 PDT). Incident window on the dashboard 10:51 to 18:18 PDT on 2025-06-12; the mini report gave a different end time. Mechanism: a policy with blank fields in globally replicated Spanner data hit a Service Control code path without error handling or a feature flag; crash loop in all regions; red-button kill switch within about 40 minutes; in us-central1 restarts overloaded Spanner because retries lacked randomized exponential backoff. Notes: references/notes/gcp-service-control-outage-2025-06-12.md. Reopened 2026-11-12; incident window and the 13 Jun 2025 16:45 PDT report confirmed. No copyright or license text on the page, so recorded as all-rights-reserved (conservative; usage stays rewrite-only)."
 
   - id: crowdstrike-channel-file-291-rca-2024
@@ -2948,7 +2948,7 @@ sources:
     access: free
     units: [6]
     topics: [config-push, content-validation, staged-rollout, out-of-bounds-read, canary, bake-time]
-    status: candidate
+    status: approved
     notes: "NO-AUTHOR: corporate report. 12-page PDF; each page footer is dated 2024-08-06. Event date 2024-07-19 (content update). Mechanism: template defined 21 inputs but the sensor supplied 20; validator and tests missed it because of wildcard criteria; no staged rollout of content; out-of-bounds read crashed Windows kernel driver hosts. Strong example for staged deployment and validating config like code. Security-product specifics are advanced for beginners. Reopened 2026-11-12; the PDF opens and matches the description. No copyright or license text in the PDF text, so recorded as all-rights-reserved (conservative; usage stays rewrite-only)."
 
   - id: cloudflare-1111-incident-2025-07-14
@@ -2967,7 +2967,7 @@ sources:
     access: free
     units: [6]
     topics: [config-change, dormant-misconfiguration, no-progressive-rollout, bgp, dns]
-    status: candidate
+    status: approved
     notes: "Date is the page metadata (2025-07-15); incident 2025-07-14 21:48 to 22:54 UTC. A config change on June 6 attached the resolver prefixes to a pre-production service and lay dormant; a July 14 change triggered a global refresh and withdrew the prefixes; the legacy system deploys to all locations at once. Reopened 2026-11-12; the page byline names Ash Pallarito and Joe Abley (the earlier NO-AUTHOR note was wrong). Footer is only (c) 2026 Cloudflare, Inc., so recorded as all-rights-reserved (conservative; usage stays rewrite-only)."
 
   - id: cloudflare-workers-kv-outage-2025-06-12
@@ -2985,7 +2985,7 @@ sources:
     access: free
     units: [2, 6]
     topics: [dependency, third-party-outage, blast-radius, fail-closed, load-shedding, cache-refill]
-    status: candidate
+    status: approved
     notes: "NO-AUTHOR: no author listed. Date from page metadata (datePublished 2025-06-12). No license stated on the page or footer (re-checked 2026-11-12), so treated as all-rights-reserved (copyright by default). Page metadata dateModified is 2026-07-15 (later edit). Workers KV's central store (partly on a third-party cloud) failed, so cold reads and writes failed in many products (Access, Gateway, WARP). Some services shed load and degraded; cache refill after recovery caused errors and rate limiting. The stated duration (2 h 28 min) does not exactly match the listed timestamps."
     verified_on: "2026-11-12"
 
@@ -3005,7 +3005,7 @@ sources:
     access: free
     units: [5, 6]
     topics: [power-failure, disaster-recovery, failover-assumptions, thundering-herd, single-site-dependency]
-    status: candidate
+    status: approved
     notes: "Author per page sidebar (structured metadata lists only the Cloudflare Blog); date from page metadata. Event 2023-11-02 08:50 UTC to 2023-11-04 04:25 UTC. A data-center power failure took out the control plane's primary site; some services (Kafka, ClickHouse) were only there, so assumed active-active failover did not hold; retried API calls caused a thundering herd that needed rate limiting. Reopened 2026-11-12; author Matthew Prince and publication date 2023-11-04 confirmed (page metadata datePublished; dateModified 2026-07-15). No license or copyright text found on the page, so recorded as all-rights-reserved (conservative; usage stays rewrite-only)."
 
   - id: datadog-incident-2023-03-08
@@ -3024,7 +3024,7 @@ sources:
     access: free
     units: [6]
     topics: [os-update, correlated-failure, recovery-ordering, region-isolation, observability-outage]
-    status: candidate
+    status: approved
     notes: "Part 1 of a four-part series (other parts not opened). Page footer: (c) Datadog 2026. A systemd security update applied at about the same time in five regions restarted systemd-networkd, which deleted routes managed by Cilium; tens of thousands of nodes lost networking. Recovery: compute first, live data before historical data; cloud rate limits slowed mass replacement. Reopened 2026-11-12; author Alexis Lê-Quôc and 'Published May 16, 2023' confirmed from page metadata."
 
   - id: azure-front-door-pir-2025-10-29
@@ -3043,7 +3043,7 @@ sources:
     access: free
     units: [6]
     topics: [config-propagation, last-known-good, async-processing, cross-version-compatibility, phased-recovery, blast-radius]
-    status: candidate
+    status: approved
     notes: "NO-AUTHOR: corporate report; tracking ID YKYN-BWZ. The page shows a review date of 10/29/2025 but also lists follow-up items dated into 2026, so the text was probably updated later: treat the date as the event/review date. Impact 15:41 UTC 2025-10-29 to 00:05 UTC 2025-10-30. Footer: (c) 2026 Microsoft. Valid customer config changes across two control-plane versions produced incompatible metadata; a delayed crash let it pass protection stages and enter the last-known-good snapshot; edge reloads were phased to avoid overload. Reopened 2026-11-12; PIR entry for Azure Front Door dated 10/29/2025 found on the status history page. Footer (c) 2026 Microsoft only."
 
   - id: heroku-june-10-outage-2025
@@ -3061,7 +3061,7 @@ sources:
     access: free
     units: [0, 6]
     topics: [automated-update, host-networking, status-page-dependency, fleet-recycle, safe-deploy]
-    status: candidate
+    status: approved
     notes: "Footer: (c) 2026 Salesforce, Inc., all rights reserved. Incident 2025-06-10 06:00 UTC to 2025-06-11 05:50 UTC. An automated OS update that should have been disabled restarted the host networking service; a legacy boot-only script did not restore routes, so dynos lost outbound traffic. Heroku's own tools and status page shared the failing infrastructure. A later Heroku corrective-action post exists but was not opened."
     verified_on: "2026-11-12"
 
@@ -3081,7 +3081,7 @@ sources:
     access: free
     units: [6]
     topics: [retry-storm, service-mesh-sidecar, autoscaling, circuit-breaker, load-shedding, backlog, metastable-failure]
-    status: candidate
+    status: approved
     notes: "Monthly report with five incidents; footer (c) 2026 GitHub, Inc. Section-header durations differ from the durations in the impact summaries for several incidents. Most useful: 2026-08-06 (a routine rollout briefly reduced running pods in one site, saturating the Actions services and mesh; per the page this caused sidecar CPU throttling and OOM restarts, and during recovery runners were handed already-revoked jobs and retried them into a backlog), 2026-08-17 (sidecar concurrency limit not scaled, client retry bug amplified auth traffic, 56.07% of front-door requests failed or slow at peak), 2026-08-26 (database saturation, no automatic circuit breaker). Report is a summary, not a full postmortem. Reopened 2026-11-12; author Jakub Oleksy and September 9, 2026 date confirmed."
 
   - id: slack-outage-2021-01-04
@@ -3099,7 +3099,7 @@ sources:
     access: free
     units: [1, 6]
     topics: [autoscaling, network-saturation, provisioning-bottleneck, health-check, cascading-failure, dashboards-dependency]
-    status: candidate
+    status: approved
     notes: "Published 2021-02-01, updated 2021-02-03. Footer: (c) 2026 Slack Technologies, LLC, all rights reserved. Older than the 2023-2026 target but a clear cascading-failure story: overloaded AWS Transit Gateway, thread waits lowered CPU so autoscaling scaled down then massively up, provisioning service overloaded, half-provisioned instances hit the group maximum."
     verified_on: "2026-11-12"
 
@@ -3118,7 +3118,7 @@ sources:
     access: free
     units: [3, 6]
     topics: [human-error, destructive-operation, soft-delete, restore-time, backup-restore, incident-communication]
-    status: candidate
+    status: approved
     notes: "Footer: Copyright 2026 Atlassian. Older than the 2023-2026 target. A script given site IDs instead of app IDs deleted 883 sites (775 customers) on 2022-04-05; restore took up to 14 days for some. The RTO was missed while the RPO was met. Weak fit for retry/overload topics; good for safe operations and recovery. Atlassian's later update posts were not opened."
     verified_on: "2026-11-12"
 
@@ -3137,7 +3137,7 @@ sources:
     access: free
     units: [2, 6]
     topics: [latent-bug, config-trigger, cdn, blast-radius, detection-time]
-    status: candidate
+    status: approved
     notes: "Footer: (c) Fastly 2026. Older than the 2023-2026 target. Short and high level: a bug shipped on May 12 stayed dormant until a valid customer configuration change on June 8; about 85% of the network returned errors; 95% back within 49 minutes. Few technical details."
     verified_on: "2026-11-12"
 
@@ -3156,6 +3156,6 @@ sources:
     access: free
     units: [2, 6]
     topics: [maintenance-command, audit-tool-bug, bgp, dns, out-of-band-access, staged-restart]
-    status: candidate
+    status: approved
     notes: "Footer: (c) 2026 Meta. Older than the 2023-2026 target. A backbone-capacity check command disconnected all backbone links; the audit tool that should have blocked it had a bug; DNS servers withdrew BGP routes when they lost the data centers; recovery needed physical access and a gradual restart to avoid a surge."
     verified_on: "2026-11-12"
