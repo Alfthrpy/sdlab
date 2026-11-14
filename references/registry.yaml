@@ -3162,7 +3162,7 @@ sources:
 
   - id: aws-blog-what-happens-type-url
     title: "What happens when you type a URL into your browser?"
-    authors: []
+    authors: [Jenna Pederson]
     publisher: AWS Front-End Web & Mobile Blog
     type: article
     tier: 2
@@ -3177,7 +3177,7 @@ sources:
     topics: [request-lifecycle, dns, tcp, tls, http, cdn]
     status: candidate
     verified_on: "2026-11-14"
-    notes: "NO-AUTHOR: the structured byline says Kyle Lee, but the body says 'This article was written by Jenna Pederson', so the author is left empty until it is clear. Date 2021-08-26 from the page metadata. Footer: (c) 2026, Amazon Web Services, Inc. or its affiliates, all rights reserved (opened 2026-11-14, raw HTML). Follows one request from URL parsing through DNS lookup (several cache layers, recursive query), TCP connection, TLS handshake, HTTP request and response, to rendering; TCP and TLS are only light and deferred to other posts. Does NOT cover a load balancer, a web server in depth, or a database. Gap A1 (P1-072): closes the client side of the request lifecycle only; the server-to-database half stays open."
+    notes: "Author conflict: the structured byline shows Kyle Lee, but the body says 'This article was written by Jenna Pederson' (the first-person narrator is her own site), so Jenna Pederson is recorded; the verifier agreed the body is the stronger attribution. Date 2021-08-26 from the page metadata. Footer: (c) 2026, Amazon Web Services, Inc. or its affiliates, all rights reserved (opened 2026-11-14, raw HTML). Follows one request from URL parsing through DNS lookup (several cache layers, then a recursive lookup), TCP connection, TLS handshake, HTTP request and response, to rendering; TCP and TLS are only light and deferred to other posts. Does NOT cover a load balancer, a web server in depth, or a database. Gap A1 (P1-072): closes the client side of the request lifecycle only; the server-to-database half stays open."
 
   - id: what-happens-when-repo
     title: "what-happens-when: what happens when you type google.com into your browser and press enter"
@@ -3197,7 +3197,7 @@ sources:
     status: candidate
     verified_on: "2026-11-14"
     attribution: "Diadaptasi dari 'what-happens-when' oleh pemilik repositori alex (CC0 1.0), https://github.com/alex/what-happens-when"
-    notes: "NO-AUTHOR: only the owner account name 'alex' is shown, the contributors list was empty in the captured page. NO-DATE: no date or last-commit date was visible (the page shows 294 commits); set version when approved. The README states the content is under the Creative Commons Zero license (CC0 1.0); recorded as public-domain, the closest license value. No LICENSE file in the file listing (only .travis.yml and README.rst). Very detailed browser-side walk-through (key press, URL parsing, HSTS, DNS, ARP, socket, TLS, HTTP, server request handling, rendering). Server side stops at the HTTP daemon (virtual host, rewrite rules, index file); no application logic or database. Far deeper on the browser than a Unit 0 lesson needs, so use only the DNS, TCP, TLS, HTTP and web-server parts. Gap A1 (P1-072)."
+    notes: "NO-AUTHOR: only the owner account name 'alex' is shown, the contributors list was empty in the captured page. NO-DATE: no date or last-commit date was visible (the page shows 294 commits); set version when approved. The README states the content is under the Creative Commons Zero license (CC0 1.0); recorded as public-domain, the closest license value. No LICENSE file in the file listing (only .travis.yml and README.rst). Very detailed browser-side walk-through (key press, URL parsing, HSTS, DNS, ARP, socket, TLS, HTTP, server request handling, rendering). Server side stops at the HTTP daemon (virtual host, rewrite rules, index file) with one mention of PHP interpreting the index file; no application logic in depth and no database. The README is community-edited wiki-style text, so cross-check its claims before use. Far deeper on the browser than a Unit 0 lesson needs, so use only the DNS, TCP, TLS, HTTP and web-server parts. Gap A1 (P1-072)."
 
   - id: sre-book-data-integrity-ch26
     title: "Site Reliability Engineering, Chapter 26: Data Integrity: What You Read Is What You Wrote"
@@ -3235,14 +3235,14 @@ sources:
     topics: [expand-contract, parallel-change, database-migration, schema-change]
     status: candidate
     verified_on: "2026-11-14"
-    notes: "Page shows author Danilo Sato and date 13 May 2014, with the footer '(c) Martin Fowler' and no separate license text, so recorded as all-rights-reserved. Describes the expand, migrate, contract sequence and applies it to database refactoring (a transition period between old and new schema). The page does NOT discuss rollback or a one-server deploy procedure. Gap A11 (P1-072): covers the schema-change part only; rollback and the one-box procedure rely on fowler-bluegreen-deployment and systemd-service-man (propose accept)."
+    notes: "Page shows author Danilo Sato and date 13 May 2014, with the footer '(c) Martin Fowler' and no separate license text, so recorded as all-rights-reserved. Describes the expand, migrate, contract sequence and applies it to database refactoring (a transition period between old and new schema). The page does NOT discuss rollback or a one-server deploy procedure (it only mentions canary and blue-green releases as applications of the pattern). Gap A11 (P1-072): covers the schema-change part only; rollback and the one-box procedure rely on fowler-bluegreen-deployment and systemd-service-man (propose accept)."
 
   - id: owasp-logging-cheat-sheet
     title: "Logging Cheat Sheet"
     authors: []
     publisher: OWASP Cheat Sheet Series
     type: docs
-    tier: 2
+    tier: 5
     url: https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html
     doi: null
     published: ""
@@ -3255,23 +3255,23 @@ sources:
     status: candidate
     verified_on: "2026-11-14"
     attribution: "Diadaptasi dari 'Logging Cheat Sheet', OWASP Cheat Sheet Series (CC BY-SA 4.0), https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html"
-    notes: "NO-AUTHOR: the footer credits the 'Cheat Sheets Series Team'. NO-DATE: no last-updated date on the page. The page states the work is licensed under Creative Commons Attribution-ShareAlike 4.0 International. Vendor-neutral and free of product advice. Covers why to log, which events to log, event attributes (when, where, who, what), data to exclude (secrets, personal data), log protection, and log injection with structured formats such as JSON. Security-oriented: it says little about log levels or operational debugging practice. Gap A12 (P1-072): good vendor-neutral baseline; propose accept with google-sre-book-monitoring-ch6 and twelve-factor-app for the operational side. CC BY-SA means adapted text must carry the same license."
+    notes: "NO-AUTHOR: the footer credits the 'Cheat Sheets Series Team'. NO-DATE: no last-updated date on the page. The page states the work is licensed under Creative Commons Attribution-ShareAlike 4.0 International. Vendor-neutral, but the log-injection section has Java-specific advice (Log4j, SLF4J, Logback). Covers why to log (operational uses such as debugging and performance monitoring, and security uses), which events to log, event attributes (when, where, who, what), a severity scale and changing the level at runtime, data to exclude (secrets, personal data), log protection, and log injection with structured formats such as JSON. The page says the rest of the sheet mainly discusses security event logging. Tier 5 (open CC BY-SA material) was chosen over Tier 2 because this is security guidance, not documentation of a system OWASP builds. Gap A12 (P1-072): good vendor-neutral baseline; propose accept with google-sre-book-monitoring-ch6 and twelve-factor-app for the operational side. CC BY-SA means adapted text must carry the same license."
 
   - id: algomaster-scaling-0-to-10m-users
     title: "How to Scale a System from 0 to 10 million+ Users"
     authors: [Ashish Pratap Singh]
     publisher: AlgoMaster Newsletter
     type: article
-    tier: 2
+    tier: 6
     url: https://blog.algomaster.io/p/scaling-a-system-from-0-to-10-million-users
     doi: null
     published: "2026-01-29"
     accessed: "2026-11-14"
     license: all-rights-reserved
-    usage: rewrite-only
+    usage: map-only
     access: partial
     units: [0, 2]
     topics: [single-server, scaling-stages, database-separation, scale-up]
     status: candidate
     verified_on: "2026-11-14"
-    notes: "Page shows author Ashish Pratap Singh, date January 29, 2026, and '(c) 2026 Ashish Pratap Singh' with no license, so all-rights-reserved. Only the first stages were readable: Stage 1 single server (0-100 users) with the warning signs for moving on, Stage 2 separate database (100-1K users) with reasons, managed databases, and connection pooling with PgBouncer. Stage 3 (load balancer, horizontal scaling) and later are paywalled, so access is partial. Tier 2 is a judgment call: a practitioner article, not written by the operator of a named system. Gap A13 (P1-072): usable for the one-server to separate-database step only."
+    notes: "Page shows author Ashish Pratap Singh, date January 29, 2026, and '(c) 2026 Ashish Pratap Singh' with no license, so all-rights-reserved. Only the first stages were readable: Stage 1 single server (0-100 users) with the warning signs for moving on, Stage 2 separate database (100-1K users) with reasons, managed databases, and connection pooling with PgBouncer. Stage 3 (load balancer, horizontal scaling) and later are paywalled, so access is partial. Tier 6 and map-only because the publisher is an interview-prep brand (the intro addresses readers preparing for system design interviews) and the author is a practitioner, not the operator of a named system; use it only to check which stages and triggers are commonly taught. Gap A13 (P1-072) therefore stays open: no citable practitioner article on scaling from one server was found."
