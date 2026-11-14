@@ -3159,3 +3159,119 @@ sources:
     status: approved
     notes: "Footer: (c) 2026 Meta. Older than the 2023-2026 target. A backbone-capacity check command disconnected all backbone links; the audit tool that should have blocked it had a bug; DNS servers withdrew BGP routes when they lost the data centers; recovery needed physical access and a gradual restart to avoid a surge."
     verified_on: "2026-11-12"
+
+  - id: aws-blog-what-happens-type-url
+    title: "What happens when you type a URL into your browser?"
+    authors: []
+    publisher: AWS Front-End Web & Mobile Blog
+    type: article
+    tier: 2
+    url: https://aws.amazon.com/blogs/mobile/what-happens-when-you-type-a-url-into-your-browser
+    doi: null
+    published: "2021-08-26"
+    accessed: "2026-11-14"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [0, 2]
+    topics: [request-lifecycle, dns, tcp, tls, http, cdn]
+    status: candidate
+    verified_on: "2026-11-14"
+    notes: "NO-AUTHOR: the structured byline says Kyle Lee, but the body says 'This article was written by Jenna Pederson', so the author is left empty until it is clear. Date 2021-08-26 from the page metadata. Footer: (c) 2026, Amazon Web Services, Inc. or its affiliates, all rights reserved (opened 2026-11-14, raw HTML). Follows one request from URL parsing through DNS lookup (several cache layers, recursive query), TCP connection, TLS handshake, HTTP request and response, to rendering; TCP and TLS are only light and deferred to other posts. Does NOT cover a load balancer, a web server in depth, or a database. Gap A1 (P1-072): closes the client side of the request lifecycle only; the server-to-database half stays open."
+
+  - id: what-happens-when-repo
+    title: "what-happens-when: what happens when you type google.com into your browser and press enter"
+    authors: []
+    publisher: GitHub (alex/what-happens-when)
+    type: repo
+    tier: 5
+    url: https://github.com/alex/what-happens-when
+    doi: null
+    published: ""
+    accessed: "2026-11-14"
+    license: public-domain
+    usage: adapt-with-attribution
+    access: free
+    units: [0]
+    topics: [request-lifecycle, dns, tls, http, web-server]
+    status: candidate
+    verified_on: "2026-11-14"
+    attribution: "Diadaptasi dari 'what-happens-when' oleh pemilik repositori alex (CC0 1.0), https://github.com/alex/what-happens-when"
+    notes: "NO-AUTHOR: only the owner account name 'alex' is shown, the contributors list was empty in the captured page. NO-DATE: no date or last-commit date was visible (the page shows 294 commits); set version when approved. The README states the content is under the Creative Commons Zero license (CC0 1.0); recorded as public-domain, the closest license value. No LICENSE file in the file listing (only .travis.yml and README.rst). Very detailed browser-side walk-through (key press, URL parsing, HSTS, DNS, ARP, socket, TLS, HTTP, server request handling, rendering). Server side stops at the HTTP daemon (virtual host, rewrite rules, index file); no application logic or database. Far deeper on the browser than a Unit 0 lesson needs, so use only the DNS, TCP, TLS, HTTP and web-server parts. Gap A1 (P1-072)."
+
+  - id: sre-book-data-integrity-ch26
+    title: "Site Reliability Engineering, Chapter 26: Data Integrity: What You Read Is What You Wrote"
+    authors: [Raymond Blum, Rhandeev Singh]
+    publisher: Google / O'Reilly Media
+    type: book
+    tier: 1
+    url: https://sre.google/sre-book/data-integrity/
+    doi: null
+    published: "2017"
+    accessed: "2026-11-14"
+    license: CC-BY-NC-ND-4.0
+    usage: rewrite-only
+    access: free
+    units: [0, 3]
+    topics: [backups, recovery, restore-testing, off-site-backups, soft-deletion, data-integrity, replication-vs-backup]
+    status: candidate
+    verified_on: "2026-11-14"
+    notes: "Chapter-level entry for the parent google-sre-book (same license). Page shows authors Raymond Blum and Rhandeev Singh, editor Betsy Beyer, Copyright 2017 Google, Inc., published by O'Reilly Media, CC BY-NC-ND 4.0 (opened 2026-11-14). The date 2017 is the copyright year shown on the page. Argues for a recovery system rather than a backup system, tiered backups including off-site copies, continuous end-to-end recovery testing, soft deletion, and that replication does not replace backups. Written for Google scale: use only the principles (recovery objectives, restore drills, off-site copy, replication is not a backup) at Unit 0 level. Gap A2 (P1-072)."
+
+  - id: fowler-parallel-change
+    title: "Parallel Change"
+    authors: [Danilo Sato]
+    publisher: martinfowler.com
+    type: article
+    tier: 2
+    url: https://martinfowler.com/bliki/ParallelChange.html
+    doi: null
+    published: "2014-05-13"
+    accessed: "2026-11-14"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [0, 3]
+    topics: [expand-contract, parallel-change, database-migration, schema-change]
+    status: candidate
+    verified_on: "2026-11-14"
+    notes: "Page shows author Danilo Sato and date 13 May 2014, with the footer '(c) Martin Fowler' and no separate license text, so recorded as all-rights-reserved. Describes the expand, migrate, contract sequence and applies it to database refactoring (a transition period between old and new schema). The page does NOT discuss rollback or a one-server deploy procedure. Gap A11 (P1-072): covers the schema-change part only; rollback and the one-box procedure rely on fowler-bluegreen-deployment and systemd-service-man (propose accept)."
+
+  - id: owasp-logging-cheat-sheet
+    title: "Logging Cheat Sheet"
+    authors: []
+    publisher: OWASP Cheat Sheet Series
+    type: docs
+    tier: 2
+    url: https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html
+    doi: null
+    published: ""
+    accessed: "2026-11-14"
+    license: CC-BY-SA-4.0
+    usage: adapt-with-attribution
+    access: free
+    units: [0]
+    topics: [logging, log-events, log-injection, sensitive-data, log-protection]
+    status: candidate
+    verified_on: "2026-11-14"
+    attribution: "Diadaptasi dari 'Logging Cheat Sheet', OWASP Cheat Sheet Series (CC BY-SA 4.0), https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html"
+    notes: "NO-AUTHOR: the footer credits the 'Cheat Sheets Series Team'. NO-DATE: no last-updated date on the page. The page states the work is licensed under Creative Commons Attribution-ShareAlike 4.0 International. Vendor-neutral and free of product advice. Covers why to log, which events to log, event attributes (when, where, who, what), data to exclude (secrets, personal data), log protection, and log injection with structured formats such as JSON. Security-oriented: it says little about log levels or operational debugging practice. Gap A12 (P1-072): good vendor-neutral baseline; propose accept with google-sre-book-monitoring-ch6 and twelve-factor-app for the operational side. CC BY-SA means adapted text must carry the same license."
+
+  - id: algomaster-scaling-0-to-10m-users
+    title: "How to Scale a System from 0 to 10 million+ Users"
+    authors: [Ashish Pratap Singh]
+    publisher: AlgoMaster Newsletter
+    type: article
+    tier: 2
+    url: https://blog.algomaster.io/p/scaling-a-system-from-0-to-10-million-users
+    doi: null
+    published: "2026-01-29"
+    accessed: "2026-11-14"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: partial
+    units: [0, 2]
+    topics: [single-server, scaling-stages, database-separation, scale-up]
+    status: candidate
+    verified_on: "2026-11-14"
+    notes: "Page shows author Ashish Pratap Singh, date January 29, 2026, and '(c) 2026 Ashish Pratap Singh' with no license, so all-rights-reserved. Only the first stages were readable: Stage 1 single server (0-100 users) with the warning signs for moving on, Stage 2 separate database (100-1K users) with reasons, managed databases, and connection pooling with PgBouncer. Stage 3 (load balancer, horizontal scaling) and later are paywalled, so access is partial. Tier 2 is a judgment call: a practitioner article, not written by the operator of a named system. Gap A13 (P1-072): usable for the one-server to separate-database step only."
