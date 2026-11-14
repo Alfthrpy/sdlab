@@ -1,0 +1,241 @@
+# Case studies and incidents (P1-022). Schema: docs/conventions/content-schema.md section 3.
+# Learner-facing text (title) is Indonesian; ids, keys, and comments are English.
+#
+# How the list was chosen:
+#   - Incidents: every `postmortem` entry in references/registry.yaml (15) was reviewed. 13 are listed here,
+#     chosen for varied mechanisms (config push, DNS, retry storm, overload and autoscaling, dependency
+#     failure, single-site assumption, correlated rollout, destructive operation, OS update). Reserve, not
+#     listed: fastly-outage-2021-06-08 (short, few technical details; overlaps the dormant-bug pattern of
+#     incident-cloudflare-1111-2025) and meta-outage-2021-10-04 (DNS/BGP; overlaps incident-aws-dynamodb-dns-2025).
+#     M4 picks 8 of the 13.
+#   - Case studies: 12 design problems, picked from the course units. Topic coverage was cross-checked against
+#     Tier 6 interview maps (read for coverage only, never cited): the problem list on the Hello Interview intro
+#     page matches url-shortener, rate-limiter, notification-delivery, payments-checkout, key-value-store,
+#     job-scheduler-leader-election, flash-sale-inventory, slo-monitoring-plan, and read-heavy-catalog (a
+#     distributed-cache problem). The ByteByteGo page lists only course titles, so it added nothing.
+#     Left out on purpose (deferred in curriculum/concepts.yaml scope notes): feed fan-out, search, WebSocket
+#     push, object storage, multi-region.
+#   - Each case study works for both goals (ADR 0004): `design` = open-ended design practice with trade-offs,
+#     `timebox` = what to cover when explaining the design in a limited time (interview-style delivery).
+#   - Sources are concept-level registry ids (approved, not Tier 6). The M4 content ticket re-checks them
+#     against the concept `sources` once the gap tickets (P1-072 to P1-079) close. Incident sources are the
+#     official postmortem only.
+#
+# Unit coverage (by concepts practiced, counted by script at the time of writing): every unit 0-6 has at
+# least 2 items; see the check in sessions/2026-11-14-P1-022.md.
+items:
+  # ------------------------------------------------------------------ Case studies
+  - id: cs-url-shortener
+    kind: case-study
+    title: Merancang pemendek URL, dari satu server sampai mulai terasa sempit
+    concepts: [app-plus-database, indexes-query-basics, back-of-envelope-estimation, caching-basics, partitioning-sharding]
+    sources: [use-the-index-luke, azure-cache-aside-pattern, dean-software-engineering-advice-slides, notion-sharding-postgres-2021]
+    # design: a read-heavy key lookup that starts as one app and one database; learners decide when each step is needed.
+    # timebox: 20-minute walk through estimate, schema and index, first cache, and the trigger for sharding.
+    status: planned
+
+  - id: cs-rate-limiter
+    kind: case-study
+    title: Merancang rate limiter untuk API publik
+    concepts: [rate-limiting, back-of-envelope-estimation, api-design-rest-grpc, load-balancer-reverse-proxy]
+    sources: [sre-book-handling-overload-ch21, aws-builders-load-shedding]
+    # design: choose limit keys, algorithm, and where the limiter lives; open trade-offs between accuracy and cost.
+    # timebox: 15-minute explanation of requirements, one algorithm, and what happens when the limiter store fails.
+    # note: thin sources (see P1-078); do not write content before that ticket closes.
+    status: planned
+
+  - id: cs-scale-out-first-step
+    kind: case-study
+    title: Dari satu server ke dua server di balik load balancer
+    concepts: [single-machine-limits, stateless-services-sessions, load-balancer-reverse-proxy, dns-networking-basics, connection-pooling, simple-deploys]
+    sources: [twelve-factor-app, nginx-http-load-balancing, sre-book-load-balancing-frontend-ch19, pg-docs-connections]
+    # design: the first growth-ladder step; learners find what breaks (sessions, connection limits, deploys) when a second app server appears.
+    # timebox: 15 minutes on what must be stateless, how traffic is split, and the database connection arithmetic.
+    status: planned
+
+  - id: cs-read-heavy-catalog
+    kind: case-study
+    title: Merancang katalog produk dengan beban baca tinggi
+    concepts: [caching-basics, cache-stampede-hot-keys, replication, replication-lag-failover, cdn]
+    sources: [azure-cache-aside-pattern, aws-builders-caching-challenges, pg-docs-log-shipping-standby, mysql-84-replication]
+    # design: combine cache, read replicas, and CDN; discuss stale reads, stampede, and failover.
+    # timebox: 20 minutes on layers of caching, what staleness is acceptable, and one failure walkthrough.
+    status: planned
+
+  - id: cs-notification-delivery
+    kind: case-study
+    title: Merancang layanan notifikasi yang andal
+    concepts: [message-queue, delivery-semantics, idempotency, backpressure-consumer-lag, retry-backoff-jitter]
+    sources: [aws-sqs-standard-queues, aws-sqs-dead-letter-queues, microservices-io-idempotent-consumer, aws-builders-timeouts-retries]
+    # design: queue-backed fan-out to providers that fail and rate-limit; decide retries, duplicates, and poison messages.
+    # timebox: 20 minutes on the delivery guarantee, the retry policy, and how to monitor queue age.
+    status: planned
+
+  - id: cs-payments-checkout
+    kind: case-study
+    title: Merancang alur pembayaran checkout yang aman diulang
+    concepts: [idempotency, api-design-rest-grpc, transactions-acid, outbox-cdc, distributed-transactions]
+    sources: [stripe-docs-idempotent-requests, stripe-blog-idempotency, microservices-io-transactional-outbox, pg-docs-transaction-iso]
+    # design: a client retries a charge; learners protect against double charges and keep order and payment state consistent.
+    # timebox: 20 minutes on the idempotency key flow, the outbox, and what a saga would add.
+    # note: distributed-transactions sources are thin (see P1-078).
+    status: planned
+
+  - id: cs-flash-sale-inventory
+    kind: case-study
+    title: Merancang penjualan kilat dengan stok terbatas
+    concepts: [isolation-levels, transactions-acid, rate-limiting, load-shedding, message-queue]
+    sources: [pg-docs-transaction-iso, aws-builders-load-shedding, aws-sqs-standard-queues, azure-queue-based-load-leveling]
+    # design: a spike of requests for a few items; trade-offs between correctness (no overselling), fairness, and keeping the system up.
+    # timebox: 20 minutes on the contention point, a queue or admission gate, and what to shed first.
+    status: planned
+
+  - id: cs-key-value-store
+    kind: case-study
+    title: Merancang key-value store terdistribusi bergaya Dynamo
+    concepts: [partitioning-sharding, consistent-hashing, replication, consistency-models, cap-pacelc, time-and-clocks]
+    sources: [dynamo-sosp07, cassandra-docs-dynamo, karger-consistent-hashing, vogels-eventually-consistent-2008]
+    # design: place keys, replicate them, and choose read/write quorums; learners defend a consistency choice per use case.
+    # timebox: 25 minutes on partitioning, replication, the CAP/PACELC choice, and conflict handling.
+    status: planned
+
+  - id: cs-event-log-pipeline
+    kind: case-study
+    title: Merancang pipeline event dengan log terdistribusi
+    concepts: [event-log-streaming, partitioning-sharding, delivery-semantics, backpressure-consumer-lag, capacity-headroom]
+    sources: [kafka-docs-design, kafka-netdb-2011, kafka-docs-basic-operations, confluent-exactly-once-2017]
+    # design: choose partition keys, retention, and consumer groups for an event stream; size the cluster with headroom.
+    # timebox: 20 minutes on ordering guarantees, what lag means, and how to size partitions.
+    status: planned
+
+  - id: cs-job-scheduler-leader-election
+    kind: case-study
+    title: Merancang job scheduler dengan leader election
+    concepts: [locks-leases-fencing, consensus, time-and-clocks, timeouts, message-queue]
+    sources: [kleppmann-distributed-locking-2016, chubby-lock-service, raft-extended-paper, zookeeper-atc-paper]
+    # design: ensure each job runs once-ish when the scheduler leader pauses or fails; learners compare locks, leases, and fencing.
+    # timebox: 20 minutes on the leader lease, the fencing token, and what happens in a long pause.
+    status: planned
+
+  - id: cs-slo-monitoring-plan
+    kind: case-study
+    title: Menyusun rencana SLO dan monitoring untuk layanan checkout
+    concepts: [sli-slo, percentiles-tail-latency, basic-monitoring, observability, safe-deploys]
+    sources: [sre-book-slo-ch4, google-sre-book-monitoring-ch6, sre-workbook-implementing-slos, grafana-red-method]
+    # design: choose SLIs, targets, and alerts for a service, and tie rollouts to the error budget.
+    # timebox: 15 minutes on two SLIs, an SLO with its error budget, and the alert that pages a human.
+    status: planned
+
+  - id: cs-resilient-service-calls
+    kind: case-study
+    title: Merancang pemanggilan antar-service yang tahan gangguan
+    concepts: [timeouts, retry-backoff-jitter, circuit-breaker, load-shedding, cascading-failure]
+    sources: [aws-builders-timeouts-retries, fowler-circuit-breaker, sre-book-addressing-cascading-failures-ch22, aws-arch-blog-exponential-backoff-jitter]
+    # design: a slow dependency threatens the whole call chain; learners set deadlines, retry budgets, and breakers.
+    # timebox: 15 minutes on deadlines, a retry policy that does not amplify load, and when to fail fast.
+    status: planned
+
+  # ------------------------------------------------------------------ Incidents
+  - id: incident-aws-dynamodb-dns-2025
+    kind: incident
+    title: DNS DynamoDB us-east-1, Okt 2025
+    concepts: [dns-networking-basics, cascading-failure, metastable-failure, load-shedding]
+    sources: [aws-pes-dynamodb-2025-10]
+    # mechanism: DNS automation race condition, dependency fan-out, recovery backlog.
+    status: planned
+
+  - id: incident-cloudflare-bot-management-2025
+    kind: incident
+    title: Cloudflare, file konfigurasi Bot Management terlalu besar, Nov 2025
+    concepts: [safe-deploys, cascading-failure, observability]
+    sources: [cloudflare-outage-2025-11-18]
+    # mechanism: a generated config file doubled in size and exceeded a preallocated limit; fast global propagation.
+    status: planned
+
+  - id: incident-gcp-service-control-2025
+    kind: incident
+    title: Google Cloud Service Control, kebijakan kosong menyebabkan crash loop, Jun 2025
+    concepts: [safe-deploys, retry-backoff-jitter, cascading-failure]
+    sources: [gcp-service-control-outage-2025-06-12]
+    # mechanism: globally replicated bad data hit an unguarded code path; recovery herd without enough backoff.
+    status: planned
+
+  - id: incident-crowdstrike-channel-file-2024
+    kind: incident
+    title: CrowdStrike, update konten tanpa rollout bertahap, Jul 2024
+    concepts: [safe-deploys]
+    sources: [crowdstrike-channel-file-291-rca-2024]
+    # mechanism: content update validated insufficiently and shipped to all hosts at once; kernel-level crash.
+    status: planned
+
+  - id: incident-cloudflare-1111-2025
+    kind: incident
+    title: Cloudflare 1.1.1.1, konfigurasi tidak aktif yang baru bereaksi berbulan-bulan kemudian, Jul 2025
+    concepts: [safe-deploys, dns-networking-basics]
+    sources: [cloudflare-1111-incident-2025-07-14]
+    # mechanism: dormant misconfiguration triggered by a later change; no progressive rollout in the legacy system.
+    status: planned
+
+  - id: incident-cloudflare-workers-kv-2025
+    kind: incident
+    title: Cloudflare Workers KV, dependensi pihak ketiga gagal, Jun 2025
+    concepts: [cache-stampede-hot-keys, load-shedding, cascading-failure]
+    sources: [cloudflare-workers-kv-outage-2025-06-12]
+    # mechanism: a failing central store behind many products; cold reads fail; cache refill after recovery.
+    status: planned
+
+  - id: incident-cloudflare-control-plane-2023
+    kind: incident
+    title: Cloudflare control plane, kegagalan listrik dan asumsi failover yang salah, Nov 2023
+    concepts: [replication-lag-failover, rate-limiting, retry-backoff-jitter]
+    sources: [cloudflare-control-plane-outage-2023-11]
+    # mechanism: single-site dependency broke assumed active-active failover; retries needed rate limiting.
+    status: planned
+
+  - id: incident-datadog-2023
+    kind: incident
+    title: Datadog, update OS serentak memutus jaringan di banyak region, Mar 2023
+    concepts: [safe-deploys, observability, cascading-failure]
+    sources: [datadog-incident-2023-03-08]
+    # mechanism: the same update landed in five regions at about the same time; correlated failure; ordered recovery.
+    status: planned
+
+  - id: incident-azure-front-door-2025
+    kind: incident
+    title: Azure Front Door, perubahan konfigurasi valid menghasilkan metadata tidak kompatibel, Okt 2025
+    concepts: [safe-deploys, cdn, load-balancer-reverse-proxy]
+    sources: [azure-front-door-pir-2025-10-29]
+    # mechanism: config across two control-plane versions produced incompatible metadata; delayed crash; phased recovery.
+    status: planned
+
+  - id: incident-github-availability-2026-08
+    kind: incident
+    title: GitHub Actions, retry storm setelah rollout rutin, Agu 2026
+    concepts: [retry-backoff-jitter, circuit-breaker, load-shedding, metastable-failure]
+    sources: [github-availability-report-2026-08]
+    # mechanism: routine rollout reduced capacity, retries and mesh sidecar saturation kept the system degraded.
+    status: planned
+
+  - id: incident-slack-2021
+    kind: incident
+    title: Slack, jaringan jenuh dan autoscaling yang memperburuk keadaan, Jan 2021
+    concepts: [cascading-failure, capacity-headroom, observability]
+    sources: [slack-outage-2021-01-04]
+    # mechanism: overloaded network, thread waits lowered CPU so autoscaling misfired, provisioning bottleneck.
+    status: planned
+
+  - id: incident-atlassian-2022
+    kind: incident
+    title: Atlassian, skrip menghapus 883 site dan restore berminggu-minggu, Apr 2022
+    concepts: [backup-recovery]
+    sources: [atlassian-pir-april-2022]
+    # mechanism: destructive script given the wrong ids; the recovery point was met but the recovery time was not.
+    status: planned
+
+  - id: incident-heroku-2025
+    kind: incident
+    title: Heroku, update OS otomatis memutus jaringan keluar, Jun 2025
+    concepts: [simple-deploys, basic-monitoring]
+    sources: [heroku-june-10-outage-2025]
+    # mechanism: an automated update restarted host networking; a boot-only script did not restore routes; tools shared the failing infrastructure.
+    status: planned
