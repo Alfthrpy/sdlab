@@ -30,4 +30,4 @@ sections_read: ["Overview", "How Does Flow Control Work"]
 
 - The page does not describe credit mechanics, memory or disk alarms, or the connection.blocked notification; those are on other RabbitMQ pages that were not opened.
 - Producer throttling hides slowness as latency: a service that publishes inside a request will see requests get slower.
-- Copyright Broadcom, no open license; rewrite only.
+- Page footer says all rights reserved, but the rabbitmq-website README licenses the docs Apache-2.0 OR MPL-2.0 (blog excluded); registry records Apache-2.0, usage stays rewrite only.

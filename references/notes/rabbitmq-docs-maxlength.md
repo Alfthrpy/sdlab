@@ -35,4 +35,4 @@ sections_read: ["Overview", "Default Max Queue Length Limit Behaviour", "Queue O
 
 - Vendor-specific behaviour (RabbitMQ). Kafka and SQS do not bound queues this way: Kafka bounds by retention and consumers pull, SQS standard queues have no hard backlog limit (see aws-sqs-cloudwatch-metrics).
 - The page describes the broker only; it says nothing about what the producer service should do after a negative ack (retry with backoff, shed, or fail the user request).
-- Copyright Broadcom, no open license; rewrite only.
+- Page footer says all rights reserved, but the rabbitmq-website README licenses the docs Apache-2.0 OR MPL-2.0 (blog excluded); registry records Apache-2.0, usage stays rewrite only.
