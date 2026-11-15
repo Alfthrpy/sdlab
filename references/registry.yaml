@@ -1745,7 +1745,7 @@ sources:
     topics: [log, partitions, consumer-groups, offsets, retention, log-compaction, delivery-semantics, exactly-once, idempotent-producer, transactions, pull-vs-push]
     status: approved
     version: "Apache Kafka 4.4.X docs"
-    notes: "NO-AUTHOR: corporate documentation, no author on the page. NO-DATE: page shows only a version (AK 4.4.X; site Last modified 2026-10-26). Footer: content (c) 2026 ASF under Apache License v2. The unversioned #design anchor URL only shows a redirect page; the /44/ URL is version-pinned, so a newer docs release may supersede it. Sections read: Message Delivery Semantics, Using Transactions, Consumer Position, Push vs Pull, Consumer Groups, Log Compaction (retention is only mentioned in passing; the page has no dedicated Retention section). Core Unit 4 log source."
+    notes: "NO-AUTHOR: corporate documentation, no author on the page. NO-DATE: page shows only a version (AK 4.4.X; site Last modified 2026-10-26). Footer: content (c) 2026 ASF under Apache License v2. The unversioned #design anchor URL only shows a redirect page; the /44/ URL is version-pinned, so a newer docs release may supersede it. Sections read: Message Delivery Semantics, Using Transactions, Consumer Position, Push vs Pull, Consumer Groups, Log Compaction (retention is only mentioned in passing; the page has no dedicated Retention section). Core Unit 4 log source. Re-opened 2026-11-15 (P1-075 gap A9a): full heading list is Motivation, Persistence, Efficiency, The Producer, The Consumer (Push vs pull, Consumer Position, Offline Data Load, Static Membership), Message Delivery Semantics, Using Transactions, The Share Consumer, Replication, Log Compaction (Basics, guarantees, Details, Configuring The Log Cleaner) and Quotas. Compaction has a dedicated section (keeps the latest record per key, tombstones removed after delete.retention.ms, default 24 h; cleanup.policy=compact; ordering is never changed); time or size retention is only mentioned in passing (Persistence, Constant Time Suffices, and the Log Compaction intro) and the config names for it are not on this page, so the retention gap is filled by kreps-the-log-2013 (conceptually) and would need the Kafka topic-config page for settings. The page also calls partitions totally ordered, with one consumer per partition inside a group."
     verified_on: "2026-11-12"
 
   - id: kafka-docs-introduction
@@ -3431,3 +3431,138 @@ sources:
     verified_on: "2026-11-15"
     version: "20th USENIX Conference on File and Storage Technologies (FAST '22), pp. 69-82, ISBN 978-1-939133-26-7; PDF https://www.usenix.org/system/files/fast22-qiao.pdf"
     notes: "Peer-reviewed FAST '22 version (landing page and PDF opened 2026-11-15); it supersedes the arXiv preprint arXiv:2107.13987v1 (2021-07-27), whose title says 'B-tree' and whose PDF carried placeholder DOI text and a CC BY-NC-ND 4.0 line, while the arXiv page said CC BY 4.0. The USENIX page and PDF state no license, only that USENIX papers are open access, so recorded as all-rights-reserved (no license stated); no DOI exists. Gap B5 (P1-074): counterpoint to oneil-lsm-tree and myrocks-vldb20. Defines write amplification as bytes physically written per byte the application wrote (2.4), shows why a B+-tree pays for a whole page on a small change plus its log, and measures RocksDB (LSM) against WiredTiger (B+-tree) before and after three redesigns (section 3) that rely on drives that compress transparently. Baseline numbers favour the LSM (500 GB data set, 32-byte records: RocksDB 38, WiredTiger 268 with 8 KB pages and 530 with 16 KB; redesigned tree 28 and 36), and the claimed catch-up needs special hardware; the authors include staff of a vendor of such drives (ScaleFlux), so read the catch-up claim as a design argument, not a general result. Sections read: abstract, 1, 2.1-2.4, results text of 4."
+
+  - id: kreps-the-log-2013
+    title: "The Log: What every software engineer should know about real-time data's unifying abstraction"
+    authors: [Jay Kreps]
+    publisher: LinkedIn Engineering Blog (LinkedIn Corporation)
+    type: article
+    tier: 2
+    url: https://www.linkedin.com/blog/engineering/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying
+    doi: null
+    published: "2013-12-16"
+    accessed: "2026-11-15"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [4]
+    topics: [log, event-streaming, partitions, ordering, retention, log-compaction, state-machine-replication, buffering, data-integration]
+    status: candidate
+    verified_on: "2026-11-15"
+    notes: "Gap A9b (P1-075). Opened on the page itself with title, author and date December 16, 2013 (raw HTML and fetch summary agree; canonical link is this URL). The older URL engineering.linkedin.com/distributed-systems/log-what-... returns HTTP 404 (curl and WebFetch), and the www.linkedin.com/blog/engineering/ path is the one that works. Footer says 'LinkedIn (c) 2026' and links the Copyright Policy; no license for the article is stated, so all-rights-reserved (no license stated). Written by the creator of Kafka while at LinkedIn; essay, not a peer-reviewed paper, so Tier 2 (operator engineering article). Full text (about 8,000 words) read as text. Covers: the log as an append-only, totally ordered sequence whose entry number acts as a clock; state machine replication; table and changelog duality; log as the integration hub between data systems; partitioning where each partition is ordered but there is no global order across partitions; retention by time or size for event data and log compaction for keyed data; the log as a buffer between fast producers and slow consumers. Also the best free statement of per-partition versus total ordering in a Kafka-style log (gap B7). Not a design reference for current Kafka: versions and numbers (60 billion writes a day) are 2013."
+
+  - id: rabbitmq-docs-maxlength
+    title: "Queue Length Limit (RabbitMQ documentation)"
+    authors: []
+    publisher: RabbitMQ (Broadcom)
+    type: docs
+    tier: 2
+    url: https://www.rabbitmq.com/docs/maxlength
+    doi: null
+    published: null
+    accessed: "2026-11-15"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [4]
+    topics: [bounded-queue, backpressure, queue-length-limit, overflow, reject-publish, publisher-confirms, dead-letter-exchange, load-shedding]
+    status: candidate
+    verified_on: "2026-11-15"
+    version: "RabbitMQ 4.4 docs"
+    notes: "NO-AUTHOR: corporate documentation. NO-DATE: no date on the page, only the copyright range. Footer 'Copyright (c) 2005-2026 Broadcom. All Rights Reserved.' with no open license, so all-rights-reserved. Gap A10 (P1-075): a primary source on a bounded queue between services. A queue can be capped by message count, by body bytes, or both; when full, the default is to drop from the head (oldest) or dead-letter; the alternative reject-publish refuses new messages and, with publisher confirms, the publisher gets a negative ack, which is how a full queue pushes back on the producer (reject-publish-dlx also dead-letters the refused message). Only ready messages count in classic queues; unacknowledged ones do not. Sections read: all (Overview, Default behaviour, Queue Overflow Behaviour, policy and x-arguments, Inspecting limits). Broker-to-producer only; it says nothing about how a producer service should react, so combine with aws-builders-insurmountable-queue-backlogs."
+
+  - id: rabbitmq-docs-flow-control
+    title: "Flow Control (RabbitMQ documentation)"
+    authors: []
+    publisher: RabbitMQ (Broadcom)
+    type: docs
+    tier: 2
+    url: https://www.rabbitmq.com/docs/flow-control
+    doi: null
+    published: null
+    accessed: "2026-11-15"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [4]
+    topics: [backpressure, flow-control, publisher-throttling, broker, memory-protection]
+    status: candidate
+    verified_on: "2026-11-15"
+    version: "RabbitMQ 4.4 docs"
+    notes: "NO-AUTHOR: corporate documentation. NO-DATE: no date on the page. Footer 'Copyright (c) 2005-2026 Broadcom. All Rights Reserved.', no open license, so all-rights-reserved. Gap A10 (P1-075), companion to rabbitmq-docs-maxlength. Very short page (Overview, How Does Flow Control Work): the broker slows connections that publish faster than queues, replication or disk can absorb, so memory does not grow without bound; a throttled connection shows state 'flow' (blocked and unblocked many times a second) and to the client looks like slow network. No setting needed. The page does not explain credit mechanics, memory or disk alarms, or the connection.blocked signal (it links elsewhere), so do not attribute those to it."
+
+  - id: grpc-docs-flow-control
+    title: "Flow Control (gRPC)"
+    authors: []
+    publisher: gRPC Authors
+    type: docs
+    tier: 2
+    url: https://grpc.io/docs/guides/flow-control/
+    doi: null
+    published: "2023-10-05"
+    accessed: "2026-11-15"
+    license: CC-BY-4.0
+    usage: rewrite-only
+    access: free
+    units: [4]
+    topics: [backpressure, flow-control, streaming-rpc, slow-consumer, grpc]
+    status: candidate
+    verified_on: "2026-11-15"
+    notes: "NO-AUTHOR: project docs. The date is the page's 'Last modified October 5, 2023' line. Footer 'Copyright 2026 gRPC Authors' and a License link; the grpc/grpc.io repository LICENSE (opened 2026-11-15) says repository content is CC BY 4.0 and code samples Apache-2.0, same as grpc-docs-deadlines. Gap A10 (P1-075): flow control between two services over the network. Applies to streaming RPCs only (not unary); by default the framework manages it: the receiver acknowledges bytes as the application reads them, and a sender that writes too fast has its write call paused instead of buffering without limit. A write returning does not mean the bytes reached the peer. Warning on the page: two peers that both write a lot without reading can deadlock. Short page; it does not describe HTTP/2 windows or the API hooks beyond a Java link."
+
+  - id: aws-sqs-fifo-delivery-logic
+    title: "FIFO queue delivery logic in Amazon SQS"
+    authors: []
+    publisher: Amazon Web Services
+    type: docs
+    tier: 2
+    url: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues-understanding-logic.html
+    doi: null
+    published: null
+    accessed: "2026-11-15"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [4]
+    topics: [ordering, fifo, message-groups, head-of-line-blocking, visibility-timeout, deduplication, parallelism]
+    status: candidate
+    verified_on: "2026-11-15"
+    notes: "NO-AUTHOR: AWS documentation. NO-DATE: no date in the fetched text. No license statement in the fetched content (footer not part of the fetched text; AWS site terms not opened), so all-rights-reserved, no license stated, same convention as the other aws-sqs entries. Gap B7 (P1-075). Ordering holds per message group ID, not across groups: messages in one group are sent and received in strict order, different groups may be processed out of order relative to each other and in parallel. While one message of a group is in flight (invisible), no further message of that group is returned until it is deleted or its visibility timeout ends (this is head-of-line blocking per group). One group ID for the whole queue gives total order and no parallelism. Dedup IDs make producer retries safe. Sections read: Sending messages, Receiving messages, Retrying multiple times, Additional notes, Examples. Also opened but not registered: sqs-fifo-queues.html (overview), interleaving-multiple-ordered-message-groups.html and avoid-backlog-with-the-same-message-group-id.html (120,000 in-flight limit; a big backlog in one group delays groups sent later); standard-queues.html states that standard queues only try to keep order. Quotas change; re-check."
+
+  - id: aws-sqs-cloudwatch-metrics
+    title: "Available CloudWatch metrics for Amazon SQS"
+    authors: []
+    publisher: Amazon Web Services
+    type: docs
+    tier: 2
+    url: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-available-cloudwatch-metrics.html
+    doi: null
+    published: null
+    accessed: "2026-11-15"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [4]
+    topics: [queue-age, consumer-lag, monitoring, cloudwatch, alerting, backlog, dead-letter-queue]
+    status: candidate
+    verified_on: "2026-11-15"
+    notes: "NO-AUTHOR: AWS documentation. NO-DATE: no date in the fetched text. No license statement in the fetched content (footer not part of the fetched text; AWS site terms not opened), so all-rights-reserved, no license stated. Gap B8 (P1-075): queue-age monitoring from the operator. Metric table (read in full): ApproximateAgeOfOldestMessage in seconds, with caveats (standard queues move a message received three or more times to the back and exclude such poison messages from the metric; the age resets when a message moves to a dead-letter queue; in FIFO queues a failing message blocks its group and keeps the age growing), ApproximateNumberOfMessagesVisible (backlog), ApproximateNumberOfMessagesNotVisible (in flight), FIFO-only ApproximateNumberOfGroupsWithInflightMessages, and noisy-group variants for fair queues. The Monitoring tips section only suggests alarming on ApproximateNumberOfMessagesVisible; it gives no threshold advice for message age (that comes from aws-builders-insurmountable-queue-backlogs). For a DLQ the page recommends the visible-messages metric. Counts are approximate; the page advises alarming on several consecutive data points."
+
+  - id: burrow-kafka-consumer-monitoring-2015
+    title: "Burrow: Kafka Consumer Monitoring Reinvented"
+    authors: [Todd Palino]
+    publisher: LinkedIn Engineering Blog (LinkedIn Corporation)
+    type: article
+    tier: 2
+    url: https://www.linkedin.com/blog/engineering/open-source/burrow-kafka-consumer-monitoring-reinvented
+    doi: null
+    published: "2015-06-12"
+    accessed: "2026-11-15"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [4]
+    topics: [consumer-lag, monitoring, alerting, kafka, offsets, sliding-window]
+    status: candidate
+    verified_on: "2026-11-15"
+    notes: "Gap B8 (P1-075). Page shows author Todd Palino (Technical Leader in Reliability Engineering) and the date June 12, 2015. The old URL engineering.linkedin.com/apache-kafka/burrow-kafka-consumer-monitoring-reinvented returns HTTP 404; the www.linkedin.com/blog/engineering/open-source/ path works. Footer 'LinkedIn (c) 2026' with the Copyright Policy link and no article license, so all-rights-reserved (no license stated). The article says the Burrow tool itself is Apache 2.0; the repository github.com/linkedin/Burrow (README opened 2026-11-15, Apache-2.0, description 'Kafka Consumer Lag Checking') is not registered separately. Operator write-up of why one lag number and fixed thresholds make poor alerts (lag follows a sawtooth because offsets are committed periodically, spikes are harmless, a dead consumer shows no lag, wildcard consumers give huge measurement counts) and the alternative: a central service reads the committed-offsets topic and judges each partition over a sliding window of 10 offset commits (about 10 minutes at LinkedIn) for 'is it committing, are offsets rising, is lag rising, is lag steady', rolled up to OK, warning (falling behind) and error (stopped or stalled). Sections read: all four. 2015 and Kafka 0.8.2 era: tool covers only Kafka-committed offsets; modern details in the repo wiki were not read."

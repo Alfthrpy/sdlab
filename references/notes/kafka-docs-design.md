@@ -37,4 +37,5 @@ sections_read: ["Message Delivery Semantics", "Using Transactions", "Consumer Po
 ## Warnings
 
 - Exactly-once here covers read-process-write inside Kafka only; external side effects are not covered (see confluent-exactly-once-2017).
+- Re-checked 2026-11-15 (P1-075): the page has a dedicated Log Compaction section (basics, guarantees, details, log cleaner config; tombstones kept for delete.retention.ms, default 24 h; compaction never reorders). Time or size retention has no section of its own and no config names on this page; for retention use kreps-the-log-2013 (concept) and the Kafka topic-config page (not yet registered). The page also says partitions are totally ordered, one consumer per partition within a group.
 - Config names and defaults change between releases; the page is version-pinned to 4.4.X.
