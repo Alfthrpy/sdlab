@@ -1660,14 +1660,14 @@ sources:
     url: https://www.microsoft.com/en-us/research/publication/a-critique-of-ansi-sql-isolation-levels/
     doi: null
     published: "1995-06"
-    accessed: "2026-11-12"
+    accessed: "2026-11-15"
     license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [3]
     topics: [transactions, isolation-levels, anomalies, snapshot-isolation, write-skew]
     status: approved
-    notes: "Landing page lists it as MSR-TR-95-51, June 1995, venue not stated on the page (an ACM link exists but was not followed). PDF: https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/tr-95-51.pdf. No copyright statement on the page (re-checked 2026-11-12), so treated as all-rights-reserved. Only the abstract page was opened; PDF not read."
+    notes: "Landing page lists it as MSR-TR-95-51, June 1995. PDF: https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/tr-95-51.pdf (13 pages, a cover page plus the paper). Full text read 2026-11-15 (P1-074, gap A8): the running footer on every page reads 'Proc. ACM SIGMOD 95, pp. 1-10, San Jose CA, June 1995, (c) ACM', and the first page carries the ACM permission notice (copying without fee for non-commercial use with the ACM notice kept), so the report is the SIGMOD paper and the license stays all-rights-reserved. No DOI is printed in the PDF, so doi stays null. The landing page has no copyright statement (re-checked 2026-11-12). Reading notes: references/notes/berenson-critique-ansi-isolation-1995.md."
     verified_on: "2026-11-12"
 
   - id: oneil-lsm-tree
@@ -3275,3 +3275,159 @@ sources:
     status: candidate
     verified_on: "2026-11-14"
     notes: "Page shows author Ashish Pratap Singh, date January 29, 2026, and '(c) 2026 Ashish Pratap Singh' with no license, so all-rights-reserved. Only the first stages were readable: Stage 1 single server (0-100 users) with the warning signs for moving on, Stage 2 separate database (100-1K users) with reasons, managed databases, and connection pooling with PgBouncer. Stage 3 (load balancer, horizontal scaling) and later are paywalled, so access is partial. Tier 6 and map-only because the publisher is an interview-prep brand (the intro addresses readers preparing for system design interviews) and the author is a practitioner, not the operator of a named system; use it only to check which stages and triggers are commonly taught. Gap A13 (P1-072) therefore stays open: no citable practitioner article on scaling from one server was found."
+
+  - id: github-mysql-ha-2018
+    title: "MySQL High Availability at GitHub"
+    authors: [Shlomi Noach]
+    publisher: The GitHub Blog (GitHub, Inc.)
+    type: article
+    tier: 2
+    url: https://github.blog/engineering/infrastructure/mysql-high-availability-at-github/
+    doi: null
+    published: "2018-06-20"
+    accessed: "2026-11-15"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [replication, failover, replication-lag, semi-sync, split-brain, service-discovery]
+    status: candidate
+    verified_on: "2026-11-15"
+    notes: "Operator engineering blog. Page shows the date June 20, 2018 and 'Updated May 21, 2020'; footer '(c) 2026 GitHub, Inc.' with no separate license, so all-rights-reserved. Gap A7a (P1-074). GitHub runs MySQL as one writable primary plus asynchronous replicas; the post explains why VIP and DNS based primary discovery was replaced (orchestrator for detection and promotion, Consul for the advertised primary, a proxy layer in front), how orchestrator/raft avoids acting on one isolated data center's view, semi-synchronous replication with a 500 ms timeout to make failover usually lossless, and heartbeat injection on every server for lag measurement. Reports 10-13 s of total outage in most failovers. Admits an unhandled split-brain case when a primary sits in an isolated data center. MySQL-specific and 2018-2020 era; use the principles (detect, promote, advertise, fence), not the tool list."
+
+  - id: github-oct21-2018-postmortem
+    title: "October 21 post-incident analysis"
+    authors: [Jason Warner]
+    publisher: The GitHub Blog (GitHub, Inc.)
+    type: postmortem
+    tier: 4
+    url: https://github.blog/news-insights/company-news/oct21-post-incident-analysis/
+    doi: null
+    published: "2018-10-30"
+    accessed: "2026-11-15"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [replication, failover, replication-lag, split-brain, incident, recovery]
+    status: candidate
+    verified_on: "2026-11-15"
+    notes: "Official postmortem. Page shows the date October 30, 2018 and 'Updated December 19, 2021'; footer '(c) 2026 GitHub, Inc.' with no separate license, so all-rights-reserved. Gap A7a / B5 (P1-074). A 43-second network loss between the East Coast hub and primary data center made orchestrator (raft quorum outside the cut-off site) promote West Coast primaries; both sides then held writes the other lacked (a few seconds on the East, about 40 minutes on the West), so failing back was unsafe. GitHub chose data integrity over speed (24 h 11 min of degradation); replication catch-up followed a decay curve, not the linear estimate that was announced. Pairs with github-mysql-ha-2018 (the design) as the case where automated failover plus asynchronous replication went wrong. Part of the page is incident narrative with product-specific details (webhooks, Pages)."
+
+  - id: dynamodb-docs-global-tables-v2
+    title: "Amazon DynamoDB Developer Guide: How DynamoDB global tables work"
+    authors: []
+    publisher: Amazon Web Services
+    type: docs
+    tier: 2
+    url: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/V2globaltables_HowItWorks.html
+    doi: null
+    published: ""
+    accessed: "2026-11-15"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [replication, multi-leader, conflicts, last-writer-wins, replication-lag, eventual-consistency]
+    status: candidate
+    verified_on: "2026-11-15"
+    version: "Global tables version 2019.11.21 (Current)"
+    notes: "NO-AUTHOR: AWS documentation, no author. NO-DATE: no date in the fetched text. The fetched content had no license text; the aws.amazon.com/legal page footer says '(c) 2026, Amazon Web Services, Inc. or its affiliates. All rights reserved', so recorded as all-rights-reserved (the AWS Site Terms were not opened). Gap A7b (P1-074): a free multi-leader (multi-active) operator source. Every replica takes writes; in the default MREC mode changes replicate asynchronously and concurrent writes to one item are resolved per item by the latest internal timestamp (last writer wins); MRSC mode instead replicates synchronously and rejects a write that collides with one in another Region (ReplicatedWriteConflictException). Names ReplicationLatency as the lag metric and links MREC's RPO to replication delay. Transactions are atomic only inside the Region where they ran. Advice on avoiding conflicts (single-Region writes through IAM, routing users to one Region, static instead of incremental updates) appears on the legacy 2017.11.29 page https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables_HowItWorks.html (opened 2026-11-15), not on this page. Vendor feature, not a general multi-leader tutorial: pair with couchdb-docs-replication-intro."
+
+  - id: hermitage-isolation-tests
+    title: "Hermitage: Testing transaction isolation levels"
+    authors: [Martin Kleppmann]
+    publisher: GitHub (ept/hermitage)
+    type: repo
+    tier: 5
+    url: https://github.com/ept/hermitage
+    doi: null
+    published: "2014"
+    accessed: "2026-11-15"
+    license: CC-BY-4.0
+    usage: adapt-with-attribution
+    access: free
+    units: [3]
+    topics: [transactions, isolation-levels, anomalies, snapshot-isolation, write-skew, lost-update]
+    status: candidate
+    verified_on: "2026-11-15"
+    version: "master branch, 62 commits seen on the repository page; no commit date was visible"
+    attribution: "Diadaptasi dari 'Hermitage: Testing transaction isolation levels' oleh Martin Kleppmann (CC BY 4.0), https://github.com/ept/hermitage"
+    notes: "Year 2014 comes from the README license line 'Copyright Martin Kleppmann, 2014. This work is licensed under a Creative Commons Attribution 4.0 International License' (README opened as raw text 2026-11-15; a separate LICENSE file was not found at the raw URL, so the README is the license evidence). Gap A8 (P1-074): the free explainer on isolation levels and anomalies. The README gives a table of what PostgreSQL, MySQL/InnoDB, Oracle, SQL Server, CockroachDB, YugabyteDB, FoundationDB and Memgraph actually prevent at each named level (anomalies G0, G1a-c, OTV, PMP, P4 lost update, G-single read skew, G2-item and G2 write skew), notes that the names of levels differ from real behaviour (for example PostgreSQL repeatable read is snapshot isolation and MySQL repeatable read is not), and then holds step-by-step test scripts per database. The README itself says the gentle introduction is the DDIA book, so it is a precise comparison and a set of runnable exercises, not a beginner narrative. Tests were run by hand and show behaviour of old versions; check against the current PostgreSQL manual (pg-docs-transaction-iso) before quoting a specific version."
+
+  - id: slack-vitess-2020
+    title: "Scaling Datastores at Slack with Vitess"
+    authors: [Arka Ganguli, Guido Iaquinti, Maggie Zhou, Rafael Chacon]
+    publisher: Slack Engineering (Slack Technologies, LLC)
+    type: article
+    tier: 2
+    url: https://slack.engineering/scaling-datastores-at-slack-with-vitess/
+    doi: null
+    published: "2020-12-01"
+    accessed: "2026-11-15"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [sharding, shard-key, hot-partitions, vitess, migration, multi-leader, trigger]
+    status: candidate
+    verified_on: "2026-11-15"
+    notes: "Operator engineering blog. Page shows December 1, 2020 and the footer '(c) 2026 Slack Technologies, LLC, a Salesforce company. All rights reserved.' Gap B5 (P1-074): second production sharding case beyond Notion, and a case of changing the shard key. Slack first sharded MySQL by workspace id with a metadata lookup cluster and two instances per shard in different data centers replicating to each other asynchronously (a multi-primary pair, which also makes this a small production multi-leader example for A7b). Trouble: largest customers outgrew the biggest host, hot spots next to underused hosts, one shard outage took down every workspace on it, new products (Enterprise Grid, Slack Connect) did not fit one-workspace-per-shard, and the setup needed custom operations tooling. They chose Vitess over adding sharding to the application, sharded message data by channel id, and migrated table by table with backfill, application double-writes and double-read diffing. Reports 2.3M queries per second at peak, p99 11 ms, 99 percent of query load on Vitess at publication. Slack-specific; the article itself is a success story, so read the Disadvantages section as the useful part."
+
+  - id: figma-horizontal-sharding-2024
+    title: "How Figma's Databases Team Lived to Tell the Scale"
+    authors: [Sammy Steele]
+    publisher: Figma, Inc.
+    type: article
+    tier: 2
+    url: https://www.figma.com/blog/how-figmas-databases-team-lived-to-tell-the-scale/
+    doi: null
+    published: "2024-03-14"
+    accessed: "2026-11-15"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [sharding, shard-key, partitioning, vertical-partitioning, migration, hot-partitions, trigger]
+    status: candidate
+    verified_on: "2026-11-15"
+    notes: "Operator engineering blog. Date March 14, 2024 and author byline from the page (author is the databases team tech lead). No license or copyright statement found on the page (raw HTML searched 2026-11-15), so all-rights-reserved with no license stated. Gap B5 (P1-074). Starts from a single Postgres instance in 2020 and a roughly 100x growth since; trigger is tables of several terabytes and billions of rows, vacuum affecting reliability, and the busiest write tables nearing the IOPS limit of the largest RDS instance. Shows the ladder: vertical partitioning by table group first, then horizontal sharding of table groups ('colos') that share one shard key, hashed shard keys because auto-increment and timestamp-prefixed IDs would create hot shards, 'logical' sharding with Postgres views before the 'physical' failover, and a rollback path kept after cutover. First sharded table shipped September 2023 with about ten seconds of partial primary unavailability. Vendor-specific numbers; the post says atomic cross-shard transactions were deliberately not supported (failures are worked around in the application) and lists them, global unique IDs and automated resharding as open problems."
+
+  - id: myrocks-vldb20
+    title: "MyRocks: LSM-Tree Database Storage Engine Serving Facebook's Social Graph"
+    authors: [Yoshinori Matsunobu, Siying Dong, Herman Lee]
+    publisher: Proceedings of the VLDB Endowment, Vol. 13, No. 12 (VLDB 2020)
+    type: paper
+    tier: 3
+    url: https://www.vldb.org/pvldb/vol13/p3217-matsunobu.pdf
+    doi: 10.14778/3415478.3415546
+    published: "2020"
+    accessed: "2026-11-15"
+    license: CC-BY-NC-ND-4.0
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [lsm-tree, b-tree, write-amplification, space-amplification, storage-engine, innodb, rocksdb]
+    status: candidate
+    verified_on: "2026-11-15"
+    notes: "PDF opened 2026-11-15; first page gives PVLDB 13(12): 3217-3230, 2020 and the DOI, and states CC BY-NC-ND 4.0 (rewrite-only). Authors are the Facebook engineers who ran the system. Gap B5 (P1-074): modern production comparison of a B+tree engine (InnoDB) and an LSM engine (RocksDB under MySQL). Sections read: abstract, 1, 2.1-2.4, 5.1 (3.x and 4 only skimmed). Explains why InnoDB wrote whole pages for small updates and added a double-write, why index fragmentation wasted 25-30 percent of each block, and why a log-structured design fitted flash and random writes. Reports bytes written to flash down 75 percent and instances 62.3 percent smaller after migrating UDB to MyRocks (completed August 2017), and lists the costs: slower range scans, bloom filter memory, tombstones, compaction stalls. Read the numbers as one workload (random-write heavy social graph on flash) with a cache tier in front; the paper itself says CPU time of InnoDB could have been close with Zstandard support."
+
+  - id: qiao-btree-lsm-write-amp-2021
+    title: "Closing the B-tree vs. LSM-tree Write Amplification Gap on Modern Storage Hardware with Built-in Transparent Compression"
+    authors: [Yifan Qiao, Xubin Chen, Ning Zheng, Jiangpeng Li, Yang Liu, Tong Zhang]
+    publisher: arXiv (cs.DB), preprint v1
+    type: paper
+    tier: 3
+    url: https://arxiv.org/abs/2107.13987
+    doi: null
+    published: "2021-07-27"
+    accessed: "2026-11-15"
+    license: CC-BY-NC-ND-4.0
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [lsm-tree, b-tree, write-amplification, storage-engine, flash-storage]
+    status: candidate
+    verified_on: "2026-11-15"
+    version: "arXiv:2107.13987v1"
+    notes: "Submission date 27 Jul 2021 from the arXiv page. LICENSE CONFLICT: the arXiv abstract page lists CC BY 4.0, but the PDF (opened 2026-11-15) carries the VLDB template statement 'Creative Commons BY-NC-ND 4.0'; the stricter one is recorded. The arXiv comments say it was submitted to VLDB; the PDF still has placeholder DOI text (doi:XX.XX/XXX.XX), so it is a preprint and a published version was not checked. Gap B5 (P1-074): counterpoint to oneil-lsm-tree and myrocks-vldb20. Defines write amplification as bytes physically written per byte the application wrote, shows why a B-tree pays for a whole page on a small change (plus its log), and measures RocksDB (LSM) against WiredTiger (B-tree) before and after three redesigns that rely on drives that compress transparently. Baseline numbers favour the LSM (500 GB data set, 32-byte records: RocksDB about 38, WiredTiger 268 with 8 KB pages), and the claimed B-tree catch-up needs special hardware; the authors work for a vendor of such drives (ScaleFlux), so read the catch-up claim as a design argument, not a general result. Sections read: abstract, 1, 2.1, parts of the evaluation."
