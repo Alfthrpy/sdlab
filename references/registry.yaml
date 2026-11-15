@@ -1658,7 +1658,7 @@ sources:
     type: paper
     tier: 3
     url: https://www.microsoft.com/en-us/research/publication/a-critique-of-ansi-sql-isolation-levels/
-    doi: null
+    doi: 10.1145/223784.223785
     published: "1995-06"
     accessed: "2026-11-15"
     license: all-rights-reserved
@@ -1667,8 +1667,8 @@ sources:
     units: [3]
     topics: [transactions, isolation-levels, anomalies, snapshot-isolation, write-skew]
     status: approved
-    notes: "Landing page lists it as MSR-TR-95-51, June 1995. PDF: https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/tr-95-51.pdf (13 pages, a cover page plus the paper). Full text read 2026-11-15 (P1-074, gap A8): the running footer on every page reads 'Proc. ACM SIGMOD 95, pp. 1-10, San Jose CA, June 1995, (c) ACM', and the first page carries the ACM permission notice (copying without fee for non-commercial use with the ACM notice kept), so the report is the SIGMOD paper and the license stays all-rights-reserved. No DOI is printed in the PDF, so doi stays null. The landing page has no copyright statement (re-checked 2026-11-12). Reading notes: references/notes/berenson-critique-ansi-isolation-1995.md."
-    verified_on: "2026-11-12"
+    notes: "Landing page lists it as MSR-TR-95-51, June 1995. PDF: https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/tr-95-51.pdf (13 pages, a cover page plus the paper). Full text read 2026-11-15 (P1-074, gap A8): the running footer on every page reads 'Proc. ACM SIGMOD 95, pp. 1-10, San Jose CA, June 1995, (c) ACM', and the first page carries the ACM permission notice (copying without fee for non-commercial use with the ACM notice kept), so the report is the SIGMOD paper and the license stays all-rights-reserved. No DOI is printed in the PDF; the DOI recorded is the SIGMOD '95 proceedings DOI, confirmed on Crossref 2026-11-15 (title, six authors, pp. 1-10; the ACM page returned 403 to the verifier). The same paper also has a SIGMOD Record DOI, 10.1145/568271.223785 (24(2), 1-10, 1995-05-22). The landing page has no copyright statement (re-checked 2026-11-12). Reading notes: references/notes/berenson-critique-ansi-isolation-1995.md."
+    verified_on: "2026-11-15"
 
   - id: oneil-lsm-tree
     title: "The Log-Structured Merge-Tree (LSM-Tree)"
@@ -3332,7 +3332,7 @@ sources:
     status: candidate
     verified_on: "2026-11-15"
     version: "Global tables version 2019.11.21 (Current)"
-    notes: "NO-AUTHOR: AWS documentation, no author. NO-DATE: no date in the fetched text. The fetched content had no license text; the aws.amazon.com/legal page footer says '(c) 2026, Amazon Web Services, Inc. or its affiliates. All rights reserved', so recorded as all-rights-reserved (the AWS Site Terms were not opened). Gap A7b (P1-074): a free multi-leader (multi-active) operator source. Every replica takes writes; in the default MREC mode changes replicate asynchronously and concurrent writes to one item are resolved per item by the latest internal timestamp (last writer wins); MRSC mode instead replicates synchronously and rejects a write that collides with one in another Region (ReplicatedWriteConflictException). Names ReplicationLatency as the lag metric and links MREC's RPO to replication delay. Transactions are atomic only inside the Region where they ran. Advice on avoiding conflicts (single-Region writes through IAM, routing users to one Region, static instead of incremental updates) appears on the legacy 2017.11.29 page https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables_HowItWorks.html (opened 2026-11-15), not on this page. Vendor feature, not a general multi-leader tutorial: pair with couchdb-docs-replication-intro."
+    notes: "NO-AUTHOR: AWS documentation, no author. NO-DATE: no date in the fetched text. No license is stated on the page (the fetched content had no license text); the aws.amazon.com/legal page footer says '(c) 2026, Amazon Web Services, Inc. or its affiliates. All rights reserved', so recorded as all-rights-reserved (the AWS Site Terms were not opened). Gap A7b (P1-074): a free multi-leader (multi-active) operator source. Every replica takes writes; in the default MREC mode changes replicate asynchronously and concurrent writes to one item are resolved per item by the latest internal timestamp (last writer wins); MRSC mode instead replicates synchronously and rejects a write that collides with one in another Region (ReplicatedWriteConflictException). Names ReplicationLatency as the lag metric and links MREC's RPO to replication delay. Transactions are atomic only inside the Region where they ran. Advice on avoiding conflicts (single-Region writes through IAM, routing users to one Region, static instead of incremental updates) appears on the legacy 2017.11.29 page https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/globaltables_HowItWorks.html (opened 2026-11-15), not on this page. Vendor feature, not a general multi-leader tutorial: pair with couchdb-docs-replication-intro."
 
   - id: hermitage-isolation-tests
     title: "Hermitage: Testing transaction isolation levels"
@@ -3372,7 +3372,7 @@ sources:
     topics: [sharding, shard-key, hot-partitions, vitess, migration, multi-leader, trigger]
     status: candidate
     verified_on: "2026-11-15"
-    notes: "Operator engineering blog. Page shows December 1, 2020 and the footer '(c) 2026 Slack Technologies, LLC, a Salesforce company. All rights reserved.' Gap B5 (P1-074): second production sharding case beyond Notion, and a case of changing the shard key. Slack first sharded MySQL by workspace id with a metadata lookup cluster and two instances per shard in different data centers replicating to each other asynchronously (a multi-primary pair, which also makes this a small production multi-leader example for A7b). Trouble: largest customers outgrew the biggest host, hot spots next to underused hosts, one shard outage took down every workspace on it, new products (Enterprise Grid, Slack Connect) did not fit one-workspace-per-shard, and the setup needed custom operations tooling. They chose Vitess over adding sharding to the application, sharded message data by channel id, and migrated table by table with backfill, application double-writes and double-read diffing. Reports 2.3M queries per second at peak, p99 11 ms, 99 percent of query load on Vitess at publication. Slack-specific; the article itself is a success story, so read the Disadvantages section as the useful part."
+    notes: "Operator engineering blog. Page shows December 1, 2020 and the footer '(c) 2026 Slack Technologies, LLC, a Salesforce company. All rights reserved.' Gap B5 (P1-074): second production sharding case beyond Notion, and a case of changing the shard key. Slack first sharded MySQL by workspace id with a metadata lookup cluster and at least two instances per shard, in different data centers, replicating to each other asynchronously (a multi-primary pair, which also makes this a small production multi-leader example for A7b). Trouble: largest customers outgrew the biggest host, hot spots next to underused hosts, one shard outage took down every workspace on it, new products (Enterprise Grid, Slack Connect) did not fit one-workspace-per-shard, and the setup needed custom operations tooling. They chose Vitess over adding sharding to the application, set out to shard message data by channel id (the article states this as a goal and says keyspaces scale by users, teams and channels, not that the messages table was sharded that way), and migrated table by table with backfill, application double-writes and double-read diffing. Reports 2.3M queries per second at peak, p99 11 ms, 99 percent of query load on Vitess at publication. Slack-specific; the article itself is a success story, so read the Disadvantages section as the useful part."
 
   - id: figma-horizontal-sharding-2024
     title: "How Figma's Databases Team Lived to Tell the Scale"
@@ -3412,22 +3412,22 @@ sources:
     verified_on: "2026-11-15"
     notes: "PDF opened 2026-11-15; first page gives PVLDB 13(12): 3217-3230, 2020 and the DOI, and states CC BY-NC-ND 4.0 (rewrite-only). Authors are the Facebook engineers who ran the system. Gap B5 (P1-074): modern production comparison of a B+tree engine (InnoDB) and an LSM engine (RocksDB under MySQL). Sections read: abstract, 1, 2.1-2.4, 5.1 (3.x and 4 only skimmed). Explains why InnoDB wrote whole pages for small updates and added a double-write, why index fragmentation wasted 25-30 percent of each block, and why a log-structured design fitted flash and random writes. Reports bytes written to flash down 75 percent and instances 62.3 percent smaller after migrating UDB to MyRocks (completed August 2017), and lists the costs: slower range scans, bloom filter memory, tombstones, compaction stalls. Read the numbers as one workload (random-write heavy social graph on flash) with a cache tier in front; the paper itself says CPU time of InnoDB could have been close with Zstandard support."
 
-  - id: qiao-btree-lsm-write-amp-2021
-    title: "Closing the B-tree vs. LSM-tree Write Amplification Gap on Modern Storage Hardware with Built-in Transparent Compression"
+  - id: qiao-btree-lsm-write-amp-fast22
+    title: "Closing the B+-tree vs. LSM-tree Write Amplification Gap on Modern Storage Hardware with Built-in Transparent Compression"
     authors: [Yifan Qiao, Xubin Chen, Ning Zheng, Jiangpeng Li, Yang Liu, Tong Zhang]
-    publisher: arXiv (cs.DB), preprint v1
+    publisher: USENIX Association (FAST '22)
     type: paper
     tier: 3
-    url: https://arxiv.org/abs/2107.13987
+    url: https://www.usenix.org/conference/fast22/presentation/qiao
     doi: null
-    published: "2021-07-27"
+    published: "2022-02"
     accessed: "2026-11-15"
-    license: CC-BY-NC-ND-4.0
+    license: all-rights-reserved
     usage: rewrite-only
     access: free
     units: [3]
     topics: [lsm-tree, b-tree, write-amplification, storage-engine, flash-storage]
     status: candidate
     verified_on: "2026-11-15"
-    version: "arXiv:2107.13987v1"
-    notes: "Submission date 27 Jul 2021 from the arXiv page. LICENSE CONFLICT: the arXiv abstract page lists CC BY 4.0, but the PDF (opened 2026-11-15) carries the VLDB template statement 'Creative Commons BY-NC-ND 4.0'; the stricter one is recorded. The arXiv comments say it was submitted to VLDB; the PDF still has placeholder DOI text (doi:XX.XX/XXX.XX), so it is a preprint and a published version was not checked. Gap B5 (P1-074): counterpoint to oneil-lsm-tree and myrocks-vldb20. Defines write amplification as bytes physically written per byte the application wrote, shows why a B-tree pays for a whole page on a small change (plus its log), and measures RocksDB (LSM) against WiredTiger (B-tree) before and after three redesigns that rely on drives that compress transparently. Baseline numbers favour the LSM (500 GB data set, 32-byte records: RocksDB about 38, WiredTiger 268 with 8 KB pages), and the claimed B-tree catch-up needs special hardware; the authors work for a vendor of such drives (ScaleFlux), so read the catch-up claim as a design argument, not a general result. Sections read: abstract, 1, 2.1, parts of the evaluation."
+    version: "20th USENIX Conference on File and Storage Technologies (FAST '22), pp. 69-82, ISBN 978-1-939133-26-7; PDF https://www.usenix.org/system/files/fast22-qiao.pdf"
+    notes: "Peer-reviewed FAST '22 version (landing page and PDF opened 2026-11-15); it supersedes the arXiv preprint arXiv:2107.13987v1 (2021-07-27), whose title says 'B-tree' and whose PDF carried placeholder DOI text and a CC BY-NC-ND 4.0 line, while the arXiv page said CC BY 4.0. The USENIX page and PDF state no license, only that USENIX papers are open access, so recorded as all-rights-reserved (no license stated); no DOI exists. Gap B5 (P1-074): counterpoint to oneil-lsm-tree and myrocks-vldb20. Defines write amplification as bytes physically written per byte the application wrote (2.4), shows why a B+-tree pays for a whole page on a small change plus its log, and measures RocksDB (LSM) against WiredTiger (B+-tree) before and after three redesigns (section 3) that rely on drives that compress transparently. Baseline numbers favour the LSM (500 GB data set, 32-byte records: RocksDB 38, WiredTiger 268 with 8 KB pages and 530 with 16 KB; redesigned tree 28 and 36), and the claimed catch-up needs special hardware; the authors include staff of a vendor of such drives (ScaleFlux), so read the catch-up claim as a design argument, not a general result. Sections read: abstract, 1, 2.1-2.4, results text of 4."

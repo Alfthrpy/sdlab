@@ -35,7 +35,7 @@ sections_read: ["Whole article (raw HTML converted to text)"]
 - `failover`: detect, choose a candidate, promote, advertise; why the advertise step (discovery) matters as much as the promotion.
 - `replication-lag`: lag measured by heartbeat rows; semi-sync as the trade of write latency and availability for lower data loss.
 - `split-brain`: the unhandled isolated-data-center case, and why fencing is needed.
-- Pairs with the incident that followed three years later (`github-oct21-2018-postmortem`).
+- Pairs with the incident that followed four months later (`github-oct21-2018-postmortem`).
 
 ## Warnings
 

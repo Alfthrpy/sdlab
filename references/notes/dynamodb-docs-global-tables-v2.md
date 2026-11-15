@@ -36,5 +36,5 @@ sections_read: ["Concepts", "Versions", "Availability", "Consistency modes (MREC
 
 ## Warnings
 
-- Vendor feature documentation, not a neutral treatment of multi-leader replication. Last-writer-wins can silently discard a valid write; the page says "best effort" for choosing the last writer, and does not describe clock behaviour in detail.
+- Vendor feature documentation, not a neutral treatment of multi-leader replication. Last-writer-wins can silently discard a valid write; the legacy 2017.11.29 global tables page (not this one) says "best effort" for choosing the last writer, and this page does not describe clock behaviour in detail.
 - Conflict-avoidance advice is on the legacy page, not on this one; confirm it still applies before quoting.
