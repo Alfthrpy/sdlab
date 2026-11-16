@@ -1,0 +1,135 @@
+questions:
+  - id: caching-basics-q01
+    type: order
+    difficulty: 1
+    objective: 1
+    prompt: "Aplikasimu memakai cache-aside untuk membaca profil pengguna dan cache-nya tidak punya fitur read-through. Urutkan langkah pembacaan ketika item belum ada di cache."
+    options:
+      - "Aplikasi menyimpan hasil query ke cache"
+      - "Aplikasi mencoba membaca item dari cache dan tidak menemukannya"
+      - "Aplikasi mengembalikan data ke pemanggil"
+      - "Aplikasi membaca item dari database"
+    answer: [1, 3, 0, 2]
+    explanation: "Aplikasi sendiri yang menjalankan seluruh alur: cek cache, baca database saat miss, isi cache, baru mengembalikan hasil. Karena cache tidak mengisi dirinya sendiri, langkah mengisi cache tetap tugas kode aplikasi."
+    sources: [azure-cache-aside-pattern]
+
+  - id: caching-basics-q02
+    type: mcq
+    difficulty: 2
+    objective: 1
+    prompt: "Setelah pengguna menyimpan alamat baru, halaman profil harus menampilkan alamat itu pada request berikutnya tanpa kemungkinan melihat alamat lama. Cache yang dipakai mendukung pola penulisan apa pun. Pendekatan mana yang paling pas?"
+    options:
+      - "Cache-aside dengan TTL 5 detik, dengan harga alamat lama masih bisa tampil sampai 5 detik"
+      - "Write-through: database dan cache diperbarui dalam satu operasi tulis, dengan harga tiap tulis menyentuh dua tempat"
+      - "Cache-aside: update database lalu hapus item, dengan harga request berikutnya bisa kena miss atau data lama"
+      - "Cache-aside: hapus item dulu lalu update database, dengan harga request yang menyela bisa mengisi cache dengan nilai lama"
+    answer: 1
+    explanation: "Write-through memperbarui database dan cache dalam satu operasi tulis, jadi pembaca langsung melihat nilai baru. Cache-aside hanya menghapus item, sehingga tetap ada jeda miss atau data lama; TTL pendek hanya memperkecil jeda itu."
+    sources: [azure-cache-aside-pattern]
+    targets_misconception: cache-always-in-sync
+
+  - id: caching-basics-q03
+    type: mcq
+    difficulty: 3
+    objective: 1
+    prompt: "Katalog punya jutaan produk, tetapi tiap hari hanya sebagian kecil yang dibuka dan tidak bisa ditebak yang mana. Cache yang dipakai tidak punya fitur read-through, dan data harga basi sampai 30 detik masih bisa diterima. Pilihan mana yang paling tepat beserta alasannya?"
+    options:
+      - "Write-through untuk semua produk, karena tiap tulis mengisi cache sehingga bacaan pertama tidak kena miss"
+      - "Cache-aside tanpa TTL, karena menghapus item saat menulis sudah menyamakan isi cache dengan database"
+      - "Cache-aside dengan TTL 1 hari, karena data jarang berubah sehingga hit ratio tinggi lebih diutamakan"
+      - "Cache-aside dengan TTL 30 detik dan hapus item saat harga berubah, karena item dimuat hanya saat diminta"
+    answer: 3
+    explanation: "Cache-aside cocok saat cache tidak punya read-through dan kebutuhan data tidak bisa ditebak; TTL dan penghapusan item menjaga harga lama tidak bertahan melewati batas 30 detik. Write-through hanya mengisi cache saat ada tulis, jadi produk yang jarang diubah tetap kena miss pada bacaan pertama."
+    sources: [azure-cache-aside-pattern]
+    targets_misconception: cache-always-in-sync
+
+  - id: caching-basics-q04
+    type: mcq
+    difficulty: 2
+    objective: 2
+    prompt: "Kode update harga produk menjalankan dua langkah: menghapus key harga di cache, dan mengupdate baris di database. Di antara dua langkah itu ada request lain yang membaca harga. Susunan mana yang paling mempersempit peluang data lama tertahan di cache?"
+    options:
+      - "Update database dulu, lalu hapus key, sehingga pengisian ulang cache memakai nilai baru"
+      - "Hapus key dulu, lalu update database, sehingga cache kosong memaksa pembaca ke database"
+      - "Urutannya tidak berpengaruh selama kedua langkah selesai dalam satu detik"
+      - "Update database saja, dan biarkan TTL yang menghapus key tanpa invalidation"
+    answer: 0
+    explanation: "Azure menyebut urutan ini penting: kalau key dihapus lebih dulu, request yang menyela bisa miss lalu mengisi cache dengan harga lama, sehingga database harus diubah dulu. Catatan: ini penalaran penulis, bukan klaim sumber. Database-dulu mempersempit celah tanpa menutupnya, karena pembaca yang sudah mengambil harga lama sebelum update masih bisa mengisi cache sesudah penghapusan."
+    sources: [azure-cache-aside-pattern]
+    targets_misconception: invalidate-order-irrelevant
+
+  - id: caching-basics-q05
+    type: match
+    difficulty: 2
+    objective: 2
+    prompt: "Cocokkan toleransi data basi tiap resource dengan nilai Cache-Control yang paling masuk akal."
+    pairs:
+      - ["bundle.v123.js: isinya tidak berubah selama URL sama", "public, max-age=31536000, immutable"]
+      - ["Halaman HTML dengan URL tetap: boleh disimpan, tetapi tidak boleh dipakai tanpa dicek ke server", "no-cache"]
+      - ["Daftar berita: tampil basi sampai 60 detik masih bisa diterima", "max-age=60"]
+      - ["Saldo rekening: tidak boleh tersimpan di cache mana pun", "no-store"]
+    explanation: "Nama file berversi bisa disimpan lama karena perubahan isi berarti URL baru, dan max-age=60 mengizinkan basi sampai 60 detik. no-cache tetap menyimpan tetapi memvalidasi ke origin dulu, sedangkan no-store melarang penyimpanan sama sekali."
+    sources: [mdn-http-caching]
+    targets_misconception: no-cache-means-no-storage
+
+  - id: caching-basics-q06
+    type: multi
+    difficulty: 2
+    objective: 2
+    prompt: "Harga produk di-cache dengan TTL 1 jam. Tim produk bilang harga yang salah paling lama boleh tampil 1 menit, sementara deskripsi produk boleh basi berjam-jam. Pilih semua langkah yang masuk akal."
+    options:
+      - "Setelah harga diupdate di database, hapus key harga di cache"
+      - "Set TTL 5 detik untuk key harga dan key deskripsi sekaligus supaya keduanya segar"
+      - "Beri key harga TTL 45 detik dan key deskripsi TTL beberapa jam"
+      - "Hapus key harga lebih dulu, baru update database, supaya cache kosong"
+      - "Naikkan TTL key harga menjadi 1 hari supaya database lebih jarang dibaca"
+    answer: [0, 2]
+    explanation: "Invalidation saat menulis dan TTL yang berbeda per jenis data menjaga harga segar tanpa mengorbankan manfaat cache untuk deskripsi. TTL 5 detik untuk deskripsi membuat aplikasi terus ke database tanpa perlu, dan TTL 1 hari melanggar batas 1 menit."
+    sources: [azure-cache-aside-pattern, aws-builders-caching-challenges]
+    targets_misconception: ttl-as-long-as-possible
+
+  - id: caching-basics-q07
+    type: estimate
+    difficulty: 2
+    objective: 3
+    prompt: "Sebuah layanan menerima 3.000 bacaan per detik lewat cache-aside. Database hanya sanggup 400 query per detik dari jalur bacaan ini. Berapa hit ratio minimum, dalam persen, supaya database tidak melewati kapasitasnya?"
+    unit: "persen"
+    answer: {min: 86.5, max: 87.0}
+    explanation: "Hitungan sendiri: hanya miss yang sampai ke database, jadi miss ratio maksimum = 400 / 3.000 = 13,3%. Hit ratio minimum = 100% - 13,3% = 86,7%."
+    sources: []
+
+  - id: caching-basics-q08
+    type: estimate
+    difficulty: 2
+    objective: 3
+    prompt: "Cek cache butuh 2 ms dan satu query database butuh 40 ms. Setiap miss membayar cek cache dulu, lalu query database. Dengan hit ratio 75%, berapa rata-rata latency per bacaan?"
+    unit: "ms"
+    answer: {min: 11.9, max: 12.1}
+    explanation: "Hitungan sendiri: hit membayar 2 ms, miss membayar 2 + 40 = 42 ms. Rata-rata = 0,75 x 2 + 0,25 x 42 = 12 ms; kalau miss dihitung hanya 40 ms, hasilnya 11,5 ms, meleset dari rentang."
+    sources: []
+
+  - id: caching-basics-q09
+    type: estimate
+    difficulty: 2
+    objective: 3
+    prompt: "Setelah deploy, hit ratio sebuah cache turun dari 99% menjadi 95% dengan traffic bacaan yang sama. Beban database dari jalur bacaan ini menjadi berapa kali lipat?"
+    unit: "kali lipat"
+    answer: {min: 4.9, max: 5.1}
+    explanation: "Hitungan sendiri: beban database mengikuti miss ratio, dari 1% menjadi 5%, jadi menjadi 5 kali lipat. Penurunan 4 poin terlihat kecil, tetapi bukan itu yang menentukan beban."
+    sources: []
+    targets_misconception: hit-ratio-linear
+
+  - id: caching-basics-q10
+    type: mcq
+    difficulty: 3
+    objective: 3
+    prompt: "Sebuah endpoint pencarian menerima filter yang hampir selalu berbeda tiap request. Tim menambahkan cache-aside di depan database, lalu p95 latency malah naik sedikit dan beban database nyaris tidak turun. Apa penyebab dan tindakan berikutnya yang paling masuk akal?"
+    options:
+      - "TTL terlalu pendek sehingga item cepat hilang, jadi naikkan TTL menjadi sangat panjang"
+      - "Cache terlalu kecil sehingga item tergusur, jadi tambah node cache sampai semua kombinasi filter muat"
+      - "Hit ratio sangat rendah karena key jarang berulang, jadi lepas cache dari endpoint ini"
+      - "Cache-aside menambah beban tulis ke cache, jadi ganti ke pola yang mengisi cache saat menulis"
+    answer: 2
+    explanation: "Kalau hampir semua request miss, beban database nyaris sama seperti tanpa cache, dan biaya cek serta isi cache menambah latency. TTL panjang atau memori lebih besar tidak membuat key yang jarang berulang jadi sering dipakai."
+    sources: [azure-cache-aside-pattern]
+    targets_misconception: cache-everywhere

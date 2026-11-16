@@ -1,0 +1,117 @@
+# DRAFT lab spec for caching-basics (P1-032 pilot). The lab format is not final (P1-033).
+# Every field name below is invented by the pilot author except `concept`, which follows the
+# folder name. Nothing here is validated yet. Learner-facing text is Indonesian; keys are English.
+# Scenario numbers are made-up simulation inputs, not claims from sources. The hit-ratio
+# plausibility note under `simulator_calibration` is the author's own arithmetic, unverified.
+concept: caching-basics
+id: caching-basics-lab01            # invented
+title: "Pasang cache di depan katalog produk"
+objectives_covered: [1, 2, 3]       # invented; indexes into concepts.yaml objectives
+
+scenario: >
+  Toko online kecil punya satu database PostgreSQL dan satu server aplikasi. Jam makan siang
+  traffic bacaan katalog naik, CPU database mendekati batas, dan p95 latency halaman produk
+  melonjak. Hampir semua query adalah bacaan katalog yang berulang. Kamu boleh menambah cache
+  dan mengatur cara pakainya.
+
+initial_state:
+  traffic:
+    read_rps: 2000
+    write_rps: 20                   # price/stock updates
+    key_popularity: zipf            # a few products read far more than others
+    distinct_keys: 50000
+  database:
+    capacity_qps: 600               # above this, queries queue and latency climbs
+    base_latency_ms: 20
+  cache:
+    enabled: false
+    capacity_keys: 5000
+    lookup_latency_ms: 1
+    eviction: lru
+
+parameters:                         # what the learner may change
+  cache_enabled: [false, true]
+  write_strategy: [cache_aside, write_through]   # write_back left out until its behavior is sourced
+  ttl_seconds:
+    default: 300
+    range: [5, 86400]
+    per_key_class: true             # separate TTL for price keys vs description keys
+  cache_capacity_keys:
+    range: [500, 50000]
+  invalidate_on_write: [delete_after_db_update, delete_before_db_update]   # only used when write_strategy = cache_aside
+  cache_failure_fallback: [fail_requests, read_database]
+
+simulator_must_model:
+  - request stream with a key popularity distribution, so hit ratio emerges from capacity and TTL
+  - cache lookup, miss path (lookup + database), fill on miss, LRU eviction, and TTL expiry
+  - database capacity: latency grows once load passes capacity_qps (queueing)
+  - write_strategy = cache_aside: writes with both invalidation orders. delete_before_db_update lets
+    a read slip between delete and database update and refill the old value; delete_after_db_update
+    narrows that race but a small residual race remains (a read that fetched the old value before
+    the update can refill after the delete)
+  - write_strategy = write_through: each write updates the database and the cache in one operation,
+    so the next read sees the new value (cost: every write touches both, write latency is higher)
+  - per-key staleness: time since the cached value stopped matching the database
+  - average and p95 latency, database qps, hit ratio, count of stale reads served
+
+metrics:
+  - hit_ratio
+  - db_qps
+  - avg_latency_ms
+  - p95_latency_ms
+  - stale_read_ratio
+  - cache_memory_keys_used
+
+goal:
+  description: >
+    Turunkan beban database di bawah 60% kapasitas dan p95 latency di bawah 50 ms, sambil menjaga
+    harga yang basi tidak tampil lebih dari 60 detik.
+  targets:
+    db_utilization_max: 0.6
+    p95_latency_ms_max: 50
+    price_staleness_max_seconds: 60
+
+failure_injection:
+  - id: cache_flush
+    when: "t=120s"
+    effect: cache emptied (cold start); learner watches database load spike
+  - id: cache_down
+    when: "t=240s for 60s"
+    effect: lookups fail; behavior depends on cache_failure_fallback
+  - id: price_change_burst
+    when: "t=480s"
+    effect: many price writes in a short window to test the invalidation order
+
+hints:                              # invented
+  - "Cek hit ratio dulu. Kalau rendah, TTL atau kapasitas cache yang bermasalah."
+  - "Harga dan deskripsi tidak perlu TTL yang sama."
+  - "Urutan menulis ke database dan menghapus key cache memengaruhi stale_read_ratio. Bandingkan kedua urutan di price_change_burst."
+
+grading:                            # invented; weights sum to 1.0
+  - criterion: meets_db_and_latency_targets
+    weight: 0.3
+  - criterion: price_staleness_within_limit
+    weight: 0.2
+  - criterion: invalidation_order_safe (database updated first; stale refills from delete-first are not observed, a rare residual refill is tolerated)
+    weight: 0.15
+  - criterion: write_strategy_matches_freshness_need (objective 1; cache_aside is acceptable when brief stale reads or misses after a write are tolerated, write_through when the read path needs the new value right after a write, and the debrief explains the choice)
+    weight: 0.15
+  - criterion: survives_cache_failure (database stays below capacity or degrades gracefully)
+    weight: 0.1
+  - criterion: does_not_overprovision (capacity_keys not larger than needed for the target hit ratio)
+    weight: 0.1
+
+debrief:
+  concepts_to_reflect_on:
+    - why 90% to 99% hit ratio cut database load tenfold
+    - trade-off between TTL length and staleness
+    - what happened at cache_flush (leads into cache-stampede-hot-keys)
+
+simulator_calibration:                # invented
+  note: >
+    Unverified arithmetic by the pilot author: with a Zipf exponent near 1, an ideal cache holding the
+    5000 hottest of 50000 keys would reach roughly an 80% hit ratio, and LRU would reach somewhat less.
+    The goal (database below 60% of 600 qps at 2000 reads per second) needs a hit ratio of about 82%
+    or more, so the default capacity of 5000 keys may not be enough and the learner has to raise
+    cache_capacity_keys. The simulator author must calibrate the Zipf exponent and check that the
+    goal is reachable within the allowed ranges before the lab ships.
