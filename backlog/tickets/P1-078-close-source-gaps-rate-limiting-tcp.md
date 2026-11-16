@@ -58,7 +58,7 @@ Research pass 2026-11-16. All entries are `candidate`, `verified_on` empty (veri
 
 Unverified: license footers not visible in fetches for the Redis tutorial, AWS docs (Route 53, REL07-BP04), Django docs (all recorded as all-rights-reserved); licenses for MDN, Microsoft Learn were taken from the MDN attribution page and the architecture-center repo LICENSE, not the article page footers. Missing dates: AWS, Django, OWASP, PostgreSQL pages (versioned or undated). Fetch results are model summaries, so exact titles and dates need the verifier's re-check (especially Stripe date and Honeycomb date).
 
-Verification (source-verifier): pass. 9 of 17 reopened in full (the riskiest), the other 8 quick-fetched; all URLs resolve. One edit: the Honeycomb title was set to the page's exact string. Entries stay `candidate`.
+Verification (source-verifier): pass. 9 of 16 reopened in full (the riskiest), the other 7 quick-fetched; all URLs resolve. One edit: the Honeycomb title was set to the page's exact string. Entries stay `candidate`.
 
 Gaps left (proposed actions): DNS TTL (RFC 2181/1035 or a resolver doc); 2PC coordinator protocol and blocking (the Garcia-Molina/Salem saga paper and a university text were not opened); a beginner-sized estimation example; sticky sessions (NGINX/HAProxy/Envoy docs); atomicity/undo; a headroom formula or utilization target (the concept trigger quotes 70-80%, which no source supports, so the owner may rewrite the trigger); high-cardinality observability docs. Licence doubts: Django docs (BSD may cover the docs), Redis, OWASP footer, MDN CC-BY-SA-2.5 (rests on the MDN attribution page).
 

@@ -3469,3 +3469,128 @@ sources:
     version: "Page shows 'Updated: June 17, 2022'"
     notes: "Footer: (c) 2026 Hound Technology, Inc.; no open license. The date is the page's 'Updated' date, no original publication date shown (recorded as published for that reason; the verifier should confirm). Vendor-authored position piece: metrics are pre-aggregated, logs are fragments, traces are linked logs and metrics; proposes wide structured events with dozens to hundreds of fields that can be sliced by high-cardinality fields, with metrics and traces derived from them; recommends OpenTelemetry. Treat claims about cost and performance as the vendor view. A separate Honeycomb docs page on high cardinality had no author, date or footer in the fetch and was not registered."
     verified_on: ""
+
+  - id: google-sre-book-data-integrity-ch26
+    title: "Site Reliability Engineering, Chapter 26: Data Integrity: What You Read Is What You Wrote"
+    authors: [Raymond Blum, Rhandeev Singh]
+    publisher: Google / O'Reilly Media
+    type: book
+    tier: 1
+    url: https://sre.google/sre-book/data-integrity/
+    doi: null
+    published: "2017"
+    accessed: "2026-11-16"
+    license: CC-BY-NC-ND-4.0
+    usage: rewrite-only
+    access: free
+    units: [0]
+    topics: [backups, restore-testing, off-site-copies, backup-tiers, replication-is-not-backup, recovery-drills]
+    status: candidate
+    free_companion: []
+    version: ""
+    archive_url: ""
+    attribution: ""
+    lang: en
+    verified_on: ""
+    superseded_by: null
+    notes: "Chapter-level entry for google-sre-book (same license). Page footer: Copyright 2017 Google, Inc., published by O'Reilly Media, licensed under CC BY-NC-ND 4.0; 2017 is the copyright year, no separate publication date on the page. Authors Raymond Blum and Rhandeev Singh, edited by Betsy Beyer. Written for Google scale; Unit 0 should use only: measure restores not backups, backup vs. archive, tiered/off-site copies, replication is not a backup, and regular automated restore tests. Skip the exabyte-scale sections. Closes gap A2."
+
+  - id: owasp-logging-cheat-sheet
+    title: "Logging Cheat Sheet (OWASP Cheat Sheet Series)"
+    authors: []
+    publisher: OWASP Foundation (Cheat Sheet Series)
+    type: docs
+    tier: 2
+    url: https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html
+    doi: null
+    published: ""
+    accessed: "2026-11-16"
+    license: CC-BY-SA-4.0
+    usage: rewrite-only
+    access: free
+    units: [0]
+    topics: [logging, log-levels, structured-logging, correlation-id, sensitive-data-in-logs, log-protection]
+    status: candidate
+    free_companion: []
+    version: ""
+    archive_url: ""
+    attribution: ""
+    lang: en
+    verified_on: ""
+    superseded_by: null
+    notes: "NO-AUTHOR: page credits the Cheat Sheet Series Team only. NO-DATE: no last-updated date was visible in the fetched content. License CC BY-SA 4.0 as stated by the page. Vendor-neutral, but written from a security angle, so 'what to log' leans toward security events; use it for what to log and not log, levels, structured format, and the interaction identifier (correlation id) idea. Closes gap A12 (together with a possible second source if the owner wants an operations angle; OpenTelemetry Logs concept page was opened but its license and date were not visible, so it is not registered)."
+
+  - id: capistrano-docs-rollbacks
+    title: "Rollbacks (Capistrano documentation)"
+    authors: []
+    publisher: Capistrano project
+    type: docs
+    tier: 2
+    url: https://capistranorb.com/documentation/getting-started/rollbacks/
+    doi: null
+    published: ""
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [0]
+    topics: [deploy, rollback, release-directories, symlink-switch, migrations-and-rollback]
+    status: candidate
+    free_companion: []
+    version: ""
+    archive_url: ""
+    attribution: ""
+    lang: en
+    verified_on: ""
+    superseded_by: null
+    notes: "NO-AUTHOR: project docs. NO-DATE: none on page. No license stated on the docs page or its footer; the code repo github.com/capistrano/capistrano is MIT, but that was not shown to cover the docs site, so recorded as all-rights-reserved. Tool-specific (Ruby/SSH) but the pattern is generic for one box: timestamped release directories, a current symlink flipped only after a successful deploy, rollback by re-pointing it. The page also says rolling code back does not undo database migrations, so the schema must be planned and tested. The sibling Structure page (capistranorb.com/documentation/getting-started/structure/) was opened too and describes the releases/shared/current layout; it has no license either. Does not cover systemd restarts or expand/contract migrations; combine with systemd-service-man and fowler-bluegreen-deployment. Closes gap A11 only partly."
+
+  - id: aws-startups-scaling-part1-primer
+    title: "Scaling on AWS Part I: A Primer"
+    authors: [David Kuo]
+    publisher: AWS Startups Blog (Amazon Web Services)
+    type: article
+    tier: 2
+    url: https://aws.amazon.com/blogs/startups/scaling-on-aws-part-1-a-primer/
+    doi: null
+    published: "2015-11-25"
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [0, 2]
+    topics: [scaling-from-one-server, vertical-scaling, tier-separation, stateless-app-servers]
+    status: candidate
+    free_companion: []
+    version: ""
+    archive_url: ""
+    attribution: ""
+    lang: en
+    verified_on: ""
+    superseded_by: null
+    notes: "Byline David Kuo, Solutions Architect, AWS. The footer was not visible in the fetched content (truncated); the sibling Part 2 page footer reads (c) 2019 Amazon Web Services, all rights reserved, so all-rights-reserved is assumed and should be rechecked at verification. Starts at 'Day One, User One' with web, app, and database on one EC2 instance, then covers the ceiling of vertical scaling, no redundancy, separating tiers, and stateless app servers behind a load balancer. Dated 2015 and AWS-specific (region figures are out of date); use for the ladder logic, not for product details. Part of a 4-part series."
+
+  - id: aws-startups-scaling-part2-10k-users
+    title: "Scaling on AWS (Part 2): > 10K Users"
+    authors: [David Kuo]
+    publisher: AWS Startups Blog (Amazon Web Services)
+    type: article
+    tier: 2
+    url: https://aws.amazon.com/blogs/startups/scaling-on-aws-part-2-10k-users/
+    doi: null
+    published: "2015-12-17"
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [0, 2, 3]
+    topics: [scaling-from-one-server, load-balancer, read-replicas, static-assets, session-offload, caching]
+    status: candidate
+    free_companion: []
+    version: ""
+    archive_url: ""
+    attribution: ""
+    lang: en
+    verified_on: ""
+    superseded_by: null
+    notes: "Byline David Kuo, Solutions Architect, AWS (page metadata says AWS Admin). Footer: (c) 2019 Amazon Web Services, Inc. or its affiliates, all rights reserved. Each step has a stated trigger: no redundancy in one AZ, database failover, high read volume, static assets competing for bandwidth, session data on the main database, hot data loading the primary database. AWS product names throughout (ELB, RDS, CloudFront, ElastiCache); use for the trigger-to-step logic only. Page refers back to Part 1 for the single-server start. Dated 2015."
