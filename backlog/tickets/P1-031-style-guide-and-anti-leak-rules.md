@@ -5,7 +5,7 @@ milestone: M3
 type: content
 owner: agent
 review: agent
-status: todo
+status: in-progress
 priority: medium
 depends_on: [P1-024]
 estimate: 1
