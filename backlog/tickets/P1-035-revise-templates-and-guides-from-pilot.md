@@ -7,7 +7,7 @@ owner: agent
 review: agent
 status: todo
 priority: high
-depends_on: [P1-034]
+depends_on: [P1-032]
 estimate: 1
 outputs:
   - docs/conventions/

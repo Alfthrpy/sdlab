@@ -5,7 +5,7 @@ milestone: M3
 type: review
 owner: human
 review: none
-status: todo
+status: blocked
 priority: high
 depends_on: [P1-032]
 estimate: 1
@@ -29,4 +29,4 @@ Gate G2. Test whether the content format works for real readers before mass prod
 
 ## Notes
 
-(Filled in during the work.)
+**Deferred (ADR 0007, 2026-11-16):** the owner chose beta-first; the owner is the only tester for now and the pilot lesson is not shown to others yet. This gate is not cancelled: run it after a usable beta exists and before any public beta. Nothing depends on it any more (P1-035 now depends on P1-032).
