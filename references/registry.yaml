@@ -1667,7 +1667,7 @@ sources:
     units: [3]
     topics: [transactions, isolation-levels, anomalies, snapshot-isolation, write-skew]
     status: approved
-    notes: "Landing page lists it as MSR-TR-95-51, June 1995, venue not stated on the page (an ACM link exists but was not followed). PDF: https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/tr-95-51.pdf. No copyright statement on the page (re-checked 2026-11-12), so treated as all-rights-reserved. Only the abstract page was opened; PDF not read."
+    notes: "Landing page lists it as MSR-TR-95-51, June 1995, venue not stated on the page (an ACM link exists but was not followed). PDF: https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/tr-95-51.pdf. No copyright statement on the page (re-checked 2026-11-12), so treated as all-rights-reserved. Only the abstract page was opened; PDF not read. Update 2026-11-16: the PDF (13 pages, extracted as text) was read in full except the reference list and appendix-style figure labels; its cover and running footer say 'Proc. ACM SIGMOD 95, pp. 1-10, San Jose CA, June 1995, (c) ACM' (the PDF is the longer technical-report version with a title page), and it carries the ACM copyright permission notice, so all-rights-reserved stands. Reading notes: references/notes/berenson-critique-ansi-isolation-1995.md."
     verified_on: "2026-11-12"
 
   - id: oneil-lsm-tree
@@ -3160,6 +3160,365 @@ sources:
     notes: "Footer: (c) 2026 Meta. Older than the 2023-2026 target. A backbone-capacity check command disconnected all backbone links; the audit tool that should have blocked it had a bug; DNS servers withdrew BGP routes when they lost the data centers; recovery needed physical access and a gradual restart to avoid a surge."
     verified_on: "2026-11-12"
 
+  - id: google-sre-book-data-integrity-ch26
+    title: "Site Reliability Engineering, Chapter 26: Data Integrity: What You Read Is What You Wrote"
+    authors: [Raymond Blum, Rhandeev Singh]
+    publisher: Google / O'Reilly Media
+    type: book
+    tier: 1
+    url: https://sre.google/sre-book/data-integrity/
+    doi: null
+    published: "2017"
+    accessed: "2026-11-16"
+    license: CC-BY-NC-ND-4.0
+    usage: rewrite-only
+    access: free
+    units: [0]
+    topics: [backups, restore-testing, off-site-copies, backup-tiers, replication-is-not-backup, recovery-drills]
+    status: candidate
+    free_companion: []
+    version: ""
+    archive_url: ""
+    attribution: ""
+    lang: en
+    verified_on: ""
+    superseded_by: null
+    notes: "Chapter-level entry for google-sre-book (same license). Page footer: Copyright 2017 Google, Inc., published by O'Reilly Media, licensed under CC BY-NC-ND 4.0; 2017 is the copyright year, no separate publication date on the page. Authors Raymond Blum and Rhandeev Singh, edited by Betsy Beyer. Written for Google scale; Unit 0 should use only: measure restores not backups, backup vs. archive, tiered/off-site copies, replication is not a backup, and regular automated restore tests. Skip the exabyte-scale sections. Closes gap A2."
+
+  - id: owasp-logging-cheat-sheet
+    title: "Logging Cheat Sheet (OWASP Cheat Sheet Series)"
+    authors: []
+    publisher: OWASP Foundation (Cheat Sheet Series)
+    type: docs
+    tier: 2
+    url: https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html
+    doi: null
+    published: ""
+    accessed: "2026-11-16"
+    license: CC-BY-SA-4.0
+    usage: rewrite-only
+    access: free
+    units: [0]
+    topics: [logging, log-levels, structured-logging, correlation-id, sensitive-data-in-logs, log-protection]
+    status: candidate
+    free_companion: []
+    version: ""
+    archive_url: ""
+    attribution: ""
+    lang: en
+    verified_on: ""
+    superseded_by: null
+    notes: "NO-AUTHOR: page credits the Cheat Sheet Series Team only. NO-DATE: no last-updated date was visible in the fetched content. License CC BY-SA 4.0 as stated by the page. Vendor-neutral, but written from a security angle, so 'what to log' leans toward security events; use it for what to log and not log, levels, structured format, and the interaction identifier (correlation id) idea. Closes gap A12 (together with a possible second source if the owner wants an operations angle; OpenTelemetry Logs concept page was opened but its license and date were not visible, so it is not registered)."
+
+  - id: capistrano-docs-rollbacks
+    title: "Rollbacks (Capistrano documentation)"
+    authors: []
+    publisher: Capistrano project
+    type: docs
+    tier: 2
+    url: https://capistranorb.com/documentation/getting-started/rollbacks/
+    doi: null
+    published: ""
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [0]
+    topics: [deploy, rollback, release-directories, symlink-switch, migrations-and-rollback]
+    status: candidate
+    free_companion: []
+    version: ""
+    archive_url: ""
+    attribution: ""
+    lang: en
+    verified_on: ""
+    superseded_by: null
+    notes: "NO-AUTHOR: project docs. NO-DATE: none on page. No license stated on the docs page or its footer; the code repo github.com/capistrano/capistrano is MIT, but that was not shown to cover the docs site, so recorded as all-rights-reserved. Tool-specific (Ruby/SSH) but the pattern is generic for one box: timestamped release directories, a current symlink flipped only after a successful deploy, rollback by re-pointing it. The page also says rolling code back does not undo database migrations, so the schema must be planned and tested. The sibling Structure page (capistranorb.com/documentation/getting-started/structure/) was opened too and describes the releases/shared/current layout; it has no license either. Does not cover systemd restarts or expand/contract migrations; combine with systemd-service-man and fowler-bluegreen-deployment. Closes gap A11 only partly."
+
+  - id: aws-startups-scaling-part1-primer
+    title: "Scaling on AWS Part I: A Primer"
+    authors: [David Kuo]
+    publisher: AWS Startups Blog (Amazon Web Services)
+    type: article
+    tier: 2
+    url: https://aws.amazon.com/blogs/startups/scaling-on-aws-part-1-a-primer/
+    doi: null
+    published: "2015-11-25"
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [0, 2]
+    topics: [scaling-from-one-server, vertical-scaling, tier-separation, stateless-app-servers]
+    status: candidate
+    free_companion: []
+    version: ""
+    archive_url: ""
+    attribution: ""
+    lang: en
+    verified_on: ""
+    superseded_by: null
+    notes: "Byline David Kuo, Solutions Architect, AWS. The footer was not visible in the fetched content (truncated); the sibling Part 2 page footer reads (c) 2019 Amazon Web Services, all rights reserved, so all-rights-reserved is assumed and should be rechecked at verification. Starts at 'Day One, User One' with web, app, and database on one EC2 instance, then covers the ceiling of vertical scaling, no redundancy, separating tiers, and stateless app servers behind a load balancer. Dated 2015 and AWS-specific (region figures are out of date); use for the ladder logic, not for product details. Part of a 4-part series."
+
+  - id: aws-startups-scaling-part2-10k-users
+    title: "Scaling on AWS (Part 2): > 10K Users"
+    authors: [David Kuo]
+    publisher: AWS Startups Blog (Amazon Web Services)
+    type: article
+    tier: 2
+    url: https://aws.amazon.com/blogs/startups/scaling-on-aws-part-2-10k-users/
+    doi: null
+    published: "2015-12-17"
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [0, 2, 3]
+    topics: [scaling-from-one-server, load-balancer, read-replicas, static-assets, session-offload, caching]
+    status: candidate
+    free_companion: []
+    version: ""
+    archive_url: ""
+    attribution: ""
+    lang: en
+    verified_on: ""
+    superseded_by: null
+    notes: "Byline David Kuo, Solutions Architect, AWS (page metadata says AWS Admin). Footer: (c) 2019 Amazon Web Services, Inc. or its affiliates, all rights reserved. Each step has a stated trigger: no redundancy in one AZ, database failover, high read volume, static assets competing for bandwidth, session data on the main database, hot data loading the primary database. AWS product names throughout (ELB, RDS, CloudFront, ElastiCache); use for the trigger-to-step logic only. Page refers back to Part 1 for the single-server start. Dated 2015."
+
+  - id: github-mysql-ha-2018
+    title: "MySQL High Availability at GitHub"
+    authors: [Shlomi Noach]
+    publisher: The GitHub Blog (GitHub, Inc.)
+    type: article
+    tier: 2
+    url: https://github.blog/engineering/infrastructure/mysql-high-availability-at-github/
+    doi: null
+    published: "2018-06-20"
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [replication, failover, split-brain, semi-synchronous-replication, replication-lag, orchestrator]
+    status: candidate
+    free_companion: []
+    version: ""
+    archive_url: ""
+    attribution: ""
+    lang: en
+    verified_on: ""
+    superseded_by: null
+    notes: "Page shows updated 2020-05-21. Footer: (c) 2026 GitHub, Inc.; no separate license statement, so all-rights-reserved. Operator account of automated failover for async primary-replica MySQL: failure detection and promotion by orchestrator (raft across data centers), Consul KV plus HAProxy-based GLB instead of VIP/DNS, semi-sync with a 500 ms timeout, reported outage 10-25 s, and the remaining gap when a whole data center is isolated. Replication lag is covered only briefly (pt-heartbeat); pair with github-oct21-2018-postmortem for lag in a real incident. MySQL- and GitHub-specific tooling; use for the failover logic and the split-brain risk, not as a recipe. Closes gap A7 (failover operator source) together with the postmortem."
+    # footer and date read from the opened page; WebFetch summary, recheck exact title at verification.
+
+  - id: github-oct21-2018-postmortem
+    title: "October 21 post-incident analysis"
+    authors: [Jason Warner]
+    publisher: The GitHub Blog (GitHub, Inc.)
+    type: postmortem
+    tier: 4
+    url: https://github.blog/news-insights/company-news/oct21-post-incident-analysis/
+    doi: null
+    published: "2018-10-30"
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [3, 6]
+    topics: [replication-lag, failover, split-brain, unreplicated-writes, cross-region-failover, backup-restore, incident-response]
+    status: candidate
+    free_companion: []
+    version: ""
+    archive_url: ""
+    attribution: ""
+    lang: en
+    verified_on: ""
+    superseded_by: null
+    notes: "Page shows updated 2021-12-19. Footer: (c) 2026 GitHub, Inc.; no license statement. A 43-second network partition made orchestrator promote West Coast primaries; East Coast primaries held writes that had never replicated, so neither side could simply fail back. Shows lost-write and split-brain consequences of async replication, replication lag growing under peak load, and why backups were slow to restore. Fact to cite with care: durations and counts are the page's own figures (about 24 h 11 min degraded, 954 writes in the affected window on one of the busiest clusters). Pair with github-mysql-ha-2018 (the design that came after). Closes gap A7 (operator source on failover and lag); also a Tier 4 data-layer incident for B5."
+    # footer and date read from the opened page; WebFetch summary, recheck exact title at verification.
+
+  - id: dynamodb-docs-global-tables
+    title: "Global tables - multi-active, multi-Region replication"
+    authors: []
+    publisher: Amazon Web Services (DynamoDB Developer Guide)
+    type: docs
+    tier: 2
+    url: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GlobalTables.html
+    doi: null
+    published: ""
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [multi-leader, multi-region-replication, last-writer-wins, conflict-resolution, replication-lag, eventual-consistency]
+    status: candidate
+    free_companion: []
+    version: "Global tables version 2019.11.21 (Current)"
+    archive_url: ""
+    attribution: ""
+    lang: en
+    verified_on: ""
+    superseded_by: null
+    notes: "NO-AUTHOR: vendor documentation. NO-DATE: no date on the page. Footer was not visible in the fetched content (truncated), so all-rights-reserved is assumed and must be rechecked at verification. Multi-leader in practice: any replica accepts writes, replication is asynchronous, conflicts resolve by last-writer-wins, with an optional multi-Region strong-consistency mode that has restrictions. The sibling page globaltables-CoreConcepts.html (also opened) says transactions are atomic only in the source Region (readers elsewhere may see a partial transaction), and that the ReplicationLatency metric shows propagation delay. Product-specific; use as a concrete example of the multi-leader trade-off (local writes vs conflicts). Does not replace a conceptual treatment (ddia-2e ch. on replication, paywalled); the only other free multi-leader sources registered are couchdb-docs-replication-intro and dynamo-sosp07. Partly closes gap A7 (free multi-leader source)."
+    # footer not seen; page title and version from fetched content.
+
+  - id: hermitage-isolation-tests
+    title: "Hermitage: What are the differences between the transaction isolation levels in databases?"
+    authors: [Martin Kleppmann]
+    publisher: GitHub repository ept/hermitage
+    type: repo
+    tier: 5
+    url: https://github.com/ept/hermitage
+    doi: null
+    published: "2014"
+    accessed: "2026-11-16"
+    license: CC-BY-4.0
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [isolation-levels, anomalies, dirty-write, lost-update, read-skew, write-skew, phantom, snapshot-isolation]
+    status: candidate
+    free_companion: []
+    version: "master branch, 62 commits shown (no commit date visible on the page)"
+    archive_url: ""
+    attribution: ""
+    lang: en
+    verified_on: ""
+    superseded_by: null
+    notes: "README states: 'Copyright Martin Kleppmann, 2014. This work is licensed under a Creative Commons Attribution 4.0 International License' (read from raw README.md). No LICENSE file seen in the listing, and the per-database ports (CockroachDB, YugabyteDB, FoundationDB, Memgraph and others) are credited to other contributors, so check whether their files carry the same license before adapting; rewrite-only until then. Suite of hand-run two- or three-connection test scripts per anomaly (G0, G1a-c, OTV, PMP, P4 lost update, G-single read skew, G2-item and G2 write skew) with per-database result files for PostgreSQL, MySQL InnoDB, Oracle, SQL Server and others. Best fit for the isolation-levels lab idea: concrete operation sequences that different engines treat differently. README is inconsistent about how many databases it compares ('five' versus the eight-plus listed) and refers to MySQL 5.7 docs, so engine versions may be dated. Closes gap A8 (free explainer on anomalies), complementing pg-docs-transaction-iso."
+    # license sentence read from the raw README; project page was opened too.
+
+  - id: mysql-84-innodb-isolation-levels
+    title: "MySQL 8.4 Reference Manual, 17.7.2.1 Transaction Isolation Levels"
+    authors: []
+    publisher: Oracle Corporation (MySQL)
+    type: docs
+    tier: 2
+    url: https://dev.mysql.com/doc/refman/8.4/en/innodb-transaction-isolation-levels.html
+    doi: null
+    published: ""
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [isolation-levels, innodb, repeatable-read, read-committed, gap-locks, snapshot-reads, phantoms]
+    status: candidate
+    free_companion: []
+    version: "MySQL 8.4"
+    archive_url: ""
+    attribution: ""
+    lang: en
+    verified_on: ""
+    superseded_by: null
+    notes: "NO-AUTHOR: vendor documentation. NO-DATE: version-based (8.4). Footer shows '(c) 2026 Oracle' with Privacy, Terms of Use and Trademark links; no license statement for the manual text on the page, so all-rights-reserved. Different engine from pg-docs-transaction-iso: InnoDB defaults to Repeatable Read with a snapshot taken at the first read, uses next-key/gap locks on locking reads and writes, and Read Committed takes a fresh snapshot per statement and does not lock gaps (so phantoms can occur). It also warns about mixing locking and non-locking reads in one Repeatable Read transaction. Does not itself describe MVCC internals (undo logs, read views); a gap for InnoDB MVCC (B5) remains unless a sibling page is added. Closes gap A8 (complementary explainer on a second engine) together with hermitage-isolation-tests."
+    # footer text read as summarized by the fetch tool.
+
+  - id: figma-sharding-postgres-2024
+    title: "How Figma's Databases Team Lived to Tell the Scale"
+    authors: [Sammy Steele]
+    publisher: Figma Blog (Figma, Inc.)
+    type: article
+    tier: 2
+    url: https://www.figma.com/blog/how-figmas-databases-team-lived-to-tell-the-scale/
+    doi: null
+    published: "2024-03-14"
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [sharding, shard-key, logical-vs-physical-sharding, scatter-gather, cross-shard-queries, vertical-partitioning, trigger]
+    status: candidate
+    free_companion: []
+    version: ""
+    archive_url: ""
+    attribution: ""
+    lang: en
+    verified_on: ""
+    superseded_by: null
+    notes: "Byline: Sammy Steele, Software Engineer, Figma. The fetched content was truncated before any footer, so a copyright notice was not seen; recorded as all-rights-reserved with no license stated, recheck at verification. Production case on RDS Postgres: scaled first with caching, read replicas and vertical partitioning, then hit single-table limits (vacuum, IOPS), so they built in-house horizontal sharding rather than adopting a NewSQL/Vitess system. Covers shard-key choice (several keys, hashed so IDs do not create hot spots, at the cost of range scans), logical sharding before physical, a query proxy, scatter-gather for queries without a shard key, restriction of joins to a 'colo' of tables sharing a key, and what was still missing (atomic cross-shard transactions, global unique IDs). Includes a clear trigger story for partitioning-sharding. Adds a second production sharding case beyond notion-sharding-postgres-2021. Closes gap B5 (sharding case beyond Notion)."
+    # footer not seen; date and byline read from the page.
+
+  - id: slack-vitess-datastores-2020
+    title: "Scaling Datastores at Slack with Vitess"
+    authors: [Arka Ganguli, Guido Iaquinti, Maggie Zhou, Rafael Chacon]
+    publisher: Slack Engineering (Slack Technologies, LLC)
+    type: article
+    tier: 2
+    url: https://slack.engineering/scaling-datastores-at-slack-with-vitess/
+    doi: null
+    published: "2020-12-01"
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [sharding, shard-key, hot-spots, vitess, resharding, migration, keyspaces]
+    status: candidate
+    free_companion: []
+    version: ""
+    archive_url: ""
+    attribution: ""
+    lang: en
+    verified_on: ""
+    superseded_by: null
+    notes: "Footer: (c) 2026 Slack Technologies, LLC, a Salesforce company, all rights reserved. Date read twice from the page as December 1, 2020 (a search snippet said December 8; the page was trusted). Authors shown with accents stripped (Rafael Chacon). Case of sharding by workspace ID outgrowing hardware: big customers made hot shards, shard outage affected all its workspaces, and app code was tightly coupled to the physical layout; move to Vitess with message data keyed by channel. Reports 2.3M QPS peak with 2 ms median and 11 ms p99 at the time. Gives little detail on cross-shard queries or how shard keys were picked, so pair with figma-sharding-postgres-2024 and mongodb-docs-sharding. Adds a production sharding case beyond Notion. Closes gap B5 (sharding case) together with figma-sharding-postgres-2024."
+    # footer and date from a second dedicated fetch of the page.
+
+  - id: tikv-docs-btree-vs-lsm
+    title: "B-Tree vs LSM-Tree"
+    authors: []
+    publisher: TiKV Project (Deep Dive, Key-value engine)
+    type: docs
+    tier: 2
+    url: https://tikv.org/deep-dive/key-value-engine/b-tree-vs-lsm/
+    doi: null
+    published: ""
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [lsm-tree, btree, write-amplification, read-amplification, space-amplification, compaction]
+    status: candidate
+    free_companion: []
+    version: "TiKV docs 7.1 (as shown on the page)"
+    archive_url: ""
+    attribution: ""
+    lang: en
+    verified_on: ""
+    superseded_by: null
+    notes: "NO-AUTHOR: project docs. NO-DATE: none on page. Footer: 'TiKV is an Apache 2.0 licensed open source distributed transactional key-value store' and '(c) 2025 TiKV Authors'; that sentence describes the software, and the github.com/tikv/website repo listing showed no LICENSE file or content license, so the page text is recorded as all-rights-reserved. Defines write, read and space amplification, gives worst-case analysis for a B+ tree (write amplification about B, the block size) and a level-based LSM tree (about k times log base k of N/B), notes size-tiered vs level-based compaction, and says a structure can optimize at most two of the three amplifications. Analysis is worst-case math with no measurements and does not analyze space amplification. Pair with qiao-btree-lsm-write-amp-2021 for measured numbers. Closes gap B5 (write amplification source) together with it."
+    # footer read from the opened page.
+
+  - id: qiao-btree-lsm-write-amp-2021
+    title: "Closing the B-tree vs. LSM-tree Write Amplification Gap on Modern Storage Hardware with Built-in Transparent Compression"
+    authors: [Yifan Qiao, Xubin Chen, Ning Zheng, Jiangpeng Li, Yang Liu, Tong Zhang]
+    publisher: arXiv (preprint in the PVLDB format)
+    type: paper
+    tier: 3
+    url: https://arxiv.org/abs/2107.13987
+    doi: null
+    published: "2021-07-27"
+    accessed: "2026-11-16"
+    license: CC-BY-NC-ND-4.0
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [lsm-tree, btree, write-amplification, space-amplification, rocksdb, wiredtiger, storage-engines]
+    status: candidate
+    free_companion: []
+    version: "arXiv v1 (only version listed)"
+    archive_url: ""
+    attribution: ""
+    lang: en
+    verified_on: ""
+    superseded_by: null
+    notes: "License conflict: the arXiv page's license link points to CC BY 4.0, but the PDF's own first page says 'licensed under the Creative Commons BY-NC-ND 4.0 International License' (PVLDB template). The stricter PDF statement is recorded. Venue: arXiv says 'submitted to VLDB'; the PDF has PVLDB 14(1) 2020 placeholders with no real page numbers or DOI, so it is a preprint and the final published version was not found. Read in full from the PDF text. Experiment on a drive with built-in transparent compression compares RocksDB (LSM) with WiredTiger (B-tree) and a modified B-tree; the useful part for teaching is the measured baseline (random 128 B writes: write amplification 14 for RocksDB vs 64 for WiredTiger with 8 KB pages; RocksDB about 4x lower across thread counts) and the point that transparent compression changes the space-amplification comparison. Hardware-specific; its main claim (a redesigned B-tree can match LSM write amplification) rests on special storage hardware, so do not generalize it to ordinary SSDs. Closes gap B5 (modern write-amplification source) together with tikv-docs-btree-vs-lsm."
+    # license conflict recorded in notes; PDF read in this session.
+
   - id: rfc-6585-additional-http-status-codes
     title: "RFC 6585: Additional HTTP Status Codes"
     authors: [Mark Nottingham, Roy T. Fielding]
@@ -3469,128 +3828,3 @@ sources:
     version: "Page shows 'Updated: June 17, 2022'"
     notes: "Footer: (c) 2026 Hound Technology, Inc.; no open license. The date is the page's 'Updated' date, no original publication date shown (recorded as published for that reason; the verifier should confirm). Vendor-authored position piece: metrics are pre-aggregated, logs are fragments, traces are linked logs and metrics; proposes wide structured events with dozens to hundreds of fields that can be sliced by high-cardinality fields, with metrics and traces derived from them; recommends OpenTelemetry. Treat claims about cost and performance as the vendor view. A separate Honeycomb docs page on high cardinality had no author, date or footer in the fetch and was not registered."
     verified_on: ""
-
-  - id: google-sre-book-data-integrity-ch26
-    title: "Site Reliability Engineering, Chapter 26: Data Integrity: What You Read Is What You Wrote"
-    authors: [Raymond Blum, Rhandeev Singh]
-    publisher: Google / O'Reilly Media
-    type: book
-    tier: 1
-    url: https://sre.google/sre-book/data-integrity/
-    doi: null
-    published: "2017"
-    accessed: "2026-11-16"
-    license: CC-BY-NC-ND-4.0
-    usage: rewrite-only
-    access: free
-    units: [0]
-    topics: [backups, restore-testing, off-site-copies, backup-tiers, replication-is-not-backup, recovery-drills]
-    status: candidate
-    free_companion: []
-    version: ""
-    archive_url: ""
-    attribution: ""
-    lang: en
-    verified_on: ""
-    superseded_by: null
-    notes: "Chapter-level entry for google-sre-book (same license). Page footer: Copyright 2017 Google, Inc., published by O'Reilly Media, licensed under CC BY-NC-ND 4.0; 2017 is the copyright year, no separate publication date on the page. Authors Raymond Blum and Rhandeev Singh, edited by Betsy Beyer. Written for Google scale; Unit 0 should use only: measure restores not backups, backup vs. archive, tiered/off-site copies, replication is not a backup, and regular automated restore tests. Skip the exabyte-scale sections. Closes gap A2."
-
-  - id: owasp-logging-cheat-sheet
-    title: "Logging Cheat Sheet (OWASP Cheat Sheet Series)"
-    authors: []
-    publisher: OWASP Foundation (Cheat Sheet Series)
-    type: docs
-    tier: 2
-    url: https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html
-    doi: null
-    published: ""
-    accessed: "2026-11-16"
-    license: CC-BY-SA-4.0
-    usage: rewrite-only
-    access: free
-    units: [0]
-    topics: [logging, log-levels, structured-logging, correlation-id, sensitive-data-in-logs, log-protection]
-    status: candidate
-    free_companion: []
-    version: ""
-    archive_url: ""
-    attribution: ""
-    lang: en
-    verified_on: ""
-    superseded_by: null
-    notes: "NO-AUTHOR: page credits the Cheat Sheet Series Team only. NO-DATE: no last-updated date was visible in the fetched content. License CC BY-SA 4.0 as stated by the page. Vendor-neutral, but written from a security angle, so 'what to log' leans toward security events; use it for what to log and not log, levels, structured format, and the interaction identifier (correlation id) idea. Closes gap A12 (together with a possible second source if the owner wants an operations angle; OpenTelemetry Logs concept page was opened but its license and date were not visible, so it is not registered)."
-
-  - id: capistrano-docs-rollbacks
-    title: "Rollbacks (Capistrano documentation)"
-    authors: []
-    publisher: Capistrano project
-    type: docs
-    tier: 2
-    url: https://capistranorb.com/documentation/getting-started/rollbacks/
-    doi: null
-    published: ""
-    accessed: "2026-11-16"
-    license: all-rights-reserved
-    usage: rewrite-only
-    access: free
-    units: [0]
-    topics: [deploy, rollback, release-directories, symlink-switch, migrations-and-rollback]
-    status: candidate
-    free_companion: []
-    version: ""
-    archive_url: ""
-    attribution: ""
-    lang: en
-    verified_on: ""
-    superseded_by: null
-    notes: "NO-AUTHOR: project docs. NO-DATE: none on page. No license stated on the docs page or its footer; the code repo github.com/capistrano/capistrano is MIT, but that was not shown to cover the docs site, so recorded as all-rights-reserved. Tool-specific (Ruby/SSH) but the pattern is generic for one box: timestamped release directories, a current symlink flipped only after a successful deploy, rollback by re-pointing it. The page also says rolling code back does not undo database migrations, so the schema must be planned and tested. The sibling Structure page (capistranorb.com/documentation/getting-started/structure/) was opened too and describes the releases/shared/current layout; it has no license either. Does not cover systemd restarts or expand/contract migrations; combine with systemd-service-man and fowler-bluegreen-deployment. Closes gap A11 only partly."
-
-  - id: aws-startups-scaling-part1-primer
-    title: "Scaling on AWS Part I: A Primer"
-    authors: [David Kuo]
-    publisher: AWS Startups Blog (Amazon Web Services)
-    type: article
-    tier: 2
-    url: https://aws.amazon.com/blogs/startups/scaling-on-aws-part-1-a-primer/
-    doi: null
-    published: "2015-11-25"
-    accessed: "2026-11-16"
-    license: all-rights-reserved
-    usage: rewrite-only
-    access: free
-    units: [0, 2]
-    topics: [scaling-from-one-server, vertical-scaling, tier-separation, stateless-app-servers]
-    status: candidate
-    free_companion: []
-    version: ""
-    archive_url: ""
-    attribution: ""
-    lang: en
-    verified_on: ""
-    superseded_by: null
-    notes: "Byline David Kuo, Solutions Architect, AWS. The footer was not visible in the fetched content (truncated); the sibling Part 2 page footer reads (c) 2019 Amazon Web Services, all rights reserved, so all-rights-reserved is assumed and should be rechecked at verification. Starts at 'Day One, User One' with web, app, and database on one EC2 instance, then covers the ceiling of vertical scaling, no redundancy, separating tiers, and stateless app servers behind a load balancer. Dated 2015 and AWS-specific (region figures are out of date); use for the ladder logic, not for product details. Part of a 4-part series."
-
-  - id: aws-startups-scaling-part2-10k-users
-    title: "Scaling on AWS (Part 2): > 10K Users"
-    authors: [David Kuo]
-    publisher: AWS Startups Blog (Amazon Web Services)
-    type: article
-    tier: 2
-    url: https://aws.amazon.com/blogs/startups/scaling-on-aws-part-2-10k-users/
-    doi: null
-    published: "2015-12-17"
-    accessed: "2026-11-16"
-    license: all-rights-reserved
-    usage: rewrite-only
-    access: free
-    units: [0, 2, 3]
-    topics: [scaling-from-one-server, load-balancer, read-replicas, static-assets, session-offload, caching]
-    status: candidate
-    free_companion: []
-    version: ""
-    archive_url: ""
-    attribution: ""
-    lang: en
-    verified_on: ""
-    superseded_by: null
-    notes: "Byline David Kuo, Solutions Architect, AWS (page metadata says AWS Admin). Footer: (c) 2019 Amazon Web Services, Inc. or its affiliates, all rights reserved. Each step has a stated trigger: no redundancy in one AZ, database failover, high read volume, static assets competing for bandwidth, session data on the main database, hot data loading the primary database. AWS product names throughout (ELB, RDS, CloudFront, ElastiCache); use for the trigger-to-step logic only. Page refers back to Part 1 for the single-server start. Dated 2015."
