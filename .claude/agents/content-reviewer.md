@@ -13,7 +13,7 @@ The list of changed files (`git diff --name-only main`) and the ticket's done-cr
 ## Checks
 
 1. **Accuracy.** For every specific claim (number, system behavior, timeline), open the cited source and confirm it actually supports the claim. Flag claims that are unsupported or overstated.
-2. **Citations.** Every `[^id]` exists in `sources` and in the registry. Flag specific claims without a marker.
+2. **Citations.** Every `[^id]` exists in `sources` and in the registry. Flag specific claims without a marker, and any marker sitting on the author's own inference or arithmetic. Flag text that narrates provenance ("menurut sumber", "penalaran penulis", "hitungan sendiri", ...): provenance belongs in the markers, not in the sentences.
 3. **Similarity.** Compare paragraphs with the cited section of the source. Flag any with the same sentence structure or point order.
 4. **Questions.** Treat the validator's anti-leak warnings (`python scripts/validate.py`, see writing-style.md "Automatic checks") as input, then judge what it cannot see. Can the answer be guessed without understanding the concept (from option length, keywords, title)? Are the distractors plausible? Are all learning objectives tested? Is the explanation correct?
 5. **Style.** Per `docs/conventions/writing-style.md`: first sentence = core point, no filler, terms explained.

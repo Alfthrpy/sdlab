@@ -13,15 +13,15 @@ status: review
 
 ## Kapan cache diperlukan, dan kapan belum
 
-Patokan kurikulum ini (bukan fakta dari sumber): pertimbangkan cache kalau bacaan mendominasi lebih dari 80% query database dan query yang sama terus diulang. Kalau database masih santai, cache belum perlu. Kalau sebagian besar request tidak ketemu di cache, biaya mengecek dan mengisinya bisa melebihi manfaat.[^azure-cache-aside-pattern] Kalau cache hilang, layanan hilir seperti database bisa kewalahan.[^aws-builders-caching-challenges]
+Pertimbangkan cache kalau bacaan mendominasi lebih dari 80% query database dan query yang sama terus diulang. Kalau database masih santai, cache belum perlu. Kalau sebagian besar request tidak ketemu di cache, biaya mengecek dan mengisinya bisa melebihi manfaat.[^azure-cache-aside-pattern] Kalau cache hilang, layanan hilir seperti database bisa kewalahan.[^aws-builders-caching-challenges]
 
 ## Cache-aside dan write-through
 
 Bagaimana aplikasi membaca dan menulis lewat cache biasa? Dengan *cache-aside*, aplikasi mengurusnya sendiri: ia mengecek cache, dan kalau miss (item tidak ada), membaca database lalu menyimpan hasilnya ke cache. Saat menulis, ia mengubah database dulu, baru meng-invalidate item (menghapusnya dari cache).[^azure-cache-aside-pattern]
 
-Kenapa database dulu? Azure menyebut urutan ini penting: kalau item dihapus lebih dulu, request lain bisa miss sebelum database berubah, lalu mengisi cache dengan nilai lama.[^azure-cache-aside-pattern] Kalau dipikir lebih jauh (penalaran penulis): database-dulu mempersempit celah itu tanpa menutupnya, karena pembaca yang sudah mengambil nilai lama sebelum update masih bisa mengisi cache sesudah penghapusan.
+Kenapa database dulu? Urutan ini penting: kalau item dihapus lebih dulu, request lain bisa miss sebelum database berubah, lalu mengisi cache dengan nilai lama.[^azure-cache-aside-pattern] Database-dulu mempersempit celah itu, tetapi tidak menutupnya: pembaca yang sudah mengambil nilai lama sebelum update masih bisa mengisi cache sesudah penghapusan.
 
-Banyak cache komersial punya *read-through* dan *write-through* bawaan, jadi aplikasi cukup bicara dengan cache; cache-aside dipakai kalau fitur itu tidak ada.[^azure-cache-aside-pattern] *Write-through* memperbarui database dan cache dalam satu operasi tulis, jadi pembaca langsung melihat nilai baru. Cache-aside hanya menghapus, jadi pembaca bisa kena miss atau data lama sebentar; jalur yang butuh nilai terbaru lebih cocok dengan write-through.[^azure-cache-aside-pattern] Ada juga *write-behind*: sistem cache menulis balik perubahan ke database.[^azure-cache-aside-pattern] Istilah umumnya *write-back*, tetapi nama itu bukan dari sumber. Di sini ia baru diperkenalkan; trade-off-nya dibahas nanti.
+Banyak cache komersial punya *read-through* dan *write-through* bawaan, jadi aplikasi cukup bicara dengan cache; cache-aside dipakai kalau fitur itu tidak ada.[^azure-cache-aside-pattern] *Write-through* memperbarui database dan cache dalam satu operasi tulis, jadi pembaca langsung melihat nilai baru. Cache-aside hanya menghapus, jadi pembaca bisa kena miss atau data lama sebentar; jalur yang butuh nilai terbaru lebih cocok dengan write-through.[^azure-cache-aside-pattern] Ada juga *write-behind*: sistem cache menulis balik perubahan ke database.[^azure-cache-aside-pattern] *Write-behind* juga sering disebut *write-back*. Di sini ia baru diperkenalkan; trade-off-nya dibahas nanti.
 
 ## TTL dan invalidation
 
@@ -40,7 +40,7 @@ File `bundle.v123.js` boleh disimpan setahun karena isi baru berarti URL baru. H
 
 ## Contoh skenario tipikal: hit ratio
 
-Asumsi buatan sendiri, bukan data sumber: 2.000 bacaan per detik, cek cache 1 ms, query database 20 ms (miss membayar 21 ms). *Hit ratio* adalah porsi request yang dijawab cache.
+Misalkan 2.000 bacaan per detik, cek cache 1 ms, query database 20 ms (miss membayar 21 ms). *Hit ratio* adalah porsi request yang dijawab cache.
 
 - Hit ratio 90%: database menerima 10% x 2.000 = 200 query per detik; latency rata-rata 0,9 x 1 + 0,1 x 21 = 3 ms.
 - Hit ratio 99%: database hanya menerima 20 query per detik.

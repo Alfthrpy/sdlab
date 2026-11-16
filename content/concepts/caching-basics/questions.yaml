@@ -54,7 +54,7 @@ questions:
       - "Urutannya tidak berpengaruh selama kedua langkah selesai dalam satu detik"
       - "Update database saja, dan biarkan TTL yang menghapus key tanpa invalidation"
     answer: 0
-    explanation: "Azure menyebut urutan ini penting: kalau key dihapus lebih dulu, request yang menyela bisa miss lalu mengisi cache dengan harga lama, sehingga database harus diubah dulu. Catatan: ini penalaran penulis, bukan klaim sumber. Database-dulu mempersempit celah tanpa menutupnya, karena pembaca yang sudah mengambil harga lama sebelum update masih bisa mengisi cache sesudah penghapusan."
+    explanation: "Kalau key dihapus lebih dulu, request yang menyela bisa miss lalu mengisi cache dengan harga lama, sehingga database harus diubah dulu. Urutan itu mempersempit celah tanpa menutupnya: pembaca yang sudah mengambil harga lama sebelum update masih bisa mengisi cache sesudah penghapusan."
     sources: [azure-cache-aside-pattern]
     targets_misconception: invalidate-order-irrelevant
 
@@ -95,7 +95,7 @@ questions:
     prompt: "Sebuah layanan menerima 3.000 bacaan per detik lewat cache-aside. Database hanya sanggup 400 query per detik dari jalur bacaan ini. Berapa hit ratio minimum, dalam persen, supaya database tidak melewati kapasitasnya?"
     unit: "persen"
     answer: {min: 86.5, max: 87.0}
-    explanation: "Hitungan sendiri: hanya miss yang sampai ke database, jadi miss ratio maksimum = 400 / 3.000 = 13,3%. Hit ratio minimum = 100% - 13,3% = 86,7%."
+    explanation: "Hanya miss yang sampai ke database, jadi miss ratio maksimum = 400 / 3.000 = 13,3%. Hit ratio minimum = 100% - 13,3% = 86,7%."
     sources: []
 
   - id: caching-basics-q08
@@ -105,7 +105,7 @@ questions:
     prompt: "Cek cache butuh 2 ms dan satu query database butuh 40 ms. Setiap miss membayar cek cache dulu, lalu query database. Dengan hit ratio 75%, berapa rata-rata latency per bacaan?"
     unit: "ms"
     answer: {min: 11.9, max: 12.1}
-    explanation: "Hitungan sendiri: hit membayar 2 ms, miss membayar 2 + 40 = 42 ms. Rata-rata = 0,75 x 2 + 0,25 x 42 = 12 ms; kalau miss dihitung hanya 40 ms, hasilnya 11,5 ms, meleset dari rentang."
+    explanation: "Hit membayar 2 ms, miss membayar 2 + 40 = 42 ms. Rata-rata = 0,75 x 2 + 0,25 x 42 = 12 ms; kalau miss dihitung hanya 40 ms, hasilnya 11,5 ms, meleset dari rentang."
     sources: []
 
   - id: caching-basics-q09
@@ -115,7 +115,7 @@ questions:
     prompt: "Setelah deploy, hit ratio sebuah cache turun dari 99% menjadi 95% dengan traffic bacaan yang sama. Beban database dari jalur bacaan ini menjadi berapa kali lipat?"
     unit: "kali lipat"
     answer: {min: 4.9, max: 5.1}
-    explanation: "Hitungan sendiri: beban database mengikuti miss ratio, dari 1% menjadi 5%, jadi menjadi 5 kali lipat. Penurunan 4 poin terlihat kecil, tetapi bukan itu yang menentukan beban."
+    explanation: "Beban database mengikuti miss ratio, dari 1% menjadi 5%, jadi menjadi 5 kali lipat. Penurunan 4 poin terlihat kecil, tetapi bukan itu yang menentukan beban."
     sources: []
     targets_misconception: hit-ratio-linear
 

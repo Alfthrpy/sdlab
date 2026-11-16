@@ -24,7 +24,7 @@ concept: caching-basics
 
 **Keyakinan keliru:** Saat data diubah, urutan "hapus cache" dan "update database" tidak penting selama keduanya dilakukan.
 
-**Kenapa keliru:** Kalau cache dihapus lebih dulu, request lain bisa menyela sebelum database berubah. Request itu miss, membaca nilai lama dari database, lalu menaruhnya kembali di cache, sehingga data basi tertahan.[^azure-cache-aside-pattern] Azure karena itu menyuruh update database lebih dulu, baru menghapus item cache.[^azure-cache-aside-pattern] Catatan: ini penalaran penulis, bukan klaim sumber. Urutan database-dulu mempersempit celah, tetapi pembaca yang sudah mengambil nilai lama sebelum update masih bisa mengisi cache sesudah penghapusan.
+**Kenapa keliru:** Kalau cache dihapus lebih dulu, request lain bisa menyela sebelum database berubah. Request itu miss, membaca nilai lama dari database, lalu menaruhnya kembali di cache, sehingga data basi tertahan.[^azure-cache-aside-pattern] Karena itu database diubah lebih dulu, baru item cache dihapus.[^azure-cache-aside-pattern] Urutan database-dulu mempersempit celah, tetapi pembaca yang sudah mengambil nilai lama sebelum update masih bisa mengisi cache sesudah penghapusan.
 
 ## no-cache-means-no-storage
 
@@ -36,4 +36,4 @@ concept: caching-basics
 
 **Keyakinan keliru:** Hit ratio naik dari 90% ke 99% hanya menambah sedikit manfaat, karena angkanya cuma naik 9 poin.
 
-**Kenapa keliru:** Beban database sebanding dengan miss ratio, bukan hit ratio. Dari 10% miss menjadi 1% miss, beban database turun sepuluh kali lipat (hitungan sederhana, bukan klaim dari sumber).
+**Kenapa keliru:** Beban database sebanding dengan miss ratio, bukan hit ratio. Dari 10% miss menjadi 1% miss, beban database turun sepuluh kali lipat.
