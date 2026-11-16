@@ -475,6 +475,13 @@ LESSON_OPENERS = re.compile(r"^\s*(pada|dalam|di|untuk)\s+(lesson|materi|artikel
 EMOJI = re.compile("[\U0001F000-\U0001FAFF\u2705\u274C\u26A1\u2B50\u23F0\u231B\uFE0F]")
 ABBREVIATIONS = re.compile(r"\b(mis|dst|dll|dsb|dkk|vs|yaitu|e\.g|i\.e|no|hlm|spt|tsb)\.", re.I)
 EXPLANATION_MAX_SENTENCES = 3
+# Learner-facing text must not narrate provenance; the [^id] markers carry it (citation-guide.md).
+PROVENANCE = re.compile(
+    r"\b(menurut|berdasarkan)\s+(sumber|penulis|dokumentasi|azure|aws|mdn|rfc)\b"
+    r"|\bbukan\s+(fakta|klaim|data)?\s*(dari\s+)?sumber\b|\bdari\s+sumber\s+(ini|itu|di\s+atas)\b"
+    r"|\bpenalaran\s+(sendiri|penulis)\b|\bhitungan\s+sendiri\b|\basumsi\s+(buatan\s+)?sendiri\b"
+    r"|\b(azure|aws|mdn|rfc)\s+(menyebut|menyatakan|mengatakan|menyuruh|menulis)\b"
+    r"|\bsumbernya\b|\bsumber-sumber\b|\bcatatan:\s*ini\b", re.I)
 
 
 def check_misconceptions(d, cid: str, registry: dict, stage: str) -> set[str] | None:
@@ -494,6 +501,7 @@ def check_misconceptions(d, cid: str, registry: dict, stage: str) -> set[str] | 
     elif fm.get("concept") != cid:
         err(w, f"frontmatter concept `{fm.get('concept')}` does not match the folder `{cid}`")
     body = re.sub(r"```.*?```", "", body, flags=re.S)  # labels and headings inside code fences do not count
+    check_provenance(w, "misconceptions", body)
     heads = list(MISC_HEADING.finditer(body))
     ids: set[str] = set()
     for i, m in enumerate(heads):
@@ -614,6 +622,10 @@ def check_questions(qfile, d, cid: str, concept: dict | None, registry: dict, pu
             elif registry[s].get("usage") == "map-only":
                 err(w, f"{qid}: a map-only (Tier 6) source must not be a content source: {s}")
         check_question_answer(w, qid, q)
+        for field in ("prompt", "explanation"):
+            check_provenance(w, f"{qid} {field}", q.get(field))
+        for o in q.get("options") if isinstance(q.get("options"), list) else []:
+            check_provenance(w, f"{qid} option", o)
     lo, hi = QUESTIONS_RANGE
     if qs and not lo <= len(qs) <= hi:
         (err if stage in ("review", "published") and len(qs) < lo else warn)(
@@ -678,6 +690,14 @@ def check_anti_leak(w: str, qs: list[dict]) -> None:
         warn(w, f"all {len(rated)} questions have difficulty {rated[0]}; use a mix of levels")
 
 
+def check_provenance(w: str, where: str, text) -> None:
+    """Warn when learner-facing text says where a statement comes from instead of leaving it to the markers."""
+    if isinstance(text, str):
+        m = PROVENANCE.search(text)
+        if m:
+            warn(w, f"{where}: do not narrate provenance ({m.group(0)!r}); the [^id] markers carry it")
+
+
 def count_sentences(text: str) -> int:
     """Sentence count for the explanation-length warning: abbreviations (mis., dst., dll.) do not end a sentence,
     and a last sentence without a final period still counts."""
@@ -697,6 +717,7 @@ def check_lesson_style(w: str, body: str) -> None:
     hits = [f for f in FILLER if re.search(r"\b" + re.escape(f) + r"\b", low)]
     if hits:
         warn(w, f"style: filler phrases: {', '.join(hits)}")
+    check_provenance(w, "lesson", text)
     if EMOJI.search(text):
         warn(w, "style: no emoji in lessons")
 
