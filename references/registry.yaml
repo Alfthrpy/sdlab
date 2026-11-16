@@ -3410,3 +3410,547 @@ sources:
     verified_on: ""
     superseded_by: null
     notes: "NO-AUTHOR: AWS documentation, no author. NO-DATE: no date in the fetched text. The page footer was not visible in the fetched content, so the license is assumed all-rights-reserved (no license stated); recheck at verification. Page text was returned in full by the fetch tool. Defines ApproximateAgeOfOldestMessage (age of the oldest unprocessed message) and ApproximateNumberOfMessagesVisible (backlog), plus not-visible (in-flight) and DLQ-related behavior. Caveats worth teaching: in standard queues a poison message received 3 or more times is moved to the back and excluded from the age metric; a message moved to a DLQ has its age reset; in FIFO queues a failed message blocks its group. Monitoring tips recommend alarms on visible-message count to catch backlog growth, and multiple data points for the in-flight metric. Fair-queue 'quiet group' metrics are newer and AWS-specific. Gives metric definitions, not an alerting-threshold method."
+
+  - id: github-mysql-ha-2018
+    title: "MySQL High Availability at GitHub"
+    authors: [Shlomi Noach]
+    publisher: The GitHub Blog (GitHub, Inc.)
+    type: article
+    tier: 2
+    url: https://github.blog/engineering/infrastructure/mysql-high-availability-at-github/
+    doi: null
+    published: "2018-06-20"
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [replication, failover, split-brain, semi-synchronous-replication, replication-lag, orchestrator]
+    status: candidate
+    free_companion: []
+    version: ""
+    archive_url: ""
+    attribution: ""
+    lang: en
+    verified_on: ""
+    superseded_by: null
+    notes: "Page shows updated 2020-05-21. Footer: (c) 2026 GitHub, Inc.; no separate license statement, so all-rights-reserved. Operator account of automated failover for async primary-replica MySQL: failure detection and promotion by orchestrator (raft across data centers), Consul KV plus HAProxy-based GLB instead of VIP/DNS, semi-sync with a 500 ms timeout, reported outage 10-25 s, and the remaining gap when a whole data center is isolated. Replication lag is covered only briefly (pt-heartbeat); pair with github-oct21-2018-postmortem for lag in a real incident. MySQL- and GitHub-specific tooling; use for the failover logic and the split-brain risk, not as a recipe. Closes gap A7 (failover operator source) together with the postmortem."
+    # footer and date read from the opened page; WebFetch summary, recheck exact title at verification.
+
+  - id: github-oct21-2018-postmortem
+    title: "October 21 post-incident analysis"
+    authors: [Jason Warner]
+    publisher: The GitHub Blog (GitHub, Inc.)
+    type: postmortem
+    tier: 4
+    url: https://github.blog/news-insights/company-news/oct21-post-incident-analysis/
+    doi: null
+    published: "2018-10-30"
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [3, 6]
+    topics: [replication-lag, failover, split-brain, unreplicated-writes, cross-region-failover, backup-restore, incident-response]
+    status: candidate
+    free_companion: []
+    version: ""
+    archive_url: ""
+    attribution: ""
+    lang: en
+    verified_on: ""
+    superseded_by: null
+    notes: "Page shows updated 2021-12-19. Footer: (c) 2026 GitHub, Inc.; no license statement. A 43-second network partition made orchestrator promote West Coast primaries; East Coast primaries held writes that had never replicated, so neither side could simply fail back. Shows lost-write and split-brain consequences of async replication, replication lag growing under peak load, and why backups were slow to restore. Fact to cite with care: durations and counts are the page's own figures (about 24 h 11 min degraded, 954 writes in the affected window on one of the busiest clusters). Pair with github-mysql-ha-2018 (the design that came after). Closes gap A7 (operator source on failover and lag); also a Tier 4 data-layer incident for B5."
+    # footer and date read from the opened page; WebFetch summary, recheck exact title at verification.
+
+  - id: dynamodb-docs-global-tables
+    title: "Global tables - multi-active, multi-Region replication"
+    authors: []
+    publisher: Amazon Web Services (DynamoDB Developer Guide)
+    type: docs
+    tier: 2
+    url: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GlobalTables.html
+    doi: null
+    published: ""
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [multi-leader, multi-region-replication, last-writer-wins, conflict-resolution, replication-lag, eventual-consistency]
+    status: candidate
+    free_companion: []
+    version: "Global tables version 2019.11.21 (Current)"
+    archive_url: ""
+    attribution: ""
+    lang: en
+    verified_on: ""
+    superseded_by: null
+    notes: "NO-AUTHOR: vendor documentation. NO-DATE: no date on the page. Footer was not visible in the fetched content (truncated), so all-rights-reserved is assumed and must be rechecked at verification. Multi-leader in practice: any replica accepts writes, replication is asynchronous, conflicts resolve by last-writer-wins, with an optional multi-Region strong-consistency mode that has restrictions. The sibling page globaltables-CoreConcepts.html (also opened) says transactions are atomic only in the source Region (readers elsewhere may see a partial transaction), and that the ReplicationLatency metric shows propagation delay. Product-specific; use as a concrete example of the multi-leader trade-off (local writes vs conflicts). Does not replace a conceptual treatment (ddia-2e ch. on replication, paywalled); the only other free multi-leader sources registered are couchdb-docs-replication-intro and dynamo-sosp07. Partly closes gap A7 (free multi-leader source)."
+    # footer not seen; page title and version from fetched content.
+
+  - id: hermitage-isolation-tests
+    title: "Hermitage: What are the differences between the transaction isolation levels in databases?"
+    authors: [Martin Kleppmann]
+    publisher: GitHub repository ept/hermitage
+    type: repo
+    tier: 5
+    url: https://github.com/ept/hermitage
+    doi: null
+    published: "2014"
+    accessed: "2026-11-16"
+    license: CC-BY-4.0
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [isolation-levels, anomalies, dirty-write, lost-update, read-skew, write-skew, phantom, snapshot-isolation]
+    status: candidate
+    free_companion: []
+    version: "master branch, 62 commits shown (no commit date visible on the page)"
+    archive_url: ""
+    attribution: ""
+    lang: en
+    verified_on: ""
+    superseded_by: null
+    notes: "README states: 'Copyright Martin Kleppmann, 2014. This work is licensed under a Creative Commons Attribution 4.0 International License' (read from raw README.md). No LICENSE file seen in the listing, and the per-database ports (CockroachDB, YugabyteDB, FoundationDB, Memgraph and others) are credited to other contributors, so check whether their files carry the same license before adapting; rewrite-only until then. Suite of hand-run two- or three-connection test scripts per anomaly (G0, G1a-c, OTV, PMP, P4 lost update, G-single read skew, G2-item and G2 write skew) with per-database result files for PostgreSQL, MySQL InnoDB, Oracle, SQL Server and others. Best fit for the isolation-levels lab idea: concrete operation sequences that different engines treat differently. README is inconsistent about how many databases it compares ('five' versus the eight-plus listed) and refers to MySQL 5.7 docs, so engine versions may be dated. Closes gap A8 (free explainer on anomalies), complementing pg-docs-transaction-iso."
+    # license sentence read from the raw README; project page was opened too.
+
+  - id: mysql-84-innodb-isolation-levels
+    title: "MySQL 8.4 Reference Manual, 17.7.2.1 Transaction Isolation Levels"
+    authors: []
+    publisher: Oracle Corporation (MySQL)
+    type: docs
+    tier: 2
+    url: https://dev.mysql.com/doc/refman/8.4/en/innodb-transaction-isolation-levels.html
+    doi: null
+    published: ""
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [isolation-levels, innodb, repeatable-read, read-committed, gap-locks, snapshot-reads, phantoms]
+    status: candidate
+    free_companion: []
+    version: "MySQL 8.4"
+    archive_url: ""
+    attribution: ""
+    lang: en
+    verified_on: ""
+    superseded_by: null
+    notes: "NO-AUTHOR: vendor documentation. NO-DATE: version-based (8.4). Footer shows '(c) 2026 Oracle' with Privacy, Terms of Use and Trademark links; no license statement for the manual text on the page, so all-rights-reserved. Different engine from pg-docs-transaction-iso: InnoDB defaults to Repeatable Read with a snapshot taken at the first read, uses next-key/gap locks on locking reads and writes, and Read Committed takes a fresh snapshot per statement and does not lock gaps (so phantoms can occur). It also warns about mixing locking and non-locking reads in one Repeatable Read transaction. Does not itself describe MVCC internals (undo logs, read views); a gap for InnoDB MVCC (B5) remains unless a sibling page is added. Closes gap A8 (complementary explainer on a second engine) together with hermitage-isolation-tests."
+    # footer text read as summarized by the fetch tool.
+
+  - id: figma-sharding-postgres-2024
+    title: "How Figma's Databases Team Lived to Tell the Scale"
+    authors: [Sammy Steele]
+    publisher: Figma Blog (Figma, Inc.)
+    type: article
+    tier: 2
+    url: https://www.figma.com/blog/how-figmas-databases-team-lived-to-tell-the-scale/
+    doi: null
+    published: "2024-03-14"
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [sharding, shard-key, logical-vs-physical-sharding, scatter-gather, cross-shard-queries, vertical-partitioning, trigger]
+    status: candidate
+    free_companion: []
+    version: ""
+    archive_url: ""
+    attribution: ""
+    lang: en
+    verified_on: ""
+    superseded_by: null
+    notes: "Byline: Sammy Steele, Software Engineer, Figma. The fetched content was truncated before any footer, so a copyright notice was not seen; recorded as all-rights-reserved with no license stated, recheck at verification. Production case on RDS Postgres: scaled first with caching, read replicas and vertical partitioning, then hit single-table limits (vacuum, IOPS), so they built in-house horizontal sharding rather than adopting a NewSQL/Vitess system. Covers shard-key choice (several keys, hashed so IDs do not create hot spots, at the cost of range scans), logical sharding before physical, a query proxy, scatter-gather for queries without a shard key, restriction of joins to a 'colo' of tables sharing a key, and what was still missing (atomic cross-shard transactions, global unique IDs). Includes a clear trigger story for partitioning-sharding. Adds a second production sharding case beyond notion-sharding-postgres-2021. Closes gap B5 (sharding case beyond Notion)."
+    # footer not seen; date and byline read from the page.
+
+  - id: slack-vitess-datastores-2020
+    title: "Scaling Datastores at Slack with Vitess"
+    authors: [Arka Ganguli, Guido Iaquinti, Maggie Zhou, Rafael Chacon]
+    publisher: Slack Engineering (Slack Technologies, LLC)
+    type: article
+    tier: 2
+    url: https://slack.engineering/scaling-datastores-at-slack-with-vitess/
+    doi: null
+    published: "2020-12-01"
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [sharding, shard-key, hot-spots, vitess, resharding, migration, keyspaces]
+    status: candidate
+    free_companion: []
+    version: ""
+    archive_url: ""
+    attribution: ""
+    lang: en
+    verified_on: ""
+    superseded_by: null
+    notes: "Footer: (c) 2026 Slack Technologies, LLC, a Salesforce company, all rights reserved. Date read twice from the page as December 1, 2020 (a search snippet said December 8; the page was trusted). Authors shown with accents stripped (Rafael Chacon). Case of sharding by workspace ID outgrowing hardware: big customers made hot shards, shard outage affected all its workspaces, and app code was tightly coupled to the physical layout; move to Vitess with message data keyed by channel. Reports 2.3M QPS peak with 2 ms median and 11 ms p99 at the time. Gives little detail on cross-shard queries or how shard keys were picked, so pair with figma-sharding-postgres-2024 and mongodb-docs-sharding. Adds a production sharding case beyond Notion. Closes gap B5 (sharding case) together with figma-sharding-postgres-2024."
+    # footer and date from a second dedicated fetch of the page.
+
+  - id: tikv-docs-btree-vs-lsm
+    title: "B-Tree vs LSM-Tree"
+    authors: []
+    publisher: TiKV Project (Deep Dive, Key-value engine)
+    type: docs
+    tier: 2
+    url: https://tikv.org/deep-dive/key-value-engine/b-tree-vs-lsm/
+    doi: null
+    published: ""
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [lsm-tree, btree, write-amplification, read-amplification, space-amplification, compaction]
+    status: candidate
+    free_companion: []
+    version: "TiKV docs 7.1 (as shown on the page)"
+    archive_url: ""
+    attribution: ""
+    lang: en
+    verified_on: ""
+    superseded_by: null
+    notes: "NO-AUTHOR: project docs. NO-DATE: none on page. Footer: 'TiKV is an Apache 2.0 licensed open source distributed transactional key-value store' and '(c) 2025 TiKV Authors'; that sentence describes the software, and the github.com/tikv/website repo listing showed no LICENSE file or content license, so the page text is recorded as all-rights-reserved. Defines write, read and space amplification, gives worst-case analysis for a B+ tree (write amplification about B, the block size) and a level-based LSM tree (about k times log base k of N/B), notes size-tiered vs level-based compaction, and says a structure can optimize at most two of the three amplifications. Analysis is worst-case math with no measurements and does not analyze space amplification. Pair with qiao-btree-lsm-write-amp-2021 for measured numbers. Closes gap B5 (write amplification source) together with it."
+    # footer read from the opened page.
+
+  - id: qiao-btree-lsm-write-amp-2021
+    title: "Closing the B-tree vs. LSM-tree Write Amplification Gap on Modern Storage Hardware with Built-in Transparent Compression"
+    authors: [Yifan Qiao, Xubin Chen, Ning Zheng, Jiangpeng Li, Yang Liu, Tong Zhang]
+    publisher: arXiv (preprint in the PVLDB format)
+    type: paper
+    tier: 3
+    url: https://arxiv.org/abs/2107.13987
+    doi: null
+    published: "2021-07-27"
+    accessed: "2026-11-16"
+    license: CC-BY-NC-ND-4.0
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [lsm-tree, btree, write-amplification, space-amplification, rocksdb, wiredtiger, storage-engines]
+    status: candidate
+    free_companion: []
+    version: "arXiv v1 (only version listed)"
+    archive_url: ""
+    attribution: ""
+    lang: en
+    verified_on: ""
+    superseded_by: null
+    notes: "License conflict: the arXiv page's license link points to CC BY 4.0, but the PDF's own first page says 'licensed under the Creative Commons BY-NC-ND 4.0 International License' (PVLDB template). The stricter PDF statement is recorded. Venue: arXiv says 'submitted to VLDB'; the PDF has PVLDB 14(1) 2020 placeholders with no real page numbers or DOI, so it is a preprint and the final published version was not found. Read in full from the PDF text. Experiment on a drive with built-in transparent compression compares RocksDB (LSM) with WiredTiger (B-tree) and a modified B-tree; the useful part for teaching is the measured baseline (random 128 B writes: write amplification 14 for RocksDB vs 64 for WiredTiger with 8 KB pages; RocksDB about 4x lower across thread counts) and the point that transparent compression changes the space-amplification comparison. Hardware-specific; its main claim (a redesigned B-tree can match LSM write amplification) rests on special storage hardware, so do not generalize it to ordinary SSDs. Closes gap B5 (modern write-amplification source) together with tikv-docs-btree-vs-lsm."
+    # license conflict recorded in notes; PDF read in this session.
+
+  - id: rfc-6585-additional-http-status-codes
+    title: "RFC 6585: Additional HTTP Status Codes"
+    authors: [Mark Nottingham, Roy T. Fielding]
+    publisher: IETF / RFC Editor
+    type: docs
+    tier: 2
+    url: https://www.rfc-editor.org/rfc/rfc6585.html
+    doi: null
+    published: "2012-04"
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [2]
+    topics: [rate-limiting, http-429, retry-after]
+    status: candidate
+    version: "RFC 6585 (Standards Track, updates RFC 2616)"
+    notes: "Footer text: 'Copyright (c) 2012 IETF Trust and the persons identified as the document authors. All rights reserved', subject to BCP 78 and the IETF Trust Legal Provisions; code components Simplified BSD. Section 4 defines 429 Too Many Requests: the client sent too many requests in a period; the response may carry Retry-After; the spec does not say how to identify users or count requests; 429 responses must not be cached. Only the status code and Retry-After, not limiter algorithms. Note RFC 2616 is obsolete (replaced by RFC 9110 family)."
+    verified_on: ""
+
+  - id: stripe-blog-rate-limiters
+    title: "Scaling your API with rate limiters"
+    authors: [Paul Tarjan]
+    publisher: Stripe
+    type: article
+    tier: 2
+    url: https://stripe.com/blog/rate-limiters
+    doi: null
+    published: "2017-03-30"
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [2]
+    topics: [rate-limiting, token-bucket, load-shedding, limiter-placement, concurrency-limit]
+    status: candidate
+    notes: "Footer: (c) 2026 Stripe, LLC; no separate license stated. Operator article: four limiters in production (request rate, concurrent requests, fleet usage load shedder, worker utilization load shedder); token bucket implemented on Redis; limiters sit in the API middleware stack and fail open if the limiter or Redis breaks; 429 or 503 depending on case. Older than the 2023-2026 target but the principles hold. Fetch result was a model summary; the verifier should re-check the exact 2017 date and details on the page."
+    verified_on: ""
+
+  - id: redis-tutorial-rate-limiters-five-algorithms
+    title: "Build 5 Rate Limiters with Redis: Fixed Window, Sliding Window, Token Bucket, and Leaky Bucket"
+    authors: [William Johnston]
+    publisher: Redis
+    type: article
+    tier: 2
+    url: https://redis.io/tutorials/howtos/ratelimiting/
+    doi: null
+    published: "2026-02-26"
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [2]
+    topics: [rate-limiting, token-bucket, leaky-bucket, fixed-window, sliding-window, retry-after, http-429]
+    status: candidate
+    version: "Updated 2026-03-20 (per the page)"
+    notes: "No license text visible in the fetched content (footer not captured), so treated as all-rights-reserved; the verifier should check the footer. Vendor tutorial, published by the Redis project. Covers five limiters (fixed window, sliding window log, sliding window counter, token bucket, leaky bucket as policing and as shaping) with a comparison table, boundary-burst problem of fixed windows, atomicity (race on read-decide-write, Lua scripts), and the 429 plus Retry-After mapping, and says the X-RateLimit-* headers have no single standard. Code is TypeScript/Lua; teach the idea, write own diagrams. Does not discuss placement (gateway vs service) much; combine with stripe-blog-rate-limiters."
+    verified_on: ""
+
+  - id: mdn-tcp-handshake-glossary
+    title: "TCP handshake (MDN Web Docs Glossary)"
+    authors: []
+    publisher: Mozilla (MDN Web Docs)
+    type: docs
+    tier: 2
+    url: https://developer.mozilla.org/en-US/docs/Glossary/TCP_handshake
+    doi: null
+    published: "2025-11-30"
+    accessed: "2026-11-16"
+    license: CC-BY-SA-2.5
+    usage: rewrite-only
+    access: free
+    units: [2]
+    topics: [tcp, tcp-handshake, networking-basics]
+    status: candidate
+    notes: "NO-AUTHOR: community docs. Date is the page's 'last modified'. Footer: portions (c) 1998-2026 mozilla.org contributors, content under a Creative Commons license; the MDN attribution page (opened 2026-11-16) says CC-BY-SA v2.5 or any later version for text. Short glossary entry: SYN, SYN-ACK, ACK; in a web request this happens after the DNS lookup and before the TLS handshake; the four-way FIN/ACK close is also mentioned. Very short, so no reading notes."
+    verified_on: ""
+
+  - id: mdn-http-connection-management-1x
+    title: "Connection management in HTTP/1.x (MDN Web Docs)"
+    authors: []
+    publisher: Mozilla (MDN Web Docs)
+    type: docs
+    tier: 2
+    url: https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Connection_management_in_HTTP_1.x
+    doi: null
+    published: "2026-09-11"
+    accessed: "2026-11-16"
+    license: CC-BY-SA-2.5
+    usage: rewrite-only
+    access: free
+    units: [2]
+    topics: [keep-alive, persistent-connections, tcp-handshake, connection-reuse]
+    status: candidate
+    notes: "NO-AUTHOR: community docs. Date is 'last modified'. License as for the other MDN pages (CC-BY-SA v2.5 or later, per the MDN attribution page opened 2026-11-16). Covers short-lived vs persistent (keep-alive) connections, the cost of the TCP handshake and cold connections, idle connections costing server resources, the Keep-Alive header, and HTTP/1.1 persistence by default. Warning: the page says HTTP/1.0 persistence needs a Connection value 'usually retry-after', which is an error (it should be keep-alive); do not repeat it. Pipelining and domain sharding parts of the page were not read in detail."
+    verified_on: ""
+
+  - id: mdn-transport-layer-security
+    title: "Transport Layer Security (TLS) (MDN Web Docs)"
+    authors: []
+    publisher: Mozilla (MDN Web Docs)
+    type: docs
+    tier: 2
+    url: https://developer.mozilla.org/en-US/docs/Web/Security/Transport_Layer_Security
+    doi: null
+    published: "2026-02-28"
+    accessed: "2026-11-16"
+    license: CC-BY-SA-2.5
+    usage: rewrite-only
+    access: free
+    units: [2]
+    topics: [tls, https, tls-handshake, certificates]
+    status: candidate
+    notes: "NO-AUTHOR: community docs. Date is 'last modified'. License per MDN attribution page (CC-BY-SA v2.5 or later, opened 2026-11-16). Beginner-level: TLS gives encryption, integrity and authentication; handshake agrees on version, cipher suite, optional authentication and a shared key; TLS 1.3 (RFC 8446) is current; server certificates bind a key to a domain, Let's Encrypt as a free CA. Does not mention TCP or round-trip cost of the handshake; pair with mdn-tcp-handshake-glossary. A Cloudflare Learning page on the TLS handshake returned HTTP 403 and was not used."
+    verified_on: ""
+
+  - id: aws-route53-how-dns-routes-traffic
+    title: "How internet traffic is routed to your website or web application (Amazon Route 53 Developer Guide)"
+    authors: []
+    publisher: Amazon Web Services
+    type: docs
+    tier: 2
+    url: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/welcome-dns-service.html
+    doi: null
+    published: ""
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [2]
+    topics: [dns, dns-resolution, dns-caching, ttl, resolver]
+    status: candidate
+    notes: "NO-AUTHOR: corporate documentation. NO-DATE: page shows no date in the fetched text. No footer license seen in the fetch (footer not captured), so treated as all-rights-reserved; the verifier should check. Walks through the nine steps from browser to resolver, root, TLD, authoritative name server and back, says resolvers cache the NS answer (typically two days per the page) and cache the final IP for the record's TTL (links to a TTL section). Vendor flavored (Route 53 terms) but the resolution stages are generic. The linked TTL concept section was not opened."
+    verified_on: ""
+
+  - id: azure-saga-pattern
+    title: "Saga Design Pattern (Azure Architecture Center)"
+    authors: []
+    publisher: Microsoft Learn
+    type: docs
+    tier: 2
+    url: https://learn.microsoft.com/en-us/azure/architecture/patterns/saga
+    doi: null
+    published: "2025-02-25"
+    accessed: "2026-11-16"
+    license: CC-BY-4.0
+    usage: rewrite-only
+    access: free
+    units: [5]
+    topics: [saga, distributed-transactions, compensating-transaction, choreography, orchestration, two-phase-commit]
+    status: candidate
+    notes: "NO-AUTHOR: no author named in the page text (front matter shows a git handle only). Date is ms.date from the front matter (updated_at 2026-11-07). License: the page showed no footer license in the fetch; the public repo MicrosoftDocs/architecture-center (opened 2026-11-16) says documentation is CC BY 4.0 (LICENSE) and code MIT; same basis as azure-cache-aside-pattern. Covers local transactions plus compensating transactions, compensable/pivot/retryable steps, choreography vs orchestration with trade-off tables, anomalies without isolation (lost updates, dirty reads, fuzzy reads) and countermeasures (semantic lock, commutative updates, reread values), idempotency needs. Mentions two-phase commit only in passing. The original Garcia-Molina and Salem 1987 saga paper was not opened."
+    verified_on: ""
+
+  - id: pg-docs-prepare-transaction
+    title: "PREPARE TRANSACTION (PostgreSQL 18 Documentation)"
+    authors: []
+    publisher: PostgreSQL Global Development Group
+    type: docs
+    tier: 2
+    url: https://www.postgresql.org/docs/current/sql-prepare-transaction.html
+    doi: null
+    published: ""
+    accessed: "2026-11-16"
+    license: PostgreSQL
+    usage: rewrite-only
+    access: free
+    units: [5]
+    topics: [two-phase-commit, prepare-transaction, distributed-transactions, transaction-manager]
+    status: candidate
+    version: "PostgreSQL 18 (18.7)"
+    notes: "NO-DATE: versioned manual page. NO-AUTHOR: corporate documentation. Footer: Copyright 1996-2026 PGDG; the page itself states no license, the real license is the PostgreSQL License (see pg-docs-indexes-intro). Shows two-phase commit from the resource side: PREPARE TRANSACTION persists the transaction state so it survives a crash, then COMMIT PREPARED or ROLLBACK PREPARED finishes it; intended for an external transaction manager; prepared transactions keep locks and block VACUUM, so keep them short; pg_prepared_xacts lists them; set max_prepared_transactions to 0 if unused. Describes the participant only, not the coordinator protocol or its blocking problem; a general 2PC explanation (coordinator failure) is still thin."
+    verified_on: ""
+
+  - id: sre-workbook-non-abstract-design-ch12
+    title: "Non-Abstract Large System Design (The Site Reliability Workbook, chapter 12)"
+    authors: [Salim Virji, James Youngman, Henry Robertson, Stephen Thorne, Dave Rensin, Zoltan Egyed, Richard Bondi]
+    publisher: Google / O'Reilly Media
+    type: book
+    tier: 1
+    url: https://sre.google/workbook/non-abstract-design/
+    doi: null
+    published: "2018"
+    accessed: "2026-11-16"
+    license: CC-BY-NC-ND-4.0
+    usage: rewrite-only
+    access: free
+    units: [1]
+    topics: [estimation, back-of-envelope, capacity-estimation, qps, storage-estimation, bandwidth]
+    status: candidate
+    notes: "Footer: Copyright 2018 Google, Inc., published by O'Reilly Media, Inc., licensed under CC BY-NC-ND 4.0. Page lists the authors as Salim Virji, James Youngman, Henry Robertson, Stephen Thorne, Dave Rensin and Zoltan Egyed, with Richard Bondi; no date on the page, year taken from the copyright line. Worked example (an ads click-through design) estimates QPS, log storage per day, RAM and disk IOPS per machine, task counts and bandwidth, step by step with rounding, then checks failure cases against SLOs. Good for the method; the numbers are hardware-era specific and the case is not a typical web app. It does not discuss load testing or N+2. Fills the Tier 1 estimation gap but is not an interview-style primer."
+    verified_on: ""
+
+  - id: django-docs-sessions
+    title: "How to use sessions (Django documentation)"
+    authors: []
+    publisher: Django Software Foundation
+    type: docs
+    tier: 2
+    url: https://docs.djangoproject.com/en/stable/topics/http/sessions/
+    doi: null
+    published: ""
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [2]
+    topics: [sessions, signed-cookie-sessions, session-store, stateless-services, cookies]
+    status: candidate
+    version: "Django 6.1 (stable)"
+    notes: "NO-AUTHOR: project documentation. NO-DATE: versioned page. Footer: (c) 2005-2026 Django Software Foundation and individual contributors; no license stated on the page in the fetch, so treated as all-rights-reserved (the Django project documentation may be BSD-licensed, but that was not verified; the verifier should check the repo). Compares session backends: database, cached database, cache (Memcached/Redis; eviction logs users out), file, and signed cookies (no server storage, signed not encrypted, about 4096-byte limit, replay and logout caveats, works across servers only if all share SECRET_KEY). Does not discuss sticky sessions. Framework-specific, but the trade-offs are general."
+    verified_on: ""
+
+  - id: owasp-session-management-cheat-sheet
+    title: "Session Management Cheat Sheet (OWASP Cheat Sheet Series)"
+    authors: []
+    publisher: OWASP Foundation
+    type: docs
+    tier: 2
+    url: https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html
+    doi: null
+    published: ""
+    accessed: "2026-11-16"
+    license: CC-BY-SA-4.0
+    usage: rewrite-only
+    access: free
+    units: [2]
+    topics: [sessions, session-id, cookies, session-security, session-timeout]
+    status: candidate
+    notes: "NO-AUTHOR: footer credits the Cheat Sheets Series Team. NO-DATE: no date shown. Footer says licensed under CC BY-SA 4.0. Covers server-side session ids (random, meaningless, state in a server-side store), cookie flags (Secure, HttpOnly, SameSite, __Host-), server-enforced idle and absolute timeouts, and warns against keeping session tokens in localStorage/sessionStorage. It does NOT compare signed-cookie vs shared-store vs sticky sessions and barely mentions JWTs; use it for the security side only. Pair with django-docs-sessions for the comparison. No source was found for sticky sessions (an AWS load balancer page returned no usable content)."
+    verified_on: ""
+
+  - id: pg-docs-wal-intro
+    title: "28.3. Write-Ahead Logging (WAL) (PostgreSQL 18 Documentation)"
+    authors: []
+    publisher: PostgreSQL Global Development Group
+    type: docs
+    tier: 2
+    url: https://www.postgresql.org/docs/current/wal-intro.html
+    doi: null
+    published: ""
+    accessed: "2026-11-16"
+    license: PostgreSQL
+    usage: rewrite-only
+    access: free
+    units: [3]
+    topics: [wal, durability, crash-recovery, fsync, group-commit, pitr]
+    status: candidate
+    version: "PostgreSQL 18 (18.7)"
+    notes: "NO-DATE: versioned manual page. NO-AUTHOR: corporate documentation. Footer: Copyright 1996-2026 PGDG; the page itself states no license, the real license is the PostgreSQL License (see pg-docs-indexes-intro). Explains the WAL rule (log records reach durable storage before the data pages change), why commit only needs a sequential WAL flush, group commit by one fsync, redo after a crash, and that archived WAL enables PITR. It speaks to durability; atomicity (undo of uncommitted work) is not spelled out on this page, so atomicity still needs another source. Checkpoints are not covered here."
+    verified_on: ""
+
+  - id: sre-book-appendix-b-best-practices
+    title: "A Collection of Best Practices for Production Services (Site Reliability Engineering, Appendix B)"
+    authors: [Ben Treynor Sloss]
+    publisher: Google / O'Reilly Media
+    type: book
+    tier: 1
+    url: https://sre.google/sre-book/service-best-practices/
+    doi: null
+    published: "2017"
+    accessed: "2026-11-16"
+    license: CC-BY-NC-ND-4.0
+    usage: rewrite-only
+    access: free
+    units: [1]
+    topics: [capacity-planning, n-plus-2, load-testing, demand-forecasting, headroom]
+    status: candidate
+    notes: "Footer: Copyright 2017 Google, Inc., published by O'Reilly Media, Inc., CC BY-NC-ND 4.0. Page lists author Ben Treynor Sloss, editor Betsy Beyer. Capacity planning section: N+2 provisioning (peak handled while a planned and an unplanned outage overlap), compare forecasts to actual demand, set resource-to-capacity ratios from load tests, do not treat launch traffic as steady state. The page never uses the word headroom and gives no formula or utilization target (such as the 70-80% in the concept trigger), so the 'compute headroom from a load test' objective is only partly covered. Short checklist, no worked example."
+    verified_on: ""
+
+  - id: aws-wa-rel07-bp04-load-test
+    title: "REL07-BP04 Load test your workload (AWS Well-Architected Framework, Reliability Pillar)"
+    authors: []
+    publisher: Amazon Web Services
+    type: docs
+    tier: 2
+    url: https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_adapt_to_changes_load_tested_adapt.html
+    doi: null
+    published: ""
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [1]
+    topics: [load-testing, capacity-planning, headroom, breaking-point]
+    status: candidate
+    notes: "NO-AUTHOR: corporate documentation. NO-DATE: none in the fetched text. No footer license visible in the fetch, so treated as all-rights-reserved; the verifier should check. Says load tests should find the breaking point with a representative request mix, start with one instance then scale up, use a production-like environment, and lists anti-patterns (test config differs from production, only parts tested, tiny safety factor above expected load). No formula or numeric target; no explicit headroom calculation. Complements sre-book-appendix-b-best-practices."
+    verified_on: ""
+
+  - id: honeycomb-structured-events-basis-observability
+    title: "Authors’ Cut—Structured Events Are the Basis of Observability"
+    authors: [Liz Fong-Jones]
+    publisher: Honeycomb
+    type: article
+    tier: 2
+    url: https://www.honeycomb.io/blog/structured-events-basis-observability
+    doi: null
+    published: "2022-06-17"
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [6]
+    topics: [observability, structured-events, wide-events, high-cardinality, metrics-vs-logs-vs-traces]
+    status: candidate
+    version: "Page shows 'Updated: June 17, 2022'"
+    notes: "Footer: (c) 2026 Hound Technology, Inc.; no open license. The date is the page's 'Updated' date, no original publication date shown (recorded as published for that reason; the verifier should confirm). Vendor-authored position piece: metrics are pre-aggregated, logs are fragments, traces are linked logs and metrics; proposes wide structured events with dozens to hundreds of fields that can be sliced by high-cardinality fields, with metrics and traces derived from them; recommends OpenTelemetry. Treat claims about cost and performance as the vendor view. A separate Honeycomb docs page on high cardinality had no author, date or footer in the fetch and was not registered."
+    verified_on: ""
