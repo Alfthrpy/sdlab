@@ -26,7 +26,7 @@ def lesson(sources, body, status="draft"):
     return f"---\n{fm}---\n{body}\n"
 
 
-def run(text, questions=None, status_published=False):
+def run(text, questions=None, status_published=False, misc=None, concepts=None):
     with tempfile.TemporaryDirectory() as d:
         root = Path(d)
         cdir = root / "concepts" / "c1"
@@ -34,12 +34,14 @@ def run(text, questions=None, status_published=False):
         (cdir / "lesson.md").write_text(text, encoding="utf-8")
         if questions is not None:
             (cdir / "questions.yaml").write_text(yaml.safe_dump({"questions": questions}))
+        if misc is not None:
+            (cdir / "misconceptions.md").write_text(misc, encoding="utf-8")
         old = (validate.CONTENT, validate.rel)
         validate.CONTENT, validate.rel = root, lambda p: p.name
         validate.errors.clear()
         validate.warnings.clear()
         try:
-            validate.check_content(REG, {})
+            validate.check_content(REG, concepts or {})
             return list(validate.errors), list(validate.warnings)
         finally:
             validate.CONTENT, validate.rel = old
@@ -118,7 +120,7 @@ class Coverage(unittest.TestCase):
         guide = (Path(__file__).resolve().parent.parent / "docs/conventions/citation-guide.md").read_text()
         sample = guide.split("## Sample lesson", 1)[1].split("```markdown\n", 1)[1].split("\n```", 1)[0]
         reg = dict(REG, **{"aws-builders-timeouts-retries": REG["blog"], "ddia-2e": REG["book"]})
-        errs, warns = run_with(reg, sample + "\n")
+        errs, warns = run_with(reg, sample.replace("concept: example-retries", "concept: c1") + "\n")
         self.assertEqual(errs, [])
 
 
@@ -154,3 +156,232 @@ class Quotes(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+# ---------------------------------------------------------------- final content schema (P1-030)
+WORDS = " ".join(["kata"] * 320)
+CONCEPTS = {"c1": {"objectives": ["Bisa A", "Bisa B"]}}
+
+
+def q(i, type="mcq", **kw):
+    base = {"id": f"c1-q{i:02d}", "type": type, "difficulty": 2, "prompt": "P?", "explanation": "E.",
+            "objective": 1}
+    if type == "mcq":
+        base.update(options=["aa", "bbbb", "cc"], answer=0)
+    base.update(kw)
+    return base
+
+
+MISC = ("---\nconcept: c1\n---\n\n## stale-ok\n\n**Keyakinan keliru:** x\n\n**Kenapa keliru:** y\n\n"
+        "## ttl-safe\n\n**Keyakinan keliru:** x\n\n**Kenapa keliru:** y\n\n"
+        "## cache-free\n\n**Keyakinan keliru:** x\n\n**Kenapa keliru:** y\n")
+
+
+class FinalSchema(unittest.TestCase):
+    def test_frontmatter_requires_fields_and_folder_match(self):
+        errs, _ = run("---\nconcept: other\ntitle: T\nstatus: draft\n---\nteks\n")
+        self.assertTrue(has(errs, "`sources` is required"))
+        self.assertTrue(has(errs, "does not match the folder"))
+
+    def test_status_enum_and_reviewed_by(self):
+        errs, _ = run(lesson(["blog"], "x", status="done"))
+        self.assertTrue(has(errs, "status must be one of"))
+        errs, _ = run(lesson(["blog"], "x", status="published"))
+        self.assertTrue(has(errs, "needs `reviewed_by`"))
+
+    def test_length_warns_in_draft_errors_in_review(self):
+        short = "Retry itu penting.[^blog]"
+        errs, warns = run(lesson(["blog"], short))
+        self.assertFalse(has(errs, "lesson length"))
+        self.assertTrue(has(warns, "lesson length"))
+        errs, _ = run(lesson(["blog"], short, status="review"))
+        self.assertTrue(has(errs, "lesson length"))
+        errs, _ = run(lesson(["blog"], WORDS, status="review"), misc=MISC)
+        self.assertFalse(has(errs, "lesson length"))
+
+    def answer_errors(self, **kw):
+        errs, _ = run(lesson(["blog"], WORDS), [q(1, **kw)], misc=MISC, concepts=CONCEPTS)
+        return errs
+
+    def test_mcq_answer_range(self):
+        self.assertTrue(has(self.answer_errors(answer=5), "valid option index"))
+        self.assertEqual(self.answer_errors(answer=1), [])
+
+    def test_multi_answer_format(self):
+        ok = dict(type="multi", options=["a", "b", "c", "d"], answer=[0, 2])
+        self.assertEqual(self.answer_errors(**ok), [])
+        self.assertTrue(has(self.answer_errors(**dict(ok, answer=[0])), "multi answer"))
+        self.assertTrue(has(self.answer_errors(**dict(ok, answer=[0, 0])), "multi answer"))
+        self.assertTrue(has(self.answer_errors(**dict(ok, answer=[0, 1, 2, 3])), "multi answer"))
+
+    def test_order_answer_is_a_permutation(self):
+        ok = dict(type="order", options=["a", "b", "c"], answer=[2, 0, 1])
+        self.assertEqual(self.answer_errors(**ok), [])
+        self.assertTrue(has(self.answer_errors(**dict(ok, answer=[0, 0, 1])), "order answer"))
+        self.assertTrue(has(self.answer_errors(**dict(ok, answer=[0, 1])), "order answer"))
+
+    def test_match_pairs(self):
+        ok = dict(type="match", pairs=[["a", "1"], ["b", "2"], ["c", "3"]])
+        self.assertEqual(self.answer_errors(**ok), [])
+        self.assertTrue(has(self.answer_errors(**dict(ok, pairs=[["a", "1"], ["b", "1"], ["c", "3"]])), "distinct"))
+        self.assertTrue(has(self.answer_errors(**dict(ok, pairs=[["a", "1"]])), "match needs"))
+
+    def test_estimate_range_and_unit(self):
+        ok = dict(type="estimate", answer={"min": 10, "max": 20}, unit="ms")
+        self.assertEqual(self.answer_errors(**ok), [])
+        self.assertTrue(has(self.answer_errors(**dict(ok, answer={"min": 20, "max": 10})), "min < max"))
+        self.assertTrue(has(self.answer_errors(**dict(ok, unit=None)), "needs a `unit`"))
+
+    def test_difficulty_and_id_prefix(self):
+        self.assertTrue(has(self.answer_errors(difficulty=4), "difficulty must be"))
+        self.assertTrue(has(self.answer_errors(id="other-q01"), "must look like"))
+
+    def test_duplicate_question_id(self):
+        errs, _ = run(lesson(["blog"], WORDS), [q(1), q(1)], misc=MISC, concepts=CONCEPTS)
+        self.assertTrue(has(errs, "empty/duplicate"))
+
+    def test_objective_coverage_in_review(self):
+        qs = [q(i) for i in range(1, 7)]
+        errs, _ = run(lesson(["blog"], WORDS, status="review"), qs, misc=MISC, concepts=CONCEPTS)
+        self.assertTrue(has(errs, "objective(s) [2] are not covered"))
+        qs[0]["objective"] = 2
+        errs, _ = run(lesson(["blog"], WORDS, status="review"), qs, misc=MISC, concepts=CONCEPTS)
+        self.assertFalse(has(errs, "not covered"))
+
+    def test_objective_coverage_only_warns_in_draft(self):
+        errs, warns = run(lesson(["blog"], WORDS), [q(1)], misc=MISC, concepts=CONCEPTS)
+        self.assertFalse(has(errs, "not covered"))
+        self.assertTrue(has(warns, "not covered"))
+
+    def test_objective_index_out_of_range(self):
+        errs, _ = run(lesson(["blog"], WORDS), [q(1, objective=3)], misc=MISC, concepts=CONCEPTS)
+        self.assertTrue(has(errs, "objective must be an index"))
+
+    def test_question_count_in_review(self):
+        errs, _ = run(lesson(["blog"], WORDS, status="review"), [q(1)], misc=MISC, concepts=CONCEPTS)
+        self.assertTrue(has(errs, "questions (target"))
+
+    def test_misconception_target_must_exist(self):
+        errs, _ = run(lesson(["blog"], WORDS), [q(1, targets_misconception="nope")], misc=MISC, concepts=CONCEPTS)
+        self.assertTrue(has(errs, "is not in misconceptions.md"))
+        errs, _ = run(lesson(["blog"], WORDS), [q(1, targets_misconception="stale-ok")], misc=MISC,
+                      concepts=CONCEPTS)
+        self.assertFalse(has(errs, "misconceptions.md"))
+        errs, _ = run(lesson(["blog"], WORDS), [q(1, targets_misconception="stale-ok")], concepts=CONCEPTS)
+        self.assertTrue(has(errs, "needs a misconceptions.md"))
+
+
+class Misconceptions(unittest.TestCase):
+    def test_valid_file(self):
+        errs, _ = run(lesson(["blog"], WORDS), misc=MISC)
+        self.assertEqual(errs, [])
+
+    def test_labels_and_ids_checked(self):
+        bad = MISC.replace("**Kenapa keliru:** y", "tanpa label", 1).replace("## ttl-safe", "## stale-ok")
+        errs, _ = run(lesson(["blog"], WORDS), misc=bad)
+        self.assertTrue(has(errs, "missing the label **Kenapa keliru:**"))
+        self.assertTrue(has(errs, "duplicate misconception id"))
+
+    def test_kebab_case_id_and_concept(self):
+        bad = MISC.replace("concept: c1", "concept: zzz").replace("## cache-free", "## Cache_Free")
+        errs, _ = run(lesson(["blog"], WORDS), misc=bad)
+        self.assertTrue(has(errs, "must be kebab-case"))
+        self.assertTrue(has(errs, "does not match the folder"))
+
+    def test_missing_file_errors_only_in_review(self):
+        errs, _ = run(lesson(["blog"], WORDS))
+        self.assertFalse(has(errs, "misconceptions.md"))
+        errs, _ = run(lesson(["blog"], WORDS, status="review"))
+        self.assertTrue(has(errs, "needs misconceptions.md"))
+
+    def test_unknown_source_marker(self):
+        bad = MISC.replace("y\n\n## ttl", "y [^nope]\n\n## ttl", 1)
+        errs, _ = run(lesson(["blog"], WORDS), misc=bad)
+        self.assertTrue(has(errs, "[^nope] is not in the registry"))
+
+
+class Hardening(unittest.TestCase):
+    """Malformed structures give error lines, never a traceback."""
+
+    def qerrs(self, raw):
+        with tempfile.TemporaryDirectory() as d:
+            cdir = Path(d) / "concepts" / "c1"
+            cdir.mkdir(parents=True)
+            (cdir / "lesson.md").write_text(lesson(["blog"], WORDS), encoding="utf-8")
+            (cdir / "questions.yaml").write_text(raw, encoding="utf-8")
+            old = (validate.CONTENT, validate.rel)
+            validate.CONTENT, validate.rel = Path(d), lambda p: p.name
+            validate.errors.clear()
+            validate.warnings.clear()
+            try:
+                validate.check_content(REG, {})
+                return list(validate.errors)
+            finally:
+                validate.CONTENT, validate.rel = old
+
+    def test_questions_file_shapes(self):
+        for raw in ("questions: {a: 1}\n", "- a\n", "hello\n"):
+            self.assertTrue(has(self.qerrs(raw), "questions.yaml must be a mapping"), raw)
+        self.assertTrue(has(self.qerrs("questions: [abc]\n"), "must be a mapping, got"))
+        self.assertTrue(has(self.qerrs("questions:\n  - \n"), "must be a mapping, got"))
+
+    def test_unhashable_or_wrong_typed_fields(self):
+        for item in ("{id: [a]}", "{id: c1-q01, type: [a]}", "{id: c1-q01, type: mcq, sources: [[a]]}",
+                     "{id: c1-q01, type: mcq, sources: blog}", "{id: c1-q01, type: mcq, targets_misconception: [a]}",
+                     "{id: c1-q01, type: mcq, options: [[1], [2], [3]], answer: 0}"):
+            self.qerrs("questions:\n  - " + item + "\n")  # must not raise
+
+    def test_difficulty_must_be_a_plain_int(self):
+        for bad in ("true", "2.0"):
+            errs = self.qerrs("questions:\n  - {id: c1-q01, type: mcq, difficulty: %s}\n" % bad)
+            self.assertTrue(has(errs, "difficulty must be"), bad)
+
+    def test_frontmatter_shapes(self):
+        errs, _ = run("---\n- a\n---\nteks\n")
+        self.assertTrue(has(errs, "frontmatter must be a mapping"))
+        errs, _ = run(lesson("blog", WORDS))
+        self.assertTrue(has(errs, "`sources` must be a list"))
+        errs, _ = run(lesson([["a"]], WORDS))
+        self.assertTrue(has(errs, "`sources` must be a list"))
+        errs, _ = run(lesson(["blog"], WORDS), misc="---\n- a\n---\n")
+        self.assertTrue(has(errs, "frontmatter must be a mapping"))
+
+    def test_non_kebab_heading_is_reported_not_ignored(self):
+        bad = MISC.replace("## cache-free", "## Stale Read")
+        errs, _ = run(lesson(["blog"], WORDS), misc=bad)
+        self.assertTrue(has(errs, "must be kebab-case"))
+
+    def test_labels_inside_code_fence_do_not_count(self):
+        bad = MISC.replace("**Kenapa keliru:** y\n\n## ttl", "```\n**Kenapa keliru:** y\n```\n\n## ttl", 1)
+        errs, _ = run(lesson(["blog"], WORDS), misc=bad)
+        self.assertTrue(has(errs, "missing the label **Kenapa keliru:**"))
+
+    def test_without_concept_objective_bounds_are_skipped(self):
+        errs, _ = run(lesson(["blog"], WORDS), [q(1, objective=9)], misc=MISC)
+        self.assertFalse(has(errs, "objective must be"))
+
+
+class WordCount(unittest.TestCase):
+    def words(self, n, status="review"):
+        text = " ".join(["kata"] * n) + "[^blog]"
+        errs, _ = run(lesson(["blog"], text, status=status), misc=MISC)
+        return has(errs, "lesson length")
+
+    def test_boundaries(self):
+        self.assertTrue(self.words(299))
+        self.assertFalse(self.words(300))
+        self.assertFalse(self.words(600))
+        self.assertTrue(self.words(601))
+
+    def test_markers_and_urls_are_not_counted(self):
+        text = " ".join(["kata"] * 300) + " https://example.com/a/b/c [^blog][^blog]"
+        errs, _ = run(lesson(["blog"], text, status="review"), misc=MISC)
+        self.assertFalse(has(errs, "lesson length"))
+
+
+class OrderAnswers(unittest.TestCase):
+    def test_duplicate_and_bool_indexes_rejected(self):
+        for ans in ([0, 0, 1], [True, 1, 2], [0, 1, "2"]):
+            errs, _ = run(lesson(["blog"], WORDS), [q(1, type="order", options=["a", "b", "c"], answer=ans)],
+                          misc=MISC, concepts=CONCEPTS)
+            self.assertTrue(has(errs, "order answer"), ans)
