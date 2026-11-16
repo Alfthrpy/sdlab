@@ -6,7 +6,7 @@ type: content
 owner: agent
 review: agent
 status: todo
-priority: medium
+priority: high
 depends_on: [P1-035]
 estimate: 1
 outputs: []
