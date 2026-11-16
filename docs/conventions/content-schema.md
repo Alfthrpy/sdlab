@@ -1,6 +1,6 @@
 # Data & content schema (v0)
 
-The registry schema is final as of P1-010. The curriculum part is final for M2. The content part is a draft finalized in P1-030. Everything is checked by `scripts/validate.py`.
+The registry schema is final as of P1-010. The curriculum part is final for M2. The per-concept content schema (section 4) is final as of P1-030. Lab and incident formats (section 5) are finalized in P1-033. Everything is checked by `scripts/validate.py`.
 
 Language: field names, keys, ids, and enum values are English. Learner-facing values (concept `title`, `objectives`, lesson text, questions, explanations) are Indonesian (see [ADR 0005](../decisions/0005-agent-facing-language.md)).
 
@@ -86,28 +86,75 @@ items:
     status: planned
 ```
 
-## 4. Content per concept — `content/concepts/<concept-id>/` (draft)
+## 4. Content per concept — `content/concepts/<concept-id>/` (final, P1-030)
 
 | File | Contents |
 | --- | --- |
-| `lesson.md` | Frontmatter (`concept`, `title`, `sources`, `status`, `reviewed_by`) + lesson text. Each `sources` entry is an id string or `{id, loc}`; `loc` is required for `book`/`paper` sources. Citation rules: [citation-guide](citation-guide.md) |
-| `questions.yaml` | List of questions (schema below) |
-| `misconceptions.md` | Common misconceptions + source/reason, used for distractors |
+| `lesson.md` | Frontmatter + lesson text (below). Citation rules: [citation-guide](citation-guide.md) |
+| `questions.yaml` | 6–10 questions (schema below) |
+| `misconceptions.md` | 3–6 common misconceptions, used for distractors (format below) |
 | `lab.yaml` | Lab spec (optional, finalized in P1-033) |
 
-`questions.yaml`:
+The folder name is the concept id and must exist in `curriculum/concepts.yaml`.
+
+### Stage: `status` in the lesson frontmatter
+
+`status` is `draft | review | published` and sets how strict the validator is. In `draft`, gaps are warnings. From `review` on, they are errors: lesson length outside 300–600 words, fewer than 6 questions, a learning objective that no question covers, a missing `misconceptions.md`, a question without `objective`, fewer than 3 misconceptions. `published` also requires `reviewed_by` and approved sources only.
+
+### `lesson.md`
+
+```yaml
+---
+concept: caching-basics            # must equal the folder name
+title: Dasar caching               # Indonesian
+sources:                           # registry ids; {id, loc} where `loc` is required for book/paper sources
+  - azure-cache-aside-pattern
+  - {id: ddia-2e, loc: "ch. 3"}
+status: draft                      # draft | review | published
+reviewed_by: content-reviewer      # required when published (agent or person)
+---
+```
+
+Body: 300–600 words, Indonesian, `[^id]` markers for specific claims (every marker must be in `sources`), at most one short quote per source.
+
+### `questions.yaml`
 
 ```yaml
 questions:
-  - id: caching-basics-q01
-    type: mcq                         # mcq | multi | order | match | estimate
-    difficulty: 2                     # 1–3
+  - id: caching-basics-q01          # <concept-id>-qNN, unique
+    type: mcq                       # mcq | multi | order | match | estimate
+    difficulty: 2                   # 1-3 (see writing-style.md)
+    objective: 1                    # 1-based index into the concept's `objectives` in concepts.yaml
     prompt: "..."
-    options: ["...", "...", "...", "..."]   # mcq/multi/order
-    answer: 1                         # index (mcq), list of indexes (multi/order), {min, max} (estimate)
-    explanation: "..."
+    options: ["...", "...", "..."]  # mcq 3-5, multi 4-6, order 3-6; distinct
+    answer: 1                       # see the table
+    explanation: "..."              # 1-3 sentences
     sources: [system-design-primer]
-    targets_misconception: stale-read-ok   # optional
+    targets_misconception: stale-read-ok   # optional; must be an id in misconceptions.md
+```
+
+| `type` | Extra fields and `answer` format |
+| --- | --- |
+| `mcq` | `options` (3-5); `answer`: one option index |
+| `multi` | `options` (4-6); `answer`: list of 2 or more distinct indexes, never all options |
+| `order` | `options` (3-6); `answer`: every index exactly once, in the correct sequence |
+| `match` | `pairs`: 3 or more `[left, right]` pairs with distinct left and distinct right items; no `answer` field |
+| `estimate` | `unit` (string); `answer`: `{min, max}` numbers with `min < max` (the accepted range) |
+
+Every learning objective of the concept must be covered by at least one question (via `objective`), checked from `review` on. Anti-leak: the validator warns when the correct mcq option is the longest in more than 40% of mcq questions.
+
+### `misconceptions.md`
+
+```markdown
+---
+concept: caching-basics            # must equal the folder name
+---
+
+## stale-read-ok                   # kebab-case id, unique; referenced by `targets_misconception`
+
+**Keyakinan keliru:** (the belief, as a learner would say it)
+
+**Kenapa keliru:** (why it is wrong, with a `[^source-id]` marker when it rests on a source)
 ```
 
 ## 5. Incidents & case studies (draft, finalized in P1-033)

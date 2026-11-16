@@ -449,6 +449,150 @@ QUOTE = re.compile(r'(?:"([^"\n]+)"|“([^”\n]+)”)[.,;:]?\s*\[\^([a-z0-9-]+)
 QUOTE_MAX_WORDS = 14  # citation-guide: a short sentence, fewer than 15 words
 QUOTE_MIN_WORDS = 4   # shorter spans are terms ("split brain"), not quotes
 Q_TYPES = ["mcq", "multi", "order", "match", "estimate"]
+LESSON_STATUSES = ["draft", "review", "published"]
+LESSON_WORDS = (300, 600)       # target range (writing-style.md): error for review/published, warning for draft
+QUESTIONS_RANGE = (6, 10)       # questions per concept
+MISCONCEPTIONS_RANGE = (3, 6)   # misconceptions per concept
+MISC_HEADING = re.compile(r"^##\s+(\S+)\s*$", re.M)
+MISC_LABELS = ("**Keyakinan keliru:**", "**Kenapa keliru:**")
+OPTION_COUNTS = {"mcq": (3, 5), "multi": (4, 6), "order": (3, 6)}
+
+
+def check_misconceptions(d, cid: str, registry: dict, stage: str) -> set[str] | None:
+    """misconceptions.md: frontmatter `concept`, then one `## <kebab-id>` section per misconception with the
+    labels **Keyakinan keliru:** and **Kenapa keliru:**. Returns the ids (None when the file is absent)."""
+    mfile = d / "misconceptions.md"
+    if not mfile.exists():
+        if stage in ("review", "published"):
+            err(rel(d), "concept in review/published needs misconceptions.md")
+        return None
+    w = rel(mfile)
+    fm, body = split_frontmatter(mfile.read_text(encoding="utf-8"))
+    if fm is None:
+        err(w, "frontmatter missing")
+    elif fm.get("concept") != cid:
+        err(w, f"frontmatter concept `{fm.get('concept')}` does not match the folder `{cid}`")
+    heads = list(MISC_HEADING.finditer(body))
+    ids: set[str] = set()
+    for i, m in enumerate(heads):
+        mid = m.group(1)
+        section = body[m.end(): heads[i + 1].start() if i + 1 < len(heads) else len(body)]
+        if not KEBAB.match(mid):
+            err(w, f"misconception id must be kebab-case: {mid}")
+        if mid in ids:
+            err(w, f"duplicate misconception id: {mid}")
+        ids.add(mid)
+        for label in MISC_LABELS:
+            if label not in section:
+                err(w, f"{mid}: missing the label {label}")
+        for ref in set(FOOTNOTE.findall(section)):
+            if ref not in registry:
+                err(w, f"{mid}: marker [^{ref}] is not in the registry")
+    lo, hi = MISCONCEPTIONS_RANGE
+    if not lo <= len(ids) <= hi:
+        (err if stage in ("review", "published") and len(ids) < lo else warn)(
+            w, f"{len(ids)} misconceptions (target {lo}-{hi})")
+    return ids
+
+
+def check_question_answer(w: str, qid: str, q: dict):
+    """Answer format per type (content-schema.md section 4)."""
+    t, a = q.get("type"), q.get("answer")
+    if t in OPTION_COUNTS:
+        opts = q.get("options")
+        lo, hi = OPTION_COUNTS[t]
+        if not isinstance(opts, list) or not lo <= len(opts) <= hi:
+            err(w, f"{qid}: {t} needs {lo}-{hi} options")
+            return
+        if len(set(map(str, opts))) != len(opts):
+            err(w, f"{qid}: options must be distinct")
+        valid = lambda i: isinstance(i, int) and not isinstance(i, bool) and 0 <= i < len(opts)  # noqa: E731
+        if t == "mcq":
+            if not valid(a):
+                err(w, f"{qid}: mcq answer must be a valid option index")
+        elif t == "multi":
+            if not (isinstance(a, list) and 2 <= len(a) < len(opts) and all(valid(i) for i in a)
+                    and len(set(a)) == len(a)):
+                err(w, f"{qid}: multi answer must be a list of 2 or more distinct option indexes, not all options")
+        elif not (isinstance(a, list) and sorted(a, key=str) == sorted(range(len(opts)), key=str)
+                  and all(valid(i) for i in a)):
+            err(w, f"{qid}: order answer must list every option index exactly once (the correct sequence)")
+    elif t == "match":
+        pairs = q.get("pairs")
+        if not (isinstance(pairs, list) and len(pairs) >= 3
+                and all(isinstance(p, list) and len(p) == 2 and all(isinstance(x, str) and x for x in p) for p in pairs)):
+            err(w, f"{qid}: match needs `pairs`: a list of 3 or more [left, right] string pairs")
+        elif len({p[1] for p in pairs}) != len(pairs) or len({p[0] for p in pairs}) != len(pairs):
+            err(w, f"{qid}: match pairs must have distinct left and right items")
+    elif t == "estimate":
+        num = lambda x: isinstance(x, (int, float)) and not isinstance(x, bool)  # noqa: E731
+        if not (isinstance(a, dict) and num(a.get("min")) and num(a.get("max")) and a["min"] < a["max"]):
+            err(w, f"{qid}: estimate answer must be {{min, max}} numbers with min < max")
+        if not q.get("unit"):
+            err(w, f"{qid}: estimate needs a `unit`")
+
+
+def check_questions(qfile, d, cid: str, concept: dict | None, registry: dict, published: bool, stage: str,
+                    misc_ids: set[str] | None) -> None:
+    w = rel(qfile)
+    data = load_yaml(qfile) or {}
+    qs = data.get("questions") or []
+    objectives = (concept or {}).get("objectives") or []
+    covered: set[int] = set()
+    seen: set = set()
+    longest_correct = 0
+    mcq = 0
+    for q in qs:
+        qid = q.get("id")
+        if not qid or qid in seen:
+            err(w, f"question id empty/duplicate: {qid}")
+        seen.add(qid)
+        if qid and not re.fullmatch(re.escape(cid) + r"-q\d{2,}", str(qid)):
+            err(w, f"{qid}: id must look like `{cid}-qNN`")
+        if q.get("type") not in Q_TYPES:
+            err(w, f"{qid}: type must be one of {Q_TYPES}")
+        if q.get("difficulty") not in (1, 2, 3):
+            err(w, f"{qid}: difficulty must be 1, 2 or 3")
+        if not q.get("prompt") or not q.get("explanation"):
+            err(w, f"{qid}: prompt and explanation are required")
+        obj = q.get("objective")
+        if obj is None:
+            (err if stage in ("review", "published") else warn)(
+                w, f"{qid}: `objective` (1-based index into the concept's objectives) is missing")
+        elif not isinstance(obj, int) or isinstance(obj, bool) or obj < 1 or (objectives and obj > len(objectives)):
+            err(w, f"{qid}: objective must be an index from 1 to {len(objectives) or 'N'}")
+        else:
+            covered.add(obj)
+        tm = q.get("targets_misconception")
+        if tm and misc_ids is not None and tm not in misc_ids:
+            err(w, f"{qid}: targets_misconception `{tm}` is not in misconceptions.md")
+        elif tm and misc_ids is None:
+            err(w, f"{qid}: targets_misconception needs a misconceptions.md")
+        for s in q.get("sources") or []:
+            if s not in registry:
+                err(w, f"{qid}: source not in registry: {s}")
+            elif published and registry[s].get("status") != "approved":
+                err(w, f"{qid}: published content cites a source that is not approved: {s}")
+            elif registry[s].get("usage") == "map-only":
+                err(w, f"{qid}: a map-only (Tier 6) source must not be a content source: {s}")
+        check_question_answer(w, qid, q)
+        if q.get("type") == "mcq" and len(q.get("options") or []) >= 3 and isinstance(q.get("answer"), int) \
+                and 0 <= q["answer"] < len(q["options"]):
+            mcq += 1
+            lens = [len(str(o)) for o in q["options"]]
+            if lens[q["answer"]] == max(lens) and lens.count(max(lens)) == 1:
+                longest_correct += 1
+    lo, hi = QUESTIONS_RANGE
+    if qs and not lo <= len(qs) <= hi:
+        (err if stage in ("review", "published") and len(qs) < lo else warn)(
+            w, f"{len(qs)} questions (target {lo}-{hi})")
+    if objectives and qs:
+        missing = [i for i in range(1, len(objectives) + 1) if i not in covered]
+        if missing:
+            (err if stage in ("review", "published") else warn)(
+                w, f"learning objective(s) {missing} are not covered by any question")
+    if mcq >= 4 and longest_correct / mcq > 0.4:
+        warn(w, f"anti-leak: the correct option is the longest in {longest_correct}/{mcq} mcq questions")
 
 
 def check_content(registry: dict[str, dict], concepts: dict[str, dict]):
@@ -461,6 +605,7 @@ def check_content(registry: dict[str, dict], concepts: dict[str, dict]):
             err(rel(d), "concept folder is not in curriculum/concepts.yaml")
         lesson = d / "lesson.md"
         published = False
+        stage = "draft"
         if lesson.exists():
             fm, body = split_frontmatter(lesson.read_text(encoding="utf-8"))
             w = rel(lesson)
@@ -468,6 +613,17 @@ def check_content(registry: dict[str, dict], concepts: dict[str, dict]):
                 err(w, "frontmatter missing")
             else:
                 published = fm.get("status") == "published"
+                for field in ("concept", "title", "sources", "status"):
+                    if not fm.get(field):
+                        err(w, f"frontmatter field `{field}` is required")
+                if fm.get("concept") and fm.get("concept") != cid:
+                    err(w, f"frontmatter concept `{fm.get('concept')}` does not match the folder `{cid}`")
+                if fm.get("status") and fm.get("status") not in LESSON_STATUSES:
+                    err(w, f"status must be one of {LESSON_STATUSES}")
+                else:
+                    stage = fm.get("status") or "draft"
+                if published and not fm.get("reviewed_by"):
+                    err(w, "published lesson needs `reviewed_by` in the frontmatter")
                 srcs = [s if isinstance(s, dict) else {"id": s} for s in fm.get("sources") or []]
                 src_ids = [s.get("id") for s in srcs]
                 for s in src_ids:
@@ -505,48 +661,15 @@ def check_content(registry: dict[str, dict], concepts: dict[str, dict]):
                     if n > 1:
                         err(w, f"{n} direct quotes from {ref} (max 1 per source per lesson)")
                 words = len(re.findall(r"\w+", re.sub(r"```.*?```", "", body, flags=re.S)))
-                if words and not 250 <= words <= 700:
-                    warn(w, f"lesson length is {words} words (target 300–600)")
+                lo, hi = LESSON_WORDS
+                if words and not lo <= words <= hi:
+                    (err if stage in ("review", "published") else warn)(
+                        w, f"lesson length is {words} words (must be {lo}–{hi} before review)"
+                        if stage != "draft" else f"lesson length is {words} words (target {lo}–{hi})")
+        misc_ids = check_misconceptions(d, cid, registry, stage)
         qfile = d / "questions.yaml"
         if qfile.exists():
-            w = rel(qfile)
-            data = load_yaml(qfile) or {}
-            qs = data.get("questions") or []
-            seen = set()
-            longest_correct = 0
-            mcq = 0
-            for q in qs:
-                qid = q.get("id")
-                if not qid or qid in seen:
-                    err(w, f"question id empty/duplicate: {qid}")
-                seen.add(qid)
-                if q.get("type") not in Q_TYPES:
-                    err(w, f"{qid}: type must be one of {Q_TYPES}")
-                if not q.get("prompt") or not q.get("explanation"):
-                    err(w, f"{qid}: prompt and explanation are required")
-                for s in q.get("sources") or []:
-                    if s not in registry:
-                        err(w, f"{qid}: source not in registry: {s}")
-                    elif published and registry[s].get("status") != "approved":
-                        err(w, f"{qid}: published content cites a source that is not approved: {s}")
-                    elif registry[s].get("usage") == "map-only":
-                        err(w, f"{qid}: a map-only (Tier 6) source must not be a content source: {s}")
-                if q.get("type") == "mcq":
-                    opts = q.get("options") or []
-                    a = q.get("answer")
-                    if not isinstance(a, int) or not 0 <= a < len(opts):
-                        err(w, f"{qid}: mcq answer must be a valid option index")
-                    elif len(opts) >= 3:
-                        mcq += 1
-                        lens = [len(str(o)) for o in opts]
-                        if lens[a] == max(lens) and lens.count(max(lens)) == 1:
-                            longest_correct += 1
-                if q.get("type") == "estimate":
-                    a = q.get("answer") or {}
-                    if not isinstance(a, dict) or "min" not in a or "max" not in a:
-                        err(w, f"{qid}: estimate answer must be {{min, max}}")
-            if mcq >= 4 and longest_correct / mcq > 0.4:
-                warn(w, f"anti-leak: the correct option is the longest in {longest_correct}/{mcq} mcq questions")
+            check_questions(qfile, d, cid, concepts.get(cid), registry, published, stage, misc_ids)
         if published and not qfile.exists():
             err(rel(d), "published concept without questions.yaml")
 
