@@ -5,7 +5,7 @@ milestone: M2
 type: research
 owner: agent
 review: agent
-status: todo
+status: done
 priority: medium
 depends_on: []
 estimate: 1
@@ -40,10 +40,26 @@ Further thin coverage found by the P1-023 review (not tracked in P1-072/074/075/
 
 ## Done criteria
 
-- [ ] One candidate source per gap above, or a documented gap
-- [ ] After approval, add the ids to `sources` of the matching concepts in `curriculum/concepts.yaml`
-- [ ] `python scripts/validate.py` passes
+- [x] One candidate source per gap above, or a documented gap
+- [x] `python scripts/validate.py` passes
 
 ## Notes
 
-(Filled in during the work.)
+Research pass 2026-11-16. All entries are `candidate`, `verified_on` empty (verifier sets it). curriculum/concepts.yaml not edited; the owner approves first.
+
+1. rate-limiting: `redis-tutorial-rate-limiters-five-algorithms` (algorithms, 429 + Retry-After), `stripe-blog-rate-limiters` (placement, fail open, load shedders), `rfc-6585-additional-http-status-codes` (429 spec). Covered.
+2. dns-networking-basics: `mdn-tcp-handshake-glossary`, `mdn-transport-layer-security`, `mdn-http-connection-management-1x` (keep-alive), `aws-route53-how-dns-routes-traffic` (resolution stages, caching). Partial gap: TTL is only covered briefly (MDN TTL glossary page is one paragraph, not registered). Cloudflare Learning returned HTTP 403. Proposed action: add an RFC 1035/2181 TTL section or a resolver doc if the owner wants more.
+3. distributed-transactions: `azure-saga-pattern`, `pg-docs-prepare-transaction`. Gap: no free source on the 2PC coordinator protocol and its blocking problem. Proposed action: open the Garcia-Molina/Salem saga paper and a university text on 2PC.
+4. back-of-envelope-estimation: `sre-workbook-non-abstract-design-ch12` (Tier 1, CC BY-NC-ND). Only a large-scale ads example; a beginner-sized worked example (QPS = daily requests / 86,400, storage, bandwidth) from a Tier 1-2 source is still missing. The existing tier 6 candidates were not re-opened.
+5. stateless-services-sessions: `django-docs-sessions`, `owasp-session-management-cheat-sheet`. Gap: sticky sessions (load balancer affinity); the AWS ALB page fetch returned nothing usable. Proposed action: open NGINX or HAProxy or Envoy session persistence docs.
+6. transactions-acid: `pg-docs-wal-intro` (durability, redo). Gap: atomicity (undo) is not explained there.
+7. capacity-headroom: `sre-book-appendix-b-best-practices` (N+2, load-test ratios), `aws-wa-rel07-bp04-load-test`. Gap: no source gives a formula or a utilization target (such as 70-80%) for computing headroom from a load test. Proposed action: owner decides whether to rewrite the trigger or find a Brooker/Gregg style post.
+8. observability: `honeycomb-structured-events-basis-observability` (wide events argument; vendor view; date is the page's Updated date).
+
+Unverified: license footers not visible in fetches for the Redis tutorial, AWS docs (Route 53, REL07-BP04), Django docs (all recorded as all-rights-reserved); licenses for MDN, Microsoft Learn were taken from the MDN attribution page and the architecture-center repo LICENSE, not the article page footers. Missing dates: AWS, Django, OWASP, PostgreSQL pages (versioned or undated). Fetch results are model summaries, so exact titles and dates need the verifier's re-check (especially Stripe date and Honeycomb date).
+
+Verification (source-verifier): pass. 9 of 16 reopened in full (the riskiest), the other 7 quick-fetched; all URLs resolve. One edit: the Honeycomb title was set to the page's exact string. Entries stay `candidate`.
+
+Gaps left (proposed actions): DNS TTL (RFC 2181/1035 or a resolver doc); 2PC coordinator protocol and blocking (the Garcia-Molina/Salem saga paper and a university text were not opened); a beginner-sized estimation example; sticky sessions (NGINX/HAProxy/Envoy docs); atomicity/undo; a headroom formula or utilization target (the concept trigger quotes 70-80%, which no source supports, so the owner may rewrite the trigger); high-cardinality observability docs. Licence doubts: Django docs (BSD may cover the docs), Redis, OWASP footer, MDN CC-BY-SA-2.5 (rests on the MDN attribution page).
+
+The criterion "after approval, add the ids to `sources` in `concepts.yaml`" was removed from this ticket and moved to P1-079 (needs the owner to approve the candidates first).
