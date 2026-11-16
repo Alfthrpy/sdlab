@@ -1,0 +1,240 @@
+# Case study and incident candidates (P1-022). Schema: docs/conventions/content-schema.md §3.
+# Target: ~12 case studies and ~12 incidents; M4 picks 6 case studies (P1-047) and 8 incidents (P1-046).
+# Titles are Indonesian (learner-facing); comments are English (agent-facing).
+#
+# Case studies serve two goals (ADR 0004): open-ended design practice, and explaining a design in a
+# time-boxed way (interview prep). Each entry notes why it fits both under `fit:`.
+# Sources are approved registry ids that teach the underlying mechanism. They are inputs for the writer,
+# not a claim that the registry already holds a full design walkthrough; the "thin" notes name the gaps.
+# Incidents use the official postmortem in the registry. Reserves (not listed, still approved):
+#   meta-outage-2021-10-04, fastly-outage-2021-06-08, cloudflare-1111-incident-2025-07-14.
+#
+# Known gaps (P1-022 review): the incident mix leans on deploy/config mechanisms (6 of 12). No registry
+# postmortem covers replication/split-brain (Units 3, 5), true data corruption, or a plain traffic-spike
+# overload; Unit 4 is practiced by incidents only through GitHub. Those units are practiced by case studies.
+# M4 picks must keep at least 2 items for each of Units 1, 4 and 5 (Unit 1: case-url-shortener,
+# case-monitoring-alerting, incident-slack-2021-01; Unit 4: case-background-job-queue, case-event-streaming-pipeline,
+# case-payment-api; Unit 5: case-key-value-store, case-lock-service). Datadog and Heroku teach a similar lesson
+# (automated host update); keep at most one in the M4 pick of 8.
+# Deferred scope (autoscaling, service mesh sidecars, multi-region) may appear in a postmortem; lessons explain it inline.
+
+items:
+  # ====================================================================== case studies
+  - id: case-growing-one-server
+    kind: case-study
+    title: Dari satu server ke produk yang tumbuh
+    # fit: open-ended: "traffic grows 10x, what do you change first?"; time-boxed: walk the ladder in 5 minutes.
+    # Units: 0, 1, 2.
+    concepts: [app-plus-database, single-machine-limits, capacity-headroom, caching-basics, load-balancer-reverse-proxy]
+    sources: [craver-stack-overflow-architecture-2016, twelve-factor-app, gregg-use-method]
+    status: planned
+
+  - id: case-url-shortener
+    kind: case-study
+    title: Merancang URL shortener
+    # fit: the classic first interview question; small enough to finish in 30-45 min, rich enough for estimation,
+    # key generation, and read-heavy caching. Units: 1, 2, 3.
+    concepts: [back-of-envelope-estimation, latency-throughput, caching-basics, data-models, partitioning-sharding]
+    # thin sources: nothing approved on key/ID generation or on the SQL-vs-NoSQL choice for this workload.
+    sources: [system-design-primer, dynamodb-docs-partition-key-design, azure-cache-aside-pattern]
+    status: planned
+
+  - id: case-rate-limiter
+    kind: case-study
+    title: Merancang rate limiter untuk API publik
+    # fit: well-bounded, many valid answers (algorithm, placement, shared counters); explainable in 10 minutes.
+    # Units: 2, 6. Thin sources: no approved source for limiter algorithms (token bucket, windows) or for 429/Retry-After
+    # (RFC 9110 does not define 429); do not cite it for that. See P1-078.
+    concepts: [rate-limiting, load-shedding, retry-backoff-jitter]
+    sources: [sre-book-handling-overload-ch21, aws-builders-load-shedding]
+    status: planned
+
+  - id: case-distributed-cache
+    kind: case-study
+    title: Cache terdistribusi untuk beban baca besar
+    # fit: open-ended trade-offs (invalidation, stampede, sharding keys); the memcache paper gives a real design to explain.
+    # Units: 2, 3.
+    concepts: [caching-basics, cache-stampede-hot-keys, consistent-hashing, replication]
+    sources: [nishtala-memcache-nsdi13, aws-builders-caching-challenges, karger-consistent-hashing]
+    status: planned
+
+  - id: case-key-value-store
+    kind: case-study
+    title: Merancang key-value store terdistribusi (gaya Dynamo)
+    # fit: the standard "design a KV store" interview prompt; forces the CAP/consistency choice and quorum reasoning.
+    # Units: 3, 5.
+    concepts: [partitioning-sharding, consistent-hashing, replication, consistency-models, cap-pacelc]
+    sources: [dynamo-sosp07, cassandra-docs-dynamo, abadi-pacelc-2012]
+    status: planned
+
+  - id: case-background-job-queue
+    kind: case-study
+    title: Antrean job di belakang layar (email, laporan, thumbnail)
+    # fit: practical, common in real products; time-boxed answer is a queue + workers + retries + DLQ.
+    # Units: 4, 6.
+    concepts: [message-queue, delivery-semantics, idempotency, backpressure-consumer-lag, retry-backoff-jitter]
+    sources: [rabbitmq-tutorial-work-queues, aws-sqs-dead-letter-queues, azure-competing-consumers, aws-builders-insurmountable-queue-backlogs]
+    status: planned
+
+  - id: case-payment-api
+    kind: case-study
+    title: API pembayaran yang aman dari double charge
+    # fit: forces idempotency keys, the dual-write problem, and the outbox; strong "explain why" interview answer.
+    # Units: 2, 4, 5. Thin sources: no free saga/2PC source yet (P1-078).
+    concepts: [idempotency, delivery-semantics, outbox-cdc, distributed-transactions]
+    sources: [stripe-docs-idempotent-requests, aws-builders-idempotent-apis, microservices-io-transactional-outbox, debezium-outbox-pattern-2019]
+    status: planned
+
+  - id: case-event-streaming-pipeline
+    kind: case-study
+    title: Pipeline event streaming untuk aktivitas pengguna
+    # fit: open-ended (partition key, retention, consumer groups, lag); explainable as producer -> log -> consumers.
+    # Units: 3, 4.
+    concepts: [event-log-streaming, partitioning-sharding, backpressure-consumer-lag, delivery-semantics]
+    sources: [kafka-docs-design, kafka-docs-introduction, kafka-netdb-2011, kafka-docs-basic-operations]
+    status: planned
+
+  - id: case-lock-service
+    kind: case-study
+    title: Layanan lock dan leader election
+    # fit: small API, deep failure analysis (pauses, clock jumps, fencing); good for explaining correctness in 10 minutes.
+    # Units: 5.
+    concepts: [consensus, locks-leases-fencing, time-and-clocks]
+    sources: [chubby-lock-service, kleppmann-distributed-locking-2016, zookeeper-atc-paper, raft-extended-paper]
+    status: planned
+
+  - id: case-ticket-booking
+    kind: case-study
+    title: Sistem pemesanan tiket tanpa oversell
+    # fit: contention on a hot row makes isolation levels concrete; open-ended (locks vs. optimistic vs. queue).
+    # Units: 3, 2. (locks-leases-fencing appears only as the contrast "why a lease is not the answer for one database";
+    # the Kleppmann source plays that contrasting role.)
+    concepts: [transactions-acid, isolation-levels, idempotency]
+    sources: [pg-docs-transaction-iso, pg-docs-mvcc-intro, berenson-critique-ansi-isolation-1995, kleppmann-distributed-locking-2016]
+    status: planned
+
+  - id: case-global-front-door
+    kind: case-study
+    title: Jalur request dari DNS lewat load balancer sampai CDN
+    # fit: explains how a user request reaches a healthy server or edge; covers a full traffic path in a few minutes.
+    # Units: 2. Single-region scope (multi-region is deferred). Thin sources: nothing beginner-level for DNS/TTL or
+    # sessions (P1-078); Maglev and Envoy docs are advanced and used as a deep-dive only.
+    concepts: [dns-networking-basics, load-balancer-reverse-proxy, cdn, stateless-services-sessions]
+    sources: [sre-book-load-balancing-frontend-ch19, maglev-nsdi16, envoy-docs-lb-overview, mdn-cdn-glossary]
+    status: planned
+
+  - id: case-monitoring-alerting
+    kind: case-study
+    title: Merancang sistem monitoring dan alerting
+    # fit: open-ended (what to measure, how to alert without noise); gives SLO-based answers a clear shape.
+    # Units: 0, 1, 6.
+    concepts: [basic-monitoring, sli-slo, percentiles-tail-latency, observability]
+    sources: [google-sre-book-monitoring-ch6, sre-book-slo-ch4, prometheus-histograms-practices, grafana-red-method, dapper-2010]
+    status: planned
+
+  # ====================================================================== incidents
+  # Mechanism noted per item; sources are the official postmortems (type: postmortem).
+  - id: incident-aws-dynamodb-dns-2025
+    kind: incident
+    title: DNS DynamoDB us-east-1, Oktober 2025
+    # mechanism: DNS automation race condition -> empty record -> dependent services fail -> recovery backlog (metastable).
+    concepts: [dns-networking-basics, cascading-failure, metastable-failure, retry-backoff-jitter]
+    sources: [aws-pes-dynamodb-2025-10]
+    status: planned
+
+  - id: incident-cloudflare-config-2025-11
+    kind: incident
+    title: Cloudflare, perubahan konfigurasi yang menyebar global, November 2025
+    # mechanism: a database permissions change doubled a generated feature file past a preallocated limit -> panic;
+    # config propagated globally without enough validation (global blast radius, kill switch).
+    concepts: [safe-deploys, cascading-failure]
+    sources: [cloudflare-outage-2025-11-18]
+    status: planned
+
+  - id: incident-gcp-service-control-2025
+    kind: incident
+    title: GCP Service Control, null pointer dan thundering herd, Juni 2025
+    # mechanism: global config push hit an unguarded code path (no feature flag) -> crash loop; restart herd, backoff.
+    concepts: [safe-deploys, retry-backoff-jitter, cascading-failure]
+    sources: [gcp-service-control-outage-2025-06-12]
+    status: planned
+
+  - id: incident-crowdstrike-2024
+    kind: incident
+    title: CrowdStrike Channel File 291, Juli 2024
+    # mechanism: content update validated insufficiently and rolled out to all hosts at once; no staged rollout.
+    concepts: [safe-deploys, cascading-failure]
+    sources: [crowdstrike-channel-file-291-rca-2024]
+    status: planned
+
+  - id: incident-cloudflare-workers-kv-2025
+    kind: incident
+    title: Cloudflare Workers KV dan dependensi pihak ketiga, Juni 2025
+    # mechanism: third-party storage outage -> dependent services fail closed; cache refill pressure.
+    concepts: [cascading-failure, load-shedding, caching-basics, cache-stampede-hot-keys]
+    sources: [cloudflare-workers-kv-outage-2025-06-12]
+    status: planned
+
+  - id: incident-cloudflare-control-plane-2023
+    kind: incident
+    title: Cloudflare control plane, listrik padam dan failover, November 2023
+    # mechanism: power failure at a facility; services existed only at the primary site and assumed active-active
+    # failover did not hold; recovery needed rate limiting against a retry thundering herd.
+    concepts: [cascading-failure, retry-backoff-jitter, load-shedding]
+    sources: [cloudflare-control-plane-outage-2023-11]
+    status: planned
+
+  - id: incident-datadog-2023-03
+    kind: incident
+    title: Datadog, update OS yang memicu kegagalan serentak, Maret 2023
+    # mechanism: automated OS update applied across regions -> correlated failure defeats region isolation; recovery
+    # ordering. basic-monitoring link: monitoring shared fate with the failing infrastructure.
+    concepts: [safe-deploys, cascading-failure, basic-monitoring]
+    sources: [datadog-incident-2023-03-08]
+    status: planned
+
+  - id: incident-azure-front-door-2025-10
+    kind: incident
+    title: Azure Front Door, konfigurasi bermasalah, Oktober 2025
+    # mechanism: incompatible config metadata across versions caused a delayed crash and poisoned last-known-good state;
+    # phased edge reloads re-admitted traffic gradually (controlled recovery, not shedding). cdn is context only.
+    concepts: [safe-deploys, cascading-failure, cdn]
+    sources: [azure-front-door-pir-2025-10-29]
+    status: planned
+
+  - id: incident-github-2026-08
+    kind: incident
+    title: GitHub, retry storm dan backlog, Agustus 2026
+    # mechanism: summary report of several incidents, not one postmortem. 08-17: retry bug and sidecar concurrency limit
+    # (retry storm); 08-06: rollout/sidecar OOM and a revoked-job retry backlog; circuit-breaker appears only as an
+    # absence (08-26 no automatic breaker). M4 should confirm this is enough or pick another retry-storm postmortem.
+    concepts: [metastable-failure, retry-backoff-jitter, circuit-breaker, load-shedding, backpressure-consumer-lag]
+    sources: [github-availability-report-2026-08]
+    status: planned
+
+  - id: incident-slack-2021-01
+    kind: incident
+    title: Slack, 4 Januari 2021, jaringan jenuh dan keterbatasan provisioning
+    # mechanism: network saturation + autoscaling/provisioning bottleneck (autoscaling is deferred scope: explain inline);
+    # thread waits and timeouts; dashboards depended on the failing system.
+    concepts: [capacity-headroom, cascading-failure, basic-monitoring, timeouts]
+    sources: [slack-outage-2021-01-04]
+    status: planned
+
+  - id: incident-atlassian-2022-04
+    kind: incident
+    title: Atlassian, penghapusan data yang tidak sengaja, April 2022
+    # mechanism: destructive operation on the wrong ids, no soft delete, slow per-customer restore; data loss
+    # (not corruption; the registry has no corruption postmortem).
+    concepts: [backup-recovery, safe-deploys]
+    sources: [atlassian-pir-april-2022]
+    status: planned
+
+  - id: incident-heroku-2025-06
+    kind: incident
+    title: Heroku, update otomatis yang merusak jaringan host, Juni 2025
+    # mechanism: automated update changed host networking; recycling the fleet; the status page shared fate with the
+    # platform (the basic-monitoring link).
+    concepts: [safe-deploys, basic-monitoring]
+    sources: [heroku-june-10-outage-2025]
+    status: planned
