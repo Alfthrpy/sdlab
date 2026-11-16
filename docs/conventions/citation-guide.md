@@ -45,6 +45,18 @@ Tests for these rules: `tests/test_content.py`.
 
 General knowledge found in many sources still needs at least one source in `sources`, though it does not need a marker per sentence.
 
+## Do not narrate where a statement comes from
+
+The marker `[^id]` is the only provenance signal in learner-facing text. Write every sentence as a plain statement: put a marker after a claim that rests on a source, and leave it off the author's own reasoning, arithmetic, worked examples, and rules of thumb. Do **not** write labels such as "menurut Azure", "Azure menyebut ...", "dari sumber", "bukan dari sumber", "penalaran penulis", "hitungan sendiri", "asumsi buatan sendiri", or "catatan: ini bukan klaim sumber". They read like a legal disclaimer, break the flow, and mean nothing to a learner.
+
+- A worked example opens like an example: "Misalkan 2.000 bacaan per detik, ...". Its numbers are hypothetical by construction. Do not label them as invented.
+- The author's own inference is written as a normal sentence without a marker. If the inference is risky, hedge it in the sentence itself ("biasanya", "kemungkinan besar") instead of announcing its origin.
+- Name a product or organization in the text only when the name matters to the learner (a real incident, a product's behavior), not to credit a source.
+- Questions that are pure arithmetic have an empty `sources` list; no label is needed in the explanation.
+- Say what the content does not cover in plain terms ("trade-off-nya dibahas nanti"), never "sumbernya tidak membahasnya".
+
+The validator warns on these phrases. Honesty is kept by where the markers are, and by the `content-reviewer`, who checks that unmarked claims are the author's own.
+
 ## Direct quotes
 
 At most **one** short quote per source per lesson: fewer than 15 words, in quotation marks, with a source marker right after it. Use a quote only when the exact wording matters, such as a definition or an official statement. Everything else is rewritten in your own words.

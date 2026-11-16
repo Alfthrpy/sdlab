@@ -1,0 +1,78 @@
+# Lab spec template. Format: docs/conventions/content-schema.md section 5. Replace every value.
+# Learner-facing text is Indonesian; keys and ids are English. Delete the comments when done.
+id: concept-id-lab                  # kebab-case, unique across all labs
+concept: concept-id                 # owning concept; for concept labs this is the folder name
+secondary_concepts: []              # other concepts the lab practices
+contract_version: "0.1.0"           # simulator contract version this spec was written against
+mode: tune                          # tune | diagnose | build
+difficulty: 1                       # 1-3
+duration_min: 15                    # target 10-20
+illustrative: false                 # true needs an Indonesian illustrative_note
+# illustrative_note: "Angka dan perilaku di lab ini ilustrasi, bukan ukuran produk nyata."
+title: "Judul lab"
+goal: >
+  Gejala dan tujuan, tanpa menyebut cara memperbaikinya.
+
+topology:
+  nodes:
+    - {id: users, type: client, params: {timeout_ms: 2000, retries: 0}}
+    - {id: app, type: api-server, params: {instances: 2, threads: 16, service_ms: 5}}
+    - {id: db, type: db, params: {pool: 4, read_ms: 20, write_ms: 30}}
+  edges: [[users, app], [app, db]]  # or {from, to, policies: [...]}
+
+traffic:
+  read_share: 0.9
+  schedule: [{at_s: 0, rate: 80}, {at_s: 120, rate: 160}]
+
+# scenarios:                        # required for mode: diagnose; catalog scenario ids
+#   - {id: bad-deploy, at_s: 120}
+
+allowed_edits:                      # mode tune / diagnose; for mode build use `palette: [{type, max}]`
+  - {node: app, param: instances, min: 1, max: 8}
+
+targets:
+  - id: db-load
+    metric: utilization
+    node: db
+    window: {from_s: 180, to_s: 600}
+    aggregate: mean                 # mean | max | p99
+    op: "<="                        # <= | >= | < | >
+    value: 0.6
+    feedback_fail: "Database masih terlalu sibuk."
+    feedback_pass: "Beban database sudah aman."
+  - id: tetap-sukses                # a latency target needs an error_rate or goodput_rps target like this
+    metric: error_rate
+    window: {from_s: 180, to_s: 600}
+    aggregate: mean
+    op: "<="
+    value: 0.01
+    feedback_fail: "Terlalu banyak permintaan gagal."
+    feedback_pass: "Hampir semua permintaan berhasil."
+
+structural_rules:                   # has-node, has-edge, node-between, param-unchanged, param-range, count-le, policy-present, no-spof
+  - id: pool-tetap
+    predicate: param-unchanged
+    args: {node: db, param: pool}
+    feedback_fail: "Jumlah koneksi database tidak boleh diubah."
+    feedback_pass: "Jumlah koneksi database tidak diubah."
+
+hints:                              # tiers 1-3: symptom, then where to look, then mechanism; never a value
+  - {tier: 1, text: "Gejala yang terlihat di grafik."}
+  - {tier: 2, text: "Bagian sistem yang perlu dilihat."}
+  - {tier: 3, text: "Mekanisme di balik gejalanya."}
+
+reference_solution:                 # edits that must pass; each inside allowed_edits and its range
+  - {node: app, param: instances, value: 4}
+
+wrong_answers:                      # edits that must fail, each with a reason
+  - edits: [{node: app, param: instances, value: 1}]
+    reason: "Kenapa ini gagal."
+  - edits: [{node: app, param: instances, value: 8}]
+    brute_force: true               # every numeric edit at its extreme; must fail (or give brute_force_ok below)
+    reason: "Kenapa nilai maksimum bukan jawaban."
+# brute_force_ok: "Alasan kenapa nilai ekstrem boleh lolos."
+
+debrief: >
+  Penjelasan yang tampil setelah lulus.
+
+sources: [registry-id]

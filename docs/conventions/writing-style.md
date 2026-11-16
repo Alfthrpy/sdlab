@@ -18,6 +18,7 @@ Readers are students, junior engineers, and solo developers or beginners (ADR 00
 - Must include **one "when not to use it"** or trade-off.
 - Units 1–6: state the concept's **trigger** (the symptom or number that says it is time to use it).
 - Diagrams are written as Mermaid or as a description to be redrawn. No copied images.
+- Do not narrate provenance in learner text ("menurut sumber", "penalaran penulis", "hitungan sendiri", "bukan dari sumber"). The `[^id]` markers carry it; see [citation-guide](citation-guide.md). Worked examples open with "Misalkan ...".
 - No filler and no emoji. Filler phrases the validator looks for: "sangat penting", "di era modern", "mari kita selami", "kesimpulannya", "dalam dunia yang semakin", "tidak dapat dipungkiri", "perlu diingat bahwa". Do not replace one filler phrase with a synonym; say the fact instead.
 - Bullet lists are for parallel items, not for one sentence broken into lines.
 
@@ -140,6 +141,7 @@ Each concept should mix levels. A level 1 question: a service opens a new databa
 | Difficulty mix | 4 or more questions with a valid difficulty all have the same one |
 | Lesson opener | the first sentence (after headings) opens with "Pada/Dalam/Di lesson ini ...", "Kali ini kita ...", or "Mari kita ..." |
 | Filler and emoji | a lesson contains a filler phrase from the list in "Lessons" or an emoji. Fenced code, inline code, and quoted phrases are ignored. |
+| Provenance narration | a lesson, misconception or question explanation says where a statement comes from ("menurut Azure", "dari sumber", "penalaran penulis", "hitungan sendiri", ...) |
 
 What the validator cannot see (the reviewer must): a distractor that is implausible, a prompt that hints through meaning rather than words, a wrong difficulty level, a claim that the source does not support. The `content-reviewer` uses these warnings as input, not as a verdict.
 

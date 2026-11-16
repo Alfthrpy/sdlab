@@ -527,3 +527,31 @@ class ReviewFixes(unittest.TestCase):
         qs = [mq(i, ["dengan caranya", "beta dua", "gamma tiga"], 0, prompt="Manakah yang dengan karena adalah?",
                  difficulty=1 + i % 3) for i in range(1, 6)]
         self.assertFalse(has(leak_warnings(qs), "repeats the most words"))
+
+
+class Provenance(unittest.TestCase):
+    PHRASES = ["menurut Azure, urutan ini penting", "Azure menyebut urutan ini penting", "Ini penalaran penulis.",
+               "Ini hitungan sendiri.", "Asumsi buatan sendiri: 10 ms.", "Itu bukan fakta dari sumber.",
+               "Catatan: ini bukan klaim.", "Sumbernya tidak membahas ini."]
+
+    def test_lesson_phrases_warn(self):
+        for ph in self.PHRASES:
+            _, warns = run(lesson(["blog"], ph + " " + WORDS))
+            self.assertTrue(has(warns, "do not narrate provenance"), ph)
+
+    def test_plain_statements_do_not_warn(self):
+        for ph in ["Misalkan 2.000 bacaan per detik.", "Data sensitif ambil dari sumber utamanya.",
+                   "Cache lebih cepat daripada sumber aslinya.", "Urutan ini penting.[^blog]"]:
+            _, warns = run(lesson(["blog"], ph + " " + WORDS))
+            self.assertFalse(has(warns, "do not narrate provenance"), ph)
+
+    def test_question_and_misconception_text_warn(self):
+        _, warns = run(lesson(["blog"], WORDS), [q(1, explanation="Hitungan sendiri: 5 kali.")],
+                       misc=MISC, concepts=CONCEPTS)
+        self.assertTrue(has(warns, "c1-q01 explanation: do not narrate"))
+        _, warns = run(lesson(["blog"], WORDS), misc=MISC.replace("x\n\n**Kenapa", "Menurut sumber, x\n\n**Kenapa", 1))
+        self.assertTrue(has(warns, "misconceptions: do not narrate"))
+
+    def test_quoted_phrase_in_lesson_is_a_mention(self):
+        _, warns = run(lesson(["blog"], 'Jangan menulis "penalaran penulis" di teks. ' + WORDS))
+        self.assertFalse(has(warns, "do not narrate provenance"))

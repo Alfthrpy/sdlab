@@ -1,0 +1,86 @@
+# Lab spec for caching-basics. Format: docs/conventions/content-schema.md section 5.
+# Learner-facing text is Indonesian; keys and ids are English. The numbers are simulation inputs.
+# Practices objectives 2 and 3 of the concept (capacity and TTL against database load). Objective 1
+# (cache-aside vs write-through) and staleness need a second lab with a write path.
+id: caching-basics-lab
+concept: caching-basics
+contract_version: "0.1.0"           # the simulator contract is 1.0.0 only after it is frozen
+mode: tune
+difficulty: 1
+duration_min: 15
+illustrative: false
+title: "Cache di depan database"
+goal: >
+  Toko online ini melambat setiap jam ramai. Turunkan beban database
+  ke bawah 60% tanpa menambah koneksi database.
+
+topology:
+  nodes:
+    - {id: users, type: client, params: {timeout_ms: 2000, retries: 0}}
+    - {id: app, type: api-server, params: {instances: 2, threads: 16, service_ms: 5}}
+    - {id: cache, type: cache, params: {mode: look-aside, keys: 10000, skew: 1.0, capacity_pct: 0, ttl_s: 30}}
+    - {id: db, type: db, params: {pool: 4, read_ms: 20, write_ms: 30}}
+  edges: [[users, app], [app, cache], [app, db]]   # look-aside: the app reads the cache, then the database on a miss
+
+traffic:
+  read_share: 0.9
+  schedule: [{at_s: 0, rate: 80}, {at_s: 120, rate: 160}]
+
+allowed_edits:
+  - {node: cache, param: capacity_pct, min: 0, max: 50}
+  - {node: cache, param: ttl_s, min: 0, max: 600}
+
+targets:
+  - id: db-load
+    metric: utilization
+    node: db
+    window: {from_s: 180, to_s: 600}
+    aggregate: mean
+    op: "<="
+    value: 0.6
+    feedback_fail: "Database masih sibuk di atas 60% saat jam ramai."
+    feedback_pass: "Sebagian besar bacaan kini dijawab sebelum sampai ke database."
+  - id: tetap-sukses                # pairs the load target with an error target (rule C12)
+    metric: error_rate
+    window: {from_s: 180, to_s: 600}
+    aggregate: mean
+    op: "<="
+    value: 0.01
+    feedback_fail: "Terlalu banyak permintaan gagal."
+    feedback_pass: "Hampir semua permintaan berhasil."
+
+structural_rules:
+  - id: pool-tetap
+    predicate: param-unchanged
+    args: {node: db, param: pool}
+    feedback_fail: "Jumlah koneksi database tidak boleh diubah; cari cara lain."
+    feedback_pass: "Jumlah koneksi database tidak diubah."
+  - id: memori-terbatas
+    predicate: param-range
+    args: {node: cache, param: capacity_pct, max: 25}
+    feedback_fail: "Cache memakai terlalu banyak memori; batasnya 25%."
+    feedback_pass: "Memori cache masih dalam batas."
+
+hints:
+  - {tier: 1, text: "Bandingkan grafik utilisasi database sebelum dan sesudah jam ramai."}
+  - {tier: 2, text: "Perhatikan berapa persen bacaan yang tidak perlu sampai ke database."}
+  - {tier: 3, text: "Kunci populer yang terbuang terlalu cepat harus diambil lagi dari database."}
+
+reference_solution:
+  - {node: cache, param: capacity_pct, value: 20}
+  - {node: cache, param: ttl_s, value: 300}
+
+wrong_answers:
+  - edits: [{node: cache, param: ttl_s, value: 600}]
+    reason: "TTL panjang tanpa kapasitas: cache tetap kosong, jadi hit ratio rendah."
+  - edits: [{node: cache, param: capacity_pct, value: 50}, {node: cache, param: ttl_s, value: 600}]
+    brute_force: true
+    reason: "Semua nilai di batas maksimum: melanggar batas memori cache."
+
+debrief: >
+  Cache menurunkan beban database karena hanya miss yang sampai ke sana. Kapasitas menentukan seberapa
+  banyak kunci populer yang muat, dan TTL menentukan berapa lama sebuah nilai dipakai sebelum diambil
+  ulang. TTL panjang tanpa kapasitas tidak membantu, dan kapasitas besar memakai memori yang terbatas.
+  Pilihan terbaik datang dari mengamati beban database setiap kali nilainya diubah, bukan dari menebak angka.
+
+sources: [aws-builders-caching-challenges, azure-cache-aside-pattern]
