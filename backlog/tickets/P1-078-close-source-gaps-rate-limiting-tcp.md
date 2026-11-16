@@ -41,7 +41,6 @@ Further thin coverage found by the P1-023 review (not tracked in P1-072/074/075/
 ## Done criteria
 
 - [x] One candidate source per gap above, or a documented gap
-- [ ] ~~After approval, add the ids to `sources`~~ moved to P1-079 (needs owner approval of the candidates first)
 - [x] `python scripts/validate.py` passes
 
 ## Notes
@@ -62,3 +61,5 @@ Unverified: license footers not visible in fetches for the Redis tutorial, AWS d
 Verification (source-verifier): pass. 9 of 17 reopened in full (the riskiest), the other 8 quick-fetched; all URLs resolve. One edit: the Honeycomb title was set to the page's exact string. Entries stay `candidate`.
 
 Gaps left (proposed actions): DNS TTL (RFC 2181/1035 or a resolver doc); 2PC coordinator protocol and blocking (the Garcia-Molina/Salem saga paper and a university text were not opened); a beginner-sized estimation example; sticky sessions (NGINX/HAProxy/Envoy docs); atomicity/undo; a headroom formula or utilization target (the concept trigger quotes 70-80%, which no source supports, so the owner may rewrite the trigger); high-cardinality observability docs. Licence doubts: Django docs (BSD may cover the docs), Redis, OWASP footer, MDN CC-BY-SA-2.5 (rests on the MDN attribution page).
+
+The criterion "after approval, add the ids to `sources` in `concepts.yaml`" was removed from this ticket and moved to P1-079 (needs the owner to approve the candidates first).
