@@ -3284,3 +3284,129 @@ sources:
     verified_on: ""
     superseded_by: null
     notes: "Byline David Kuo, Solutions Architect, AWS (page metadata says AWS Admin). Footer: (c) 2019 Amazon Web Services, Inc. or its affiliates, all rights reserved. Each step has a stated trigger: no redundancy in one AZ, database failover, high read volume, static assets competing for bandwidth, session data on the main database, hot data loading the primary database. AWS product names throughout (ELB, RDS, CloudFront, ElastiCache); use for the trigger-to-step logic only. Page refers back to Part 1 for the single-server start. Dated 2015."
+
+  # ---- P1-075: Unit 4 source gaps (A9, A10, B7, B8) ----
+  - id: kreps-the-log-2013
+    title: "The Log: What every software engineer should know about real-time data's unifying abstraction"
+    authors: [Jay Kreps]
+    publisher: LinkedIn Engineering Blog
+    type: article
+    tier: 2
+    url: https://www.linkedin.com/blog/engineering/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying
+    doi: null
+    published: "2013-12-16"
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [4]
+    topics: [log, event-streaming, log-compaction, retention, data-integration, stream-processing, changelog, table-event-duality]
+    status: candidate
+    free_companion: []
+    version: ""
+    archive_url: ""
+    attribution: ""
+    lang: en
+    verified_on: ""
+    superseded_by: null
+    notes: "Fetched 2026-11-16 from the www.linkedin.com/blog/engineering/... URL (the old engineering.linkedin.com/distributed-systems/... URL returns 404, and a variant with 'the-log-' prefix returns 400). Page shows title, byline Jay Kreps, date December 16, 2013, footer 'LinkedIn (c) 2026'; no license text seen, so all-rights-reserved (no license stated). The fetch tool summarizes pages, so re-check the exact title and date at verification. Sections per the summary: Part One What Is a Log (logs in databases and distributed systems, tables and events are dual), Part Two Data Integration (log-structured data flow, building a scalable log), Part Three Logs and Real-time Stream Processing (includes a Log Compaction section), Part Four System Building. Retention (window by time or size) is covered inside the Log Compaction section and Part Four. Essay from 2013 about LinkedIn and early Kafka; use it for the idea of the log, not for current Kafka details."
+
+  - id: rabbitmq-docs-queue-length-limit
+    title: "Queue Length Limit (RabbitMQ documentation)"
+    authors: []
+    publisher: RabbitMQ (Broadcom)
+    type: docs
+    tier: 2
+    url: https://www.rabbitmq.com/docs/maxlength
+    doi: null
+    published: null
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [4]
+    topics: [backpressure, bounded-queue, queue-length-limit, overflow, reject-publish, publisher-confirms, dead-letter]
+    status: candidate
+    free_companion: []
+    version: "RabbitMQ 4.4 docs"
+    archive_url: ""
+    attribution: ""
+    lang: en
+    verified_on: ""
+    superseded_by: null
+    notes: "NO-AUTHOR: corporate documentation, no author. NO-DATE: page shows a version selector (4.4) but no content date. Footer: 'Copyright (c) 2005-2026 Broadcom. All Rights Reserved.'; no license text seen, so all-rights-reserved. Fetch tool summarized the page; re-check option names at verification. A queue can be capped by message count and/or bytes; when full, the default drops the oldest messages from the front, while overflow reject-publish refuses new messages and a publisher with confirms receives a nack, which is a way to push 'full' back to the producer service. Unacknowledged messages do not count toward the limit for classic queues. Broker-level mechanism between a producer service and the broker, not a general cross-service flow-control standard."
+
+  - id: rabbitmq-docs-flow-control
+    title: "Flow Control (RabbitMQ documentation)"
+    authors: []
+    publisher: RabbitMQ (Broadcom)
+    type: docs
+    tier: 2
+    url: https://www.rabbitmq.com/docs/flow-control
+    doi: null
+    published: null
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [4]
+    topics: [backpressure, flow-control, publisher-throttling, connection-flow-state]
+    status: candidate
+    free_companion: []
+    version: "RabbitMQ 4.4 docs"
+    archive_url: ""
+    attribution: ""
+    lang: en
+    verified_on: ""
+    superseded_by: null
+    notes: "NO-AUTHOR: corporate documentation. NO-DATE: version selector shows 4.4, no content date. Footer: 'Copyright (c) 2005-2026 Broadcom. All Rights Reserved.' with Terms, Privacy links; no license text, so all-rights-reserved. Short page (two sections, Overview and How Does Flow Control Work) seen via the fetch tool's summary. The broker slows down publishing connections that outrun queues or disk or replication; the connection shows state 'flow' and the client just sees lower bandwidth, with no configuration needed. Good concrete example of backpressure that propagates from consumer side back to the producer connection. Vendor-specific."
+
+  - id: aws-sqs-fifo-delivery-logic
+    title: "FIFO queue delivery logic in Amazon SQS"
+    authors: []
+    publisher: Amazon Web Services
+    type: docs
+    tier: 2
+    url: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues-understanding-logic.html
+    doi: null
+    published: null
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [4]
+    topics: [ordering, fifo, message-group-id, per-group-ordering, deduplication, visibility-timeout, parallelism]
+    status: candidate
+    free_companion: []
+    version: ""
+    archive_url: ""
+    attribution: ""
+    lang: en
+    verified_on: ""
+    superseded_by: null
+    notes: "NO-AUTHOR: AWS documentation, no author. NO-DATE: no date in the fetched text. The page footer was not visible in the fetched content, so the license is assumed all-rights-reserved (no license stated; same assumption as aws-sqs-standard-queues); recheck at verification. Page text was returned in full by the fetch tool. Ordering holds per message group ID: within a group messages are sent and received strictly in order, different groups may be processed in any relative order and in parallel; a single group ID gives total order but no parallelism. While a group's messages are in flight, no further messages of that group are returned until they are deleted or become visible again (so one stuck message blocks its group). Producer retries with the same deduplication ID do not break order or duplicate."
+
+  - id: aws-sqs-cloudwatch-metrics
+    title: "Available CloudWatch metrics for Amazon SQS"
+    authors: []
+    publisher: Amazon Web Services
+    type: docs
+    tier: 2
+    url: https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-available-cloudwatch-metrics.html
+    doi: null
+    published: null
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [4]
+    topics: [queue-age, consumer-lag, monitoring, alerting, approximate-age-of-oldest-message, backlog, poison-message, dlq]
+    status: candidate
+    free_companion: []
+    version: ""
+    archive_url: ""
+    attribution: ""
+    lang: en
+    verified_on: ""
+    superseded_by: null
+    notes: "NO-AUTHOR: AWS documentation, no author. NO-DATE: no date in the fetched text. The page footer was not visible in the fetched content, so the license is assumed all-rights-reserved (no license stated); recheck at verification. Page text was returned in full by the fetch tool. Defines ApproximateAgeOfOldestMessage (age of the oldest unprocessed message) and ApproximateNumberOfMessagesVisible (backlog), plus not-visible (in-flight) and DLQ-related behavior. Caveats worth teaching: in standard queues a poison message received 3 or more times is moved to the back and excluded from the age metric; a message moved to a DLQ has its age reset; in FIFO queues a failed message blocks its group. Monitoring tips recommend alarms on visible-message count to catch backlog growth, and multiple data points for the in-flight metric. Fair-queue 'quiet group' metrics are newer and AWS-specific. Gives metric definitions, not an alerting-threshold method."
