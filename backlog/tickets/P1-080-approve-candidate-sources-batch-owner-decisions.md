@@ -5,7 +5,7 @@ milestone: M2
 type: research
 owner: agent
 review: human
-status: review
+status: done
 priority: medium
 depends_on: []
 estimate: 1
@@ -26,7 +26,7 @@ The owner reviewed a summary of the 62 `candidate` sources (P1-072, P1-074, P1-0
 ## Done criteria
 
 - [x] No `candidate` entries remain; 61 `approved`, 1 `rejected` among the batch
-- [ ] Owner checks the diff (status `review`)
+- [x] Owner checked the diff (confirmed in chat, 2026-11-16)
 - [x] `python scripts/validate.py` passes
 
 ## Notes
