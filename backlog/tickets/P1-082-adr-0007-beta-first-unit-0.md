@@ -21,7 +21,7 @@ The owner read the P1-032 pilot lesson, was fine with it, and decided to skip th
 
 1. Write ADR 0007.
 2. Defer G2 (P1-034, status `blocked`), point P1-035 at P1-032, raise P1-048 (Unit 0 epic) to high priority.
-3. Ask the owner for the stack and first-slice scope that Phase 2/3 planning needs.
+3. Ask the owner for the stack and first-slice scope that Phase 2/3 planning needs. Answer (2026-11-16): the stack is whatever the existing STUD Simulator Master Plan says ("serious, based on the master plan"); the repo location is left for later.
 
 ## Done criteria
 
@@ -31,4 +31,4 @@ The owner read the P1-032 pilot lesson, was fine with it, and decided to skip th
 
 ## Notes
 
-Next, not part of this ticket: a Phase 2/3 plan (stack, repo layout, the first slice: Unit 0 quiz plus one lab) once the owner answers; then P1-033 (lab spec) fitted to what the simulator will do, P1-035, and P1-048 (Unit 0 production).
+Next, not part of this ticket: P1-033 (lab and incident spec) written against the master plan's lab spec and contract (sections 5-6), then P1-035 and P1-048 (Unit 0 production). The simulator itself (S0 bootstrap and spikes) starts when the owner decides where `stud-sim` lives; the SG0 spike criteria need measurements on the owner's reference laptop.

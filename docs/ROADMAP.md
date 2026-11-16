@@ -5,7 +5,7 @@ The project is split into three major phases. Details of each phase are in its o
 | Phase | Contents | Status | Plan |
 | --- | --- | --- | --- |
 | **1. Materials** | Reference registry, curriculum, pedagogy design, content production | In progress | [PLAN-PHASE-1.md](PLAN-PHASE-1.md) |
-| **2. Simulation system** | Simulation engine based on queueing theory, components, failure scenarios, lab grading | Not started | written when Phase 1 reaches M3 |
+| **2. Simulation system** | Simulation engine based on queueing theory, components, failure scenarios, lab grading | Planned (not started) | STUD Simulator Master Plan (Claude Docs, 2026-11-13); owner decisions in [ADR 0007](decisions/0007-beta-first-unit-0-first.md) |
 | **3. Application** | Web app: lessons, quizzes, lab canvas, progress, spaced repetition, beta & launch | Not started | written when Phase 2 reaches a prototype |
 
 The phases are **not strictly sequential**. After pedagogy design is done (M3), content production (M4) continues while the simulator and app are built. Lab specs written in Phase 1 become input for Phase 2.
