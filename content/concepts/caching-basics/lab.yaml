@@ -1,5 +1,7 @@
 # Lab spec for caching-basics. Format: docs/conventions/content-schema.md section 5.
 # Learner-facing text is Indonesian; keys and ids are English. The numbers are simulation inputs.
+# Practices objectives 2 and 3 of the concept (capacity and TTL against database load). Objective 1
+# (cache-aside vs write-through) and staleness need a second lab with a write path.
 id: caching-basics-lab
 concept: caching-basics
 contract_version: "0.1.0"           # the simulator contract is 1.0.0 only after it is frozen
@@ -70,7 +72,7 @@ reference_solution:
 
 wrong_answers:
   - edits: [{node: cache, param: ttl_s, value: 600}]
-    reason: "TTL panjang tanpa kapasitas: cache tetap hampir kosong, jadi hit ratio rendah."
+    reason: "TTL panjang tanpa kapasitas: cache tetap kosong, jadi hit ratio rendah."
   - edits: [{node: cache, param: capacity_pct, value: 50}, {node: cache, param: ttl_s, value: 600}]
     brute_force: true
     reason: "Semua nilai di batas maksimum: melanggar batas memori cache."
@@ -79,6 +81,6 @@ debrief: >
   Cache menurunkan beban database karena hanya miss yang sampai ke sana. Kapasitas menentukan seberapa
   banyak kunci populer yang muat, dan TTL menentukan berapa lama sebuah nilai dipakai sebelum diambil
   ulang. TTL panjang tanpa kapasitas tidak membantu, dan kapasitas besar memakai memori yang terbatas.
-  Pilihan terbaik datang dari melihat hit ratio dan beban database, bukan dari menebak angka.
+  Pilihan terbaik datang dari mengamati beban database setiap kali nilainya diubah, bukan dari menebak angka.
 
 sources: [aws-builders-caching-challenges, azure-cache-aside-pattern]

@@ -414,8 +414,12 @@ class Incidents(unittest.TestCase):
         self.assertTrue(has(errs, "sim_scenarios"))
         errs, _ = run_incident(INCIDENT.replace("sim_spec: %s\n", ""))
         self.assertTrue(has(errs, "sim_spec"))
-        errs, _ = run_incident(INCIDENT.replace("sim_spec: %s", "sim_spec: nowhere/x.lab.yaml"))
+        errs, _ = run_incident(INCIDENT.replace("sim_spec: %s", "sim_spec: %s.missing.lab.yaml"))
         self.assertTrue(has(errs, "sim_spec does not exist"))
+        errs, _ = run_incident(INCIDENT.replace("sim_spec: %s", "sim_spec: /etc/passwd"))
+        self.assertTrue(has(errs, "under content/incidents/"))
+        errs, _ = run_incident(INCIDENT.replace("sim_scenarios: [restart-herd]", "sim_scenarios: [other]"))
+        self.assertTrue(has(errs, "is not a scenario of the sim_spec lab"))
 
     def test_text_only_needs_no_spec(self):
         text = INCIDENT.replace("modelability: modeled", "modelability: text-only")
@@ -445,6 +449,65 @@ class Incidents(unittest.TestCase):
         self.assertTrue(has(errs, "frontmatter missing"))
 
 
+class Malformed(unittest.TestCase):
+    """Wrong-typed fields give error lines, never a traceback; unknown keys are rejected."""
+
+    CASES = {
+        "ref node list": {"reference_solution": [{"node": ["a"], "param": "x", "value": 1}]},
+        "wrong edit node list": {"wrong_answers": [{"edits": [{"node": ["a"], "param": "x", "value": 1}], "reason": "r"}]},
+        "rule args node list": {"structural_rules": [{"id": "z", "predicate": "param-range",
+                                "args": {"node": ["x"], "param": "y"}, "feedback_pass": "a", "feedback_fail": "b"}]},
+        "target node list": {"targets": [dict(LAB["targets"][0], node=["a"])]},
+        "rules scalar": {"structural_rules": 5},
+        "hints scalar": {"hints": 5},
+        "edges scalar": {"topology": {"nodes": [{"id": "a", "type": "db"}], "edges": 5}},
+        "reference dict": {"reference_solution": {"node": "a"}},
+        "wrong answers dict": {"wrong_answers": {"a": 1}},
+        "nodes not list": {"topology": {"nodes": 3}},
+    }
+
+    def test_no_traceback(self):
+        for name, change in self.CASES.items():
+            errs, _ = run(mod(**change))
+            self.assertTrue(errs, name)
+
+    def test_unknown_fields_are_errors(self):
+        self.assertTrue(has(run(mod(display_scale=10))[0], "unknown field(s) display_scale"))
+        s = mod()
+        s["targets"][0]["bogus"] = 1
+        self.assertTrue(has(run(s)[0], "bogus"))
+        s = mod()
+        s["hints"][0]["extra"] = 1
+        self.assertTrue(has(run(s)[0], "extra"))
+
+    def test_edit_values_must_be_numbers(self):
+        for bad in (True, "abc", [1]):
+            s = mod()
+            s["reference_solution"][0]["value"] = bad
+            self.assertTrue(has(run(s)[0], "must be a number"), bad)
+
+    def test_mode_specific_fields(self):
+        self.assertTrue(has(run(mod(scenarios=[{"id": "x", "at_s": 1}]))[0], "belong to diagnose mode"))
+        self.assertTrue(has(run(mod(palette=[{"type": "cache"}]))[0], "uses `allowed_edits`"))
+
+    def test_duplicate_allowed_edit_and_identical_wrong_answer(self):
+        s = mod()
+        s["allowed_edits"].append(dict(s["allowed_edits"][0]))
+        self.assertTrue(has(run(s)[0], "twice"))
+        s = mod()
+        s["wrong_answers"][0]["edits"] = copy.deepcopy(s["reference_solution"])
+        self.assertTrue(has(run(s)[0], "identical to the reference solution"))
+
+    def test_anti_leak_reads_indonesian_numbers_and_units(self):
+        for text in ("Atur TTL 20ms.", "Pakai 0,5 saja.", "Coba 1.000 kunci."):
+            ref = {"reference_solution": [{"node": "cache", "param": "ttl_s", "value": 0.5 if "0,5" in text else (1000 if "1.000" in text else 20)}]}
+            s = mod(goal=text, **ref)
+            s["allowed_edits"][1]["max"] = 5000
+            self.assertTrue(has(run(s)[0], "anti-leak"), text)
+        s = mod(goal="Pada 2025 ada 2000 request, bukan 120 error.")
+        self.assertFalse(has(run(s)[0], "anti-leak"))
+
+
 class Templates(unittest.TestCase):
     def test_lab_template_passes_the_validator(self):
         template = Path(__file__).resolve().parent.parent / "templates" / "concept" / "lab.yaml"
@@ -458,6 +521,16 @@ class Templates(unittest.TestCase):
             REG.clear()
             REG.update(old_reg)
         self.assertEqual(errs, [])
+
+
+class IncidentTemplate(unittest.TestCase):
+    def test_template_has_the_required_frontmatter_and_sections(self):
+        text = (Path(__file__).resolve().parent.parent / "templates" / "incident.md").read_text(encoding="utf-8")
+        fm, body = validate.split_frontmatter(text)
+        self.assertLessEqual({"id", "title", "date", "sources", "concepts", "modelability", "sim_spec", "sim_scenarios"},
+                             set(fm))
+        for sec in validate.INCIDENT_SECTIONS:
+            self.assertIn(f"## {sec}", body)
 
 
 if __name__ == "__main__":

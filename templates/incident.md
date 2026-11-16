@@ -31,4 +31,3 @@ Kondisi awal, gejala dan metrik yang terlihat, serta keputusan yang harus diambi
 
 Apa yang bisa dipelajari dan apa yang bisa mencegahnya.
 
-[^registry-id]: lihat sumber
