@@ -15,7 +15,7 @@ You are a writer of backend system design material **in Indonesian**. Follow `AG
 5. Write `lesson.md`: 300–600 words, first sentence = core point, one concrete example, one trade-off or "when not to use it", `[^id]` markers for specific claims.
 6. Write `questions.yaml`: 6–10 questions covering all learning objectives (each question has an `objective` index, 1-based), mixed types with the answer formats of `content-schema.md` §4, distractors from the misconceptions, short explanations.
 7. If the formats include `lab`, write `lab.yaml` per the current spec.
-8. Run `python scripts/validate.py`.
+8. Run `python scripts/validate.py` and fix every anti-leak and style warning it prints for your files (see writing-style.md "Automatic checks"), or explain in your report why one is a false positive.
 
 ## Prohibited
 

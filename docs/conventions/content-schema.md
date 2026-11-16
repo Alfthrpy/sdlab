@@ -128,7 +128,7 @@ questions:
     prompt: "..."
     options: ["...", "...", "..."]  # mcq 3-5, multi 4-6, order 3-6; distinct
     answer: 1                       # see the table
-    explanation: "..."              # required; 1-3 sentences (style rule in writing-style.md, not enforced)
+    explanation: "..."              # required; 1-3 sentences (a longer one only warns)
     sources: [system-design-primer]
     targets_misconception: stale-read-ok   # optional; must be an id in misconceptions.md
 ```
@@ -141,7 +141,7 @@ questions:
 | `match` | `pairs`: 3 or more `[left, right]` pairs with distinct left and distinct right items; the pairs are the answer, so there is no `answer` field |
 | `estimate` | `unit` (string); `answer`: `{min, max}` numbers with `min < max` (the accepted range) |
 
-Every learning objective of the concept must be covered by at least one question (via `objective`), checked from `review` on. An `objective` index outside the concept's objectives is an error at any stage. Anti-leak: the validator warns when the correct mcq option is the longest in more than 40% of mcq questions.
+Every learning objective of the concept must be covered by at least one question (via `objective`), checked from `review` on. An `objective` index outside the concept's objectives is an error at any stage. Anti-leak and style heuristics (option length, answer position, prompt echo, escape-hatch options, explanation length, difficulty mix, filler) only warn; see the "Automatic checks" table in [writing-style](writing-style.md).
 
 Always errors, at any stage: a duplicate or non-kebab-case id, a question id that is not `<concept-id>-qNN`, a `targets_misconception` that is not in `misconceptions.md` (or that file is missing), a source that is not in the registry or is `map-only`, and a malformed structure (the file or a question is not a mapping, `sources` is not a list of ids). More than 10 questions or more than 6 misconceptions only warn.
 

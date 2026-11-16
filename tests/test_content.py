@@ -385,3 +385,145 @@ class OrderAnswers(unittest.TestCase):
             errs, _ = run(lesson(["blog"], WORDS), [q(1, type="order", options=["a", "b", "c"], answer=ans)],
                           misc=MISC, concepts=CONCEPTS)
             self.assertTrue(has(errs, "order answer"), ans)
+
+
+# ---------------------------------------------------------------- anti-leak and style heuristics (P1-031)
+def mq(i, opts, answer, prompt="Mana yang benar tentang topik ini?", **kw):
+    return q(i, options=opts, answer=answer, prompt=prompt, **kw)
+
+
+def leak_warnings(qs, body=WORDS):
+    _, warns = run(lesson(["blog"], body), qs, misc=MISC, concepts=CONCEPTS)
+    return warns
+
+
+BALANCED = [["alpha satu", "beta dua", "gamma tiga"]]
+
+
+class AntiLeak(unittest.TestCase):
+    def test_clean_set_has_no_leak_warnings(self):
+        qs = [mq(i, ["alpha satu", "beta dua", "gamma tiga"], i % 3, difficulty=1 + i % 3) for i in range(1, 7)]
+        self.assertFalse(has(leak_warnings(qs), "anti-leak"))
+
+    def test_longest_correct_option(self):
+        qs = [mq(i, ["pendek", "juga pendek", "jawaban benar yang jauh lebih panjang"], 2) for i in range(1, 6)]
+        self.assertTrue(has(leak_warnings(qs), "is the longest in"))
+
+    def test_answer_position_bias(self):
+        qs = [mq(i, ["alpha satu", "beta dua", "gamma tiga"], 1, difficulty=1 + i % 3) for i in range(1, 6)]
+        w = leak_warnings(qs)
+        self.assertTrue(has(w, "is option 2 in 5/5"))
+
+    def test_prompt_echo(self):
+        qs = [mq(i, ["menggabungkan permintaan serupa", "mempercepat jaringan", "menambah disk"], 0,
+                 prompt="Apa fungsi menggabungkan permintaan serupa pada cache?", difficulty=1 + i % 3)
+              for i in range(1, 6)]
+        self.assertTrue(has(leak_warnings(qs), "repeats the most words from the prompt"))
+
+    def test_absolute_words_only_in_wrong_options(self):
+        qs = [mq(i, ["bergantung pada beban", "selalu lebih cepat", "tidak pernah berguna"], 0,
+                 difficulty=1 + i % 3) for i in range(1, 6)]
+        self.assertTrue(has(leak_warnings(qs), "absolute words"))
+
+    def test_escape_hatch_option(self):
+        qs = [mq(1, ["alpha satu", "beta dua", "semua jawaban benar"], 2)]
+        self.assertTrue(has(leak_warnings(qs), "avoid 'semua jawaban benar'"))
+        qs = [mq(1, ["alpha satu", "beta dua", "A dan B benar"], 2)]
+        self.assertTrue(has(leak_warnings(qs), "avoid 'semua jawaban benar'"))
+
+    def test_long_explanation(self):
+        qs = [mq(1, ["alpha satu", "beta dua", "gamma tiga"], 0, explanation="Satu. Dua. Tiga. Empat.")]
+        self.assertTrue(has(leak_warnings(qs), "explanations longer than 3"))
+        qs = [mq(1, ["alpha satu", "beta dua", "gamma tiga"], 0, explanation="Hanya satu. Dua kalimat.")]
+        self.assertFalse(has(leak_warnings(qs), "explanations longer"))
+
+    def test_difficulty_mix(self):
+        qs = [mq(i, ["alpha satu", "beta dua", "gamma tiga"], i % 3, difficulty=2) for i in range(1, 6)]
+        self.assertTrue(has(leak_warnings(qs), "use a mix of levels"))
+
+    def test_heuristics_need_enough_mcq(self):
+        qs = [mq(i, ["pendek", "juga pendek", "jawaban benar yang jauh lebih panjang"], 2, difficulty=1 + i % 3)
+              for i in range(1, 4)]
+        self.assertFalse(has(leak_warnings(qs), "is the longest in"))
+
+    def test_heuristics_are_warnings_only(self):
+        qs = [mq(i, ["pendek", "juga pendek", "jawaban benar yang jauh lebih panjang"], 2) for i in range(1, 6)]
+        errs, _ = run(lesson(["blog"], WORDS), qs, misc=MISC, concepts=CONCEPTS)
+        self.assertFalse(has(errs, "anti-leak"))
+
+
+class LessonStyle(unittest.TestCase):
+    def style(self, text):
+        _, warns = run(lesson(["blog"], text))
+        return warns
+
+    def test_announcing_opener(self):
+        self.assertTrue(has(self.style("Pada lesson ini kita akan membahas retry. " + WORDS), "core point"))
+        self.assertFalse(has(self.style("Retry yang serentak membanjiri server. " + WORDS), "core point"))
+
+    def test_filler_phrases(self):
+        self.assertTrue(has(self.style("Caching sangat penting di era modern. " + WORDS), "filler phrases"))
+        self.assertFalse(has(self.style("Cache menyimpan hasil bacaan. " + WORDS), "filler phrases"))
+
+    def test_emoji(self):
+        self.assertTrue(has(self.style("Cache itu cepat \U0001F680 sekali. " + WORDS), "no emoji"))
+
+    def test_style_ignores_code_fences(self):
+        self.assertFalse(has(self.style("Cache cepat.\n```\nsangat penting\n```\n" + WORDS), "filler phrases"))
+
+
+class ReviewFixes(unittest.TestCase):
+    """Regressions found in the P1-031 review."""
+
+    def test_non_iterable_options_do_not_crash(self):
+        for bad in ("5", "true", "abc"):
+            run(lesson(["blog"], WORDS), [q(1, type="multi", options=yaml.safe_load(bad), answer=[0])],
+                misc=MISC, concepts=CONCEPTS)
+
+    def test_abbreviations_do_not_end_a_sentence(self):
+        qs = [mq(1, ["alpha satu", "beta dua", "gamma tiga"], 0, explanation="Mis. cache, dst. lalu x. Ok.")]
+        self.assertFalse(has(leak_warnings(qs), "explanations longer"))
+
+    def test_unterminated_last_sentence_counts(self):
+        qs = [mq(1, ["alpha satu", "beta dua", "gamma tiga"], 0, explanation="Satu. Dua. Tiga. Empat")]
+        self.assertTrue(has(leak_warnings(qs), "explanations longer"))
+
+    def test_check_marks_are_not_emoji(self):
+        _, warns = run(lesson(["blog"], "Cache cepat ✓ tapi basi ✗. " + WORDS))
+        self.assertFalse(has(warns, "no emoji"))
+
+    def test_semua_alone_is_not_an_absolute_leak(self):
+        qs = [mq(i, ["Semua request lewat satu node", "bergantung pada beban", "dibagi per shard"], 1,
+                 difficulty=1 + i % 3) for i in range(1, 6)]
+        self.assertFalse(has(leak_warnings(qs), "absolute words"))
+
+    def test_lowercase_letters_are_not_a_combo_option(self):
+        qs = [mq(1, ["alpha satu", "beta dua", "memakai a dan c keduanya"], 0)]
+        self.assertFalse(has(leak_warnings(qs), "avoid 'semua jawaban benar'"))
+
+    def test_quoted_or_coded_filler_is_a_mention(self):
+        for text in ('Hindari kata "sangat penting" di lesson. ', "Hindari `sangat penting` di lesson. "):
+            _, warns = run(lesson(["blog"], text + WORDS))
+            self.assertFalse(has(warns, "filler phrases"), text)
+
+    def test_word_boundary_and_heading_before_opener(self):
+        _, warns = run(lesson(["blog"], "Cache sangat pentingnya bagi hasil. " + WORDS))
+        self.assertFalse(has(warns, "filler phrases"))
+        _, warns = run(lesson(["blog"], "# Judul\n\nPada lesson ini kita bahas cache. " + WORDS))
+        self.assertTrue(has(warns, "core point"))
+        _, warns = run(lesson(["blog"], "Kali ini kita bahas cache. " + WORDS))
+        self.assertTrue(has(warns, "core point"))
+
+    def test_position_check_needs_five_mcq(self):
+        qs = [mq(i, ["alpha satu", "beta dua", "gamma tiga"], 1, difficulty=1 + i % 3) for i in range(1, 5)]
+        self.assertFalse(has(leak_warnings(qs), "vary the position"))
+
+    def test_difficulty_mix_ignores_unrated_questions(self):
+        qs = [mq(i, ["alpha satu", "beta dua", "gamma tiga"], i % 3, difficulty=1) for i in range(1, 4)]
+        qs.append(mq(4, ["alpha satu", "beta dua", "gamma tiga"], 0, difficulty=7))
+        self.assertFalse(has(leak_warnings(qs), "use a mix of levels"))
+
+    def test_stopwords_do_not_count_as_echo(self):
+        qs = [mq(i, ["dengan caranya", "beta dua", "gamma tiga"], 0, prompt="Manakah yang dengan karena adalah?",
+                 difficulty=1 + i % 3) for i in range(1, 6)]
+        self.assertFalse(has(leak_warnings(qs), "repeats the most words"))
