@@ -811,6 +811,533 @@ def check_content(registry: dict[str, dict], concepts: dict[str, dict]):
             err(rel(d), "published concept without questions.yaml")
 
 
+# --------------------------------------------------------------------------- labs and incidents (P1-033)
+# Lab spec and incident format: docs/conventions/content-schema.md sections 5 and 6. The simulator catalog
+# (contracts/sim/catalog.json, vendored from stud-sim) does not exist yet, so catalog rules (C02-C04, C10, C11
+# of the STUD Simulator Master Plan) are skipped until it does; everything else is checked from the spec alone.
+LAB_MODES = ["tune", "diagnose", "build"]
+LAB_PREDICATES = ["has-node", "has-edge", "node-between", "param-unchanged", "param-range", "count-le",
+                  "policy-present", "no-spof"]
+LAB_AGGREGATES = ["mean", "max", "p99"]
+LAB_OPS = ["<=", ">=", "<", ">"]
+LAB_DURATION = (10, 20)         # minutes, warn outside
+LAB_REQUIRED = ["id", "concept", "contract_version", "mode", "difficulty", "duration_min", "illustrative", "title",
+                "goal", "topology", "traffic", "targets", "hints", "reference_solution", "wrong_answers", "debrief",
+                "sources"]
+LAB_KEYS = set(LAB_REQUIRED) | {"secondary_concepts", "illustrative_note", "scenarios", "allowed_edits", "palette",
+                                "structural_rules", "brute_force_ok"}
+LAB_NODE_KEYS = {"id", "type", "params"}
+LAB_TARGET_KEYS = {"id", "metric", "node", "window", "aggregate", "op", "value", "feedback_pass", "feedback_fail"}
+LAB_RULE_KEYS = {"id", "predicate", "args", "feedback_pass", "feedback_fail"}
+LAB_EDIT_KEYS = {"node", "param", "min", "max"}
+LAB_WRONG_KEYS = {"edits", "reason", "brute_force"}
+INCIDENT_KEYS = {"id", "title", "date", "sources", "concepts", "modelability", "sim_spec", "sim_scenarios"}
+SEMVER = re.compile(r"^\d+\.\d+\.\d+$")
+MODELABILITY = ["modeled", "illustrative", "text-only"]
+INCIDENT_SECTIONS = ["Ringkasan", "Kronologi", "Mekanisme kegagalan", "Skenario untuk pemain", "Pembahasan"]
+CATALOG = ROOT / "contracts" / "sim" / "catalog.json"
+
+
+def is_num(x) -> bool:
+    return isinstance(x, (int, float)) and not isinstance(x, bool)
+
+
+def read_yaml(path, w: str):
+    """YAML file as data; a syntax error is a validation error, not a crash. Returns (data, ok)."""
+    try:
+        return load_yaml(path), True
+    except Exception as e:  # noqa: BLE001 (yaml.YAMLError and decoding errors)
+        err(w, f"invalid YAML: {str(e).splitlines()[0] if str(e) else type(e).__name__}")
+        return None, False
+
+
+def lab_files() -> list:
+    out = []
+    for pat in ("concepts/*/lab.yaml", "concepts/*/*.lab.yaml", "incidents/*.lab.yaml"):
+        out.extend(sorted(CONTENT.glob(pat)))
+    return out
+
+
+def edit_ok(edit, allowed: dict, w: str, where: str) -> None:
+    """One {node, param, value} edit must be an allowed edit with a numeric value inside its range."""
+    if not isinstance(edit, dict) or not {"node", "param", "value"} <= set(edit):
+        err(w, f"{where}: an edit must be {{node, param, value}}")
+        return
+    node, param, value = edit["node"], edit["param"], edit["value"]
+    if not isinstance(node, str) or not isinstance(param, str):
+        err(w, f"{where}: edit node and param must be strings")
+        return
+    if not is_num(value):
+        err(w, f"{where}: edit value of {node}.{param} must be a number")
+        return
+    rng = allowed.get((node, param))
+    if rng is None:
+        err(w, f"{where}: edit {node}.{param} is not in allowed_edits")
+    elif not rng[0] <= value <= rng[1]:
+        err(w, f"{where}: {node}.{param}={value} is outside its allowed range {rng[0]}..{rng[1]}")
+
+
+def unknown_keys(w: str, where: str, mapping, allowed: set) -> None:
+    if isinstance(mapping, dict):
+        extra = sorted(str(k) for k in mapping if k not in allowed)
+        if extra:
+            err(w, f"{where}: unknown field(s) {', '.join(extra)} (allowed: {', '.join(sorted(allowed))})")
+
+
+def numbers_in(text: str) -> set:
+    """Numbers written in text, read with Indonesian conventions (1.000 is a thousand, 0,5 is a half)."""
+    out = set()
+    for tok in re.findall(r"(?<![\w.])\d+(?:[.,]\d+)*", text):
+        if re.fullmatch(r"\d{1,3}(?:\.\d{3})+", tok):
+            out.add(float(tok.replace(".", "")))
+        else:
+            try:
+                out.add(float(tok.replace(",", ".")))
+            except ValueError:
+                pass
+    return out
+
+
+def check_lab(path, registry: dict, concepts: dict) -> None:
+    w = rel(path)
+    spec, ok = read_yaml(path, w)
+    if not ok:
+        return
+    if not isinstance(spec, dict):
+        err(w, "a lab spec must be a mapping")
+        return
+    for f in LAB_REQUIRED:
+        if spec.get(f) in (None, "", []):
+            err(w, f"required field `{f}` is missing or empty")
+    unknown_keys(w, "lab", spec, LAB_KEYS)
+    lid = spec.get("id")
+    if isinstance(lid, str) and not KEBAB.match(lid):
+        err(w, "id must be kebab-case")
+    cid = spec.get("concept")
+    c = concepts.get(cid) if isinstance(cid, str) else None
+    if cid and c is None and concepts:
+        err(w, f"concept `{cid}` is not in curriculum/concepts.yaml")
+    elif c is not None and "lab" not in (c.get("formats") or []):
+        warn(w, f"concept `{cid}` does not list `lab` in its formats")
+    if path.parent.parent.name == "concepts" and cid and path.parent.name != cid:
+        err(w, f"lab in folder `{path.parent.name}` names concept `{cid}`")
+    sec = spec.get("secondary_concepts") or []
+    if not isinstance(sec, list) or not all(isinstance(x, str) for x in sec):
+        err(w, "secondary_concepts must be a list of concept ids")
+    else:
+        for x in sec:
+            if concepts and x not in concepts:
+                err(w, f"secondary concept `{x}` is not in curriculum/concepts.yaml")
+    cv = spec.get("contract_version")
+    if cv is not None and not (isinstance(cv, str) and SEMVER.match(cv)):
+        err(w, "contract_version must be a semver string like \"0.1.0\"")
+    mode = spec.get("mode")
+    if mode is not None and mode not in LAB_MODES:
+        err(w, f"mode must be one of {LAB_MODES}")
+    d = spec.get("difficulty")
+    if d is not None and (not isinstance(d, int) or isinstance(d, bool) or d not in (1, 2, 3)):
+        err(w, "difficulty must be 1, 2 or 3")
+    dm = spec.get("duration_min")
+    if dm is not None:
+        if not is_num(dm) or dm <= 0:
+            err(w, "duration_min must be a positive number")
+        elif not LAB_DURATION[0] <= dm <= LAB_DURATION[1]:
+            warn(w, f"duration_min {dm} is outside the {LAB_DURATION[0]}-{LAB_DURATION[1]} minute target")
+    ill = spec.get("illustrative")
+    if ill is not None and not isinstance(ill, bool):
+        err(w, "illustrative must be true or false")
+    if ill is True and not (isinstance(spec.get("illustrative_note"), str) and spec["illustrative_note"].strip()):
+        err(w, "illustrative: true needs a non-empty Indonesian `illustrative_note`")
+    if ill is False and spec.get("illustrative_note"):
+        warn(w, "illustrative_note is set but illustrative is false")
+    for f in ("title", "goal", "debrief"):
+        if f in spec and not (isinstance(spec[f], str) and spec[f].strip()):
+            err(w, f"`{f}` must be a non-empty string")
+    if isinstance(spec.get("debrief"), str) and spec["debrief"].strip() in ("...", "TODO"):
+        warn(w, "debrief is still a placeholder")
+
+    # topology
+    nodes: dict = {}
+    topo = spec.get("topology")
+    if topo is not None:
+        if not isinstance(topo, dict) or not isinstance(topo.get("nodes"), list) or not topo.get("nodes"):
+            err(w, "topology needs a `nodes` list")
+        else:
+            for n in topo["nodes"]:
+                if not isinstance(n, dict) or not isinstance(n.get("id"), str) or not isinstance(n.get("type"), str):
+                    err(w, "every node needs a string `id` and `type`")
+                    continue
+                unknown_keys(w, f"node {n['id']}", n, LAB_NODE_KEYS)
+                if not KEBAB.match(n["id"]):
+                    err(w, f"node id must be kebab-case: {n['id']}")
+                if n["id"] in nodes:
+                    err(w, f"duplicate node id: {n['id']}")
+                params = n.get("params") or {}
+                if not isinstance(params, dict):
+                    err(w, f"node {n['id']}: params must be a mapping")
+                    params = {}
+                nodes[n["id"]] = params
+            edges = topo.get("edges") or []
+            if not isinstance(edges, list):
+                err(w, "topology.edges must be a list")
+                edges = []
+            for e in edges:
+                pair = e if isinstance(e, list) else ([e.get("from"), e.get("to")] if isinstance(e, dict) else None)
+                if not (isinstance(pair, list) and len(pair) == 2 and all(isinstance(x, str) for x in pair)):
+                    err(w, "every edge must be [from, to] or {from, to, policies}")
+                    continue
+                for x in pair:
+                    if x not in nodes:
+                        err(w, f"edge refers to an unknown node: {x}")
+    # traffic
+    tr = spec.get("traffic")
+    if tr is not None:
+        sched = tr.get("schedule") if isinstance(tr, dict) else None
+        if not isinstance(sched, list) or not sched or not all(
+                isinstance(x, dict) and is_num(x.get("at_s")) and is_num(x.get("rate")) and x["rate"] >= 0 for x in sched):
+            err(w, "traffic needs a `schedule` list of {at_s, rate} with numbers")
+        elif [x["at_s"] for x in sched] != sorted(x["at_s"] for x in sched):
+            err(w, "traffic schedule must be sorted by at_s")
+        rs = tr.get("read_share") if isinstance(tr, dict) else None
+        if rs is not None and not (is_num(rs) and 0 <= rs <= 1):
+            err(w, "traffic.read_share must be a number from 0 to 1")
+    # scenarios
+    scen = spec.get("scenarios") or []
+    if not isinstance(scen, list) or not all(isinstance(x, dict) and isinstance(x.get("id"), str) and is_num(x.get("at_s")) for x in scen):
+        err(w, "scenarios must be a list of {id, at_s, ...}")
+        scen = []
+    if mode == "diagnose" and not scen:
+        err(w, "diagnose mode needs at least one hidden scenario in `scenarios`")
+    if mode in ("tune", "build") and scen:
+        err(w, f"`scenarios` belong to diagnose mode, not {mode}")
+    if mode == "build" and spec.get("allowed_edits"):
+        err(w, "build mode uses `palette`, not `allowed_edits`")
+    if mode in ("tune", "diagnose") and spec.get("palette"):
+        err(w, f"{mode} mode uses `allowed_edits`, not `palette`")
+    # edits / palette
+    allowed: dict = {}
+    if mode in ("tune", "diagnose"):
+        ae = spec.get("allowed_edits")
+        if not isinstance(ae, list) or not ae:
+            err(w, f"{mode} mode needs `allowed_edits`")
+        else:
+            for a in ae:
+                unknown_keys(w, "allowed_edits entry", a, LAB_EDIT_KEYS)
+                if not (isinstance(a, dict) and isinstance(a.get("node"), str) and isinstance(a.get("param"), str)
+                        and is_num(a.get("min")) and is_num(a.get("max")) and a["min"] <= a["max"]):
+                    err(w, "every allowed edit needs node, param and numeric min <= max")
+                    continue
+                if a["node"] not in nodes:
+                    err(w, f"allowed_edits refers to an unknown node: {a['node']}")
+                    continue
+                init = nodes[a["node"]].get(a["param"])
+                if a["param"] not in nodes[a["node"]]:
+                    err(w, f"allowed_edits: node {a['node']} has no initial param `{a['param']}`")
+                elif is_num(init) and not a["min"] <= init <= a["max"]:
+                    warn(w, f"initial {a['node']}.{a['param']}={init} is outside its allowed range {a['min']}..{a['max']}")
+                if (a["node"], a["param"]) in allowed:
+                    err(w, f"allowed_edits lists {a['node']}.{a['param']} twice")
+                allowed[(a["node"], a["param"])] = (a["min"], a["max"])
+    elif mode == "build":
+        pal = spec.get("palette")
+        if not isinstance(pal, list) or not pal or not all(isinstance(x, dict) and isinstance(x.get("type"), str) for x in pal):
+            err(w, "build mode needs a `palette` list of {type, max}")
+    # grading rules
+    rule_ids: set = set()
+
+    def rule_common(r, kind):
+        rid = r.get("id")
+        if not isinstance(rid, str) or not KEBAB.match(rid):
+            err(w, f"{kind}: id must be kebab-case")
+        elif rid in rule_ids:
+            err(w, f"duplicate grading rule id: {rid}")
+        else:
+            rule_ids.add(rid)
+        for f in ("feedback_pass", "feedback_fail"):
+            if not (isinstance(r.get(f), str) and r[f].strip()):
+                err(w, f"{kind} {rid}: `{f}` (Indonesian feedback) is required")
+
+    metrics = []
+    targets = spec.get("targets")
+    if isinstance(targets, list):
+        for t in targets:
+            if not isinstance(t, dict):
+                err(w, "every target must be a mapping")
+                continue
+            rule_common(t, "target")
+            unknown_keys(w, f"target {t.get('id')}", t, LAB_TARGET_KEYS)
+            if not isinstance(t.get("metric"), str):
+                err(w, f"target {t.get('id')}: `metric` is required")
+            else:
+                metrics.append(t["metric"])
+            win = t.get("window")
+            if not (isinstance(win, dict) and is_num(win.get("from_s")) and is_num(win.get("to_s"))
+                    and win["from_s"] < win["to_s"]):
+                err(w, f"target {t.get('id')}: window needs numbers from_s < to_s")
+            if t.get("aggregate") not in LAB_AGGREGATES:
+                err(w, f"target {t.get('id')}: aggregate must be one of {LAB_AGGREGATES}")
+            if t.get("op") not in LAB_OPS:
+                err(w, f"target {t.get('id')}: op must be one of {LAB_OPS}")
+            if not is_num(t.get("value")):
+                err(w, f"target {t.get('id')}: value must be a number")
+            if t.get("node") is not None and (not isinstance(t["node"], str) or (nodes and t["node"] not in nodes)):
+                err(w, f"target {t.get('id')}: unknown node {t['node']}")
+        if any("latency" in m for m in metrics) and not any(m in ("error_rate", "goodput_rps") for m in metrics):
+            err(w, "a latency target must be paired with an error_rate or goodput_rps target (C12)")
+    srules = spec.get("structural_rules") or []
+    if not isinstance(srules, list):
+        err(w, "structural_rules must be a list")
+        srules = []
+    for r in srules:
+        if not isinstance(r, dict):
+            err(w, "every structural rule must be a mapping")
+            continue
+        rule_common(r, "structural rule")
+        unknown_keys(w, f"structural rule {r.get('id')}", r, LAB_RULE_KEYS)
+        if r.get("predicate") not in LAB_PREDICATES:
+            err(w, f"structural rule {r.get('id')}: predicate must be one of {LAB_PREDICATES}")
+        args = r.get("args")
+        if not isinstance(args, dict):
+            err(w, f"structural rule {r.get('id')}: args must be a mapping")
+        elif args.get("node") is not None and (not isinstance(args["node"], str) or (nodes and args["node"] not in nodes)):
+            err(w, f"structural rule {r.get('id')}: unknown node {args['node']}")
+    # hints
+    hints = spec.get("hints")
+    if hints is not None and not isinstance(hints, list):
+        err(w, "hints must be a list")
+        hints = None
+    if isinstance(hints, list):
+        tiers = []
+        for h in hints:
+            if not (isinstance(h, dict) and h.get("tier") in (1, 2, 3) and not isinstance(h.get("tier"), bool)
+                    and isinstance(h.get("text"), str) and h["text"].strip()):
+                err(w, "every hint needs tier 1, 2 or 3 and a text")
+            else:
+                unknown_keys(w, "hint", h, {"tier", "text"})
+                tiers.append(h["tier"])
+        if tiers and set(tiers) != {1, 2, 3}:
+            err(w, "hints must cover tiers 1, 2 and 3")
+        if len(tiers) != len(set(tiers)):
+            warn(w, "more than one hint for the same tier")
+    # reference solution and wrong answers (C09, C13, A3)
+    ref = spec.get("reference_solution")
+    if ref is not None and not isinstance(ref, list):
+        err(w, "reference_solution must be a list of {node, param, value} edits")
+        ref = None
+    ref_final: dict = {}
+    if isinstance(ref, list) and ref:
+        for e in ref:
+            if mode != "build":
+                edit_ok(e, allowed, w, "reference_solution")
+            if isinstance(e, dict) and isinstance(e.get("node"), str) and isinstance(e.get("param"), str):
+                ref_final[(e["node"], e["param"])] = e.get("value")
+    wa = spec.get("wrong_answers")
+    if wa is not None and not isinstance(wa, list):
+        err(w, "wrong_answers must be a list")
+        wa = None
+    brute = False
+    if isinstance(wa, list) and wa:
+        for i, x in enumerate(wa):
+            if not (isinstance(x, dict) and isinstance(x.get("edits"), list) and x["edits"]
+                    and isinstance(x.get("reason"), str) and x["reason"].strip()):
+                err(w, f"wrong_answers[{i}] needs `edits` and a `reason`")
+                continue
+            unknown_keys(w, f"wrong_answers[{i}]", x, LAB_WRONG_KEYS)
+            same = {(e.get("node"), e.get("param"), e.get("value")) for e in x["edits"] if isinstance(e, dict)}
+            if isinstance(ref, list) and same and same == {(e.get("node"), e.get("param"), e.get("value"))
+                                                           for e in ref if isinstance(e, dict)}:
+                err(w, f"wrong_answers[{i}] is identical to the reference solution")
+            if mode != "build":
+                for e in x["edits"]:
+                    edit_ok(e, allowed, w, f"wrong_answers[{i}]")
+            if x.get("brute_force") is True:
+                brute = True
+    if isinstance(wa, list) and wa and not brute and not (isinstance(spec.get("brute_force_ok"), str) and spec["brute_force_ok"].strip()):
+        err(w, "list a wrong answer with `brute_force: true` (all numeric edits at their extreme) or give `brute_force_ok` with a reason (A3)")
+    # structural rules the reference must meet (the two predicates that need no simulator)
+    for r in srules:
+        if not isinstance(r, dict) or not isinstance(r.get("args"), dict) or not isinstance(ref, list):
+            continue
+        a = r["args"]
+        if not isinstance(a.get("node"), str) or not isinstance(a.get("param"), str):
+            continue
+        key = (a["node"], a["param"])
+        if r.get("predicate") == "param-unchanged" and key in ref_final:
+            err(w, f"the reference solution changes {key[0]}.{key[1]}, which rule {r.get('id')} keeps unchanged")
+        if r.get("predicate") == "param-range" and key in nodes_flat(nodes):
+            val = ref_final.get(key, nodes[key[0]].get(key[1]))
+            if is_num(val) and ((is_num(a.get("min")) and val < a["min"]) or (is_num(a.get("max")) and val > a["max"])):
+                err(w, f"the reference solution breaks rule {r.get('id')}: {key[0]}.{key[1]}={val}")
+    # anti-leak (A1, A2, C08): goal and tier 1-2 hints must not give away the reference values or its components
+    if isinstance(ref, list):
+        values = {float(e["value"]) for e in ref if isinstance(e, dict) and is_num(e.get("value")) and e["value"] != 0}
+        words = {str(e["value"]) for e in ref if isinstance(e, dict) and isinstance(e.get("value"), str) and len(e["value"]) >= 4}
+        node_ids = {e["node"] for e in ref if isinstance(e, dict) and isinstance(e.get("node"), str)}
+        texts = [("goal", spec.get("goal"))] + [(f"hint tier {h['tier']}", h.get("text")) for h in hints or []
+                                                if isinstance(h, dict) and h.get("tier") in (1, 2)]
+        for label, text in texts:
+            if not isinstance(text, str):
+                continue
+            for v in sorted(values & numbers_in(text)):
+                err(w, f"anti-leak: {label} contains the reference value {v:g}")
+            for word in words:
+                if re.search(r"\b" + re.escape(word) + r"\b", text, re.I):
+                    err(w, f"anti-leak: {label} contains the reference value `{word}`")
+            for nid in node_ids:
+                if re.search(r"\b" + re.escape(nid) + r"\b", text, re.I):
+                    warn(w, f"anti-leak: {label} names the component `{nid}` that the reference solution edits")
+    # sources
+    srcs = spec.get("sources")
+    if isinstance(srcs, list):
+        for sid in srcs:
+            if not isinstance(sid, str) or sid not in registry:
+                err(w, f"source not in registry: {sid}")
+            elif registry[sid].get("usage") == "map-only":
+                err(w, f"a map-only (Tier 6) source must not be a content source: {sid}")
+    elif srcs is not None:
+        err(w, "sources must be a list of registry ids")
+
+
+def nodes_flat(nodes: dict) -> set:
+    return {(n, p) for n, params in nodes.items() for p in params}
+
+
+def check_incident(path, registry: dict, concepts: dict, case_items: dict, specs_by_path: dict) -> None:
+    """content/incidents/<id>.md: frontmatter plus five Indonesian sections (content-schema.md section 6)."""
+    w = rel(path)
+    fm, body = split_frontmatter(path.read_text(encoding="utf-8"))
+    if fm is None:
+        err(w, "frontmatter missing")
+        return
+    if not isinstance(fm, dict):
+        err(w, "frontmatter must be a mapping")
+        return
+    unknown_keys(w, "incident", fm, INCIDENT_KEYS)
+    iid = fm.get("id")
+    if not isinstance(iid, str):
+        err(w, "id must be a string")
+        iid = None
+    elif iid != path.stem:
+        err(w, f"id `{iid}` must equal the file name `{path.stem}`")
+    for f in ("title", "date", "sources", "concepts", "modelability"):
+        if fm.get(f) in (None, "", []):
+            err(w, f"frontmatter field `{f}` is required")
+    d = fm.get("date")
+    if d is not None and not re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(d)):
+        err(w, "date must be YYYY-MM-DD")
+    srcs = fm.get("sources")
+    if isinstance(srcs, list):
+        if not all(isinstance(x, str) for x in srcs) or any(x not in registry for x in srcs):
+            err(w, "every source must be a registry id")
+        elif not any(registry[x].get("type") == "postmortem" for x in srcs):
+            err(w, "an incident needs a source of type postmortem")
+    elif srcs is not None:
+        err(w, "sources must be a list of registry ids")
+    cons = fm.get("concepts")
+    if isinstance(cons, list):
+        for x in cons:
+            if not isinstance(x, str) or (concepts and x not in concepts):
+                err(w, f"unknown concept: {x}")
+    elif cons is not None:
+        err(w, "concepts must be a list")
+    m = fm.get("modelability")
+    if m is not None and m not in MODELABILITY:
+        err(w, f"modelability must be one of {MODELABILITY}")
+    if m in ("modeled", "illustrative"):
+        sp = fm.get("sim_spec")
+        scen_ids = fm.get("sim_scenarios")
+        if not isinstance(scen_ids, list) or not scen_ids or not all(isinstance(x, str) for x in scen_ids):
+            err(w, "sim_scenarios (a list of catalog scenario ids) is required unless text-only")
+            scen_ids = []
+        if not isinstance(sp, str) or not sp:
+            err(w, "sim_spec (path to the diagnose-mode lab spec) is required unless text-only")
+        else:
+            target = (ROOT / sp).resolve()
+            try:
+                inside = target.is_relative_to((CONTENT / "incidents").resolve())
+            except ValueError:
+                inside = False
+            if not inside or not sp.endswith("lab.yaml"):
+                err(w, "sim_spec must be a path to a `.lab.yaml` file under content/incidents/")
+            elif not target.is_file():
+                err(w, f"sim_spec does not exist: {sp}")
+            else:
+                spec = specs_by_path.get(target)
+                if isinstance(spec, dict):
+                    if spec.get("mode") != "diagnose":
+                        err(w, "the sim_spec lab must be in diagnose mode")
+                    have = {x.get("id") for x in spec.get("scenarios") or [] if isinstance(x, dict)}
+                    for x in scen_ids:
+                        if x not in have:
+                            err(w, f"sim_scenarios `{x}` is not a scenario of the sim_spec lab")
+    elif m == "text-only" and (fm.get("sim_spec") or fm.get("sim_scenarios")):
+        warn(w, "a text-only incident should not set sim_spec or sim_scenarios")
+    if iid is None:
+        pass
+    elif iid in case_items and case_items[iid].get("kind") != "incident":
+        err(w, "curriculum/case-studies.yaml lists this id with another kind")
+    elif case_items and iid not in case_items:
+        warn(w, "this incident is not listed in curriculum/case-studies.yaml")
+    heads = [h.strip() for h in re.findall(r"^##[ \t]+(.+?)[ \t]*$", re.sub(r"```.*?```", "", body, flags=re.S), re.M)]
+    for sec in INCIDENT_SECTIONS:
+        if sec not in heads:
+            err(w, f"missing section `## {sec}`")
+    present = [h for h in heads if h in INCIDENT_SECTIONS]
+    if present != [x for x in INCIDENT_SECTIONS if x in present]:
+        err(w, "sections are out of order; expected " + ", ".join(INCIDENT_SECTIONS))
+    for ref in set(FOOTNOTE.findall(body)):
+        if ref not in registry:
+            err(w, f"marker [^{ref}] is not in the registry")
+        elif isinstance(srcs, list) and ref not in srcs:
+            err(w, f"marker [^{ref}] is not in frontmatter sources")
+
+
+def check_labs(registry: dict, concepts: dict) -> None:
+    files = lab_files()
+    seen: dict = {}
+    specs: list = []
+    specs_by_path: dict = {}
+    for f in files:
+        try:
+            check_lab(f, registry, concepts)
+        except Exception as e:  # noqa: BLE001  a malformed spec must be an error line, never a traceback
+            err(rel(f), f"unexpected structure ({type(e).__name__}: {e}); check the field types against content-schema.md section 5")
+        try:
+            spec = load_yaml(f)
+        except Exception:  # noqa: BLE001 (already reported by check_lab)
+            continue
+        specs.append(spec)
+        specs_by_path[f.resolve()] = spec
+        if isinstance(spec, dict) and isinstance(spec.get("id"), str):
+            if spec["id"] in seen:
+                err(rel(f), f"duplicate lab id `{spec['id']}` (also in {seen[spec['id']]})")
+            seen[spec["id"]] = rel(f)
+    idir = CONTENT / "incidents"
+    case_items = {}
+    cs = load_yaml(CASES)
+    if isinstance(cs, dict):
+        case_items = {i.get("id"): i for i in cs.get("items") or [] if isinstance(i, dict)}
+    if idir.exists():
+        for p in sorted(idir.glob("*.md")):
+            try:
+                check_incident(p, registry, concepts, case_items, specs_by_path)
+            except Exception as e:  # noqa: BLE001  a malformed frontmatter must be an error line, never a traceback
+                err(rel(p), f"unexpected structure ({type(e).__name__}: {e}); check the frontmatter types against content-schema.md section 6")
+    if CATALOG.exists():
+        warn(rel(CATALOG), "simulator catalog found, but catalog checks (C02-C04, C10, C11) are not implemented yet")
+    if concepts:
+        have = {s["concept"] for s in specs if isinstance(s, dict) and isinstance(s.get("concept"), str)}
+        sec = {x for s in specs if isinstance(s, dict) and isinstance(s.get("secondary_concepts"), list)
+               for x in s["secondary_concepts"] if isinstance(x, str)}
+        missing = [cid for cid, c in concepts.items() if "lab" in (c.get("formats") or [])
+                   and cid not in have and cid not in sec]
+        late = [cid for cid in missing if concepts[cid].get("status") in ("review", "published")]
+        if late:
+            err("curriculum/concepts.yaml", "concept(s) in review/published list `lab` but have no lab spec: " + ", ".join(late))
+        if missing and files:
+            warn("curriculum/concepts.yaml", f"{len(missing)} concepts list `lab` but have no lab spec yet (planned)")
+
+
 def check_graph_fresh() -> None:
     """curriculum/graph.md is generated from concepts.yaml (scripts/graph.py); a stale copy is an error."""
     import graph
@@ -830,6 +1357,7 @@ def main():
     if not errors:  # graph.py needs a valid, acyclic prerequisite graph
         check_graph_fresh()
     check_content(registry, concepts)
+    check_labs(registry, concepts)
     for line in warnings:
         print(line)
     for line in errors:

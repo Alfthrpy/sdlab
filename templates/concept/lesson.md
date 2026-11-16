@@ -1,7 +1,7 @@
 ---
 concept: concept-id
 title: Judul lesson          # Indonesian (learner-facing)
-status: drafting           # drafting | review | published
+status: draft              # draft | review | published
 sources:
   - id: registry-id
     loc: "bab/bagian"      # chapter/section

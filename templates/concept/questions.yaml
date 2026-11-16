@@ -2,6 +2,7 @@ questions:
   - id: concept-id-q01
     type: mcq              # mcq | multi | order | match | estimate
     difficulty: 1          # 1–3
+    objective: 1           # 1-based index into the concept's objectives in concepts.yaml
     prompt: ""
     options: ["", "", "", ""]
     answer: 0
