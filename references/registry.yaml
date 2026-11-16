@@ -2247,7 +2247,7 @@ sources:
     units: [5]
     topics: [truetime, external-consistency, clock-uncertainty, commit-wait, globally-distributed-database, paxos]
     status: approved
-    notes: "Only the USENIX presentation page (abstract) was opened, not the PDF, so no reading notes. Page shows 'OSDI '12, Hollywood, CA', October 2012, Best Paper; footer is only '(c) USENIX' with a statement that papers are freely available, no per-paper license. The first URL form (osdi-12 with a hyphen) returned 404; this form works. Verifier: open the PDF and confirm the TrueTime sections before approval. Reopened 2026-11-12; authors and OSDI '12 confirmed on the page. USENIX Open Access statement makes the paper freely available but names no license, so recorded as all-rights-reserved (conservative; usage stays rewrite-only). The PDF itself was not opened this pass; the TrueTime sections must be read by the content writer."
+    notes: "Reading notes exist (references/notes/spanner-osdi12.md) from the PDF: sections 3, 4.1-4.2, 5.1, 5.3, 7, 8 read; sections 2, 5.2, 5.4, 6 and Appendix A not read in depth. The first pass opened only the USENIX presentation page (abstract). Page shows 'OSDI '12, Hollywood, CA', October 2012, Best Paper; footer is only '(c) USENIX' with a statement that papers are freely available, no per-paper license. The first URL form (osdi-12 with a hyphen) returned 404; this form works. Reopened 2026-11-12; authors and OSDI '12 confirmed on the page. USENIX Open Access statement makes the paper freely available but names no license, so recorded as all-rights-reserved (conservative; usage stays rewrite-only). The PDF was opened later (2026-11-16) and the TrueTime sections (3, 4.1-4.2, 5.3) were read for the notes."
 
   - id: kleppmann-distributed-locking-2016
     title: "How to do distributed locking"
@@ -2841,7 +2841,7 @@ sources:
     tier: 3
     url: https://research.google/pubs/dapper-a-large-scale-distributed-systems-tracing-infrastructure/
     doi: null
-    published: "2010"
+    published: "2010-04"
     accessed: "2026-11-12"
     verified_on: "2026-11-12"
     license: all-rights-reserved
@@ -2850,7 +2850,7 @@ sources:
     units: [6]
     topics: [distributed-tracing, observability, sampling, spans]
     status: approved
-    notes: "Opened the Google Research publication page (abstract only; the page lists 'Google, Inc. (2010)' and no venue, so this is a technical report rather than a confirmed conference paper). No copyright or license text on the page. PDF link given on the page: research.google.com/archive/papers/dapper-2010-1.pdf (not opened). Origin of trace/span ideas behind OpenTelemetry. Full text not read. Reopened 2026-11-12; title, eight authors and 'Google, Inc. (2010)' confirmed. No license text on the page, so recorded as all-rights-reserved (conservative; usage stays rewrite-only)."
+    notes: "Opened the Google Research publication page (abstract only; the page lists 'Google, Inc. (2010)' and no venue, so this is a technical report rather than a confirmed conference paper). No copyright or license text on the page. PDF link given on the page: research.google.com/archive/papers/dapper-2010-1.pdf; its first page prints 'Google Technical Report dapper-2010-1, April 2010' (checked 2026-11-16), hence published 2010-04. Reading notes exist (references/notes/dapper-2010.md). Origin of trace/span ideas behind OpenTelemetry. Reopened 2026-11-12; title, eight authors and 'Google, Inc. (2010)' confirmed. No license text on the page, so recorded as all-rights-reserved (conservative; usage stays rewrite-only)."
 
   - id: fowler-bluegreen-deployment
     title: "Blue Green Deployment"
@@ -3953,4 +3953,196 @@ sources:
     status: candidate
     version: "Page shows 'Updated: June 17, 2022'"
     notes: "Footer: (c) 2026 Hound Technology, Inc.; no open license. The date is the page's 'Updated' date, no original publication date shown (recorded as published for that reason; the verifier should confirm). Vendor-authored position piece: metrics are pre-aggregated, logs are fragments, traces are linked logs and metrics; proposes wide structured events with dozens to hundreds of fields that can be sliced by high-cardinality fields, with metrics and traces derived from them; recommends OpenTelemetry. Treat claims about cost and performance as the vendor view. A separate Honeycomb docs page on high cardinality had no author, date or footer in the fetch and was not registered."
+    verified_on: ""
+
+  - id: mattern-virtual-time-global-states-1989
+    title: "Virtual Time and Global States of Distributed Systems"
+    authors: [Friedemann Mattern]
+    publisher: "Elsevier Science Publishers B.V. (North-Holland); proceedings of the International Workshop on Parallel and Distributed Algorithms, Chateau de Bonas, France, October 1988"
+    type: paper
+    tier: 3
+    url: https://pages.cs.wisc.edu/~remzi/Classes/739/Fall2018/Papers/mattern89.pdf
+    doi: null
+    published: "1989"
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [5]
+    topics: [vector-clocks, vector-time, happened-before, causality, concurrent-events, consistent-cuts, logical-time]
+    status: candidate
+    notes: "Read via pdftotext of the PDF served from a university course page (University of Wisconsin course site), not the author's or publisher's page; the verifier should look for the author's own copy. Author affiliation printed: University of Kaiserslautern (current address Saarbrucken). The first-page footnote says this is an edited version with minor alterations of the paper that appeared in the 1988 workshop proceedings, copyright 1989 Elsevier Science Publishers B.V. (North-Holland), reproduced with the author's permission; so the year is the proceedings year (1989) while the workshop was October 1988. No open license, so all-rights-reserved. Sections used: 7 Vector time (clock vector, componentwise-maximum merge on receive), 8 Structure of vector time (partial order, concurrency relation), 10 Application of vector time (race detection, debugging). Text mentions Fidge's independent work; the Fidge 1988 paper itself could not be opened (author page host did not resolve), so it is a gap. Extraction lost some symbols, so the exact formulas were not copied."
+    verified_on: ""
+
+  - id: riak-docs-causal-context
+    title: "Causal Context (Riak KV 2.2.3 documentation)"
+    authors: []
+    publisher: Riak documentation (docs.riak.com)
+    type: docs
+    tier: 2
+    url: http://docs.riak.com/riak/kv/2.2.3/learn/concepts/causal-context/
+    doi: null
+    published: ""
+    accessed: "2026-11-16"
+    license: CC-BY-4.0
+    usage: rewrite-only
+    access: free
+    units: [5]
+    topics: [vector-clocks, causal-context, dotted-version-vectors, siblings, concurrent-writes, conflict-resolution]
+    status: candidate
+    version: "Riak KV 2.2.3 docs"
+    notes: "NO-AUTHOR, NO-DATE: the page shows neither. Footer (from a WebFetch summary, not the raw page): 'This work is licensed under a Creative Commons Attribution 4.0 International Public License'; the verifier should confirm the footer text and that CC BY applies to this page. Free explainer for vector clocks as used in a Dynamo-style store: a vector clock records which actor changed an object and how many times, lets the system tell descendant versions from concurrent ones, and leads to siblings when concurrency cannot be resolved; the docs recommend dotted version vectors from Riak 2.0. The request first hit a 301 from https to http; the http URL was the one read. Riak is a niche product, so use it only as a free explainer next to mattern-virtual-time-global-states-1989."
+    verified_on: ""
+
+  - id: dissecting-zab-yahoo-2010
+    title: "Dissecting Zab"
+    authors: [Flavio Junqueira, Benjamin Reed, Marco Serafini]
+    publisher: "Yahoo! Labs (Technical Report No. YL-2010-0007; PDF hosted on the Apache ZooKeeper Confluence wiki)"
+    type: paper
+    tier: 3
+    url: https://cwiki.apache.org/confluence/download/attachments/24193444/yl-2010-007.pdf?api=v2
+    doi: null
+    published: ""
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [5]
+    topics: [zab, atomic-broadcast, primary-backup, epochs, leader-election, zookeeper, consensus]
+    status: candidate
+    notes: "NO-DATE: the report text extracted with pdftotext prints only the report number YL-2010-0007, no date; the number suggests 2010 but that is an inference, so published stays empty. No license or copyright text, so all-rights-reserved (no license stated). This is the Yahoo technical report on the same protocol as the DSN 2011 paper 'Zab: High-performance broadcast for primary-backup systems' (Junqueira, Reed, Serafini), which could NOT be opened (IEEE Xplore page returned nothing, a university copy failed, a scispace copy returned nothing), so that paper is not registered. Read: 1 Introduction (highlights), 3 system model, 4 Zab description (phases 1 discovery, 2 synchronization, 3 broadcast; epochs; histories), 4.3 examples. Proof sections 5-7 only skimmed. Heavy formal notation; use for the protocol outline."
+    verified_on: ""
+
+  - id: zookeeper-wiki-zab1-0
+    title: "Zab1.0 (Apache ZooKeeper wiki)"
+    authors: [Benjamin Reed]
+    publisher: Apache Software Foundation (ZooKeeper project wiki on cwiki.apache.org)
+    type: docs
+    tier: 2
+    url: https://cwiki.apache.org/confluence/display/ZOOKEEPER/Zab1.0
+    doi: null
+    published: "2021-05-13"
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [5]
+    topics: [zab, zookeeper, epochs, zxid, leader-election, atomic-broadcast, synchronization]
+    status: candidate
+    version: "Confluence page last modified 2021-05-13 by Michael Han (created by Benjamin Reed)"
+    notes: "Project wiki page (user-editable Confluence), so weaker standing than official docs; Tier 2 only because it is the ZooKeeper project's own protocol description. TIER EXCEPTION: research-protocol.md says wikis are not Tier 2 but defines no other tier for them; the owner decides at approval whether to keep Tier 2, reject it, or rely on dissecting-zab-yahoo-2010 instead. The date is the 'last modified' date, not the original publication date. Footer only says 'Powered by a free Atlassian Confluence Open Source Project License granted to Apache Software Foundation', which is not a content license; no license stated for the content, so all-rights-reserved. Read through a WebFetch summary, not the raw page: leader election then three phases (establish epoch, sync with followers via SNAP/TRUNC/DIFF, broadcast with zxid and quorum ACK then COMMIT); zxid has the epoch in its high 32 bits. The verifier should reopen it and check the message names."
+    verified_on: ""
+
+  - id: jepsen-causal
+    title: "Causal Consistency (Jepsen consistency models)"
+    authors: []
+    publisher: Jepsen
+    type: docs
+    tier: 2
+    url: https://jepsen.io/consistency/models/causal
+    doi: null
+    published: ""
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [5]
+    topics: [causal-consistency, sticky-availability, session-guarantees, partial-order]
+    status: candidate
+    notes: "NO-AUTHOR, NO-DATE on the page. Footer: 'Copyright (c) Jepsen, LLC.' with no license terms, so all-rights-reserved. Read through a WebFetch summary, not the raw page. Causally related operations appear in the same order everywhere while independent operations may be seen in different orders; sticky available (clients must keep talking to the same server); read-your-writes and causal give up total availability; suggests sequential consistency if a total order is needed. Companion to jepsen-linearizable and jepsen-consistency-models."
+    verified_on: ""
+
+  - id: jepsen-serializable
+    title: "Serializability (Jepsen consistency models)"
+    authors: []
+    publisher: Jepsen
+    type: docs
+    tier: 2
+    url: https://jepsen.io/consistency/models/serializable
+    doi: null
+    published: ""
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [3, 5]
+    topics: [serializability, transactions, isolation, strict-serializability, availability]
+    status: candidate
+    notes: "NO-AUTHOR, NO-DATE on the page. Footer: 'Copyright (c) Jepsen, LLC.' with no license terms (plus an errata contact), so all-rights-reserved. Read through a WebFetch summary, not the raw page. Transactions appear in some total order, multi-object and including predicates, with no real-time or per-process ordering requirement (that is strict serializability); cannot be totally or sticky available; can return odd orderings such as empty reads. Note the Unit 3 concept on isolation also fits, hence units 3 and 5."
+    verified_on: ""
+
+  - id: jepsen-sequential
+    title: "Sequential Consistency (Jepsen consistency models)"
+    authors: []
+    publisher: Jepsen
+    type: docs
+    tier: 2
+    url: https://jepsen.io/consistency/models/sequential
+    doi: null
+    published: ""
+    accessed: "2026-11-16"
+    license: all-rights-reserved
+    usage: rewrite-only
+    access: free
+    units: [5]
+    topics: [sequential-consistency, total-order, per-process-order, stale-reads, availability]
+    status: candidate
+    notes: "NO-AUTHOR, NO-DATE on the page. Footer: 'Copyright (c) Jepsen, LLC.' with no license terms, so all-rights-reserved. Read through a WebFetch summary, not the raw page. Operations appear in one total order consistent with each process's own order; a process may read stale state but never goes backwards once it has seen another process's operation; cannot be totally or sticky available. Companion to jepsen-linearizable (which adds the real-time requirement)."
+    verified_on: ""
+
+  - id: sre-workbook-alerting-on-slos-ch5
+    title: "The Site Reliability Workbook, Chapter 5: Alerting on SLOs"
+    authors: [Steven Thurgood, Jess Frame, Anthony Lenton, Carmela Quinito, Anton Tolchanov, Nejc Trdin]
+    publisher: Google / O'Reilly Media
+    type: book
+    tier: 1
+    url: https://sre.google/workbook/alerting-on-slos/
+    doi: null
+    published: "2018"
+    accessed: "2026-11-16"
+    license: CC-BY-NC-ND-4.0
+    usage: rewrite-only
+    access: free
+    units: [6]
+    topics: [alerting, slo, burn-rate, multiwindow-alerts, error-budget, paging, observability]
+    status: candidate
+    notes: "Page footer (as reported by a WebFetch summary; the verifier should confirm): 'Copyright 2018 Google, Inc. Published by O'Reilly Media, Inc. Licensed under CC BY-NC-ND 4.0'. The page gives no date, so 2018 is the copyright year. Authors are those named on the page: Steven Thurgood with the five others. Covers six alerting approaches from a bare error-rate threshold to multiwindow multi-burn-rate; burn rate = how fast the error budget is used relative to the SLO; recommended pages at 14.4x over 1 h with a 5 min short window (2% budget), 6x over 6 h with 30 min (5%), ticket at 1x over 3 days with 6 h (10%), for a 99.9% SLO. Also low-traffic services. Section 'Alerting at Scale' not summarised. Needs ND-aware handling: rewrite-only, no adaptation."
+    verified_on: ""
+
+  - id: sre-book-release-engineering-ch8
+    title: "Site Reliability Engineering, Chapter 8: Release Engineering"
+    authors: [Dinah McNutt]
+    publisher: Google / O'Reilly Media
+    type: book
+    tier: 1
+    url: https://sre.google/sre-book/release-engineering/
+    doi: null
+    published: "2017"
+    accessed: "2026-11-16"
+    license: CC-BY-NC-ND-4.0
+    usage: rewrite-only
+    access: free
+    units: [6]
+    topics: [release-engineering, safe-deploys, hermetic-builds, continuous-deployment, configuration-management, self-service]
+    status: candidate
+    notes: "Footer (from a WebFetch summary; the verifier should confirm): 'Copyright 2017 Google, Inc. Published by O'Reilly Media, Inc. Licensed under CC BY-NC-ND 4.0'. The page gives no date, so 2017 is the copyright year. Written by Dinah McNutt, edited by Betsy Beyer and Tim Harvey. Four principles (self-service, high velocity with small changes, hermetic builds, enforced policy and review), then build, branch, test, package, deploy, and configuration management. Read through the summary only; it is a Google-scale view, so use for principles and not as a recipe. The SRE book has no tracing chapter (its table of contents was checked)."
+    verified_on: ""
+
+  - id: sre-book-practical-alerting-ch10
+    title: "Site Reliability Engineering, Chapter 10: Practical Alerting from Time-Series Data"
+    authors: [Jamie Wilkinson]
+    publisher: Google / O'Reilly Media
+    type: book
+    tier: 1
+    url: https://sre.google/sre-book/practical-alerting/
+    doi: null
+    published: "2017"
+    accessed: "2026-11-16"
+    license: CC-BY-NC-ND-4.0
+    usage: rewrite-only
+    access: free
+    units: [6]
+    topics: [alerting, monitoring, time-series, borgmon, rule-evaluation, black-box-monitoring, observability]
+    status: candidate
+    notes: "Footer (from a WebFetch summary; the verifier should confirm): 'Copyright 2017 Google, Inc. Published by O'Reilly Media, Inc. Licensed under CC BY-NC-ND 4.0'. The page gives no date, so 2017 is the copyright year. Written by Jamie Wilkinson, edited by Kavita Guliani. Borgmon-based chapter: white-box metrics exposed over HTTP, labeled time series, rule evaluation, alerts that must hold for a duration before firing, black-box probers. Read through the summary only. Prefer the Workbook chapter sre-workbook-alerting-on-slos-ch5 for beginner SLO alerting; this chapter is background on metric-based alerting."
     verified_on: ""
