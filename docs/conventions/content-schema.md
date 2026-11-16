@@ -115,7 +115,7 @@ reviewed_by: content-reviewer      # required when published (agent or person)
 ---
 ```
 
-Body: 300–600 words, Indonesian, `[^id]` markers for specific claims (every marker must be in `sources`), at most one short quote per source.
+Body: 300–600 words, Indonesian, `[^id]` markers for specific claims (every marker must be in `sources`), at most one short quote per source. The validator counts words with `\w+` after removing fenced code blocks, `[^id]` markers, and URLs, so `x-y` counts as two words.
 
 ### `questions.yaml`
 
@@ -128,7 +128,7 @@ questions:
     prompt: "..."
     options: ["...", "...", "..."]  # mcq 3-5, multi 4-6, order 3-6; distinct
     answer: 1                       # see the table
-    explanation: "..."              # 1-3 sentences
+    explanation: "..."              # required; 1-3 sentences (style rule in writing-style.md, not enforced)
     sources: [system-design-primer]
     targets_misconception: stale-read-ok   # optional; must be an id in misconceptions.md
 ```
@@ -138,10 +138,12 @@ questions:
 | `mcq` | `options` (3-5); `answer`: one option index |
 | `multi` | `options` (4-6); `answer`: list of 2 or more distinct indexes, never all options |
 | `order` | `options` (3-6); `answer`: every index exactly once, in the correct sequence |
-| `match` | `pairs`: 3 or more `[left, right]` pairs with distinct left and distinct right items; no `answer` field |
+| `match` | `pairs`: 3 or more `[left, right]` pairs with distinct left and distinct right items; the pairs are the answer, so there is no `answer` field |
 | `estimate` | `unit` (string); `answer`: `{min, max}` numbers with `min < max` (the accepted range) |
 
-Every learning objective of the concept must be covered by at least one question (via `objective`), checked from `review` on. Anti-leak: the validator warns when the correct mcq option is the longest in more than 40% of mcq questions.
+Every learning objective of the concept must be covered by at least one question (via `objective`), checked from `review` on. An `objective` index outside the concept's objectives is an error at any stage. Anti-leak: the validator warns when the correct mcq option is the longest in more than 40% of mcq questions.
+
+Always errors, at any stage: a duplicate or non-kebab-case id, a question id that is not `<concept-id>-qNN`, a `targets_misconception` that is not in `misconceptions.md` (or that file is missing), a source that is not in the registry or is `map-only`, and a malformed structure (the file or a question is not a mapping, `sources` is not a list of ids). More than 10 questions or more than 6 misconceptions only warn.
 
 ### `misconceptions.md`
 
@@ -156,6 +158,8 @@ concept: caching-basics            # must equal the folder name
 
 **Kenapa keliru:** (why it is wrong, with a `[^source-id]` marker when it rests on a source)
 ```
+
+Both labels are required in every section; a missing label, a duplicate id, or a non-kebab-case heading is an error. A `[^id]` marker must be a registry id. Headings and labels inside code fences are ignored.
 
 ## 5. Incidents & case studies (draft, finalized in P1-033)
 

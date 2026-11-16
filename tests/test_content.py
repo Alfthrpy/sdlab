@@ -298,3 +298,90 @@ class Misconceptions(unittest.TestCase):
         bad = MISC.replace("y\n\n## ttl", "y [^nope]\n\n## ttl", 1)
         errs, _ = run(lesson(["blog"], WORDS), misc=bad)
         self.assertTrue(has(errs, "[^nope] is not in the registry"))
+
+
+class Hardening(unittest.TestCase):
+    """Malformed structures give error lines, never a traceback."""
+
+    def qerrs(self, raw):
+        with tempfile.TemporaryDirectory() as d:
+            cdir = Path(d) / "concepts" / "c1"
+            cdir.mkdir(parents=True)
+            (cdir / "lesson.md").write_text(lesson(["blog"], WORDS), encoding="utf-8")
+            (cdir / "questions.yaml").write_text(raw, encoding="utf-8")
+            old = (validate.CONTENT, validate.rel)
+            validate.CONTENT, validate.rel = Path(d), lambda p: p.name
+            validate.errors.clear()
+            validate.warnings.clear()
+            try:
+                validate.check_content(REG, {})
+                return list(validate.errors)
+            finally:
+                validate.CONTENT, validate.rel = old
+
+    def test_questions_file_shapes(self):
+        for raw in ("questions: {a: 1}\n", "- a\n", "hello\n"):
+            self.assertTrue(has(self.qerrs(raw), "questions.yaml must be a mapping"), raw)
+        self.assertTrue(has(self.qerrs("questions: [abc]\n"), "must be a mapping, got"))
+        self.assertTrue(has(self.qerrs("questions:\n  - \n"), "must be a mapping, got"))
+
+    def test_unhashable_or_wrong_typed_fields(self):
+        for item in ("{id: [a]}", "{id: c1-q01, type: [a]}", "{id: c1-q01, type: mcq, sources: [[a]]}",
+                     "{id: c1-q01, type: mcq, sources: blog}", "{id: c1-q01, type: mcq, targets_misconception: [a]}",
+                     "{id: c1-q01, type: mcq, options: [[1], [2], [3]], answer: 0}"):
+            self.qerrs("questions:\n  - " + item + "\n")  # must not raise
+
+    def test_difficulty_must_be_a_plain_int(self):
+        for bad in ("true", "2.0"):
+            errs = self.qerrs("questions:\n  - {id: c1-q01, type: mcq, difficulty: %s}\n" % bad)
+            self.assertTrue(has(errs, "difficulty must be"), bad)
+
+    def test_frontmatter_shapes(self):
+        errs, _ = run("---\n- a\n---\nteks\n")
+        self.assertTrue(has(errs, "frontmatter must be a mapping"))
+        errs, _ = run(lesson("blog", WORDS))
+        self.assertTrue(has(errs, "`sources` must be a list"))
+        errs, _ = run(lesson([["a"]], WORDS))
+        self.assertTrue(has(errs, "`sources` must be a list"))
+        errs, _ = run(lesson(["blog"], WORDS), misc="---\n- a\n---\n")
+        self.assertTrue(has(errs, "frontmatter must be a mapping"))
+
+    def test_non_kebab_heading_is_reported_not_ignored(self):
+        bad = MISC.replace("## cache-free", "## Stale Read")
+        errs, _ = run(lesson(["blog"], WORDS), misc=bad)
+        self.assertTrue(has(errs, "must be kebab-case"))
+
+    def test_labels_inside_code_fence_do_not_count(self):
+        bad = MISC.replace("**Kenapa keliru:** y\n\n## ttl", "```\n**Kenapa keliru:** y\n```\n\n## ttl", 1)
+        errs, _ = run(lesson(["blog"], WORDS), misc=bad)
+        self.assertTrue(has(errs, "missing the label **Kenapa keliru:**"))
+
+    def test_without_concept_objective_bounds_are_skipped(self):
+        errs, _ = run(lesson(["blog"], WORDS), [q(1, objective=9)], misc=MISC)
+        self.assertFalse(has(errs, "objective must be"))
+
+
+class WordCount(unittest.TestCase):
+    def words(self, n, status="review"):
+        text = " ".join(["kata"] * n) + "[^blog]"
+        errs, _ = run(lesson(["blog"], text, status=status), misc=MISC)
+        return has(errs, "lesson length")
+
+    def test_boundaries(self):
+        self.assertTrue(self.words(299))
+        self.assertFalse(self.words(300))
+        self.assertFalse(self.words(600))
+        self.assertTrue(self.words(601))
+
+    def test_markers_and_urls_are_not_counted(self):
+        text = " ".join(["kata"] * 300) + " https://example.com/a/b/c [^blog][^blog]"
+        errs, _ = run(lesson(["blog"], text, status="review"), misc=MISC)
+        self.assertFalse(has(errs, "lesson length"))
+
+
+class OrderAnswers(unittest.TestCase):
+    def test_duplicate_and_bool_indexes_rejected(self):
+        for ans in ([0, 0, 1], [True, 1, 2], [0, 1, "2"]):
+            errs, _ = run(lesson(["blog"], WORDS), [q(1, type="order", options=["a", "b", "c"], answer=ans)],
+                          misc=MISC, concepts=CONCEPTS)
+            self.assertTrue(has(errs, "order answer"), ans)

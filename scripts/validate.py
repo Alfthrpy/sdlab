@@ -453,7 +453,7 @@ LESSON_STATUSES = ["draft", "review", "published"]
 LESSON_WORDS = (300, 600)       # target range (writing-style.md): error for review/published, warning for draft
 QUESTIONS_RANGE = (6, 10)       # questions per concept
 MISCONCEPTIONS_RANGE = (3, 6)   # misconceptions per concept
-MISC_HEADING = re.compile(r"^##\s+(\S+)\s*$", re.M)
+MISC_HEADING = re.compile(r"^##[ \t]+(.+?)[ \t]*$", re.M)
 MISC_LABELS = ("**Keyakinan keliru:**", "**Kenapa keliru:**")
 OPTION_COUNTS = {"mcq": (3, 5), "multi": (4, 6), "order": (3, 6)}
 
@@ -470,8 +470,11 @@ def check_misconceptions(d, cid: str, registry: dict, stage: str) -> set[str] | 
     fm, body = split_frontmatter(mfile.read_text(encoding="utf-8"))
     if fm is None:
         err(w, "frontmatter missing")
+    elif not isinstance(fm, dict):
+        err(w, "frontmatter must be a mapping")
     elif fm.get("concept") != cid:
         err(w, f"frontmatter concept `{fm.get('concept')}` does not match the folder `{cid}`")
+    body = re.sub(r"```.*?```", "", body, flags=re.S)  # labels and headings inside code fences do not count
     heads = list(MISC_HEADING.finditer(body))
     ids: set[str] = set()
     for i, m in enumerate(heads):
@@ -498,6 +501,8 @@ def check_misconceptions(d, cid: str, registry: dict, stage: str) -> set[str] | 
 def check_question_answer(w: str, qid: str, q: dict):
     """Answer format per type (content-schema.md section 4)."""
     t, a = q.get("type"), q.get("answer")
+    if not isinstance(t, str):
+        return  # the type error is reported by the caller
     if t in OPTION_COUNTS:
         opts = q.get("options")
         lo, hi = OPTION_COUNTS[t]
@@ -514,8 +519,7 @@ def check_question_answer(w: str, qid: str, q: dict):
             if not (isinstance(a, list) and 2 <= len(a) < len(opts) and all(valid(i) for i in a)
                     and len(set(a)) == len(a)):
                 err(w, f"{qid}: multi answer must be a list of 2 or more distinct option indexes, not all options")
-        elif not (isinstance(a, list) and sorted(a, key=str) == sorted(range(len(opts)), key=str)
-                  and all(valid(i) for i in a)):
+        elif not (isinstance(a, list) and all(valid(i) for i in a) and sorted(a) == list(range(len(opts)))):
             err(w, f"{qid}: order answer must list every option index exactly once (the correct sequence)")
     elif t == "match":
         pairs = q.get("pairs")
@@ -528,30 +532,40 @@ def check_question_answer(w: str, qid: str, q: dict):
         num = lambda x: isinstance(x, (int, float)) and not isinstance(x, bool)  # noqa: E731
         if not (isinstance(a, dict) and num(a.get("min")) and num(a.get("max")) and a["min"] < a["max"]):
             err(w, f"{qid}: estimate answer must be {{min, max}} numbers with min < max")
-        if not q.get("unit"):
-            err(w, f"{qid}: estimate needs a `unit`")
+        if not isinstance(q.get("unit"), str) or not q.get("unit"):
+            err(w, f"{qid}: estimate needs a `unit` (string)")
 
 
 def check_questions(qfile, d, cid: str, concept: dict | None, registry: dict, published: bool, stage: str,
                     misc_ids: set[str] | None) -> None:
     w = rel(qfile)
     data = load_yaml(qfile) or {}
+    if not isinstance(data, dict) or not isinstance(data.get("questions") or [], list):
+        err(w, "questions.yaml must be a mapping with a `questions` list")
+        return
     qs = data.get("questions") or []
     objectives = (concept or {}).get("objectives") or []
+    if not isinstance(objectives, list):
+        objectives = []
     covered: set[int] = set()
     seen: set = set()
     longest_correct = 0
     mcq = 0
     for q in qs:
+        if not isinstance(q, dict):
+            err(w, f"every question must be a mapping, got: {q!r}")
+            continue
         qid = q.get("id")
-        if not qid or qid in seen:
-            err(w, f"question id empty/duplicate: {qid}")
+        if not isinstance(qid, str) or not qid or qid in seen:
+            err(w, f"question id empty/duplicate/not a string: {qid!r}")
+            qid = str(qid)
         seen.add(qid)
         if qid and not re.fullmatch(re.escape(cid) + r"-q\d{2,}", str(qid)):
             err(w, f"{qid}: id must look like `{cid}-qNN`")
-        if q.get("type") not in Q_TYPES:
+        if not isinstance(q.get("type"), str) or q.get("type") not in Q_TYPES:
             err(w, f"{qid}: type must be one of {Q_TYPES}")
-        if q.get("difficulty") not in (1, 2, 3):
+        d = q.get("difficulty")
+        if not isinstance(d, int) or isinstance(d, bool) or d not in (1, 2, 3):
             err(w, f"{qid}: difficulty must be 1, 2 or 3")
         if not q.get("prompt") or not q.get("explanation"):
             err(w, f"{qid}: prompt and explanation are required")
@@ -564,11 +578,18 @@ def check_questions(qfile, d, cid: str, concept: dict | None, registry: dict, pu
         else:
             covered.add(obj)
         tm = q.get("targets_misconception")
+        if tm is not None and not isinstance(tm, str):
+            err(w, f"{qid}: targets_misconception must be a misconception id (string)")
+            tm = None
         if tm and misc_ids is not None and tm not in misc_ids:
             err(w, f"{qid}: targets_misconception `{tm}` is not in misconceptions.md")
         elif tm and misc_ids is None:
             err(w, f"{qid}: targets_misconception needs a misconceptions.md")
-        for s in q.get("sources") or []:
+        qsrc = q.get("sources") or []
+        if not isinstance(qsrc, list) or not all(isinstance(x, str) for x in qsrc):
+            err(w, f"{qid}: `sources` must be a list of registry ids")
+            qsrc = []
+        for s in qsrc:
             if s not in registry:
                 err(w, f"{qid}: source not in registry: {s}")
             elif published and registry[s].get("status") != "approved":
@@ -576,7 +597,7 @@ def check_questions(qfile, d, cid: str, concept: dict | None, registry: dict, pu
             elif registry[s].get("usage") == "map-only":
                 err(w, f"{qid}: a map-only (Tier 6) source must not be a content source: {s}")
         check_question_answer(w, qid, q)
-        if q.get("type") == "mcq" and len(q.get("options") or []) >= 3 and isinstance(q.get("answer"), int) \
+        if q.get("type") == "mcq" and isinstance(q.get("options"), list) and len(q.get("options")) >= 3 and isinstance(q.get("answer"), int) \
                 and 0 <= q["answer"] < len(q["options"]):
             mcq += 1
             lens = [len(str(o)) for o in q["options"]]
@@ -611,6 +632,8 @@ def check_content(registry: dict[str, dict], concepts: dict[str, dict]):
             w = rel(lesson)
             if fm is None:
                 err(w, "frontmatter missing")
+            elif not isinstance(fm, dict):
+                err(w, "frontmatter must be a mapping")
             else:
                 published = fm.get("status") == "published"
                 for field in ("concept", "title", "sources", "status"):
@@ -624,8 +647,13 @@ def check_content(registry: dict[str, dict], concepts: dict[str, dict]):
                     stage = fm.get("status") or "draft"
                 if published and not fm.get("reviewed_by"):
                     err(w, "published lesson needs `reviewed_by` in the frontmatter")
-                srcs = [s if isinstance(s, dict) else {"id": s} for s in fm.get("sources") or []]
-                src_ids = [s.get("id") for s in srcs]
+                raw_srcs = fm.get("sources") or []
+                if not isinstance(raw_srcs, list) or not all(
+                        isinstance(x, str) or (isinstance(x, dict) and isinstance(x.get("id"), str)) for x in raw_srcs):
+                    err(w, "`sources` must be a list of registry ids or {id, loc} mappings")
+                    raw_srcs = []
+                srcs = [x if isinstance(x, dict) else {"id": x} for x in raw_srcs]
+                src_ids = [x.get("id") for x in srcs]
                 for s in src_ids:
                     if s not in registry:
                         err(w, f"source not in registry: {s}")
@@ -660,7 +688,9 @@ def check_content(registry: dict[str, dict], concepts: dict[str, dict]):
                 for ref, n in quotes.items():
                     if n > 1:
                         err(w, f"{n} direct quotes from {ref} (max 1 per source per lesson)")
-                words = len(re.findall(r"\w+", re.sub(r"```.*?```", "", body, flags=re.S)))
+                counted = re.sub(r"```.*?```", "", body, flags=re.S)
+                counted = re.sub(r"\[\^[a-z0-9-]+\]|https?://\S+", "", counted)
+                words = len(re.findall(r"\w+", counted))
                 lo, hi = LESSON_WORDS
                 if words and not lo <= words <= hi:
                     (err if stage in ("review", "published") else warn)(
