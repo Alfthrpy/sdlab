@@ -456,6 +456,25 @@ MISCONCEPTIONS_RANGE = (3, 6)   # misconceptions per concept
 MISC_HEADING = re.compile(r"^##[ \t]+(.+?)[ \t]*$", re.M)
 MISC_LABELS = ("**Keyakinan keliru:**", "**Kenapa keliru:**")
 OPTION_COUNTS = {"mcq": (3, 5), "multi": (4, 6), "order": (3, 6)}
+# Anti-leak and style heuristics (writing-style.md). All of them only warn: they flag patterns, not proof.
+ANTILEAK_MIN_MCQ = 4            # heuristics over a concept's mcq questions need at least this many
+POSITION_MIN_MCQ = 5            # the position check is noisy with fewer questions (random keys repeat often)
+ANTILEAK_SHARE = 0.4            # correct option strictly longest in more than this share
+POSITION_SHARE = 0.5            # one answer position holds more than this share
+ECHO_SHARE = 0.5                # correct option shares the most prompt words in more than this share
+ABSOLUTE_MIN = 3                # questions where only wrong options use an absolute word
+NONE_OF_ABOVE = re.compile(r"\b(semua|seluruh)\s+(jawaban|pilihan)(\s+di\s+atas)?\b|\btidak\s+ada\s+(jawaban\s+)?yang\s+(benar|tepat)\b"
+                           r"|\b(all|none)\s+of\s+the\s+above\b", re.I)
+LETTER_COMBO = re.compile(r"^\s*[A-D]\s+dan\s+[A-D]\s+(benar|keduanya)\b")   # "A dan B benar" (case-sensitive letters)
+ABSOLUTES = re.compile(r"\b(selalu|tidak\s+pernah|pasti|mustahil|selamanya|satu-satunya|always|never)\b", re.I)
+ECHO_STOPWORDS = {"dengan", "karena", "adalah", "dalam", "untuk", "tidak", "apakah", "berikut", "tentang", "paling",
+                  "yang", "dapat", "mana", "akan", "saat", "ketika", "setelah", "sebelum", "supaya", "sebuah", "manakah"}
+FILLER = ["sangat penting", "di era modern", "mari kita selami", "kesimpulannya", "dalam dunia yang semakin",
+          "tidak dapat dipungkiri", "perlu diingat bahwa"]
+LESSON_OPENERS = re.compile(r"^\s*(pada|dalam|di|untuk)\s+(lesson|materi|artikel|bab|bagian)\s+ini\b|^\s*(kali ini|mari)\s+kita\b", re.I)
+EMOJI = re.compile("[\U0001F000-\U0001FAFF\u2705\u274C\u26A1\u2B50\u23F0\u231B\uFE0F]")
+ABBREVIATIONS = re.compile(r"\b(mis|dst|dll|dsb|dkk|vs|yaitu|e\.g|i\.e|no|hlm|spt|tsb)\.", re.I)
+EXPLANATION_MAX_SENTENCES = 3
 
 
 def check_misconceptions(d, cid: str, registry: dict, stage: str) -> set[str] | None:
@@ -549,8 +568,6 @@ def check_questions(qfile, d, cid: str, concept: dict | None, registry: dict, pu
         objectives = []
     covered: set[int] = set()
     seen: set = set()
-    longest_correct = 0
-    mcq = 0
     for q in qs:
         if not isinstance(q, dict):
             err(w, f"every question must be a mapping, got: {q!r}")
@@ -597,12 +614,6 @@ def check_questions(qfile, d, cid: str, concept: dict | None, registry: dict, pu
             elif registry[s].get("usage") == "map-only":
                 err(w, f"{qid}: a map-only (Tier 6) source must not be a content source: {s}")
         check_question_answer(w, qid, q)
-        if q.get("type") == "mcq" and isinstance(q.get("options"), list) and len(q.get("options")) >= 3 and isinstance(q.get("answer"), int) \
-                and 0 <= q["answer"] < len(q["options"]):
-            mcq += 1
-            lens = [len(str(o)) for o in q["options"]]
-            if lens[q["answer"]] == max(lens) and lens.count(max(lens)) == 1:
-                longest_correct += 1
     lo, hi = QUESTIONS_RANGE
     if qs and not lo <= len(qs) <= hi:
         (err if stage in ("review", "published") and len(qs) < lo else warn)(
@@ -612,8 +623,82 @@ def check_questions(qfile, d, cid: str, concept: dict | None, registry: dict, pu
         if missing:
             (err if stage in ("review", "published") else warn)(
                 w, f"learning objective(s) {missing} are not covered by any question")
-    if mcq >= 4 and longest_correct / mcq > 0.4:
-        warn(w, f"anti-leak: the correct option is the longest in {longest_correct}/{mcq} mcq questions")
+    check_anti_leak(w, [q for q in qs if isinstance(q, dict)])
+
+
+def mcq_items(qs: list[dict]) -> list[tuple[dict, list[str], int]]:
+    """(question, options as text, correct index) for well-formed mcq questions with 3+ options."""
+    out = []
+    for q in qs:
+        opts, a = q.get("options"), q.get("answer")
+        if q.get("type") == "mcq" and isinstance(opts, list) and len(opts) >= 3 and isinstance(a, int) \
+                and not isinstance(a, bool) and 0 <= a < len(opts):
+            out.append((q, [str(o) for o in opts], a))
+    return out
+
+
+def check_anti_leak(w: str, qs: list[dict]) -> None:
+    """Warnings for patterns that let a learner guess the answer without understanding (writing-style.md)."""
+    items = mcq_items(qs)
+    n = len(items)
+    if n >= ANTILEAK_MIN_MCQ:
+        longest = sum(1 for _, o, a in items if len(o[a]) == max(map(len, o)) and [len(x) for x in o].count(len(o[a])) == 1)
+        if longest / n > ANTILEAK_SHARE:
+            warn(w, f"anti-leak: the correct option is the longest in {longest}/{n} mcq questions")
+        top = max(set(a for _, _, a in items), key=[a for _, _, a in items].count)
+        at_top = sum(1 for _, _, a in items if a == top)
+        if n >= POSITION_MIN_MCQ and at_top / n > POSITION_SHARE:
+            warn(w, f"anti-leak: the correct answer is option {top + 1} in {at_top}/{n} mcq questions; vary the position")
+        echo = 0
+        for q, o, a in items:
+            words = set(re.findall(r"\w{5,}", str(q.get("prompt", "")).lower())) - ECHO_STOPWORDS
+            scores = [len(words & (set(re.findall(r"\w{5,}", x.lower())) - ECHO_STOPWORDS)) for x in o]
+            if scores[a] > 0 and scores[a] == max(scores) and scores.count(scores[a]) == 1:
+                echo += 1
+        if echo / n > ECHO_SHARE:
+            warn(w, f"anti-leak: the correct option repeats the most words from the prompt in {echo}/{n} mcq questions")
+        absolute = sum(1 for _, o, a in items
+                       if not ABSOLUTES.search(o[a]) and any(ABSOLUTES.search(x) for i, x in enumerate(o) if i != a))
+        if absolute >= ABSOLUTE_MIN and absolute / n > 0.3:
+            warn(w, f"anti-leak: absolute words (selalu, tidak pernah, semua, ...) appear only in wrong options in {absolute}/{n} mcq questions")
+    for q in qs:
+        opts = q.get("options")
+        for o in opts if isinstance(opts, list) else []:
+            if NONE_OF_ABOVE.search(str(o)) or LETTER_COMBO.search(str(o)):
+                warn(w, f"{q.get('id')}: avoid 'semua jawaban benar' / 'tidak ada yang benar' style options: {str(o)[:40]!r}")
+                break
+    long_expl = [q.get("id") for q in qs if isinstance(q.get("explanation"), str)
+                 and count_sentences(q["explanation"]) > EXPLANATION_MAX_SENTENCES]
+    if long_expl:
+        warn(w, f"explanations longer than {EXPLANATION_MAX_SENTENCES} sentences: {', '.join(map(str, long_expl[:5]))}")
+    rated = [q.get("difficulty") for q in qs
+             if isinstance(q.get("difficulty"), int) and not isinstance(q.get("difficulty"), bool)
+             and q.get("difficulty") in (1, 2, 3)]
+    if len(rated) >= ANTILEAK_MIN_MCQ and len(set(rated)) == 1:
+        warn(w, f"all {len(rated)} questions have difficulty {rated[0]}; use a mix of levels")
+
+
+def count_sentences(text: str) -> int:
+    """Sentence count for the explanation-length warning: abbreviations (mis., dst., dll.) do not end a sentence,
+    and a last sentence without a final period still counts."""
+    t = ABBREVIATIONS.sub(lambda m: m.group(0)[:-1], text.strip())
+    n = len(re.findall(r"[.!?](?:\s|$)", t))
+    return n + (1 if t and t[-1] not in ".!?" else 0)
+
+
+def check_lesson_style(w: str, body: str) -> None:
+    """Warnings for filler, machine-sounding openers and emoji (writing-style.md, Lessons)."""
+    text = re.sub(r"```.*?```", "", body, flags=re.S)
+    text = re.sub(r"`[^`\n]*`|\"[^\"\n]*\"|\u201c[^\u201d\n]*\u201d", "", text)  # inline code and quoted phrases are mentions
+    opening = re.sub(r"^(?:\s*#.*\n|\s*>\s*\n|\s*---\s*\n|\s*\n)*", "", text)   # skip headings and blank lines
+    if LESSON_OPENERS.match(opening):
+        warn(w, "style: the first sentence should be the core point, not 'Pada lesson ini kita akan ...'")
+    low = text.lower()
+    hits = [f for f in FILLER if re.search(r"\b" + re.escape(f) + r"\b", low)]
+    if hits:
+        warn(w, f"style: filler phrases: {', '.join(hits)}")
+    if EMOJI.search(text):
+        warn(w, "style: no emoji in lessons")
 
 
 def check_content(registry: dict[str, dict], concepts: dict[str, dict]):
@@ -688,6 +773,7 @@ def check_content(registry: dict[str, dict], concepts: dict[str, dict]):
                 for ref, n in quotes.items():
                     if n > 1:
                         err(w, f"{n} direct quotes from {ref} (max 1 per source per lesson)")
+                check_lesson_style(w, body)
                 counted = re.sub(r"```.*?```", "", body, flags=re.S)
                 counted = re.sub(r"\[\^[a-z0-9-]+\]|https?://\S+", "", counted)
                 words = len(re.findall(r"\w+", counted))
