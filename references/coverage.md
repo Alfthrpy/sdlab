@@ -178,3 +178,27 @@ The owner read the summary and delegated the gap list to the agent.
 - **merge in M2 (P1-020):** A5 Reverse proxy folds into Load balancer as one concept.
 - **drop from v1:** adaptive concurrency limits (part of B12).
 - **left to the owner / later:** B11 (full read of Tail at Scale, blocked for agents) and C1 (`ddia-2e` chapter list, then per-unit `free_companion`) need the owner. C3 (abstract-only reads) is done before M4 when the citing concepts are written. C5 is covered by P1-070 (done).
+
+## Gap status after the research tickets (updated 2026-11-16, P1-072, 074, 075, 076, 078, 080, 079)
+
+All candidate sources from these tickets are now `approved` in the registry (P1-080) and mapped to concepts in `curriculum/concepts.yaml` (P1-079). `zookeeper-wiki-zab1-0` was rejected.
+
+| Gap | Status | Source(s) added | Still open |
+| --- | --- | --- | --- |
+| A1 Request lifecycle | **accept** (no suitable free source) | none; write from `mdn-http-overview` plus an own diagram | no end-to-end DNS-to-database article |
+| A2 Backups | closed | `google-sre-book-data-integrity-ch26` | |
+| A7 Replication | partly closed | `github-mysql-ha-2018`, `github-oct21-2018-postmortem`, `dynamodb-docs-global-tables` | no conceptual multi-leader source; no Builders' Library replication article; `ddia-2e` per-topic `free_companion` not done |
+| A8 Isolation | closed | `mysql-84-innodb-isolation-levels`, `hermitage-isolation-tests`; Berenson read in full | InnoDB MVCC internals |
+| A9 Log streaming | partly closed | `kreps-the-log-2013` | `kafka.apache.org` unreachable: Kafka retention coverage and KIP-98 not registered |
+| A10 Backpressure | partly closed | `rabbitmq-docs-queue-length-limit`, `rabbitmq-docs-flow-control` | no vendor-neutral cross-service 429/503 propagation source |
+| A11 One-box deploy | partly closed | `capistrano-docs-rollbacks` | systemd restart and expand/contract migrations: **accept** (existing entries) |
+| A12 Logging | closed | `owasp-logging-cheat-sheet` (security-leaning) | |
+| A13 Scaling from one server | closed | `aws-startups-scaling-part1-primer`, `aws-startups-scaling-part2-10k-users` (AWS-specific, 2015) | |
+| B1 Estimation | partly closed | `sre-workbook-non-abstract-design-ch12` | beginner-sized worked example |
+| B5 Unit 3 depth | partly closed | `figma-sharding-postgres-2024`, `slack-vitess-datastores-2020`, `tikv-docs-btree-vs-lsm`, `qiao-btree-lsm-write-amp-2021` | Instagram and GitHub/Vitess cases |
+| B7 Ordering | partly closed | `aws-sqs-fifo-delivery-logic` | Kafka ordering (KIP-98) |
+| B8 Consumer lag | partly closed | `aws-sqs-cloudwatch-metrics` | Kafka consumer-lag alerting |
+| B9 Unit 5 depth | partly closed | `mattern-virtual-time-global-states-1989`, `riak-docs-causal-context`, `dissecting-zab-yahoo-2010`, `jepsen-causal`, `jepsen-serializable`, `jepsen-sequential`; Spanner TrueTime sections read | Fidge 1988, Zab DSN 2011 paper, split-brain incident (**accept** for v1) |
+| B12 Unit 6 depth | closed | `sre-workbook-alerting-on-slos-ch5`, `sre-book-release-engineering-ch8`, `sre-book-practical-alerting-ch10`; Dapper read in full | the SRE book has no tracing chapter; adaptive concurrency dropped |
+| P1-078 items | partly closed | rate limiting (3), TCP/TLS/DNS (4), saga and PREPARE TRANSACTION (2), sessions (2), WAL (1), load test (2), structured events (1) | DNS TTL, 2PC coordinator and blocking, sticky sessions, atomicity/undo, headroom formula (the `capacity-headroom` trigger quotes 70-80% with no source) |
+| B11 Tail at Scale | owner | none | the owner reads `tail-at-scale-cacm13` in full |
