@@ -1,0 +1,117 @@
+questions:
+  - id: request-lifecycle-q01
+    type: order
+    difficulty: 1
+    objective: 1
+    prompt: "Pengguna mengetik alamat sebuah toko berbasis HTTPS di browser, dan toko itu berjalan di satu mesin dengan reverse proxy, aplikasi, dan database. Urutkan tahap yang dilalui request dari awal sampai respons tiba."
+    options:
+      - "Aplikasi mengirim query ke database dan menerima baris hasil"
+      - "Browser mencari alamat IP dari nama domain"
+      - "Reverse proxy menerima request HTTP dan meneruskannya ke aplikasi"
+      - "Browser membuka koneksi TCP dan menyelesaikan TLS handshake"
+      - "Respons kembali lewat aplikasi dan proxy sampai ke browser"
+    answer: [1, 3, 2, 0, 4]
+    explanation: "Browser butuh alamat IP dulu, lalu koneksi aman, baru request HTTP bisa dikirim ke proxy. Proxy meneruskannya ke aplikasi, aplikasi memanggil database, dan respons kembali lewat jalur yang sama."
+    sources: [aws-route53-how-dns-routes-traffic, mdn-transport-layer-security, nginx-reverse-proxy-admin-guide, pg-docs-query-path]
+
+  - id: request-lifecycle-q02
+    type: match
+    difficulty: 1
+    objective: 1
+    prompt: "Cocokkan tiap tahap perjalanan request dengan pekerjaan utamanya."
+    pairs:
+      - ["DNS lookup", "Mengubah nama domain menjadi alamat IP"]
+      - ["TLS handshake", "Menyepakati cipher dan membuktikan identitas server lewat sertifikat"]
+      - ["Reverse proxy", "Meneruskan request ke aplikasi di port lokal dan membawa respons kembali"]
+      - ["Planner database", "Memilih cara termurah untuk mengambil baris, misalnya scan tabel atau index"]
+    explanation: "Tiap tahap punya satu tugas yang berbeda. TLS handshake terjadi sebelum data HTTP mengalir, jadi ia selesai lebih dulu daripada proxy, yang baru bisa meneruskan request HTTP sesudahnya."
+    sources: [aws-route53-how-dns-routes-traffic, mdn-transport-layer-security, nginx-reverse-proxy-admin-guide, pg-docs-query-path]
+
+  - id: request-lifecycle-q03
+    type: mcq
+    difficulty: 2
+    objective: 1
+    prompt: "Pengguna di jaringan lambat mengunduh respons HTML 2 MB. Aplikasi berada di belakang NGINX dengan pengaturan buffering bawaan. Apa yang terjadi di sisi aplikasi?"
+    options:
+      - "Worker aplikasi tetap terikat sampai browser selesai mengunduh seluruh respons itu"
+      - "Aplikasi mengirim respons sedikit demi sedikit mengikuti kecepatan browser"
+      - "Aplikasi menyerahkan respons ke NGINX lalu bebas, dan NGINX melayani browser"
+      - "NGINX menolak respons besar dari aplikasi bila browser dianggap terlalu lambat"
+    answer: 2
+    explanation: "Secara default NGINX menampung seluruh respons dari aplikasi sebelum mengirimnya ke client, jadi client yang lambat tidak menahan aplikasi. Opsi A menggambarkan aplikasi yang berhadapan langsung dengan client, tanpa perantara."
+    sources: [nginx-reverse-proxy-admin-guide]
+    targets_misconception: browser-talks-directly-to-app
+
+  - id: request-lifecycle-q04
+    type: estimate
+    difficulty: 2
+    objective: 2
+    prompt: "Request pertama ke sebuah halaman: DNS 60 ms, koneksi TCP dan TLS 240 ms, proxy 10 ms, aplikasi 90 ms, database 420 ms. Request kedua ke halaman lain dikirim lewat koneksi yang sama dan DNS sudah di-cache. Dengan waktu proxy, aplikasi, dan database yang sama, berapa perkiraan total waktunya?"
+    unit: "ms"
+    answer:
+      min: 515
+      max: 525
+    explanation: "Tahap DNS dan koneksi hilang pada request kedua, jadi totalnya 10 + 90 + 420 = 520 ms. Kalau hanya salah satu dikurangi kamu mendapat 760 atau 580 ms, dan kalau tak ada yang dikurangi 820 ms."
+    sources: [aws-route53-how-dns-routes-traffic, mdn-http-overview]
+    targets_misconception: dns-every-request
+
+  - id: request-lifecycle-q05
+    type: mcq
+    difficulty: 2
+    objective: 2
+    prompt: "Panel Network browser untuk request pertama ke halamanmu: DNS 15 ms, koneksi dan TLS 90 ms, request sampai byte pertama balasan tiba 1.400 ms, unduh respons 20 ms. Langkah berikutnya yang paling masuk akal?"
+    options:
+      - "Cek DNS dulu, karena itu tahap pertama dan kalau macet semua tahap lain menunggu"
+      - "Cek log proxy, aplikasi, dan database dulu, karena server bekerja di sana"
+      - "Cek koneksi dan TLS dulu, karena keduanya butuh beberapa kali bolak-balik"
+      - "Cek ukuran respons dulu, karena tahap unduh sangat bergantung pada pengguna dan jaringannya"
+    answer: 1
+    explanation: "Satu fase itu menghabiskan hampir seluruh waktu, dan isinya (proxy, aplikasi, database) tidak terlihat dari browser. Opsi C menunjuk tahap yang hanya 90 ms, jadi hasil optimasinya paling kecil."
+    sources: [web-dev-ttfb]
+    targets_misconception: database-always-slowest
+
+  - id: request-lifecycle-q06
+    type: mcq
+    difficulty: 3
+    objective: 2
+    prompt: "Satu request lambat dicatat proxy selama 900 ms. Log aplikasi untuk request yang sama mencatat handler berjalan 870 ms, dan total waktu semua query database di dalamnya 40 ms. Di mana kamu mulai memeriksa?"
+    options:
+      - "Index pada tabel database, karena query adalah pekerjaan yang paling berat"
+      - "Pengaturan buffering di proxy, karena proxy menahan respons sampai selesai"
+      - "DNS dan TLS, karena keduanya menambah waktu sebelum request sampai"
+      - "Kode aplikasi di luar query, karena di situ sisa waktu handler habis"
+    answer: 3
+    explanation: "Dari 870 ms handler, hanya 40 ms untuk database, jadi sekitar 830 ms habis di kode aplikasi sendiri. DNS dan TLS terjadi sebelum proxy menerima request, jadi tidak ikut dalam 900 ms itu."
+    sources: [web-dev-ttfb, pg-docs-query-path]
+    targets_misconception: database-always-slowest
+
+  - id: request-lifecycle-q07
+    type: multi
+    difficulty: 3
+    objective: 1
+    prompt: "Pengguna di luar kota mengeluh: kunjungan pertama ke situsmu lambat, tetapi pindah ke halaman lain di situs yang sama terasa cepat. Dua tahap mana yang paling mungkin menjelaskan selisih itu?"
+    options:
+      - "DNS lookup, karena hasilnya di-cache setelah pencarian pertama"
+      - "Koneksi TCP dan TLS handshake, karena koneksi yang sama dipakai ulang"
+      - "Planner database, karena rencana query disusun ulang di tiap request"
+      - "Eksekusi kode aplikasi, karena kode itu berjalan di tiap request"
+      - "Reverse proxy, karena proxy meneruskan setiap request yang masuk"
+    answer: [0, 1]
+    explanation: "Hanya DNS dan koneksi (TCP serta TLS) yang bisa di-cache atau dipakai ulang, sehingga mahal di request pertama saja. Planner, aplikasi, dan proxy bekerja di setiap request, jadi tidak menjelaskan kenapa yang kedua lebih cepat."
+    sources: [aws-route53-how-dns-routes-traffic, mdn-http-overview]
+    targets_misconception: dns-every-request
+
+  - id: request-lifecycle-q08
+    type: mcq
+    difficulty: 2
+    objective: 2
+    prompt: "Sebuah situs mencatat dalam sehari total 447 jam di pemrosesan ASP.NET (kode aplikasinya), 168 jam di query SQL, dan 2,8 jam di Redis hits (Redis: penyimpan data di memori yang dipakai seperti cache), dijumlahkan dari semua request hari itu. Kesimpulan mana yang masuk akal?"
+    options:
+      - "Di antara tiga angka itu, ASP.NET paling besar, karena totalnya 447 jam, tetapi itu bukan lama satu request"
+      - "Satu request rata-rata menunggu 447 jam di ASP.NET, karena itu total waktu pemrosesannya"
+      - "Redis bisa dibuang dari sistem, karena totalnya hanya 2,8 jam dari ketiga angka itu"
+      - "Query SQL penyebab utama halaman lambat, karena database adalah tahap tersibuk di sistem"
+    answer: 0
+    explanation: "Angka itu jumlah dari seluruh request, jadi hanya menunjukkan ke mana waktu terbanyak mengalir, bukan latency satu request. Opsi D keliru karena total SQL (168 jam) lebih kecil daripada ASP.NET, dan opsi C keliru karena total kecil tidak berarti komponennya tak berguna."
+    sources: [craver-stack-overflow-architecture-2016]
+    targets_misconception: database-always-slowest

@@ -19,7 +19,7 @@ concepts:
       - Bisa menggambar urutan tahap yang dilalui sebuah HTTP request dari browser sampai database dan kembali
       - Bisa menentukan tahap mana yang paling mungkin lambat jika diberi data waktu per tahap
     sources: [mdn-http-overview, nginx-reverse-proxy-admin-guide, aws-route53-how-dns-routes-traffic, mdn-transport-layer-security, web-dev-ttfb, pg-docs-query-path, craver-stack-overflow-architecture-2016]
-    status: planned
+    status: review
     formats: [lesson, quiz]
 
   - id: app-plus-database
