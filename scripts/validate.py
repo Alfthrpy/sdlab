@@ -621,6 +621,11 @@ def check_questions(qfile, d, cid: str, concept: dict | None, registry: dict, pu
                 err(w, f"{qid}: published content cites a source that is not approved: {s}")
             elif registry[s].get("usage") == "map-only":
                 err(w, f"{qid}: a map-only (Tier 6) source must not be a content source: {s}")
+        if qsrc and q.get("own_computation") is True:
+            warn(w, f"{qid}: has both `sources` and `own_computation: true`; keep only the one that is true")
+        if not qsrc and q.get("own_computation") is not True:
+            warn(w, f"{qid}: no `sources`; add the registry source it rests on, or set `own_computation: true` "
+                    "if the answer is the author's own arithmetic from numbers given in the prompt")
         check_question_answer(w, qid, q)
         for field in ("prompt", "explanation"):
             check_provenance(w, f"{qid} {field}", q.get(field))
@@ -722,6 +727,13 @@ def check_lesson_style(w: str, body: str) -> None:
         warn(w, "style: no emoji in lessons")
 
 
+def lesson_words(body: str) -> int:
+    """Lesson length as the validator counts it: `\\w+` after dropping code blocks, [^id] markers and URLs."""
+    counted = re.sub(r"```.*?```", "", body, flags=re.S)
+    counted = re.sub(r"\[\^[a-z0-9-]+\]|https?://\S+", "", counted)
+    return len(re.findall(r"\w+", counted))
+
+
 def check_content(registry: dict[str, dict], concepts: dict[str, dict]):
     cdir = CONTENT / "concepts"
     if not cdir.exists():
@@ -795,9 +807,7 @@ def check_content(registry: dict[str, dict], concepts: dict[str, dict]):
                     if n > 1:
                         err(w, f"{n} direct quotes from {ref} (max 1 per source per lesson)")
                 check_lesson_style(w, body)
-                counted = re.sub(r"```.*?```", "", body, flags=re.S)
-                counted = re.sub(r"\[\^[a-z0-9-]+\]|https?://\S+", "", counted)
-                words = len(re.findall(r"\w+", counted))
+                words = lesson_words(body)
                 lo, hi = LESSON_WORDS
                 if words and not lo <= words <= hi:
                     (err if stage in ("review", "published") else warn)(
@@ -1350,7 +1360,29 @@ def check_graph_fresh() -> None:
         err("curriculum/graph.md", "out of date: run python scripts/graph.py")
 
 
+def print_stats() -> None:
+    """Per-concept size figures for writers: lesson words (validator method), questions, misconceptions."""
+    cdir = CONTENT / "concepts"
+    print(f"{'concept':32} {'status':10} {'words':>5} {'questions':>9} {'misconceptions':>14}")
+    for d in sorted(p for p in cdir.iterdir() if p.is_dir()) if cdir.exists() else []:
+        words, status, nq, nm = "-", "-", 0, 0
+        if (d / "lesson.md").exists():
+            fm, body = split_frontmatter((d / "lesson.md").read_text(encoding="utf-8"))
+            words = lesson_words(body)
+            status = fm.get("status", "-") if isinstance(fm, dict) else "-"
+        if (d / "questions.yaml").exists():
+            data = load_yaml(d / "questions.yaml")
+            qs = data.get("questions") if isinstance(data, dict) else None
+            nq = len(qs) if isinstance(qs, list) else 0
+        if (d / "misconceptions.md").exists():
+            nm = len(re.findall(r"^## ", (d / "misconceptions.md").read_text(encoding="utf-8"), flags=re.M))
+        print(f"{d.name:32} {status:10} {words:>5} {nq:>9} {nm:>14}")
+
+
 def main():
+    if "--stats" in sys.argv[1:]:
+        print_stats()
+        return
     check_tickets()
     registry = check_registry()
     concepts = check_curriculum(registry)

@@ -5,7 +5,7 @@ questions:
     objective: 1           # 1-based index into the concept's objectives in concepts.yaml
     prompt: ""
     options: ["", "", "", ""]
-    answer: 0
+    answer: 0              # order: option indexes in the correct sequence, e.g. [1, 2, 0]; estimate: {min, max}
     explanation: ""
-    sources: [registry-id]
+    sources: [registry-id] # or `own_computation: true` (and no sources) for arithmetic from the prompt's own numbers
     targets_misconception: null

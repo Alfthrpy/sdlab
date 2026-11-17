@@ -37,6 +37,18 @@ The incident and case-study packs run in parallel once the units they need are d
 
 The epic tickets per unit (`P1-040` onward) are split by the agent into one sub-ticket per concept when the unit starts, using `scripts/new_ticket.py`.
 
+### Production estimate per concept (from the P1-032 pilot, P1-035)
+
+Measured on `caching-basics` (lesson, 10 questions, 6 misconceptions, draft lab): five subagent runs (writer, reviewer, fixes, reviewer, fixes), about **14 minutes of agent time and 16 minutes wall clock** per concept. Plan with **15-20 minutes of agent time per concept** for two review rounds, plus the owner's reading time, which the pilot did not measure. Do not use the writer's own "effort" estimate; it was three times the measured time.
+
+| Scope | Concepts | Agent time (before parallelism) |
+| --- | --- | --- |
+| Unit 0 (early access) | 8 | about 2-3 hours |
+| Units 1-6 | 42, of which the pilot `caching-basics` (Unit 2) is done | about 10-14 hours |
+| All units | 50 | about 12-17 hours |
+
+Two things add time beyond the figures: a concept whose objectives lack source support needs a source ticket first (pilot: P1-081), and a concept with a lab needs the lab spec reviewed against the simulator format (`content-schema.md` section 5), which the pilot did not time. The time is bounded by review rounds, not by writing, so parallel sessions per concept should speed M4 up (not measured; shared validation, review rounds and the owner's reading time still serialize part of it).
+
 ## Division of work
 
 | | Agent | Human |

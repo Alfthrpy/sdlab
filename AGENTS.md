@@ -82,6 +82,7 @@ A reviewer must **not** be the same subagent that did the work. Give the reviewe
 ```bash
 pip install pyyaml                       # once per environment
 python scripts/validate.py               # must pass before a PR
+python scripts/validate.py --stats       # lesson word count (validator method), questions, misconceptions per concept
 python -m unittest discover tests        # fixture tests for validator rules (run when editing validate.py)
 python scripts/board.py                  # regenerate backlog/BOARD.md
 python scripts/new_ticket.py "Title" --milestone M4 --type content [--owner agent] [--review agent] [--depends P1-040]

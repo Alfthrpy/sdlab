@@ -4,7 +4,7 @@ Used in all `type: research` tickets and whenever an agent adds a source to the 
 
 ## Core rules
 
-1. **Open first, then record.** A source may only enter the registry if its page was actually opened in that session (WebFetch or similar). Search-result snippets are not enough. Set `accessed` to that day's date.
+1. **Open first, then record.** A source may only enter the registry if its page was actually opened in that session (WebFetch or similar). Search-result snippets are not enough. WebFetch returns a summary and can truncate long pages: when you record exact wording, a number, or a directive, confirm it on the raw page (for example `curl -s <url>`), and write a gap in the notes when you cannot. Set `accessed` to that day's date.
 2. **Never write a URL, DOI, title, year, or author name from memory.** Everything comes from the page you opened. If it cannot be verified, do not add it. Write it as a gap in the ticket notes.
 3. **Prefer primary sources.** The original paper over a blog summarizing it, the official postmortem over news coverage, official documentation over third-party tutorials. Third-party summaries may be used to *find* primary sources, not to be cited.
 4. **Record the license from the source page itself** (footer, LICENSE, copyright page). If none is stated after checking the page, its footer, and the project's repo or legal page, set `license: all-rights-reserved` (copyright by default) and write "no license stated" in `notes`. Use `unknown` only while the license is not yet checked or cannot be opened; the validator blocks approval of `unknown`.
@@ -22,7 +22,7 @@ Used in all `type: research` tickets and whenever an agent adds a source to the 
    - Official postmortems (company status pages/blogs)
    - Openly licensed material
 3. Open each candidate, fill in a registry entry per `templates/source-entry.yaml`, with status `candidate`. Set `version` when the source has no edition (docs, repos), and `archive_url` for pages likely to move (optional). Leave `verified_on` empty; it is set at verification time.
-4. For important sources (Tier 1–3 that will be used often), write reading notes at `references/notes/<id>.md` using `templates/source-notes.md`. They contain points in your own words with chapter or page references, **not copied text**. Notes are in English.
+4. For important sources (Tier 1–3 that will be used often, and every source mapped to a concept in `curriculum/concepts.yaml`), write reading notes at `references/notes/<id>.md` using `templates/source-notes.md`. They contain points in your own words with chapter or page references, **not copied text**. Notes are in English.
 5. Run `python scripts/validate.py`.
 6. Call the `source-verifier` subagent to reopen a sample of new URLs (at least 30%, or all if < 10) and match metadata. Whoever reopens and checks an entry (verifier or P1-016 agent) sets its `verified_on`; every entry must have it before approval. For `adapt-with-attribution` sources, write the `attribution` credit line (Indonesian, see `citation-guide.md`) when the license is verified.
 

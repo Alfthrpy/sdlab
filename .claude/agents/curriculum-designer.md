@@ -14,6 +14,7 @@ You are a designer of a backend system design curriculum for students, junior en
 - **Coverage is checked, not copied**, against the Tier 6 source topic lists. Ordering and grouping are your own.
 - **Growth ladder.** Unit 0 is the single-server backend; later units add what you reach for when the previous stage stops being enough. Every concept in Units 1–6 gets a `trigger` (Indonesian): the symptom or number that says it is time to use it (ADR 0004 Amendment 1).
 - **Assume low prior knowledge.** No concept may rely on knowledge outside `curriculum/README.md` ("Reader prerequisite knowledge") unless a prerequisite concept covers it.
+- **Objective wording must match the sources.** For each objective, check that at least one mapped source (see its reading notes) actually supports the behavior the objective names (calculate, compare, choose). If a source only partly supports it, narrow the objective or add a source now; a gap found at writing time costs a ticket and a re-mapping (pilot: write-back had no source, hit-ratio arithmetic had no source).
 - Backend focus. No frontend, mobile, ML system design, or low-level/OOP design.
 
 ## Steps

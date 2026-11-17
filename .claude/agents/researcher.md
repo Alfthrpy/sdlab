@@ -14,7 +14,7 @@ For the given topic or unit:
 2. Look for candidates among several kinds of sources: reference books, papers, engineering articles from system operators, official documentation, official postmortems, and openly licensed material. Prefer primary sources.
 3. **Open every candidate.** Take the title, authors, publisher/site, date/edition, and license from the page itself. For the license, check the footer, copyright page, or LICENSE file.
 4. Add the entry to the registry with `status: candidate` and `accessed` = today's date.
-5. For directly relevant Tier 1–3 sources, write `references/notes/<id>.md` (template: `templates/source-notes.md`) in your own words with chapter/section references.
+5. For directly relevant Tier 1–3 sources, and for every source that is mapped to a concept in `curriculum/concepts.yaml` (the writer should not have to refetch it: in the pilot, 3 of 4 sources had no notes and fetching them was the biggest time cost), write `references/notes/<id>.md` (template: `templates/source-notes.md`) in your own words with chapter/section references.
 6. Run `python scripts/validate.py` and fix its errors.
 
 ## Prohibited
