@@ -43,7 +43,7 @@ P1-035a wrote reading notes for the 28 sources mapped to Unit 0 and checked each
 
 ## Notes
 
-Work: two researcher runs (connection-pooling cluster; capacity and request cluster) opened the pages and wrote 22 new reading notes (15 for new sources, 7 for approved sources that had none: `grafana-red-method`, `system-design-primer`, `mdn-transport-layer-security`, `mdn-tcp-handshake-glossary`, `aws-route53-how-dns-routes-traffic`, `brooker-telling-stories-littles-law`, and `recall-ai` was dropped, see below). 15 new `candidate` entries are in `references/registry.yaml` (owner approves candidates later, as in P1-072); `units` gained 0 on five existing sources. No objective was narrowed.
+Work: two researcher runs (connection-pooling cluster; capacity and request cluster) opened the pages and wrote 21 new reading notes: 15 for the new sources and 6 for approved sources that had none (`grafana-red-method`, `system-design-primer`, `mdn-transport-layer-security`, `mdn-tcp-handshake-glossary`, `aws-route53-how-dns-routes-traffic`, `brooker-telling-stories-littles-law`). A 22nd note, for `recall-ai`, was removed with its entry (see below). 15 new `candidate` entries are in `references/registry.yaml` (owner approves candidates later, as in P1-072); `units` gained 0 on five existing sources. No objective was narrowed.
 
 **Decision per gap** (sources mapped in `curriculum/concepts.yaml`):
 
