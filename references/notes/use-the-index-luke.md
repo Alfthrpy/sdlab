@@ -1,0 +1,59 @@
+---
+source: use-the-index-luke
+read_by: agent
+date: 2026-11-17
+sections_read: ["Ch. 1 Anatomy of an Index: intro page (/sql/anatomy)", "Ch. 1 The Leaf Nodes (/sql/anatomy/the-leaf-nodes)", "Ch. 1 The B-Tree (/sql/anatomy/the-tree)", "Ch. 1 Slow Indexes, Part I (/sql/anatomy/slow-indexes)", "Ch. 2 The Where Clause: chapter intro (/sql/where-clause)", "Ch. 2 The Equality Operator: section intro (/sql/where-clause/the-equals-operator)", "Ch. 2 Primary Keys (/sql/where-clause/the-equals-operator/primary-keys)", "Ch. 2 Concatenated Keys (/sql/where-clause/the-equals-operator/concatenated-keys)", "Ch. 2 Slow Indexes, Part II (/sql/where-clause/the-equals-operator/slow-indexes-part-ii)", "Ch. 2 Functions: intro page only (/sql/where-clause/functions)", "Ch. 8 Modifying Data: intro (/sql/dml)", "Ch. 8 Insert (/sql/dml/insert)", "Ch. 8 Delete (/sql/dml/delete)", "Ch. 8 Update (/sql/dml/update)", "page footer"]
+---
+
+# Notes: Use The Index, Luke (Markus Winand), free web edition of "SQL Performance Explained"
+
+> Notes are in English and in your own words. Pages were fetched on 2026-11-17 as raw HTML via `curl` and converted to text. Paths are relative to https://use-the-index-luke.com. Page text on the site is not dated; footer reads "Copyright 2010-2026 Markus Winand" (all rights reserved). Pages NOT read: chapters 3 (Performance and Scalability) through 7 (Partial Results), the remaining Chapter 2 sub-pages (case-insensitive search, bind parameters, ranges/LIKE, NULL, partial indexes, obfuscated conditions), chapter 9 (Execution Plans), the Myth Directory, and the example schema/glossary. The Functions page was read only as an intro and lists support per database.
+
+## Key points
+
+- (Ch. 1 intro) An index is a separate structure built by CREATE INDEX: it uses its own disk space and holds a redundant copy of the indexed column data plus a reference to the table row. Creating it does not change the table.
+- (Ch. 1 intro) Searching an index is like using a printed directory: everything is kept in sorted order. A database index differs because it is constantly modified, so it needs two structures working together: a doubly linked list and a search tree.
+- (Ch. 1, The Leaf Nodes) Entries cannot just be stored in sequence, because an insert would shift a lot of data. So the logical order is kept by a doubly linked list across leaf nodes (each stored in one block/page, usually a few KB); inserting means changing a few pointers. Each index entry holds the indexed key and a row reference (ROWID), while the table itself is an unsorted heap.
+- (Ch. 1, The B-Tree) Because leaf pages are not physically ordered, a balanced tree of branch nodes on top lets the database find the right leaf quickly. Every leaf is at the same depth; a B-tree is balanced, not binary.
+- (Ch. 1, The B-Tree) Tree depth grows logarithmically with the number of entries: each new level multiplies capacity by the number of entries per node. Real indexes on millions of rows are said to be four or five levels deep, six being rare. The database applies each insert, delete, and update to the index and keeps the tree balanced, which is the write overhead.
+- (Ch. 1, Slow Indexes Part I) A lookup has three steps: (1) tree traversal, which has an upper bound (the depth); (2) following the chain of leaf nodes for further matches; (3) fetching each matching row from the table. Steps 2 and 3 can touch many blocks, so using an index does not guarantee a fast query. The author calls the idea that rebuilding an index cures this a myth (see the book's Myth Directory, not read).
+- (Ch. 2, Primary Keys) A primary key gets an index automatically. A lookup on a unique key traverses the tree only (no leaf-chain walking), so the slow-lookup ingredients are absent. Execution plans are how you verify this; the page shows the same plan in five databases, including MySQL (`type = const`) and PostgreSQL (Index Scan), so a reader can see how different tools label the same thing.
+- (Ch. 2, Concatenated Keys) A multi-column index is one index sorted by the first column, then the second within ties, like a phone book by surname then first name. A condition on only a later column cannot use the tree, so the database does a full table scan; usable conditions start from the leading columns. Choosing the column order so the index serves as many queries as possible is the key design decision.
+- (Ch. 2, Concatenated Keys) Full table scans can legitimately be the best plan when a large part of the table is needed, because they read in big chunks instead of block by block. They are dangerous because they look fast on small development data and degrade as tables grow (ten times the rows means ten times the time).
+- (Ch. 2, Concatenated Keys) Tip: to understand what an index can serve, look at the entries in index order (query the index columns with ORDER BY) and ask whether the rows you want sit next to each other.
+- (Ch. 2, Concatenated Keys) One reordered multi-column index is preferred over adding a second index, because fewer indexes means less space and less write cost. The page says developers are best placed to design indexes, since they know which column combinations appear in WHERE clauses.
+- (Ch. 2, Slow Indexes Part II) Worked diagnosis: after the index order was changed, a query filtering on last name and subsidiary got slower. The plan showed an index range scan that only applied the subsidiary condition and then fetched every row of that subsidiary to check the name; with accurate statistics the optimizer estimated this as costlier than a full scan. The fix was a dedicated index on last name. Moral: a plan that uses an index can still be poor, and a similar-looking plan can be vastly better when the index matches the filter.
+- (Ch. 2, Slow Indexes Part II) The optimizer is cost-based: it generates candidate plans, estimates row counts from statistics (distinct values, histograms, table size), and picks the lowest cost. Missing or wrong statistics produce a bad estimate (the page shows 40 rows estimated vs about 1000 real).
+- (Ch. 8 intro) Indexes are redundancy, so every insert, delete, and update must also update the indexes; for the most part indexes hurt write performance.
+- (Ch. 8, Insert) The number of indexes is the dominant factor for insert speed; each index is an extra place to insert, with possible leaf and branch node splits (up to the root, which is the only way the tree grows deeper). Inserting with no index is cheap and in memory. The chart shows a table with no index being much faster than with one, and the first index makes the biggest jump. Dropping indexes temporarily during large loads is a known practice.
+- (Ch. 8, Delete) Delete works like a select followed by removal, so it still benefits from indexes for the WHERE part; its cost per index is similar to insert. Note: in PostgreSQL, deletes only mark the row, and index cleanup is postponed to VACUUM, so delete time there barely depends on the number of indexes.
+- (Ch. 8, Update) An update must move changed index entries (remove old, add new, roughly delete plus insert) but only for indexes containing the changed columns. ORM tools that always update all columns touch every index; look at generated SQL.
+
+## Citable numbers & facts
+
+| Fact | Location | Context note |
+| --- | --- | --- |
+| Real-world indexes with millions of records typically have tree depth 4 to 5; depth 6 is hardly ever seen | Ch. 1, The B-Tree | Author's statement; no benchmark given |
+| Toy example: 4 entries per node, depth 3 holds 64 entries (4^3); one more level gives 256 | Ch. 1, The B-Tree, box "Logarithmic Scalability" | The toy index of 1,048,576 entries needs depth 10; real nodes hold hundreds of entries |
+| Lookup = tree traversal + leaf-chain walk + table fetches; only the traversal has a bounded block count | Ch. 1, Slow Indexes Part I | Basis for "an index can still be slow" |
+| Adding one index raised the insert time by about a factor of one hundred in the author's chart (no-index time about 0.0003 s) | Ch. 8, Insert (Figure 8.1) | Oracle-based measurement on the author's setup; chart values are indicative, not universal |
+| Full scan of a table grows linearly: 10x rows means 10x time | Ch. 2, Concatenated Keys | Statement in text, not measured |
+| Example plan costs: full scan 477, index range scan + table access 680 (accurate stats), dedicated last-name index 3 | Ch. 2, Slow Indexes Part II | Oracle cost units, not comparable across databases |
+| Equivalent labels: MySQL `type: const` = index unique lookup; MySQL `type: ref` = index range scan; PostgreSQL Bitmap Index Scan + Bitmap Heap Scan for a non-unique range | Ch. 2, Primary Keys and Concatenated Keys | Useful for the "read EXPLAIN" objective |
+| Footer: Copyright 2010-2026 Markus Winand, all rights reserved (typo "righs" on the page) | page footer | License evidence |
+
+## Relevant to concepts
+
+- `indexes-query-basics` obj. 1 (read EXPLAIN output and decide index vs full scan): partly supported. The Primary Keys and Concatenated Keys pages show real plans from MySQL and PostgreSQL (among others), explain the meaning of const/ref and Index Scan/Bitmap scans, and show when a plan reveals a full table scan. Weak points: the plans for Oracle dominate; PostgreSQL output is shown as plain `EXPLAIN` without ANALYZE and the chapter on execution plans (listed as "Execution Plans" in the table of contents; the chapter text refers to it as Appendix A) was not read. Combine with pg-docs-using-explain for PostgreSQL syntax.
+- `indexes-query-basics` obj. 2 (choose which column deserves an index for a slow query): well supported by "Concatenated Keys" (column order, leftmost rule, reading index order to check clustering) and "Slow Indexes, Part II" (a worked diagnosis of a slow query using an unsuitable index and the fix). The "Functions" intro page also hints that function calls on a column prevent plain index use, but only the intro was read.
+- `indexes-query-basics` obj. 3 (explain the cost of an index on write operations): well supported by "Anatomy of an Index" (why entries can't just be appended) and the whole "Modifying Data" chapter (insert, delete, update each pay per index; first index is the biggest jump; update affects only indexes with changed columns). This is the strongest source of the group for that objective, but the insert chart numbers are from one setup.
+- Background for all three `indexes-query-basics` objectives: Chapter 1 pages (Leaf Nodes, B-Tree, Slow Indexes Part I) explain what an index is, its B-tree shape, and why lookups are fast but not always cheap. Only `indexes-query-basics` maps this source in Unit 0.
+
+## Warnings
+
+- Author's own examples are mostly Oracle (operation names like INDEX RANGE SCAN, TABLE ACCESS BY INDEX ROWID, and cost numbers). Each plan page also shows Db2, MySQL, PostgreSQL, and SQL Server, but check the PostgreSQL/MySQL tab before quoting a plan.
+- Pages are undated and the book is from 2010-era; vendor features changed (e.g. MySQL 5.7 added indexes on generated columns, as the Functions page itself notes). Explanatory concepts (B-tree, leaf chain) are stable; vendor feature lists are not.
+- The insert/delete/update charts are the author's measurements; numeric values are not stated as a general rule. Quote only qualitative ("each index adds cost, first one the most").
+- Statement about PostgreSQL delete (Ch. 8, Delete) relates to how its MVCC marks rows, with index cleanup in VACUUM; that is a PostgreSQL detail, not general database behavior. Update cost in PostgreSQL was not read here.
+- Free to read online; all rights reserved, so rewrite only; diagrams must be our own.
+- Chapters 3 to 7 (scalability testing, joins, clustering, sorting, partial results) and the execution-plans appendix were not read; do not cite them from these notes.
