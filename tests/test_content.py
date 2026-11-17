@@ -257,6 +257,41 @@ class FinalSchema(unittest.TestCase):
         errs, _ = run(lesson(["blog"], WORDS), [q(1, objective=3)], misc=MISC, concepts=CONCEPTS)
         self.assertTrue(has(errs, "objective must be an index"))
 
+    def test_question_without_sources_warns_unless_own_computation(self):
+        _, warns = run(lesson(["blog"], WORDS), [q(1)], misc=MISC, concepts=CONCEPTS)
+        self.assertTrue(has(warns, "no `sources`"))
+        _, warns = run(lesson(["blog"], WORDS), [q(1, own_computation=True)], misc=MISC, concepts=CONCEPTS)
+        self.assertFalse(has(warns, "no `sources`"))
+        _, warns = run(lesson(["blog"], WORDS), [q(1, sources=["blog"])], misc=MISC, concepts=CONCEPTS)
+        self.assertFalse(has(warns, "no `sources`"))
+
+    def test_own_computation_with_sources_warns(self):
+        _, warns = run(lesson(["blog"], WORDS), [q(1, sources=["blog"], own_computation=True)], misc=MISC, concepts=CONCEPTS)
+        self.assertTrue(has(warns, "both `sources` and `own_computation"))
+
+    def test_stats_table_lists_each_concept(self):
+        import contextlib
+        import io
+        with tempfile.TemporaryDirectory() as d:
+            cdir = Path(d) / "concepts" / "c1"
+            cdir.mkdir(parents=True)
+            (cdir / "lesson.md").write_text(lesson(["blog"], "satu dua tiga"), encoding="utf-8")
+            (cdir / "misconceptions.md").write_text(MISC, encoding="utf-8")
+            old = validate.CONTENT
+            validate.CONTENT = Path(d)
+            buf = io.StringIO()
+            try:
+                with contextlib.redirect_stdout(buf):
+                    validate.print_stats()
+            finally:
+                validate.CONTENT = old
+        row = [line.split() for line in buf.getvalue().splitlines() if line.startswith("c1 ")][0]
+        self.assertEqual(row, ["c1", "draft", "3", "0", "3"])
+
+    def test_lesson_words_counts_like_the_length_check(self):
+        body = "satu dua[^blog] tiga https://x.example/a empat\n```\nkode kode\n```\nx-y"
+        self.assertEqual(validate.lesson_words(body), 6)
+
     def test_question_count_in_review(self):
         errs, _ = run(lesson(["blog"], WORDS, status="review"), [q(1)], misc=MISC, concepts=CONCEPTS)
         self.assertTrue(has(errs, "questions (target"))

@@ -7,7 +7,7 @@ owner: agent
 review: agent
 status: todo
 priority: high
-depends_on: [P1-035]
+depends_on: [P1-035, P1-035a]
 estimate: 1
 outputs: []
 ---

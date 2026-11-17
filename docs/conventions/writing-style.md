@@ -13,7 +13,7 @@ Readers are students, junior engineers, and solo developers or beginners (ADR 00
 ## Lessons
 
 - The first sentence is the core point. Do not open with "Pada lesson ini kita akan...".
-- One lesson = one idea. Length 300–600 words, readable in 3–5 minutes.
+- One lesson = one idea. Length 300–600 words, readable in 3–5 minutes. Check the count while writing with `python scripts/validate.py --stats` (same method as the validator; a lesson near 600 has no room for review fixes, so aim for about 500).
 - Must include **one concrete example** with real (sourced) numbers or a real scenario.
 - Must include **one "when not to use it"** or trade-off.
 - Units 1–6: state the concept's **trigger** (the symptom or number that says it is time to use it).
@@ -122,6 +122,12 @@ Bad:
 Good (1–3 sentences: why it is right, and why the main distractor is wrong):
 > Hanya satu request yang perlu membangun ulang nilai; yang lain bisa menunggu hasilnya. Menaikkan TTL (B) hanya menunda masalah yang sama sampai kedaluwarsa berikutnya.
 
+**12. Odd-one-out shape.** Check each mcq for a correct option that differs from the others in form, not content: the only one with a stated reason, the only one that does not start with the opening word the others share (for example "Karena ..."), the only one with a number. A learner picks it without reading the prompt. Give every option the same grammatical shape and the same amount of explanation.
+
+**13. Estimate ranges that accept the common wrong result.** For every `estimate` question, compute the answer the common wrong method gives (the miss that is billed 40 ms instead of 2 + 40, a percentage-point change read as a ratio, ...) and make sure it falls outside `answer.min`..`answer.max`. A range of 7.5-8.5 accepts the wrong 7.6; narrow it, or change the numbers so the two results are far apart. Name the wrong result in the explanation when it is a likely one.
+
+**14. Test only what the lesson teaches.** Every question must be answerable from the lesson plus the concept's prerequisites, and must match the objective it is tagged with. A question about HTTP directives the lesson never mentions, or about a detail that no objective names, tests the learner's luck, not the concept. If it deserves a question, put the idea into the lesson first.
+
 ### Mix of difficulty
 
 Each concept should mix levels. A level 1 question: a service opens a new database connection for every request and gets slower under load; why? A level 2 question gives a pool size and a request rate and asks whether the pool is enough. A level 3 question shows a latency graph with a pool at its limit and asks what to change first and what the trade-off is.
@@ -141,6 +147,7 @@ Each concept should mix levels. A level 1 question: a service opens a new databa
 | Difficulty mix | 4 or more questions with a valid difficulty all have the same one |
 | Lesson opener | the first sentence (after headings) opens with "Pada/Dalam/Di lesson ini ...", "Kali ini kita ...", or "Mari kita ..." |
 | Filler and emoji | a lesson contains a filler phrase from the list in "Lessons" or an emoji. Fenced code, inline code, and quoted phrases are ignored. |
+| Question without a source | a question has no `sources` and no `own_computation: true` (use the flag for arithmetic that follows only from the numbers in the prompt, like hit-ratio and latency estimates) |
 | Provenance narration | a lesson, misconception or question explanation says where a statement comes from ("menurut Azure", "dari sumber", "penalaran penulis", "hitungan sendiri", ...) |
 
 What the validator cannot see (the reviewer must): a distractor that is implausible, a prompt that hints through meaning rather than words, a wrong difficulty level, a claim that the source does not support. The `content-reviewer` uses these warnings as input, not as a verdict.

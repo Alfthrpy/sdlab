@@ -97,6 +97,7 @@ questions:
     answer: {min: 86.5, max: 87.0}
     explanation: "Hanya miss yang sampai ke database, jadi miss ratio maksimum = 400 / 3.000 = 13,3%. Hit ratio minimum = 100% - 13,3% = 86,7%."
     sources: []
+    own_computation: true
 
   - id: caching-basics-q08
     type: estimate
@@ -107,6 +108,7 @@ questions:
     answer: {min: 11.9, max: 12.1}
     explanation: "Hit membayar 2 ms, miss membayar 2 + 40 = 42 ms. Rata-rata = 0,75 x 2 + 0,25 x 42 = 12 ms; kalau miss dihitung hanya 40 ms, hasilnya 11,5 ms, meleset dari rentang."
     sources: []
+    own_computation: true
 
   - id: caching-basics-q09
     type: estimate
@@ -117,6 +119,7 @@ questions:
     answer: {min: 4.9, max: 5.1}
     explanation: "Beban database mengikuti miss ratio, dari 1% menjadi 5%, jadi menjadi 5 kali lipat. Penurunan 4 poin terlihat kecil, tetapi bukan itu yang menentukan beban."
     sources: []
+    own_computation: true
     targets_misconception: hit-ratio-linear
 
   - id: caching-basics-q10

@@ -130,6 +130,7 @@ questions:
     answer: 1                       # see the table
     explanation: "..."              # required; 1-3 sentences (a longer one only warns)
     sources: [system-design-primer]
+    own_computation: true           # optional; use instead of `sources` when the answer is arithmetic from the prompt's own numbers
     targets_misconception: stale-read-ok   # optional; must be an id in misconceptions.md
 ```
 
@@ -137,9 +138,11 @@ questions:
 | --- | --- |
 | `mcq` | `options` (3-5); `answer`: one option index |
 | `multi` | `options` (4-6); `answer`: list of 2 or more distinct indexes, never all options |
-| `order` | `options` (3-6); `answer`: every index exactly once, in the correct sequence |
+| `order` | `options` (3-6); `answer`: every index exactly once, in the correct sequence. The list is positions in the *correct order*: for options `[C-step, A-step, B-step]` whose right order is A, B, C, the answer is `[1, 2, 0]` (the index of the first step, then of the second, then of the third). Reading it the other way (the position of each option) gives `[2, 0, 1]`, which is wrong; check by reading the options back through the answer. |
 | `match` | `pairs`: 3 or more `[left, right]` pairs with distinct left and distinct right items; the pairs are the answer, so there is no `answer` field |
 | `estimate` | `unit` (string); `answer`: `{min, max}` numbers with `min < max` (the accepted range) |
+
+A `match` question has no per-option link to a misconception: `targets_misconception` applies to the question as a whole, and the explanation says which pairing is the common mistake. (Per-pair links were considered in P1-035 and rejected: no question in the pilot needed them, and they would add a second answer structure to the format.) A question with no `sources` warns unless it sets `own_computation: true`.
 
 Every learning objective of the concept must be covered by at least one question (via `objective`), checked from `review` on. An `objective` index outside the concept's objectives is an error at any stage. Anti-leak and style heuristics (option length, answer position, prompt echo, escape-hatch options, explanation length, difficulty mix, filler) only warn; see the "Automatic checks" table in [writing-style](writing-style.md).
 
