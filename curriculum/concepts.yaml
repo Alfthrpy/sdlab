@@ -18,7 +18,7 @@ concepts:
     objectives:
       - Bisa menggambar urutan tahap yang dilalui sebuah HTTP request dari browser sampai database dan kembali
       - Bisa menentukan tahap mana yang paling mungkin lambat jika diberi data waktu per tahap
-    sources: [mdn-http-overview, nginx-reverse-proxy-admin-guide]
+    sources: [mdn-http-overview, nginx-reverse-proxy-admin-guide, aws-route53-how-dns-routes-traffic, mdn-transport-layer-security, web-dev-ttfb, pg-docs-query-path, craver-stack-overflow-architecture-2016]
     status: planned
     formats: [lesson, quiz]
 
@@ -29,7 +29,7 @@ concepts:
     objectives:
       - Bisa menghitung dari angka pengguna dan request per detik bahwa satu aplikasi dengan satu database masih cukup untuk sebuah produk
       - Bisa membedakan state yang disimpan di database dari state yang hilang saat proses aplikasi restart
-    sources: [sqlite-appropriate-uses, twelve-factor-app, craver-stack-overflow-architecture-2016, aws-startups-scaling-part1-primer]
+    sources: [sqlite-appropriate-uses, twelve-factor-app, craver-stack-overflow-architecture-2016, aws-startups-scaling-part1-primer, system-design-primer, robustperception-peak-to-mean-ratio]
     status: planned
     formats: [lesson, quiz]
 
@@ -53,7 +53,7 @@ concepts:
       - Bisa menjelaskan mengapa membuka koneksi database baru di setiap request memboroskan sumber daya
       - Bisa menghitung ukuran pool yang masuk akal dari jumlah core, beban query, dan batas koneksi database, lalu memvalidasinya dengan pengukuran
       - Bisa mendiagnosis gejala pool yang habis (request menunggu koneksi)
-    sources: [pg-docs-connections, pg-wiki-number-of-connections, hikaricp-about-pool-sizing, pgbouncer-features]
+    sources: [pg-docs-connections, pg-wiki-number-of-connections, hikaricp-about-pool-sizing, pgbouncer-features, pg-docs-connect-estab, brandur-postgres-connections-2018, freund-connection-scalability-2020, heroku-concurrency-database-connections, brooker-telling-stories-littles-law, pgbouncer-usage, pgbouncer-config, hikaricp-readme, hikaricp-wiki-dropwizard-metrics]
     status: planned
     formats: [lesson, quiz, lab]
 
@@ -89,7 +89,7 @@ concepts:
       - Bisa membedakan kegunaan log, metrik, dan health check untuk satu masalah yang sama
       - Bisa memilih metrik minimum untuk memantau sebuah service (rate, error, duration)
       - Bisa membedakan health check yang hanya menjawab "proses hidup" dari yang memeriksa dependency
-    sources: [google-sre-book-monitoring-ch6, prometheus-instrumentation-practices, aws-builders-implementing-health-checks, pg-docs-monitoring-stats, owasp-logging-cheat-sheet]
+    sources: [google-sre-book-monitoring-ch6, prometheus-instrumentation-practices, aws-builders-implementing-health-checks, pg-docs-monitoring-stats, owasp-logging-cheat-sheet, grafana-red-method]
     status: planned
     formats: [lesson, quiz]
 
@@ -101,7 +101,7 @@ concepts:
       - Bisa mengenali apakah CPU, memori, disk, atau jumlah koneksi yang menjadi bottleneck dari gejala dan metrik
       - Bisa menerapkan USE method (utilization, saturation, errors) pada satu resource
       - Bisa memutuskan apakah menaikkan spesifikasi mesin (vertical scaling) cukup, dari data utilisasi per resource dan batas harga atau spesifikasi mesin terbesar yang tersedia
-    sources: [gregg-use-method, pg-docs-kernel-resources, craver-stack-overflow-architecture-2016, aws-startups-scaling-part1-primer]
+    sources: [gregg-use-method, pg-docs-kernel-resources, craver-stack-overflow-architecture-2016, aws-startups-scaling-part1-primer, aws-docs-ec2-memory-optimized-specs, aws-docs-ec2-general-purpose-specs, aws-ec2-price-list-us-east-1]
     status: planned
     formats: [lesson, quiz, lab]
 
