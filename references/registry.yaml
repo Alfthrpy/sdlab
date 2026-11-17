@@ -294,7 +294,7 @@ sources:
     units: [0]
     topics: [connection-limits, max-connections, connection-pooling]
     status: approved
-    version: "PostgreSQL 18 (18.6)"
+    version: "PostgreSQL 18"
     notes: "NO-DATE: versioned manual page, no per-page date (only a site-wide news banner). NO-AUTHOR: corporate documentation. License: see pg-docs-indexes-intro (PostgreSQL License, legal notice page opened 2026-11-12). Short reference for max_connections and reserved connection settings."
     verified_on: "2026-11-12"
 
@@ -334,7 +334,7 @@ sources:
     units: [0]
     topics: [monitoring, database-monitoring, pg-stat-activity, machine-limits]
     status: approved
-    version: "PostgreSQL 18 (18.6)"
+    version: "PostgreSQL 18"
     notes: "NO-DATE: versioned manual page, no per-page date (only a site-wide news banner). NO-AUTHOR: corporate documentation. License: see pg-docs-indexes-intro (PostgreSQL License, legal notice page opened 2026-11-12). Page is long (about 116k characters); only the first 100k were read, which includes the pg_stat_activity part."
     verified_on: "2026-11-12"
 
@@ -432,7 +432,7 @@ sources:
     topics: [backups, recovery, mysqldump, pitr]
     status: approved
     version: "MySQL 8.4"
-    notes: "NO-DATE: versioned manual page, no per-page date (only a site-wide news banner). NO-AUTHOR: corporate documentation. License and version choice: see mysql-84-optimization-indexes (legal notice opened; all-rights-reserved confirmed; 8.4 is the LTS series, preface says 8.4.13 LTS, selector marks 9.7 current). Landing page only: it lists backup types, methods, a sample strategy (9.3), mysqldump (9.4) and point-in-time recovery (9.5); subpages were not opened."
+    notes: "NO-DATE: versioned manual page, no per-page date (only a site-wide news banner). NO-AUTHOR: corporate documentation. License and version choice: see mysql-84-optimization-indexes (legal notice opened; all-rights-reserved confirmed; 8.4 is the LTS series, preface says 8.4.13 LTS, selector marks 9.7 current). The landing page lists backup types, methods, a sample strategy (9.3), mysqldump (9.4) and point-in-time recovery (9.5). In P1-035a (2026-11-17) subpages 9.1, 9.2, 9.3.1-9.3.3 and 9.5.1 were also read; 9.4, 9.5.2 and 9.6 were not."
     verified_on: "2026-11-12"
 
   - id: twelve-factor-app
@@ -451,7 +451,7 @@ sources:
     units: [0]
     topics: [deploys, configuration, logging, stateless-processes, backing-services, dev-prod-parity]
     status: approved
-    notes: "CONFLICT: the 12factor.net footer says 'Copyright 2026 Salesforce, Inc. All rights reserved' and states no content license, while the github.com/heroku/12factor README says 'Released under the MIT License' and its LICENSE file has MIT text (Copyright (c) 2012 Adam Wiggins), opened 2026-11-12. Unresolved whether MIT covers the published site text (reopened 2026-11-12: site footer still shows only Salesforce copyright), so the conservative reading all-rights-reserved is recorded. Published 2017 is the page's 'Last updated 2017'; original publication date not seen. Only the factor list page was read; per-factor subpages were not opened. Written for PaaS-style apps, so some factors need translating to a plain VPS."
+    notes: "CONFLICT: the 12factor.net footer says 'Copyright 2026 Salesforce, Inc. All rights reserved' and states no content license, while the github.com/heroku/12factor README says 'Released under the MIT License' and its LICENSE file has MIT text (Copyright (c) 2012 Adam Wiggins), opened 2026-11-12. Unresolved whether MIT covers the published site text (reopened 2026-11-12: site footer still shows only Salesforce copyright), so the conservative reading all-rights-reserved is recorded. Published 2017 is the page's 'Last updated 2017'; original publication date not seen. The factor list page was read, and in P1-035a (2026-11-17) the subpages III, IV, V, VI, IX, X and XII; the other factors were not read. Written for PaaS-style apps, so some factors need translating to a plain VPS."
     verified_on: "2026-11-12"
 
   - id: gregg-use-method
@@ -3258,7 +3258,7 @@ sources:
     lang: en
     verified_on: "2026-11-16"
     superseded_by: null
-    notes: "Byline David Kuo, Solutions Architect, AWS. The footer was not visible in the fetched content (truncated); the sibling Part 2 page footer reads (c) 2019 Amazon Web Services, all rights reserved, so all-rights-reserved is assumed and should be rechecked at verification. Starts at 'Day One, User One' with web, app, and database on one EC2 instance, then covers the ceiling of vertical scaling, no redundancy, separating tiers, and stateless app servers behind a load balancer. Dated 2015 and AWS-specific (region figures are out of date); use for the ladder logic, not for product details. Part of a 4-part series."
+    notes: "Byline David Kuo, Solutions Architect, AWS. The raw HTML footer reads '(c) 2026, Amazon Web Services, Inc. or its affiliates. All rights reserved.' (confirmed 2026-11-17, P1-035a), so all-rights-reserved is confirmed. Starts at 'Day One, User One' with web, app, and database on one EC2 instance, then covers the ceiling of vertical scaling, no redundancy, separating tiers, and stateless app servers behind a load balancer. Dated 2015 and AWS-specific (region figures are out of date); use for the ladder logic, not for product details. Part of a 4-part series."
 
   - id: aws-startups-scaling-part2-10k-users
     title: "Scaling on AWS (Part 2): > 10K Users"
