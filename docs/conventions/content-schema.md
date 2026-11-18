@@ -99,7 +99,7 @@ The folder name is the concept id and must exist in `curriculum/concepts.yaml`.
 
 ### Stage: `status` in the lesson frontmatter
 
-`status` is `draft | review | published` and sets how strict the validator is. In `draft`, gaps are warnings. From `review` on, they are errors: lesson length outside 300–600 words, fewer than 6 questions, a learning objective that no question covers, a missing `misconceptions.md`, a question without `objective`, fewer than 3 misconceptions. `published` also requires `reviewed_by` and approved sources only.
+`status` is `draft | review | published` and sets how strict the validator is. In `draft`, gaps are warnings. From `review` on, they are errors: core lesson length outside 300–600 words, a `## Lebih dalam` section over 250 words, fewer than 6 questions, a learning objective that no question covers, a missing `misconceptions.md`, a question without `objective`, fewer than 3 misconceptions. `published` also requires `reviewed_by` and approved sources only.
 
 ### `lesson.md`
 
@@ -115,7 +115,7 @@ reviewed_by: content-reviewer      # required when published (agent or person)
 ---
 ```
 
-Body: 300–600 words, Indonesian, `[^id]` markers for specific claims (every marker must be in `sources`), at most one short quote per source. The validator counts words with `\w+` after removing fenced code blocks, `[^id]` markers, and URLs, so `x-y` counts as two words.
+Body: core 300–600 words, plus an optional last section `## Lebih dalam` of at most 250 words that is not counted in the core length (see [writing-style](writing-style.md), "Two reading layers"). Indonesian, `[^id]` markers for specific claims (every marker must be in `sources`), at most one short quote per source. The validator counts words with `\w+` after removing fenced code blocks, `[^id]` markers, and URLs, so `x-y` counts as two words.
 
 ### `questions.yaml`
 

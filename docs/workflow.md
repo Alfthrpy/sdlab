@@ -57,7 +57,7 @@ A ticket may only be taken when all its `depends_on` are `done`.
 3. **Claim.** Create branch `t/<ID>-<slug>`, set status to `in-progress`, commit.
 4. **Work** per the Tasks. If the ticket is too big for one session, split it into sub-tickets (`P1-040a`, `P1-040b`) and do the first.
 5. **Validate.** `python scripts/validate.py` must pass. Tick the Done criteria that are met.
-6. **Review.** `review: agent` → call a reviewer subagent, fix its findings. `review: human` → set status to `review`.
+6. **Review.** For lessons, first run the `cold-reader` subagent on the core and rewrite until its verdict is `clear` (writing-style.md, "Cold-read gate"). Then `review: agent` → call a reviewer subagent, fix its findings. `review: human` → set status to `review`.
 7. **Record.** Write the session log at `sessions/YYYY-MM-DD-<ID>.md` (template: `templates/session-log.md`). Fill in the Notes section of the ticket.
 8. **Hand off.** Run `python scripts/board.py`, commit, push, open a PR titled `[<ID>] <title>`. If `review: agent` and CI is green, merge and set `done`.
 
