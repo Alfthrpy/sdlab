@@ -28,21 +28,24 @@ Content production for the Unit 0 concept `app-plus-database` (Satu aplikasi dan
 ## Done criteria
 
 - [x] All files in `content/concepts/app-plus-database/` complete and pass the validator
-- [x] `content-reviewer` passes (first pass: fail with 4 major; second pass: pass with minor fixes; M1-M9 fixed, not re-reviewed per the reviewer)
+- [x] `cold-reader` verdict `clear` and `content-reviewer` passes (see Notes; the lesson was rewritten once under P1-086)
 - [x] Concept status is `review` in concepts.yaml
 - [x] `python scripts/validate.py` passes
 
 ## Notes
 
-Output: `content/concepts/app-plus-database/` (`lesson.md` 587 words by the validator's method, `questions.yaml` 9 questions, `misconceptions.md` 5; no lab, `formats` is lesson + quiz). Validator 0 errors, no warnings for these files.
+Output: `content/concepts/app-plus-database/`: `lesson.md` core 441 words (validator method) plus `## Lebih dalam` (about 220 words), `questions.yaml` 10 questions, `misconceptions.md` 5. No lab (`formats`: lesson, quiz). Validator 0 errors, no warnings for these files.
 
-**Flow:** content-writer (draft) -> content-reviewer (FAIL, 4 major + 11 minor) -> content-writer (all 15 fixed) -> content-reviewer second pass (pass with minor fixes, M1-M9) -> content-writer (M1-M9 fixed). Same writer and reviewer agents were resumed each time.
+**History (two rounds).**
+1. First draft (587-word single layer): content-reviewer FAIL (4 major), fixed, then pass with minor fixes. Accurate, but the owner found it hard to read even for them.
+2. Diagnosis (see P1-086): two ideas in one lesson, caveat chains added per reviewer finding (17 words/sentence vs 12.5), no story spine, about 10 new terms, no readability gate. A cold-reader baseline on the old lesson: `needs work`, 3 lost points (dense Stack Overflow paragraph, unexplained "measure capacity yourself", CSV example under "cache").
+3. Rewrite under the new convention (P1-086): one shop story in two stages, 6 italic terms, Stack Overflow / SQLite / VPS / Redis moved to `## Lebih dalam`. Cold-reader: `needs work (borderline)` with 2 lost points, fixed; second read `clear`. content-reviewer: pass with minor fixes, no major; the lesson fixes were applied directly and the question/misconception fixes by the writer (q03 reframed, q10 added for `one-db-is-toy`, option shapes equalised). The fixes after the second review were not re-reviewed.
 
-**Major findings worth reusing in later concepts:** (1) a twelve-factor PaaS claim ("restart wipes local files") taught as a general fact, while the lesson's own SQLite paragraph contradicted it; (2) one engine's limits (SQLite single writer) reused as general reasons to leave one-app-one-db; (3) a MCQ whose correct option followed a non sequitur and whose distractors were strawmen; (4) a prompt phrase ("di luar hitungan itu") that leaked the answer.
+**Source gaps and caveats.**
+- No source gives the RPS of one PostgreSQL/MySQL server. The 300 RPS is a labeled hypothetical, and the core explains how to measure it on a copy of the system. That method is plain reasoning with no source. P1-085 is open for a source.
+- `robustperception-peak-to-mean-ratio` is a registry `candidate`; the owner must approve it before this concept can be `published`.
+- The ratio 3 for a single time zone is the lesson's starting assumption, not a sourced figure.
+- `system-design-primer` stays in the concept's `sources` list but is not used in the lesson.
+- q02 and q05 give ratios (1.7, 2.4) in their prompts that the core does not teach as figures; they stay answerable from the prompt.
 
-**Source gaps:**
-- No source gives how many RPS one PostgreSQL/MySQL server handles. The lesson and q06 use a labeled hypothetical (300 RPS) and tell the reader to measure their own. Opened P1-085.
-- `robustperception-peak-to-mean-ratio` is still registry `candidate` and is cited in the lesson, q01, q02, q04, q05 and `average-is-enough`. The owner must approve it before this concept can be `published`.
-- The peak-to-mean ratio of 3 for single-time-zone users is an assumption, not sourced (the lesson says so).
-- `system-design-primer` remains in the concept's `sources` list but is no longer used in the lesson (the per-month conversion was cut to fit the word limit). It is a mapped-but-unused pointer; remove it from concepts.yaml or restore the conversion later.
-- The Redis-keeps-carts-across-a-deploy claim rests on twelve-factor's remark about session datastores; the source does not discuss Redis restarts.
+**Reusable lessons.** Reviewer-driven fixes accumulate hedges: put source nuance in `## Lebih dalam` instead of the core. A cold read on the draft finds the confusing paragraph quickly and cheaply (about 15 s, 15k tokens). Questions that rely on a sourced detail should rely on the core, so the deep layer can be skipped.

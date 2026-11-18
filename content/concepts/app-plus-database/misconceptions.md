@@ -12,7 +12,7 @@ concept: app-plus-database
 
 **Keyakinan keliru:** Satu database hanya cocok untuk proyek mainan; produk yang serius harus langsung memakai banyak server dan database terpisah.
 
-**Kenapa keliru:** Rancangan awal yang sengaja minimal, dengan web server, aplikasi, dan database di satu mesin, dipakai sebagai titik mulai sebelum arsitektur dipecah.[^aws-startups-scaling-part1-primer] Stack Overflow menerima 209.420.973 request HTTP dalam satu hari di 2016, dan satu primary di tiap cluster databasenya menanggung hampir seluruh beban.[^craver-stack-overflow-architecture-2016] Tapi mereka juga punya banyak web server, replika, Redis, dan Elasticsearch,[^craver-stack-overflow-architecture-2016] jadi itu acuan beban, bukan contoh satu mesin. Yang menentukan tetap hasil hitungan dan pengukuran bebanmu sendiri.
+**Kenapa keliru:** Rilis pertama sebuah toko online memang bisa berupa satu aplikasi dan satu database di satu mesin.[^aws-startups-scaling-part1-primer] Cukup atau tidaknya ditentukan hitungan: puncak RPS dibandingkan dengan kapasitas database yang kamu ukur sendiri. Situs besar memakai banyak server karena bebannya jauh lebih besar. Stack Overflow, misalnya, menerima 209.420.973 request HTTP dalam satu hari di 2016, dan satu primary di tiap cluster databasenya menanggung hampir seluruh beban.[^craver-stack-overflow-architecture-2016] Tapi mereka juga punya banyak web server, replika, Redis, dan Elasticsearch,[^craver-stack-overflow-architecture-2016] jadi itu acuan beban, bukan contoh satu mesin.
 
 ## memory-survives-restart
 
@@ -24,10 +24,10 @@ concept: app-plus-database
 
 **Keyakinan keliru:** Kalau hitungan RPS puncak jauh di bawah kapasitas, satu aplikasi dan satu database pasti aman dalam segala hal.
 
-**Kenapa keliru:** Hitungan RPS hanya memeriksa volume. Satu mesin tanpa cadangan berarti satu kegagalan menjatuhkan semuanya,[^aws-startups-scaling-part1-primer] dan kapasitas database harus diukur, bukan hanya dihitung. Kalau databasenya SQLite, beban tulis yang berat atau beberapa server aplikasi juga menjadi alasan pindah ke database client/server.[^sqlite-appropriate-uses]
+**Kenapa keliru:** Hitungan RPS hanya memeriksa volume. Dengan satu mesin, satu kegagalan mematikan semuanya,[^aws-startups-scaling-part1-primer] jadi hitungan yang kecil tidak menjawab apakah toko boleh mati total saat mesinnya rusak. Kapasitas juga harus diukur, bukan hanya dihitung. Kalau databasenya SQLite (database berupa satu file di dalam aplikasi), beban tulis yang berat atau banyak server aplikasi juga menjadi alasan pindah ke database client/server, yaitu proses database terpisah yang diakses lewat jaringan.[^sqlite-appropriate-uses]
 
 ## all-state-in-database
 
 **Keyakinan keliru:** Karena proses aplikasi harus stateless, semua data, termasuk hasil olahan sementara di tengah satu request atau job, harus ditulis ke database dulu.
 
-**Kenapa keliru:** Memori proses boleh dipakai sebagai cache singkat selama satu tugas, misalnya baris yang sedang diparse saat mengimpor file CSV, asalkan hasil akhirnya ditulis ke database. Yang tidak boleh adalah mengandalkan isinya masih ada di request atau job berikutnya.[^twelve-factor-app]
+**Kenapa keliru:** Memori proses boleh dipakai untuk nilai sementara selama satu tugas, misalnya gambar yang sedang diubah ukurannya dalam satu request upload, asalkan hasil akhirnya ditulis ke database. Yang tidak boleh adalah mengandalkan isinya masih ada di request atau job berikutnya.[^twelve-factor-app]
