@@ -13,7 +13,12 @@ Readers are students, junior engineers, and solo developers or beginners (ADR 00
 ## Lessons
 
 - The first sentence is the core point. Do not open with "Pada lesson ini kita akan...".
-- One lesson = one idea. Length 300–600 words, readable in 3–5 minutes. Check the count while writing with `python scripts/validate.py --stats` (same method as the validator; a lesson near 600 has no room for review fixes, so aim for about 500).
+- One lesson = one idea. If the concept has two objectives that do not share one story, write them as two stages of the same story (one scenario, one thread), not as two lessons glued together. Length of the **core**: 300–600 words, readable in 3–5 minutes. Check the count while writing with `python scripts/validate.py --stats` (same method as the validator; a lesson near 600 has no room for review fixes, so aim for about 450).
+- **Two reading layers** (P1-086). The core is written for someone who has never done this before, and must be understood in one read. Everything that only a practitioner needs goes in an optional last section, `## Lebih dalam` (max 250 words, not counted in the core length): caveats about a source's numbers, engine-specific limits, "this is simplified because ...", edge cases. The core must stay correct without it; it just does not hedge every claim. A senior skims the core and reads the deep section; a beginner may stop before it.
+- **Story spine.** Pick one scenario (for example one shop, one request) and carry it through the whole core. Each paragraph answers the question the previous one raised. Real figures from sources support the story; they do not interrupt it. If a sourced number needs three caveats to be used safely, it belongs in `## Lebih dalam`, or not in the lesson.
+- **Term budget.** At most 6 new italic terms in the core (the validator warns above that). Introduce a term at the moment the story needs it, with its meaning in the same sentence, not in a parenthesis stacked on other parentheses. Prefer plain wording over a term when the term is not needed later.
+- **Sentence shape.** One claim per sentence, about 12–16 words on average (the validator warns above 16). Do not chain caveats ("... tapi ... padahal ... jadi jangan ..."): state the claim, then say its limit in the next sentence, or in `## Lebih dalam`.
+- **Concrete before abstract.** Show the number, the scenario, or the picture first; name the general rule second. Do not open a paragraph with the rule when the learner has not yet seen the case.
 - Must include **one concrete example** with real (sourced) numbers or a real scenario.
 - Must include **one "when not to use it"** or trade-off.
 - Units 1–6: state the concept's **trigger** (the symptom or number that says it is time to use it).
@@ -128,6 +133,10 @@ Good (1–3 sentences: why it is right, and why the main distractor is wrong):
 
 **14. Test only what the lesson teaches.** Every question must be answerable from the lesson plus the concept's prerequisites, and must match the objective it is tagged with. A question about HTTP directives the lesson never mentions, or about a detail that no objective names, tests the learner's luck, not the concept. If it deserves a question, put the idea into the lesson first.
 
+### Cold-read gate
+
+Accuracy review is not a readability review. Before a lesson goes to `review` status, the orchestrator runs the `cold-reader` subagent (see `.claude/agents/cold-reader.md`): it reads only the core lesson with the concept's prerequisites as its knowledge, then reports in its own words what the lesson says, what it could not follow, and which term or sentence made it stop. If the reader's summary misses the core point, or it got lost more than twice, rewrite the lesson before running the `content-reviewer`.
+
 ### Mix of difficulty
 
 Each concept should mix levels. A level 1 question: a service opens a new database connection for every request and gets slower under load; why? A level 2 question gives a pool size and a request rate and asks whether the pool is enough. A level 3 question shows a latency graph with a pool at its limit and asks what to change first and what the trade-off is.
@@ -146,6 +155,8 @@ Each concept should mix levels. A level 1 question: a service opens a new databa
 | Explanation length | an explanation has more than 3 sentences (abbreviations such as "mis." and "dst." do not count as sentence ends) |
 | Difficulty mix | 4 or more questions with a valid difficulty all have the same one |
 | Lesson opener | the first sentence (after headings) opens with "Pada/Dalam/Di lesson ini ...", "Kali ini kita ...", or "Mari kita ..." |
+| Lesson readability | the core lesson has more than 6 italic first-use terms, or its average sentence is longer than 16 words |
+| Deep section length | `## Lebih dalam` is longer than 250 words (an error from `review`) |
 | Filler and emoji | a lesson contains a filler phrase from the list in "Lessons" or an emoji. Fenced code, inline code, and quoted phrases are ignored. |
 | Question without a source | a question has no `sources` and no `own_computation: true` (use the flag for arithmetic that follows only from the numbers in the prompt, like hit-ratio and latency estimates) |
 | Provenance narration | a lesson, misconception or question explanation says where a statement comes from ("menurut Azure", "dari sumber", "penalaran penulis", "hitungan sendiri", ...) |

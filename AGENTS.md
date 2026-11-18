@@ -57,6 +57,7 @@ At the end of the session, report to the owner in 3–5 lines: which ticket, the
 | `source-verifier` | Review a research ticket: reopen URLs, check metadata and license |
 | `curriculum-designer` | Draft concepts, learning objectives, prerequisites, and source mapping |
 | `content-writer` | Write lessons, questions, misconceptions, and lab specs for one concept |
+| `cold-reader` | Read a lesson core once as a newcomer and report where it got lost (readability gate, before `content-reviewer`) |
 | `content-reviewer` | Review content: accuracy vs. sources, citations, text similarity, leaky questions, style |
 
 A reviewer must **not** be the same subagent that did the work. Give the reviewer the list of changed files and the ticket's done-criteria, not your own summary.

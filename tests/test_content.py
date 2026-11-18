@@ -288,6 +288,34 @@ class FinalSchema(unittest.TestCase):
         row = [line.split() for line in buf.getvalue().splitlines() if line.startswith("c1 ")][0]
         self.assertEqual(row, ["c1", "draft", "3", "0", "3"])
 
+    def test_lebih_dalam_section_is_not_counted_in_core_length(self):
+        body = "satu dua tiga\n\n## Lebih dalam\n\nempat lima enam tujuh"
+        self.assertEqual(validate.lesson_words(body), 3)  # only "satu dua tiga"; the heading and the deep text are not core
+        self.assertEqual(validate.deep_words(body), 4)
+        self.assertEqual(validate.deep_words("tanpa bagian dalam"), 0)
+
+    def test_lebih_dalam_is_capped(self):
+        deep = " ".join(["kata"] * (validate.DEEP_MAX_WORDS + 5))
+        text = lesson(["blog"], WORDS + "\n\n## Lebih dalam\n\n" + deep, status="review")
+        errs, _ = run(text, misc=MISC)
+        self.assertTrue(has(errs, "Lebih dalam"))
+        text = lesson(["blog"], WORDS + "\n\n## Lebih dalam\n\n" + "kata " * 50, status="review")
+        errs, _ = run(text, misc=MISC)
+        self.assertFalse(has(errs, "Lebih dalam"))
+        self.assertFalse(has(errs, "lesson length"))
+
+    def test_readability_warns_on_many_italic_terms_and_long_sentences(self):
+        terms = " ".join(f"*istilah{i}*" for i in range(validate.NEW_TERMS_MAX + 1))
+        _, warns = run(lesson(["blog"], f"Inti. {terms}."))
+        self.assertTrue(has(warns, "italic first-use terms"))
+        _, warns = run(lesson(["blog"], "Inti. *a* dan **tebal** dan *b*."))
+        self.assertFalse(has(warns, "italic first-use terms"))
+        long = " ".join(["kata"] * (validate.SENTENCE_WORDS_MAX + 6)) + "."
+        _, warns = run(lesson(["blog"], long))
+        self.assertTrue(has(warns, "average sentence"))
+        _, warns = run(lesson(["blog"], "Kalimat pendek ini. Satu lagi di sini."))
+        self.assertFalse(has(warns, "average sentence"))
+
     def test_lesson_words_counts_like_the_length_check(self):
         body = "satu dua[^blog] tiga https://x.example/a empat\n```\nkode kode\n```\nx-y"
         self.assertEqual(validate.lesson_words(body), 6)
