@@ -5,7 +5,7 @@ milestone: M4
 type: content
 owner: agent
 review: agent
-status: todo
+status: in-progress
 priority: high
 depends_on: [P1-035, P1-035a, P1-083]
 estimate: 1
@@ -30,4 +30,8 @@ Content production for Unit 0: Single-server backend (request lifecycle, one app
 
 ## Notes
 
-(Filled in during the work.)
+Session 1 (2026-11-17): split into 8 sub-tickets, one per concept, P1-048a..h in the order of `curriculum/concepts.yaml` (a request-lifecycle, b app-plus-database, c indexes-query-basics, d connection-pooling, e backup-recovery, f simple-deploys, g basic-monitoring, h single-machine-limits). Order respects prerequisites; g only needs a, h needs g and d.
+
+Sub-tickets use `depends_on: [P1-083]`, not `[P1-048]` as the Tasks line suggested: the epic closes only after its sub-tickets, so depending on it would keep them out of the ready list forever. Prerequisite order is not enforced through depends_on, so concepts can be written in parallel (lessons only reference prerequisite concepts by id).
+
+Step 3 (mark 2 random concepts for P1-063) happens after all sub-tickets are done.
