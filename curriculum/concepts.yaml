@@ -30,7 +30,7 @@ concepts:
       - Bisa menghitung dari angka pengguna dan request per detik bahwa satu aplikasi dengan satu database masih cukup untuk sebuah produk
       - Bisa membedakan state yang disimpan di database dari state yang hilang saat proses aplikasi restart
     sources: [sqlite-appropriate-uses, twelve-factor-app, craver-stack-overflow-architecture-2016, aws-startups-scaling-part1-primer, system-design-primer, robustperception-peak-to-mean-ratio]
-    status: planned
+    status: review
     formats: [lesson, quiz]
 
   - id: indexes-query-basics

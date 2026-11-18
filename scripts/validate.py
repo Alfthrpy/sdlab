@@ -450,7 +450,11 @@ QUOTE_MAX_WORDS = 14  # citation-guide: a short sentence, fewer than 15 words
 QUOTE_MIN_WORDS = 4   # shorter spans are terms ("split brain"), not quotes
 Q_TYPES = ["mcq", "multi", "order", "match", "estimate"]
 LESSON_STATUSES = ["draft", "review", "published"]
-LESSON_WORDS = (300, 600)       # target range (writing-style.md): error for review/published, warning for draft
+LESSON_WORDS = (300, 600)       # target range of the CORE lesson (writing-style.md): error for review/published, warning for draft
+DEEP_HEADING = re.compile(r"^##[ \t]+Lebih dalam[ \t]*$", re.M)  # optional layer for experienced readers, not part of the core count
+DEEP_MAX_WORDS = 250            # the "Lebih dalam" section is capped: error for review/published, warning for draft
+NEW_TERMS_MAX = 6               # italic first-use terms in the core lesson (warning only)
+SENTENCE_WORDS_MAX = 16         # average words per sentence in the core lesson (warning only)
 QUESTIONS_RANGE = (6, 10)       # questions per concept
 MISCONCEPTIONS_RANGE = (3, 6)   # misconceptions per concept
 MISC_HEADING = re.compile(r"^##[ \t]+(.+?)[ \t]*$", re.M)
@@ -711,6 +715,23 @@ def count_sentences(text: str) -> int:
     return n + (1 if t and t[-1] not in ".!?" else 0)
 
 
+def check_lesson_readability(w: str, body: str) -> None:
+    """Warnings for a core lesson that is dense for a beginner: too many italic first-use terms, long sentences."""
+    core = re.sub(r"```.*?```", "", split_deep(body)[0], flags=re.S)
+    core = re.sub(r"\[\^[a-z0-9-]+\]", "", core)
+    terms = re.findall(r"(?<!\*)\*(?!\*)([^*\n]+?)(?<!\*)\*(?!\*)", core)
+    if len(terms) > NEW_TERMS_MAX:
+        warn(w, f"readability: {len(terms)} italic first-use terms in the core lesson (max {NEW_TERMS_MAX}); "
+                "move some to `## Lebih dalam` or split the idea")
+    prose = " ".join(l for l in core.splitlines() if l.strip() and not l.lstrip().startswith(("#", "---")))
+    sentences = count_sentences(prose)
+    if sentences:
+        avg = len(re.findall(r"\w+", prose)) / sentences
+        if avg > SENTENCE_WORDS_MAX:
+            warn(w, f"readability: average sentence is {avg:.1f} words in the core lesson (max {SENTENCE_WORDS_MAX}); "
+                    "split caveat chains into separate sentences")
+
+
 def check_lesson_style(w: str, body: str) -> None:
     """Warnings for filler, machine-sounding openers and emoji (writing-style.md, Lessons)."""
     text = re.sub(r"```.*?```", "", body, flags=re.S)
@@ -727,11 +748,28 @@ def check_lesson_style(w: str, body: str) -> None:
         warn(w, "style: no emoji in lessons")
 
 
-def lesson_words(body: str) -> int:
-    """Lesson length as the validator counts it: `\\w+` after dropping code blocks, [^id] markers and URLs."""
-    counted = re.sub(r"```.*?```", "", body, flags=re.S)
+def split_deep(body: str) -> tuple[str, str | None]:
+    """Split a lesson body into the core and the optional `## Lebih dalam` section (None when absent)."""
+    m = DEEP_HEADING.search(body)
+    return (body[:m.start()], body[m.end():]) if m else (body, None)
+
+
+def _count_words(text: str) -> int:
+    counted = re.sub(r"```.*?```", "", text, flags=re.S)
     counted = re.sub(r"\[\^[a-z0-9-]+\]|https?://\S+", "", counted)
     return len(re.findall(r"\w+", counted))
+
+
+def lesson_words(body: str) -> int:
+    """Core lesson length as the validator counts it: `\\w+` after dropping code blocks, [^id] markers and URLs.
+    Everything from the `## Lebih dalam` heading on is not counted (see deep_words)."""
+    return _count_words(split_deep(body)[0])
+
+
+def deep_words(body: str) -> int:
+    """Length of the optional `## Lebih dalam` section, counted the same way (0 when absent)."""
+    deep = split_deep(body)[1]
+    return _count_words(deep) if deep else 0
 
 
 def check_content(registry: dict[str, dict], concepts: dict[str, dict]):
@@ -807,6 +845,11 @@ def check_content(registry: dict[str, dict], concepts: dict[str, dict]):
                     if n > 1:
                         err(w, f"{n} direct quotes from {ref} (max 1 per source per lesson)")
                 check_lesson_style(w, body)
+                check_lesson_readability(w, body)
+                dwords = deep_words(body)
+                if dwords > DEEP_MAX_WORDS:
+                    (err if stage in ("review", "published") else warn)(
+                        w, f"`## Lebih dalam` is {dwords} words (max {DEEP_MAX_WORDS})")
                 words = lesson_words(body)
                 lo, hi = LESSON_WORDS
                 if words and not lo <= words <= hi:

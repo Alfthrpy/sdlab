@@ -1,0 +1,146 @@
+questions:
+  - id: app-plus-database-q01
+    type: estimate
+    difficulty: 2
+    objective: 1
+    prompt: "Sebuah aplikasi punya 30.000 pengguna aktif per hari, dan tiap pengguna rata-rata mengirim 50 request per hari. Penggunanya hampir semua berada di satu zona waktu, jadi kamu memakai peak-to-mean ratio 3. Berapa perkiraan RPS puncaknya?"
+    unit: "RPS"
+    answer:
+      min: 50
+      max: 54
+    explanation: "30.000 x 50 = 1.500.000 request per hari; dibagi 86.400 detik sekitar 17,4 RPS rata-rata; dikali 3 sekitar 52 RPS. Kalau berhenti di rata-rata kamu mendapat 17,4, dan kalau membagi dengan 100.000 detik kamu mendapat 45."
+    sources: [robustperception-peak-to-mean-ratio]
+    targets_misconception: average-is-enough
+
+  - id: app-plus-database-q02
+    type: mcq
+    difficulty: 2
+    objective: 1
+    prompt: "Sebuah aplikasi menerima 5.000.000 request per hari dari pengguna yang tersebar di berbagai belahan dunia, sehingga trafiknya mengalir sepanjang hari. Dari pengujian (angka hipotetis), satu databasemu terbukti sanggup melayani 80 RPS. Dengan peak-to-mean ratio 1,7, apakah satu database itu masih cukup?"
+    options:
+      - "Cukup, karena rata-rata harian sekitar 58 RPS, dan angka itu masih di bawah kapasitas 80 RPS"
+      - "Belum cukup, karena puncak dengan rasio 1,7 sekitar 98 RPS, di atas kapasitas 80 RPS"
+      - "Belum cukup, karena 5 juta request dibagi 8 jam kerja lalu dikali 1,7 sekitar 295 RPS"
+      - "Cukup, karena rata-rata sekitar 58 RPS dibagi rasio 1,7 menjadi sekitar 34 RPS, di bawah 80"
+    answer: 1
+    explanation: "5.000.000 dibagi 86.400 detik sekitar 58 RPS rata-rata, dikali 1,7 menjadi sekitar 98 RPS puncak, lebih besar dari 80. Membandingkan rata-rata 58 RPS dengan kapasitas keliru karena database harus sanggup di jam puncak. Membagi dengan 8 jam salah karena trafik pengguna global tersebar sepanjang hari."
+    sources: [robustperception-peak-to-mean-ratio]
+    targets_misconception: average-is-enough
+
+  - id: app-plus-database-q03
+    type: mcq
+    difficulty: 3
+    objective: 1
+    prompt: "Setelah pengguna tumbuh, sebuah toko punya puncak 270 RPS, dan kapasitas terukur databasenya 300 RPS (angka hipotetis). Rata-rata hariannya sekitar 90 RPS. Apa langkah yang paling tepat dengan satu aplikasi dan satu database?"
+    options:
+      - "Tetap di satu mesin, karena rata-rata hariannya hanya sekitar 90 RPS, jauh di bawah kapasitas 300 RPS"
+      - "Tetap di satu mesin, karena puncak 270 RPS masih di bawah kapasitas terukur 300 RPS"
+      - "Mulai pertimbangkan tahap berikutnya, karena puncak 270 RPS sudah dekat dengan kapasitas terukur 300 RPS"
+      - "Mulai pertimbangkan tahap berikutnya, karena puncak 270 RPS masih harus dikali 3 menjadi sekitar 810 RPS"
+    answer: 2
+    explanation: "Puncak 270 RPS sudah sekitar 90% kapasitas terukur, dan satu mesin tidak lagi cukup saat puncak mendekati kapasitas. Membandingkan rata-rata 90 RPS dengan kapasitas keliru, karena puncaklah yang menentukan. Mengalikan puncak dengan 3 lagi menghitung rasio dua kali, karena 270 sudah termasuk rasio itu."
+    own_computation: true
+    targets_misconception: average-is-enough
+
+  - id: app-plus-database-q04
+    type: match
+    difficulty: 1
+    objective: 1
+    prompt: "Cocokkan tiap langkah dalam hitungan kapasitas dengan operasinya."
+    pairs:
+      - ["Pengguna aktif harian menjadi request per hari", "Kalikan dengan rata-rata request per pengguna"]
+      - ["Request per hari menjadi RPS rata-rata", "Bagi dengan jumlah detik dalam sehari"]
+      - ["RPS rata-rata menjadi RPS puncak", "Kalikan dengan peak-to-mean ratio"]
+      - ["RPS puncak dibandingkan dengan kapasitas", "Pakai kapasitas database yang sudah kamu ukur sendiri"]
+    explanation: "Urutannya pengguna, request per hari, RPS rata-rata, RPS puncak, lalu perbandingan dengan kapasitas. Kesalahan umum adalah melewatkan peak-to-mean ratio dan membandingkan rata-rata dengan kapasitas."
+    sources: [robustperception-peak-to-mean-ratio]
+    targets_misconception: average-is-enough
+
+  - id: app-plus-database-q05
+    type: estimate
+    difficulty: 2
+    objective: 1
+    prompt: "Monitoring sebuah situs mencatat 4.320.000 request dalam sehari, dan grafiknya menunjukkan puncak 120 RPS. Berapa peak-to-mean ratio situs itu?"
+    unit: "kali"
+    answer:
+      min: 2.3
+      max: 2.5
+    explanation: "4.320.000 dibagi 86.400 detik tepat 50 RPS rata-rata, jadi rasionya 120 / 50 = 2,4. Kalau kamu membagi dengan 100.000 detik, rata-ratanya 43,2 dan rasionya 2,8. Nilai 2,4 lebih tinggi dari 1,6 sampai 1,7 untuk pengguna global, wajar kalau penggunanya terkonsentrasi di satu zona waktu."
+    sources: [robustperception-peak-to-mean-ratio]
+    targets_misconception: average-is-enough
+
+  - id: app-plus-database-q06
+    type: mcq
+    difficulty: 2
+    objective: 1
+    prompt: "Puncak hitunganmu 70 RPS, dan databasemu sudah terukur sanggup 300 RPS (angka hipotetis). Pemilik produk juga meminta layanan tetap jalan walaupun mesin yang menjalankannya rusak. Bagaimana kesimpulan yang tepat untuk satu aplikasi dan satu database?"
+    options:
+      - "Cukup untuk volume dan untuk syarat layanan tetap jalan, karena puncak hanya seperempat kapasitas"
+      - "Cukup untuk volume, dan syarat layanan tetap jalan terpenuhi asal kapasitas mesin dinaikkan dua kali lipat"
+      - "Cukup untuk volume, dan syarat layanan tetap jalan terpenuhi asal aplikasi dibuat restart otomatis"
+      - "Cukup untuk volume, tetapi syarat layanan tetap jalan saat mesin rusak butuh mesin cadangan"
+    answer: 3
+    explanation: "Volume 70 RPS jauh di bawah 300 RPS, tetapi dengan satu mesin satu kegagalan mematikan semuanya. Mesin yang lebih besar atau restart otomatis tidak membantu kalau mesinnya sendiri yang rusak."
+    sources: [aws-startups-scaling-part1-primer]
+    targets_misconception: small-rps-means-no-risk
+
+  - id: app-plus-database-q07
+    type: multi
+    difficulty: 1
+    objective: 2
+    prompt: "Aplikasimu berjalan sebagai satu proses dan di-restart saat deploy. Data mana yang masih ada setelah restart itu?"
+    options:
+      - "Baris pesanan yang sudah ditulis aplikasi ke database"
+      - "Isi keranjang yang disimpan aplikasi dalam dictionary"
+      - "Jumlah pengunjung yang dihitung aplikasi dengan variabel global"
+      - "Sesi login yang disimpan aplikasi di tabel sessions"
+      - "Daftar produk terlaris yang dibangun dari database lalu disimpan di variabel"
+    answer: [0, 3]
+    explanation: "Pesanan dan sesi ada di database, layanan yang terpisah dari proses aplikasi. Dictionary, variabel global, dan daftar produk terlaris tetap hidup di memori proses, jadi ikut hilang saat restart walaupun daftar itu dibangun dari database."
+    sources: [twelve-factor-app]
+    targets_misconception: memory-survives-restart
+
+  - id: app-plus-database-q08
+    type: mcq
+    difficulty: 2
+    objective: 2
+    prompt: "Setelah deploy, seorang pengguna melihat keranjangnya kosong, bahkan setelah halaman dimuat ulang. Ia tetap login dan riwayat pesanannya lengkap. Aplikasi berjalan sebagai satu proses, dan keranjang hanya kosong setelah deploy. Penyebab yang paling mungkin?"
+    options:
+      - "Keranjang hanya ada di memori proses, sedangkan sesi dan pesanan ada di database"
+      - "Browser menampilkan halaman lama dari cache, sehingga keranjangnya terlihat kosong"
+      - "Batas koneksi database sudah tercapai sehingga query yang membaca keranjang gagal"
+      - "Tabel keranjang belum diberi index sehingga query yang membacanya melewati batas waktu"
+    answer: 0
+    explanation: "Hanya keranjang yang kosong sementara sesi dan pesanan utuh, jadi keranjang berada di tempat yang terhapus saat restart, yaitu memori proses. Halaman lama dari cache browser tidak cocok, karena keranjang tetap kosong setelah dimuat ulang."
+    sources: [twelve-factor-app]
+    targets_misconception: memory-survives-restart
+
+  - id: app-plus-database-q09
+    type: mcq
+    difficulty: 2
+    objective: 2
+    prompt: "Proses aplikasi dirancang stateless, tetapi memorinya masih boleh dipakai untuk keperluan tertentu. Mana yang paling aman disimpan hanya di memori proses?"
+    options:
+      - "Isi keranjang belanja pengguna yang belum checkout, karena pengguna bisa mengisinya lagi kalau hilang"
+      - "Total ongkos kirim yang sedang dihitung dalam satu request checkout, karena hasil akhirnya ditulis ke database"
+      - "Nomor urut pesanan terakhir, karena nilainya kecil dan mudah dibuat lagi kalau hilang"
+      - "Penanda bahwa pengguna sudah login, karena pengguna tinggal login lagi kalau hilang"
+    answer: 1
+    explanation: "Ongkos kirim yang sedang dihitung hanya dipakai selama satu request, dan yang harus bertahan sudah ditulis ke database. Penanda login dibutuhkan di request berikutnya, jadi kalau hanya di memori, restart membuat semua pengguna logout."
+    sources: [twelve-factor-app]
+    targets_misconception: all-state-in-database
+
+  - id: app-plus-database-q10
+    type: mcq
+    difficulty: 2
+    objective: 1
+    prompt: "Temanmu berkata bahwa satu aplikasi dengan satu database hanya cocok untuk proyek mainan, dan produk yang serius harus langsung memakai banyak server. Kapan satu aplikasi dan satu database justru masih tepat?"
+    options:
+      - "Selama pengguna harian belum mencapai satu juta, berapa pun request yang dikirim tiap pengguna"
+      - "Selama produknya masih tahap awal, berapa pun hasil hitungan puncak dan kapasitas terukurnya"
+      - "Selama puncak hitunganmu masih jauh di bawah kapasitas terukur dan toko mati sesaat bisa diterima"
+      - "Selama RPS rata-rata harian masih di bawah kapasitas terukur, tanpa perlu menghitung puncaknya"
+    answer: 2
+    explanation: "Keputusan bergantung pada dua hal: puncak harus jauh di bawah kapasitas terukur, dan satu kegagalan mesin tidak boleh terlalu mahal. Jumlah pengguna saja tidak menentukan, karena beban ditentukan oleh request per detik."
+    sources: [aws-startups-scaling-part1-primer, robustperception-peak-to-mean-ratio]
+    targets_misconception: one-db-is-toy
