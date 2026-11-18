@@ -5,7 +5,7 @@ milestone: M4
 type: content
 owner: agent
 review: agent
-status: in-progress
+status: done
 priority: high
 depends_on: [P1-083]
 estimate: 1
